@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Kalam:wght@300;400;700&family=Gloria+Hallelujah&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Klee+One:wght@400;600&family=Zen+Kurenaido&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-clay: var(--clay);
+  --color-ink: var(--ink);
+  --color-tape: var(--tape);
+  --font-serif: "Cormorant Garamond", "Noto Serif TC", Georgia, serif;
+  --font-sans: "Inter", "Noto Sans TC", system-ui, sans-serif;
+  --font-hand: "Caveat", "Patrick Hand", "Klee One", "Noto Sans TC", cursive;
+  --font-journal: "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
+  --font-marker: "Gloria Hallelujah", "Kalam", "Klee One", "Noto Sans TC", cursive;
+}
+
+:root {
+  --radius: 0.5rem;
+  /* Travel journal palette — warm cream, paper beige, forest, muted brown, sage */
+  --cream: oklch(0.972 0.018 85);          /* warm cream */
+  --paper: oklch(0.945 0.025 80);          /* paper beige */
+  --forest: oklch(0.34 0.045 145);         /* deep forest green */
+  --sage: oklch(0.72 0.04 145);            /* soft sage */
+  --clay: oklch(0.52 0.07 55);             /* muted brown */
+  --ink: oklch(0.28 0.025 60);             /* warm ink */
+  --tape: oklch(0.85 0.06 90 / 0.6);       /* masking tape */
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: oklch(0.985 0.012 85);
+  --card-foreground: var(--ink);
+  --popover: var(--cream);
+  --popover-foreground: var(--ink);
+  --primary: var(--forest);
+  --primary-foreground: var(--cream);
+  --secondary: var(--paper);
+  --secondary-foreground: var(--ink);
+  --muted: oklch(0.93 0.018 80);
+  --muted-foreground: oklch(0.48 0.025 60);
+  --accent: var(--clay);
+  --accent-foreground: var(--cream);
+  --destructive: oklch(0.55 0.18 28);
+  --destructive-foreground: var(--cream);
+  --border: oklch(0.86 0.02 80);
+  --input: oklch(0.9 0.018 80);
+  --ring: var(--forest);
+}
+
+.dark {
+  --background: oklch(0.22 0.015 60);
+  --foreground: var(--cream);
+  --card: oklch(0.26 0.015 60);
+  --card-foreground: var(--cream);
+  --primary: var(--sage);
+  --primary-foreground: oklch(0.2 0.015 60);
+  --border: oklch(1 0 0 / 12%);
+}
+
+/* Subtle paper grain texture */
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(oklch(0.7 0.05 60 / 0.06) 1px, transparent 1px),
+      radial-gradient(oklch(0.5 0.05 60 / 0.04) 1px, transparent 1px);
+    background-size: 24px 24px, 18px 18px;
+    background-position: 0 0, 9px 9px;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+}
+
+@layer utilities {
+  .font-hand { font-family: var(--font-hand); }
+  .font-journal { font-family: var(--font-journal); font-feature-settings: "palt"; }
+  .font-marker { font-family: var(--font-marker); }
+  .font-serif { font-family: var(--font-serif); }
+
+  /* Torn paper edge using mask */
+  .torn-bottom {
+    -webkit-mask-image: radial-gradient(circle at 6px 100%, transparent 5px, #000 6px);
+    mask-image: radial-gradient(circle at 6px 100%, transparent 5px, #000 6px);
+    -webkit-mask-size: 14px 14px;
+    mask-size: 14px 14px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+  }
+
+  /* Polaroid frame */
+  .polaroid {
+    background: var(--card);
+    padding: 14px 14px 48px 14px;
+    box-shadow:
+      0 1px 2px oklch(0 0 0 / 0.08),
+      0 12px 28px -10px oklch(0 0 0 / 0.18);
+  }
+
+  .tape {
+    position: absolute;
+    width: 90px; height: 22px;
+    background: var(--tape);
+    box-shadow: 0 1px 3px oklch(0 0 0 / 0.1);
+  }
+
+  .paper-card {
+    background: var(--card);
+    box-shadow:
+      0 1px 0 oklch(0 0 0 / 0.04),
+      0 12px 30px -16px oklch(0 0 0 / 0.18);
+  }
+
+  .stamp {
+    border: 2px solid currentColor;
+    padding: 4px 10px;
+    font-family: var(--font-serif);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    transform: rotate(-6deg);
+    opacity: 0.85;
+  }
+
+  .deckled {
+    clip-path: polygon(
+      0% 4%, 4% 0%, 12% 3%, 22% 0%, 34% 4%, 48% 1%, 60% 4%, 74% 0%, 86% 3%, 96% 1%, 100% 5%,
+      100% 96%, 96% 100%, 86% 97%, 74% 100%, 60% 96%, 48% 99%, 34% 96%, 22% 100%, 12% 97%, 4% 100%, 0% 96%
+    );
+  }
+}
+
