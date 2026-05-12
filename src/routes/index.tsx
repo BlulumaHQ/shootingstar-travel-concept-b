@@ -36,20 +36,19 @@ export const Route = createFileRoute("/")({
 });
 
 const tours = [
-  { img: tourRockies, title: "洛磯山經典團", desc: "七天六夜，深入班夫、露易絲湖與夢蓮湖的雪峰倒影。", price: "CAD $1,890 起" },
-  { img: tourBanff, title: "班夫國家公園一日遊", desc: "從溫哥華出發，一日感受加拿大國寶級山湖景致。", price: "CAD $189 起" },
-  { img: tourAurora, title: "極光追蹤之旅", desc: "育空與黃刀，五晚追光行程＋舒適小木屋住宿。", price: "CAD $2,490 起" },
-  { img: tourVancouver, title: "溫哥華市區深度遊", desc: "在地嚮導帶你走進史丹利公園、Granville Island。", price: "CAD $129 起" },
-  { img: tourVictoria, title: "維多利亞花園之旅", desc: "渡輪 + 布查特花園 + 古典市區漫步一日往返。", price: "CAD $219 起" },
-  { img: tourPrivate, title: "私人包團服務", desc: "為您與家人朋友量身打造專屬路線與節奏。", price: "報價依需求" },
+  { img: tourRockies, title: "落磯山經典團 5天4夜", desc: "班夫・露易絲湖・冰原大道", price: "CAD $1,280 起" },
+  { img: tourBanff, title: "班夫國家公園一日遊", desc: "夢蓮湖・露易絲湖・弓河瀑布", price: "CAD $179 起" },
+  { img: tourAurora, title: "極光追蹤之旅", desc: "黃刀鎮・極光小屋・專業攝影", price: "CAD $229 起" },
+  { img: tourToronto, title: "溫哥華市區深度遊", desc: "城市精華景點・深度體驗", price: "CAD $129 起" },
+  { img: tourIcefield, title: "哥倫比亞冰原大道", desc: "冰原雪車・天空步道・弓湖", price: "CAD $199 起" },
 ];
 
 const features = [
-  { t: "在地專業團隊", d: "深耕加拿大十餘年" },
-  { t: "舒適小團出發", d: "8–14 人精緻成團" },
-  { t: "精心安排路線", d: "每段旅程都是策展" },
-  { t: "安心安全保障", d: "全程保險與支援" },
-  { t: "用心服務每位旅客", d: "中英韓多語接待" },
+  { icon: MapPin,    t: "精選行程", d: "精心規劃經典路線\n帶你探索最美景點" },
+  { icon: Users,     t: "小團出發", d: "小團出發更自在\n深度體驗在地風情" },
+  { icon: UserCheck, t: "專業導遊", d: "在地專業嚮導帶路\n讓旅程更安心有趣" },
+  { icon: Heart,     t: "安心保障", d: "完善旅遊保障制度\n讓你玩得安心無憂" },
+  { icon: Camera,    t: "貼心服務", d: "從行前到旅途中\n全程貼心為你服務" },
 ];
 
 const destinations = [
@@ -63,9 +62,10 @@ const destinations = [
 ];
 
 const stories = [
-  { img: guest1, name: "Mei-Lin Chen", country: "Taipei, Taiwan", lang: "中文", quote: "走進班夫的那一刻，我終於懂得什麼叫『被風景擁抱』。", rating: 5 },
-  { img: guest2, name: "Jihoon & Soyoung", country: "Seoul, Korea", lang: "한국어", quote: "韓語導遊細心又溫柔，整趟旅程像和老朋友出遊。", rating: 5 },
-  { img: guest3, name: "The Wong Family", country: "Hong Kong", lang: "中文", quote: "一家人最棒的回憶，孩子說明年還要再來。", rating: 5 },
+  { img: guest1, name: "小美", quote: "這趟旅行太值得了！導遊非常專業又貼心，景色美到讓人屏息，已經推薦給朋友們了！", rating: 5 },
+  { img: guest2, name: "阿哲", quote: "行程安排很順，時間抓得剛剛好，不會太趕也不會無聊，下次還想再參加！", rating: 5 },
+  { img: guest3, name: "Rachel", quote: "極光之旅超級成真！工作人員很用心，拍照狠拍一流，整趟旅程都非常感動！", rating: 5 },
+  { img: guest1, name: "家豪", quote: "服務超級級好，有任何問題都能即時處理，讓我們玩得很放心！", rating: 5 },
 ];
 
 const faqs = [
