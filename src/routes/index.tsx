@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import hero from "@/assets/hero-mountains.jpg";
+import heroCabin from "@/assets/hero-cabin.jpg";
 import journal from "@/assets/journal.jpg";
 import tourBanff from "@/assets/tour-banff.jpg";
 import tourRockies from "@/assets/tour-rockies.jpg";
@@ -8,12 +9,15 @@ import tourAurora from "@/assets/tour-aurora.jpg";
 import tourVancouver from "@/assets/tour-vancouver.jpg";
 import tourVictoria from "@/assets/tour-victoria.jpg";
 import tourPrivate from "@/assets/tour-private.jpg";
+import tourIcefield from "@/assets/tour-icefield.jpg";
+import tourToronto from "@/assets/tour-toronto.jpg";
 import destJasper from "@/assets/dest-jasper.jpg";
 import destWhistler from "@/assets/dest-whistler.jpg";
 import destYukon from "@/assets/dest-yukon.jpg";
 import guest1 from "@/assets/guest-1.jpg";
 import guest2 from "@/assets/guest-2.jpg";
 import guest3 from "@/assets/guest-3.jpg";
+import { MapPin, Users, UserCheck, Heart, Camera, Heart as HeartFill, Star } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
