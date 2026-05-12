@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import hero from "@/assets/hero-mountains.jpg";
+import heroCabin from "@/assets/hero-cabin.jpg";
 import journal from "@/assets/journal.jpg";
 import tourBanff from "@/assets/tour-banff.jpg";
 import tourRockies from "@/assets/tour-rockies.jpg";
@@ -8,12 +9,15 @@ import tourAurora from "@/assets/tour-aurora.jpg";
 import tourVancouver from "@/assets/tour-vancouver.jpg";
 import tourVictoria from "@/assets/tour-victoria.jpg";
 import tourPrivate from "@/assets/tour-private.jpg";
+import tourIcefield from "@/assets/tour-icefield.jpg";
+import tourToronto from "@/assets/tour-toronto.jpg";
 import destJasper from "@/assets/dest-jasper.jpg";
 import destWhistler from "@/assets/dest-whistler.jpg";
 import destYukon from "@/assets/dest-yukon.jpg";
 import guest1 from "@/assets/guest-1.jpg";
 import guest2 from "@/assets/guest-2.jpg";
 import guest3 from "@/assets/guest-3.jpg";
+import { MapPin, Users, UserCheck, Heart, Camera, Heart as HeartFill, Star } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,20 +36,19 @@ export const Route = createFileRoute("/")({
 });
 
 const tours = [
-  { img: tourRockies, title: "洛磯山經典團", desc: "七天六夜，深入班夫、露易絲湖與夢蓮湖的雪峰倒影。", price: "CAD $1,890 起" },
-  { img: tourBanff, title: "班夫國家公園一日遊", desc: "從溫哥華出發，一日感受加拿大國寶級山湖景致。", price: "CAD $189 起" },
-  { img: tourAurora, title: "極光追蹤之旅", desc: "育空與黃刀，五晚追光行程＋舒適小木屋住宿。", price: "CAD $2,490 起" },
-  { img: tourVancouver, title: "溫哥華市區深度遊", desc: "在地嚮導帶你走進史丹利公園、Granville Island。", price: "CAD $129 起" },
-  { img: tourVictoria, title: "維多利亞花園之旅", desc: "渡輪 + 布查特花園 + 古典市區漫步一日往返。", price: "CAD $219 起" },
-  { img: tourPrivate, title: "私人包團服務", desc: "為您與家人朋友量身打造專屬路線與節奏。", price: "報價依需求" },
+  { img: tourRockies, title: "落磯山經典團 5天4夜", desc: "班夫・露易絲湖・冰原大道", price: "CAD $1,280 起" },
+  { img: tourBanff, title: "班夫國家公園一日遊", desc: "夢蓮湖・露易絲湖・弓河瀑布", price: "CAD $179 起" },
+  { img: tourAurora, title: "極光追蹤之旅", desc: "黃刀鎮・極光小屋・專業攝影", price: "CAD $229 起" },
+  { img: tourToronto, title: "溫哥華市區深度遊", desc: "城市精華景點・深度體驗", price: "CAD $129 起" },
+  { img: tourIcefield, title: "哥倫比亞冰原大道", desc: "冰原雪車・天空步道・弓湖", price: "CAD $199 起" },
 ];
 
 const features = [
-  { t: "在地專業團隊", d: "深耕加拿大十餘年" },
-  { t: "舒適小團出發", d: "8–14 人精緻成團" },
-  { t: "精心安排路線", d: "每段旅程都是策展" },
-  { t: "安心安全保障", d: "全程保險與支援" },
-  { t: "用心服務每位旅客", d: "中英韓多語接待" },
+  { icon: MapPin,    t: "精選行程", d: "精心規劃經典路線\n帶你探索最美景點" },
+  { icon: Users,     t: "小團出發", d: "小團出發更自在\n深度體驗在地風情" },
+  { icon: UserCheck, t: "專業導遊", d: "在地專業嚮導帶路\n讓旅程更安心有趣" },
+  { icon: Heart,     t: "安心保障", d: "完善旅遊保障制度\n讓你玩得安心無憂" },
+  { icon: Camera,    t: "貼心服務", d: "從行前到旅途中\n全程貼心為你服務" },
 ];
 
 const destinations = [
@@ -59,9 +62,10 @@ const destinations = [
 ];
 
 const stories = [
-  { img: guest1, name: "Mei-Lin Chen", country: "Taipei, Taiwan", lang: "中文", quote: "走進班夫的那一刻，我終於懂得什麼叫『被風景擁抱』。", rating: 5 },
-  { img: guest2, name: "Jihoon & Soyoung", country: "Seoul, Korea", lang: "한국어", quote: "韓語導遊細心又溫柔，整趟旅程像和老朋友出遊。", rating: 5 },
-  { img: guest3, name: "The Wong Family", country: "Hong Kong", lang: "中文", quote: "一家人最棒的回憶，孩子說明年還要再來。", rating: 5 },
+  { img: guest1, name: "小美", quote: "這趟旅行太值得了！導遊非常專業又貼心，景色美到讓人屏息，已經推薦給朋友們了！", rating: 5 },
+  { img: guest2, name: "阿哲", quote: "行程安排很順，時間抓得剛剛好，不會太趕也不會無聊，下次還想再參加！", rating: 5 },
+  { img: guest3, name: "Rachel", quote: "極光之旅超級成真！工作人員很用心，拍照狠拍一流，整趟旅程都非常感動！", rating: 5 },
+  { img: guest1, name: "家豪", quote: "服務超級級好，有任何問題都能即時處理，讓我們玩得很放心！", rating: 5 },
 ];
 
 const faqs = [
@@ -76,231 +80,187 @@ const faqs = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — scrapbook travel journal */}
-      <section className="relative overflow-hidden bg-paper">
+      {/* HERO — cabin window scene */}
+      <section className="relative overflow-hidden bg-[oklch(0.18_0.02_50)]">
         <div className="absolute inset-0">
-          <img src={hero} alt="" aria-hidden className="h-full w-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-b from-paper/90 via-paper/80 to-paper" />
-          <div
-            className="absolute inset-0 opacity-[0.07] mix-blend-multiply"
-            style={{
-              backgroundImage:
-                "radial-gradient(rgba(60,40,20,0.6) 1px, transparent 1.4px), radial-gradient(rgba(60,40,20,0.4) 1px, transparent 1.4px)",
-              backgroundSize: "3px 3px, 7px 7px",
-              backgroundPosition: "0 0, 1px 2px",
-            }}
-            aria-hidden
+          <img
+            src={heroCabin}
+            alt="Cabin window view of the Canadian Rockies at golden hour"
+            className="h-full w-full object-cover"
+            width={1920}
+            height={1080}
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-paper" />
         </div>
 
-        {/* faint ruled-notebook lines on left */}
+        <div className="relative mx-auto max-w-[1400px] px-6 md:px-12 pt-10 md:pt-14 pb-40 md:pb-56">
+          <div className="grid md:grid-cols-12 gap-8 items-start min-h-[460px] md:min-h-[560px]">
+            {/* LEFT — taped notebook page with handwritten quote */}
+            <div className="md:col-span-7 relative">
+              <div
+                className="relative bg-[oklch(0.94_0.04_85)] px-8 md:px-14 py-10 md:py-16 rotate-[-2deg] shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] max-w-[560px]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to bottom, transparent 0 38px, rgba(80,60,30,0.18) 38px 39px)",
+                }}
+              >
+                {/* spiral binding holes */}
+                <div className="absolute left-3 top-0 bottom-0 flex flex-col justify-around py-6">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <span key={i} className="block w-3 h-3 rounded-full bg-[oklch(0.32_0.04_60)] shadow-inner" />
+                  ))}
+                </div>
+                <span className="absolute -top-4 right-10 w-24 h-6 bg-[var(--tape)] rotate-[8deg] shadow-sm" aria-hidden />
+                <span className="absolute -top-3 left-20 w-20 h-5 bg-[var(--tape)] rotate-[-6deg] shadow-sm" aria-hidden />
+
+                <h1 className="font-marker text-ink text-[30px] md:text-[48px] leading-[1.4] tracking-tight">
+                  旅行不只是到達，<br />
+                  而是每一段路上<br />
+                  遇見的美好 <span className="text-[oklch(0.55_0.15_25)]">♡</span>
+                </h1>
+              </div>
+
+              <div className="mt-10 flex flex-wrap items-center gap-5 pl-2">
+                <Link
+                  to="/tours"
+                  className="inline-flex items-center gap-3 rounded-full bg-cream/95 px-8 py-3.5 text-ink font-medium text-sm tracking-wide shadow-[0_10px_24px_-10px_rgba(0,0,0,0.5)] hover:bg-cream transition"
+                >
+                  探索行程 <span aria-hidden>→</span>
+                </Link>
+                <Link to="/stories" className="font-marker text-cream/90 text-base underline decoration-cream/50 underline-offset-[6px] hover:text-cream">
+                  讀讀旅人故事 →
+                </Link>
+              </div>
+            </div>
+
+            {/* RIGHT — taped polaroid */}
+            <div className="md:col-span-5 relative">
+              <figure className="relative ml-auto w-[230px] md:w-[300px] rotate-[4deg] polaroid">
+                <span className="tape -top-4 left-6 rotate-[-12deg]" aria-hidden />
+                <span className="tape -top-3 right-4 w-[60px] rotate-[14deg]" aria-hidden />
+                <img src={tourBanff} alt="Travellers watching the lake" className="h-[200px] md:h-[260px] w-full object-cover" width={600} height={400} />
+                <figcaption className="font-marker text-ink/85 text-base mt-3 text-center">
+                  一起出發吧！
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        {/* torn paper edge */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-1/2 opacity-[0.08] pointer-events-none hidden md:block"
+          className="absolute bottom-0 left-0 right-0 h-5 bg-paper"
           style={{
-            backgroundImage: "repeating-linear-gradient(to bottom, transparent 0 38px, rgba(40,30,20,0.9) 38px 39px)",
+            WebkitMaskImage: "radial-gradient(circle at 8px 100%, transparent 7px, #000 8px)",
+            maskImage: "radial-gradient(circle at 8px 100%, transparent 7px, #000 8px)",
+            WebkitMaskSize: "16px 16px",
+            maskSize: "16px 16px",
+            WebkitMaskRepeat: "repeat-x",
+            maskRepeat: "repeat-x",
+            WebkitMaskPosition: "bottom",
+            maskPosition: "bottom",
           }}
           aria-hidden
         />
-
-        <div className="relative mx-auto max-w-[1400px] px-6 pt-12 pb-36 md:pt-20 md:pb-52 md:px-12">
-          <div className="grid md:grid-cols-12 gap-8 md:gap-4 items-start">
-            {/* LEFT — handwritten journal entry */}
-            <div className="md:col-span-7 relative pt-4 md:pt-2">
-              <div className="font-marker text-clay/80 text-sm md:text-base tracking-wide rotate-[-2deg] inline-block">
-                — Saturday · Banff, AB · 04:42 sunrise
-              </div>
-
-              <svg className="absolute -left-3 top-12 md:-left-10 md:top-16 w-16 h-16 text-clay/70 rotate-[-12deg] hidden md:block" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M6 50 C 18 30, 34 22, 56 18" strokeDasharray="2 4" />
-                <path d="M56 18 l -10 -2 M56 18 l -2 10" />
-              </svg>
-
-              <h1 className="mt-5 font-marker text-ink leading-[0.95] text-[52px] md:text-[88px] tracking-tight">
-                <span className="block rotate-[-1deg]">收集，</span>
-                <span className="block ml-6 md:ml-16 rotate-[1deg]">每一個</span>
-                <span className="block ml-2 md:ml-6 rotate-[-0.5deg]">
-                  <span className="relative inline-block">
-                    閃亮的
-                    <svg className="absolute left-0 -bottom-2 w-full h-3 text-clay/70" viewBox="0 0 200 12" preserveAspectRatio="none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                      <path d="M3 8 C 50 2, 120 12, 197 5" />
-                    </svg>
-                  </span>{" "}
-                  瞬間。
-                </span>
-              </h1>
-
-              <p className="mt-10 font-journal text-ink/80 text-lg md:text-xl leading-relaxed max-w-md">
-                從洛磯山的第一道晨光，到育空的最後一片極光——<br />
-                我們把每一段加拿大旅程，寫成只屬於你的旅行日記。
-              </p>
-
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <Link
-                  to="/tours"
-                  className="group relative inline-flex items-center gap-3 rounded-full bg-[var(--forest)] px-9 py-4 text-cream font-journal text-base shadow-[0_8px_22px_-8px_rgba(40,55,30,0.55),0_2px_0_rgba(0,0,0,0.06)] hover:translate-y-[-2px] hover:shadow-[0_14px_30px_-10px_rgba(40,55,30,0.6)] transition-all duration-300"
-                >
-                  翻開旅程目錄
-                  <svg width="22" height="14" viewBox="0 0 22 14" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" className="group-hover:translate-x-1 transition-transform">
-                    <path d="M1 7 C 7 3, 14 11, 21 7" />
-                    <path d="M21 7 l -5 -3 M21 7 l -3 5" />
-                  </svg>
-                </Link>
-                <Link to="/stories" className="font-marker text-ink/75 text-base underline decoration-clay/60 decoration-wavy underline-offset-[6px] hover:text-ink">
-                  讀讀旅人筆記 →
-                </Link>
-              </div>
-
-              <div className="mt-12 hidden md:flex items-center gap-3 font-marker text-clay/80 text-sm rotate-[-1deg]">
-                <span className="inline-block w-10 border-t border-dashed border-clay/60" />
-                est. 2014 · small group · slow travel
-              </div>
-            </div>
-
-            {/* RIGHT — photo collage */}
-            <div className="md:col-span-5 relative h-[420px] md:h-[560px]">
-              <div className="absolute right-8 top-2 w-24 h-5 bg-[var(--tape)] rotate-[14deg] shadow-sm" aria-hidden />
-
-              <figure className="absolute right-2 top-6 w-[230px] md:w-[270px] rotate-[-6deg] polaroid">
-                <span className="tape -top-4 left-6 rotate-[-14deg]" />
-                <span className="tape -top-3 right-4 w-[60px] rotate-[18deg]" />
-                <img src={tourBanff} alt="Lake Louise sunrise" className="h-[200px] md:h-[230px] w-full object-cover" />
-                <figcaption className="font-marker text-ink/80 text-base mt-3 text-center">
-                  Lake Louise, 06:14 ✦
-                </figcaption>
-              </figure>
-
-              <figure className="absolute right-28 md:right-40 top-[210px] md:top-[260px] w-[230px] md:w-[260px] rotate-[7deg] polaroid">
-                <span className="tape -top-3 left-1/2 -translate-x-1/2 rotate-[4deg]" />
-                <img src={tourAurora} alt="Yukon aurora" className="h-[180px] md:h-[210px] w-full object-cover" />
-                <figcaption className="font-marker text-ink/80 text-base mt-3 text-center">
-                  green sky, Yukon ☾
-                </figcaption>
-              </figure>
-
-              <div className="absolute -left-2 md:left-4 bottom-4 w-[180px] rotate-[-4deg] bg-cream/95 px-4 py-3 shadow-[0_8px_18px_-10px_rgba(0,0,0,0.25)] border border-clay/15">
-                <p className="font-marker text-ink text-sm leading-snug">
-                  「這趟旅程，<br />我把心遺落在班夫。」
-                </p>
-                <p className="mt-1 font-journal text-clay/80 text-[11px]">— Mei-Lin, 2024</p>
-              </div>
-
-              <svg className="absolute left-10 top-2 w-6 h-6 text-clay/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-                <path d="M12 3 v6 M12 15 v6 M3 12 h6 M15 12 h6" />
-              </svg>
-            </div>
-          </div>
-        </div>
       </section>
 
 
-      {/* OUR PROMISE — editorial numbered strip */}
-      <section className="relative bg-cream pt-28 pb-32">
+      {/* FEATURES — 5 icon row */}
+      <section className="relative bg-paper pt-20 pb-12">
         <div className="mx-auto max-w-[1320px] px-6 md:px-12">
-          <div className="grid md:grid-cols-12 gap-10 items-start mb-16">
-            <div className="md:col-span-4">
-              <p className="font-marker text-clay/75 text-base">— our promise</p>
-              <h2 className="font-serif text-4xl md:text-5xl text-ink mt-3 leading-[1.1] tracking-tight">
-                慢一點，<br />走深一點。
-              </h2>
-            </div>
-            <div className="md:col-span-7 md:col-start-6">
-              <p className="text-ink/65 leading-[2] text-[15px]">
-                十年來我們相信，旅行不是把行程塞滿，
-                而是給每一刻足夠的時間去感受。
-                這是我們對每一位旅人的承諾。
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 border-t border-clay/20">
-            {features.map((f, i) => (
-              <div key={f.t} className={`py-8 md:py-10 px-2 md:px-5 ${i > 0 ? "md:border-l border-clay/15" : ""} ${i > 0 ? "border-t md:border-t-0" : ""}`}>
-                <span className="font-serif text-xs tracking-[0.28em] text-clay">0{i + 1}</span>
-                <p className="mt-4 font-serif text-lg text-ink leading-snug">{f.t}</p>
-                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{f.d}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+            {features.map((f) => {
+              const Icon = f.icon;
+              return (
+                <div key={f.t} className="flex flex-col items-start">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-cream border border-clay/20 text-ink shadow-sm">
+                    <Icon size={18} strokeWidth={1.6} />
+                  </span>
+                  <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
+                  <p className="mt-2 text-[12.5px] text-ink/60 leading-[1.7] whitespace-pre-line">{f.d}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
 
-      {/* FEATURED TOURS — editorial, soft cards, no torn edges */}
-      <section className="relative bg-paper py-28">
-        <div className="mx-auto max-w-[1300px] px-6 md:px-10">
-          <div className="text-center mb-16">
-            <p className="font-marker text-clay/75 text-base tracking-wide">— curated journeys</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-2 tracking-tight">熱門行程推薦</h2>
-            <div className="mx-auto mt-5 h-px w-16 bg-clay/30" />
+      {/* FEATURED TOURS — 5 polaroid cards with hearts */}
+      <section className="relative bg-paper pt-12 pb-24">
+        <div className="mx-auto max-w-[1320px] px-6 md:px-12">
+          <div className="flex items-end justify-between mb-10 gap-4">
+            <div className="flex items-end gap-5">
+              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold">熱門行程推薦</h2>
+              <svg className="hidden md:block mb-2 w-24 h-3 text-clay/60" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+                <path d="M2 6 C 30 1, 70 11, 96 5" />
+                <path d="M96 5 l -7 -2 M96 5 l -2 7" />
+              </svg>
+            </div>
+            <Link
+              to="/tours"
+              className="hidden md:inline-flex items-center gap-2 rounded-md bg-[oklch(0.30_0.04_60)] px-5 py-2.5 text-cream text-[13px] tracking-wide hover:bg-[oklch(0.26_0.04_60)] transition"
+            >
+              探索所有行程 <span aria-hidden>→</span>
+            </Link>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {tours.slice(0, 4).map((t) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
+            {tours.map((t) => (
               <article
                 key={t.title}
-                className="group relative bg-card rounded-[2px] overflow-hidden shadow-[0_2px_4px_-2px_rgba(60,40,20,0.06),0_18px_40px_-24px_rgba(60,40,20,0.25)] hover:shadow-[0_4px_8px_-4px_rgba(60,40,20,0.08),0_28px_50px_-24px_rgba(60,40,20,0.32)] hover:-translate-y-1 transition-all duration-500"
+                className="group relative bg-card rounded-[3px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(60,40,20,0.08),0_18px_36px_-22px_rgba(60,40,20,0.32)] hover:-translate-y-1 hover:rotate-[0.5deg] transition-all duration-500"
               >
-                <div className="aspect-[4/5] overflow-hidden">
+                <div className="relative aspect-[5/4] overflow-hidden rounded-[2px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
+                  <button aria-label="Save" className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/85 text-clay backdrop-blur-sm hover:bg-cream transition">
+                    <HeartFill size={13} strokeWidth={1.8} />
+                  </button>
                 </div>
-                <div className="p-6 pb-7">
-                  <h3 className="font-serif text-xl text-ink leading-snug">{t.title}</h3>
-                  <p className="mt-2 text-sm text-ink/65 leading-relaxed line-clamp-2">{t.desc}</p>
-                  <div className="mt-5 pt-4 border-t border-border/60 flex items-center justify-between">
-                    <span className="text-xs font-serif tracking-[0.18em] text-clay uppercase">{t.price}</span>
-                    <span className="text-clay text-xs">★★★★★</span>
-                  </div>
+                <div className="px-1 pt-4">
+                  <h3 className="font-serif text-[15px] md:text-base text-ink leading-snug font-semibold">{t.title}</h3>
+                  <p className="mt-1.5 text-[11.5px] text-ink/55 leading-relaxed">{t.desc}</p>
+                  <p className="mt-3 font-serif text-[13.5px] text-ink font-semibold">{t.price}</p>
                 </div>
               </article>
             ))}
           </div>
 
-          <div className="mt-14 text-center">
-            <Link to="/tours" className="inline-flex items-center gap-2 font-serif text-sm tracking-[0.18em] uppercase text-ink/70 hover:text-primary border-b border-clay/30 pb-1">
-              查看全部行程
-              <span aria-hidden>→</span>
+          <div className="mt-10 md:hidden text-center">
+            <Link to="/tours" className="inline-flex items-center gap-2 rounded-md bg-[oklch(0.30_0.04_60)] px-5 py-2.5 text-cream text-[13px]">
+              探索所有行程 →
             </Link>
           </div>
         </div>
-        
       </section>
 
-      {/* GUEST STORIES — editorial intimate */}
-      <section className="relative bg-cream py-32">
+      {/* GUEST STORIES — 4 polaroid testimonials */}
+      <section className="relative bg-paper pb-28">
         <div className="mx-auto max-w-[1320px] px-6 md:px-12">
-          <div className="grid md:grid-cols-12 gap-12 mb-20 items-end">
-            <div className="md:col-span-6 md:col-start-2">
-              <p className="font-marker text-clay/75 text-base">— traveller notes</p>
-              <h2 className="font-serif text-5xl md:text-6xl text-ink mt-3 leading-[1.05] tracking-tight">
-                寫在旅程之後的<br /><span className="italic text-clay">真實心聲</span>
-              </h2>
-            </div>
-            <div className="md:col-span-3 md:col-start-9 text-right">
-              <p className="font-serif text-ink/55 text-sm tracking-[0.18em] uppercase">2,400+ travellers</p>
-              <p className="font-serif text-4xl text-primary mt-1">4.9 ★</p>
-            </div>
+          <div className="flex items-center gap-4 mb-10">
+            <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold">旅客真實分享</h2>
+            <svg className="hidden md:block w-24 h-3 text-clay/60" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+              <path d="M2 6 C 30 1, 70 11, 96 5" />
+              <path d="M96 5 l -7 -2 M96 5 l -2 7" />
+            </svg>
           </div>
 
-          <div className="grid md:grid-cols-12 gap-x-8 gap-y-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {stories.map((s, i) => {
-              const layout = [
-                "md:col-span-5 md:col-start-1",
-                "md:col-span-5 md:col-start-7 md:mt-20",
-                "md:col-span-5 md:col-start-3 md:mt-8",
-              ];
+              const rotations = ["rotate-[-2deg]", "rotate-[1.5deg]", "rotate-[-1deg]", "rotate-[2deg]"];
               return (
-                <figure key={s.name} className={`${layout[i]} relative`}>
-                  <span className="absolute -top-6 -left-2 font-serif text-7xl text-clay/25 leading-none select-none">"</span>
-                  <blockquote className="font-serif text-2xl md:text-[26px] text-ink leading-[1.55] tracking-tight">
-                    {s.quote}
-                  </blockquote>
-                  <figcaption className="mt-8 flex items-center gap-4">
-                    <img src={s.img} alt={s.name} loading="lazy" className="h-12 w-12 rounded-full object-cover ring-1 ring-clay/15" />
-                    <div>
-                      <p className="text-sm text-ink font-medium tracking-wide">{s.name}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{s.country} · {s.lang}</p>
+                <figure key={i} className={`relative ${rotations[i]} flex gap-4 items-start bg-card p-4 shadow-[0_10px_24px_-12px_rgba(60,40,20,0.3)]`}>
+                  <span className="absolute -top-3 left-6 w-16 h-5 bg-[var(--tape)] rotate-[-6deg] shadow-sm" aria-hidden />
+                  <div className="shrink-0 w-[110px]">
+                    <img src={s.img} alt={s.name} loading="lazy" className="h-[120px] w-full object-cover" />
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <div className="flex gap-0.5 text-[oklch(0.7_0.18_70)]">
+                      {Array.from({ length: s.rating }).map((_, j) => <Star key={j} size={11} fill="currentColor" stroke="none" />)}
                     </div>
-                  </figcaption>
+                    <p className="mt-2 text-[12px] text-ink/75 leading-[1.7]">{s.quote}</p>
+                    <p className="mt-2 text-right font-marker text-[11px] text-ink/60">— {s.name}</p>
+                  </div>
                 </figure>
               );
             })}

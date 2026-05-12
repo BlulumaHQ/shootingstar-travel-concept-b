@@ -4,41 +4,52 @@ import { useEffect, useState } from "react";
 
 const nav = [
   { to: "/", label: "首頁" },
-  { to: "/tours", label: "精選行程" },
-  { to: "/destinations", label: "目的地" },
-  { to: "/stories", label: "旅客故事" },
-  { to: "/about", label: "關於我們" },
+  { to: "/tours", label: "行程介紹" },
+  { to: "/stories", label: "我們的故事" },
+  { to: "/destinations", label: "旅客分享" },
+  { to: "/about", label: "最新消息" },
   { to: "/contact", label: "聯絡我們" },
 ];
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all ${
-        scrolled ? "bg-cream/95 backdrop-blur-md" : "bg-cream/85 backdrop-blur-sm"
-      }`}
+      className="sticky top-0 z-50 text-cream"
+      style={{
+        backgroundImage:
+          "linear-gradient(180deg, oklch(0.24 0.025 50) 0%, oklch(0.20 0.025 50) 100%), repeating-linear-gradient(90deg, rgba(0,0,0,0.18) 0 1px, transparent 1px 140px)",
+        backgroundBlendMode: "multiply",
+        boxShadow: "0 6px 24px -12px rgba(0,0,0,0.5)",
+      }}
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-0">
-        <Link to="/" className="flex items-center -my-3">
-          <img src={logo} alt="Shootingstar Travel" className="h-[96px] md:h-[140px] w-auto" />
+      {/* faint wood grain */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.10] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(120,60,20,0.6) 0 2px, transparent 2px 6px), repeating-linear-gradient(90deg, rgba(255,200,140,0.3) 0 1px, transparent 1px 22px)",
+        }}
+        aria-hidden
+      />
+
+      <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-3">
+        <Link to="/" className="flex items-center gap-3 -my-2">
+          <img src={logo} alt="Shootingstar Travel" className="h-[64px] md:h-[84px] w-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-8">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="relative text-[15px] tracking-wide text-foreground/80 hover:text-primary transition-colors py-2"
-              activeProps={{ className: "text-primary font-medium [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0.5 [&]:after:left-0 [&]:after:right-0 [&]:after:h-[2px] [&]:after:bg-primary" }}
+              className="relative text-[14px] tracking-wide text-cream/85 hover:text-cream transition-colors py-2"
+              activeProps={{ className: "text-cream [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0 [&]:after:left-1 [&]:after:right-1 [&]:after:h-[1.5px] [&]:after:bg-cream/80" }}
             >
               {n.label}
             </Link>
@@ -48,9 +59,9 @@ export function Header() {
         <div className="hidden lg:block">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 transition"
+            className="inline-flex items-center gap-2 rounded-full bg-cream/95 px-6 py-2.5 text-[13px] tracking-wide text-ink hover:bg-cream transition shadow-[0_4px_12px_-4px_rgba(0,0,0,0.4)]"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" />
             </svg>
             立即預訂
@@ -58,7 +69,7 @@ export function Header() {
         </div>
 
         <button
-          className="lg:hidden p-2 -mr-2"
+          className="lg:hidden p-2 -mr-2 text-cream"
           aria-label="Menu"
           onClick={() => setOpen((v) => !v)}
         >
@@ -69,20 +80,19 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-cream">
+        <div className="lg:hidden border-t border-cream/15 bg-[oklch(0.20_0.025_50)]">
           <div className="px-6 py-4 flex flex-col gap-3">
             {nav.map((n) => (
-              <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-1.5 text-foreground/80">
+              <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-1.5 text-cream/85">
                 {n.label}
               </Link>
             ))}
-            <Link to="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex justify-center rounded-full bg-primary px-5 py-2.5 text-sm text-primary-foreground">
+            <Link to="/contact" onClick={() => setOpen(false)} className="mt-2 inline-flex justify-center rounded-full bg-cream px-5 py-2.5 text-sm text-ink">
               立即預訂
             </Link>
           </div>
         </div>
       )}
-
     </header>
   );
 }
