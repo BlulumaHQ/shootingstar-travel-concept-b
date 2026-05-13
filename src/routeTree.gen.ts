@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DestinationsRouteImport } from './routes/destinations'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -27,6 +28,11 @@ const ToursRoute = ToursRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DestinationsRoute = DestinationsRouteImport.update({
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/tours': typeof ToursIndexRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
   '/reviews': typeof ReviewsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/destinations'
+    | '/faq'
     | '/reviews'
     | '/tours'
     | '/tours/$slug'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/destinations'
+    | '/faq'
     | '/reviews'
     | '/tours/$slug'
     | '/tours'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/contact'
     | '/destinations'
+    | '/faq'
     | '/reviews'
     | '/tours'
     | '/tours/$slug'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   DestinationsRoute: typeof DestinationsRoute
+  FaqRoute: typeof FaqRoute
   ReviewsRoute: typeof ReviewsRoute
   ToursRoute: typeof ToursRouteWithChildren
 }
@@ -157,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/destinations': {
@@ -229,9 +249,20 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   DestinationsRoute: DestinationsRoute,
+  FaqRoute: FaqRoute,
   ReviewsRoute: ReviewsRoute,
   ToursRoute: ToursRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
