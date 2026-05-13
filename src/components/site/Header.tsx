@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 const nav = [
   { to: "/", label: "首頁" },
   { to: "/tours", label: "行程介紹" },
-  { to: "/stories", label: "我們的故事" },
-  { to: "/destinations", label: "旅客分享" },
-  { to: "/about", label: "最新消息" },
+  { to: "/about", label: "關於我們" },
+  { to: "/reviews", label: "旅客分享" },
+  { to: "/blog", label: "部落格" },
   { to: "/contact", label: "聯絡我們" },
 ];
 
@@ -19,18 +19,18 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-border/60">
-      <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-4">
-        <Link to="/" className="flex items-center gap-3 -my-2">
-          <img src={logo} alt="Shootingstar Travel" className="h-[56px] md:h-[68px] w-auto" />
+    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-border/60">
+      <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-1.5 md:py-2">
+        <Link to="/" className="flex items-center -my-1">
+          <img src={logo} alt="Shootingstar Travel" className="h-[78px] md:h-[96px] w-auto" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-8">
           {nav.map((n) => (
             <Link
               key={n.to}
               to={n.to}
-              className="relative text-[14px] tracking-wide text-ink/75 hover:text-primary transition-colors py-2"
+              className="relative text-[14.5px] tracking-wide text-ink/75 hover:text-primary transition-colors py-2"
               activeProps={{ className: "text-primary [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0 [&]:after:left-1 [&]:after:right-1 [&]:after:h-[1.5px] [&]:after:bg-primary/70" }}
             >
               {n.label}
