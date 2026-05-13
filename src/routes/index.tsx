@@ -267,8 +267,8 @@ function HomePage() {
                   }}
                 />
               </div>
-              <div className="hidden md:block absolute -bottom-10 -right-6 w-[42%]">
-                <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
+              <div className="absolute -bottom-10 -right-6 md:-right-6 w-[42%] block">
+                <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[5px] md:border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
