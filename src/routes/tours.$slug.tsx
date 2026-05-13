@@ -1,6 +1,8 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { getTour } from "@/data/tours";
+import { getTour, type Tour } from "@/data/tours";
+import { useGetTour } from "@/data/useTours";
+import { useLocale, withLocale, hreflangLinks } from "@/i18n/locale";
 import { useState } from "react";
 
 export const Route = createFileRoute("/tours/$slug")({
@@ -19,9 +21,7 @@ export const Route = createFileRoute("/tours/$slug")({
         { property: "og:description", content: t?.intro ?? "" },
         ...(t?.img ? [{ property: "og:image", content: t.img }] : []),
       ],
-      links: [
-        { rel: "canonical", href: `https://shootingstar-travel-concept-b.lovable.app/tours/${params.slug}` },
-      ],
+      links: hreflangLinks(`/tours/${params.slug}`, "en"),
     };
   },
   notFoundComponent: () => (
