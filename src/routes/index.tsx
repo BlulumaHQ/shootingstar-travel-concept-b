@@ -331,28 +331,6 @@ function HomePage() {
       </section>
 
 
-      {/* FAQ */}
-      <section className="bg-cream">
-        <div className="mx-auto max-w-3xl px-6 md:px-10 py-28">
-          <div className="text-center mb-14">
-            <p className="font-marker text-clay/75 text-base tracking-wide">— frequently asked</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-2 tracking-tight">常見問題</h2>
-            <div className="mx-auto mt-5 h-px w-16 bg-clay/30" />
-          </div>
-          <div className="divide-y divide-border/70 border-y border-border/70">
-            {faqs.map((f) => (
-              <details key={f.q} className="group py-6">
-                <summary className="flex items-center justify-between cursor-pointer list-none">
-                  <span className="font-serif text-lg text-ink">{f.q}</span>
-                  <span className="text-clay text-2xl group-open:rotate-45 transition">+</span>
-                </summary>
-                <p className="mt-4 text-muted-foreground leading-[1.9] text-[15px]">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CONTACT CTA — final journal page */}
       <section className="relative bg-cream pt-8 pb-28 md:pb-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-10">
