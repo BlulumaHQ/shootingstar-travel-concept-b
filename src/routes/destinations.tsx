@@ -18,9 +18,7 @@ export const Route = createFileRoute("/destinations")({
       { property: "og:description", content: "Banff, Jasper, Vancouver, Whistler, Victoria, Yukon and the aurora." },
       { property: "og:image", content: jasper },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/destinations" },
-    ],
+    links: hreflangLinks("/destinations", "en"),
   }),
   component: DestPage,
 });
