@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
+import { seoHead } from "@/i18n/seo";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
@@ -23,23 +24,26 @@ import { PlaneJourney } from "@/components/site/PlaneJourney";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
-      { name: "description", content: "Boutique small-group travel across Canada — Rocky Mountains, Banff, Aurora, Vancouver and beyond. Curated journeys, attentive service." },
-      { property: "og:title", content: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
-      { property: "og:description", content: "Curated small-group journeys across Canada — Rockies, Banff, Aurora, Vancouver." },
-      { property: "og:type", content: "website" },
-      { property: "og:locale", content: "en_CA" },
-      { property: "og:image", content: hero },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: hero },
-    ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/" },
-      { rel: "alternate", hrefLang: "en", href: "https://shootingstar-travel-concept-b.lovable.app/" },
-      { rel: "alternate", hrefLang: "zh-Hant", href: "https://shootingstar-travel-concept-b.lovable.app/zh" },
-      { rel: "alternate", hrefLang: "ko", href: "https://shootingstar-travel-concept-b.lovable.app/ko" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+    ...seoHead({
+      path: "/",
+      locale: "en",
+      title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Vancouver Tours",
+      description: "Boutique small-group tours across Canada — the Canadian Rockies, Banff, Vancouver, Victoria and aurora chases — with English, Mandarin and Korean-friendly guides. Slow travel, considered detail.",
+    }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          name: "Shootingstar Travel",
+          url: "https://shootingstar-travel-concept-b.lovable.app/",
+          areaServed: ["Canada", "British Columbia", "Alberta", "Yukon"],
+          knowsLanguage: ["en", "zh", "ko"],
+          sameAs: [],
+          address: { "@type": "PostalAddress", addressLocality: "Vancouver", addressRegion: "BC", addressCountry: "CA" },
+        }),
+      },
     ],
   }),
   component: HomePage,

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shootingstar-travel-concept-b.lovable.app/sitemap.xml
