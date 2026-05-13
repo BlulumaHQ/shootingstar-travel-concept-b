@@ -162,5 +162,18 @@
       100% 96%, 96% 100%, 86% 97%, 74% 100%, 60% 96%, 48% 99%, 34% 96%, 22% 100%, 12% 97%, 4% 100%, 0% 96%
     );
   }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee-x 60s linear infinite;
+    will-change: transform;
+  }
+  .marquee-pause:hover .animate-marquee { animation-play-state: paused; }
 }
 
