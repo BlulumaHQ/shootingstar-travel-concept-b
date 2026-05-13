@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
-import headerPaper from "@/assets/header-paper.png";
+import headerPaper from "@/assets/header-paper-cropped.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -20,19 +20,17 @@ export function Header() {
   }, [open]);
 
   return (
-    <header
-      className="sticky top-0 z-50 text-cream"
-      style={{ backgroundColor: "#4a2a18" }}
-    >
-      {/* torn paper bottom edge overlay */}
+    <header className="sticky top-0 z-50 text-cream">
+      {/* torn paper background — flat top, torn bottom (extends past header) */}
       <div
-        className="absolute left-0 right-0 -bottom-4 h-10 pointer-events-none"
+        className="absolute left-0 right-0 top-0 pointer-events-none"
         style={{
+          height: "calc(100% + 28px)",
           backgroundImage: `url(${headerPaper})`,
-          backgroundSize: "100% 200%",
+          backgroundSize: "100% 100%",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center bottom",
-          filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.35))",
+          backgroundPosition: "top center",
+          filter: "drop-shadow(0 8px 12px rgba(0,0,0,0.35))",
         }}
         aria-hidden
       />
