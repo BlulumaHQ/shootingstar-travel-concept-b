@@ -99,7 +99,7 @@
     background-size: 24px 24px, 18px 18px;
     background-position: 0 0, 9px 9px;
   }
-  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-journal); letter-spacing: -0.005em; font-weight: 600; }
 }
 
 @layer utilities {
