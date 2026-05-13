@@ -6,6 +6,7 @@ import { tours } from "@/data/tours";
 import { reviews } from "@/data/reviews";
 import { ReviewCard } from "@/components/site/ReviewCard";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
