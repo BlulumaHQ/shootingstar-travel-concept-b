@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import banff from "@/assets/tour-banff.jpg";
-import rockies from "@/assets/tour-rockies.jpg";
-import vancouver from "@/assets/tour-vancouver.jpg";
-import aurora from "@/assets/tour-aurora.jpg";
+import banff from "@/assets/tour-banff.webp";
+import rockies from "@/assets/tour-rockies.webp";
+import vancouver from "@/assets/tour-vancouver.webp";
+import aurora from "@/assets/tour-aurora.webp";
 import jasper from "@/assets/dest-jasper.jpg";
-import victoria from "@/assets/tour-victoria.jpg";
+import victoria from "@/assets/tour-victoria.webp";
 import { CompassMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks } from "@/i18n/locale";
 
