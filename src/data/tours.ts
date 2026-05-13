@@ -29,7 +29,7 @@ export type Tour = {
 
 export const tours: Tour[] = [
   {
-    slug: "rockies-classic",
+    slug: "rocky-mountain-classic",
     img: tourRockies,
     gallery: [tourRockies, tourBanff, tourIcefield],
     title: "落磯山經典團 5 天 4 夜",
@@ -86,7 +86,7 @@ export const tours: Tour[] = [
     ],
   },
   {
-    slug: "aurora",
+    slug: "aurora-chase",
     img: tourAurora,
     gallery: [tourAurora],
     title: "極光追蹤之旅",
@@ -134,7 +134,7 @@ export const tours: Tour[] = [
     ],
   },
   {
-    slug: "icefield",
+    slug: "icefields-parkway",
     img: tourIcefield,
     gallery: [tourIcefield],
     title: "哥倫比亞冰原大道",
@@ -180,7 +180,7 @@ export const tours: Tour[] = [
     faq: [{ q: "可以單獨報名嗎？", a: "可以，最低 2 人成行。" }],
   },
   {
-    slug: "private-custom",
+    slug: "private-tour",
     img: tourPrivate,
     gallery: [tourPrivate],
     title: "私人包團服務",
