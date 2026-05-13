@@ -354,41 +354,37 @@ function HomePage() {
       </section>
 
       {/* CONTACT CTA — final journal page */}
-      <section className="relative bg-cream pb-28">
-        <div className="mx-auto max-w-7xl px-6 md:px-10">
-          <div className="relative overflow-hidden rounded-[3px] bg-paper border border-clay/15 p-12 md:p-20 text-center shadow-[0_30px_60px_-30px_rgba(60,40,20,0.35)]">
-            <div
-              className="absolute inset-0 opacity-[0.08] pointer-events-none mix-blend-multiply"
-              style={{
-                backgroundImage:
-                  "radial-gradient(rgba(60,40,20,0.6) 1px, transparent 1.4px)",
-                backgroundSize: "5px 5px",
-              }}
-              aria-hidden
-            />
-            <p className="font-marker text-clay/80 text-lg">— and so the journey begins</p>
-            <h2 className="font-serif text-4xl md:text-6xl text-ink mt-4 leading-[1.15] tracking-tight">
+      <section className="relative bg-cream pt-8 pb-28 md:pb-32">
+        <div className="mx-auto max-w-[1200px] px-6 md:px-10">
+          <div
+            className="relative overflow-hidden rounded-[10px] p-14 md:p-24 text-center"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)",
+            }}
+          >
+            <p className="font-marker text-ink/70 text-sm tracking-[0.3em] uppercase">— and so the journey begins</p>
+            <h2 className="font-serif text-4xl md:text-6xl text-ink mt-5 leading-[1.2] tracking-tight font-medium">
               下一趟旅程，<br/>從這裡開始。
             </h2>
-            <div className="mx-auto mt-6 h-px w-16 bg-clay/30" />
-            <p className="mt-8 text-ink/70 max-w-xl mx-auto leading-relaxed">
+            <div className="mx-auto mt-7 h-px w-12 bg-ink/30" />
+            <p className="mt-8 text-ink/70 max-w-xl mx-auto leading-[2] text-[15px]">
               告訴我們你嚮往的風景，我們為你寫下最適合的旅行劇本。
             </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <div className="mt-12 flex flex-wrap justify-center gap-3">
               {[
                 { l: "WhatsApp", h: "https://wa.me/" },
                 { l: "KakaoTalk", h: "#" },
                 { l: "WeChat", h: "#" },
                 { l: "Email", h: "mailto:hello@shootingstartravel.ca" },
               ].map((c) => (
-                <a key={c.l} href={c.h} className="rounded-full bg-primary text-primary-foreground px-7 py-3 text-sm tracking-wide hover:bg-primary/90 transition shadow-[0_8px_22px_-10px_rgba(40,55,30,0.5)]">
+                <a key={c.l} href={c.h} className="rounded-full bg-primary text-primary-foreground px-7 py-3 text-sm tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.6)]">
                   {c.l}
                 </a>
               ))}
             </div>
           </div>
         </div>
-        
       </section>
     </SiteLayout>
   );
