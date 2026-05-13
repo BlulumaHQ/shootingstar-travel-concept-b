@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
-import destJasper from "@/assets/dest-jasper.jpg";
+// Jasper destination removed per request
 import destWhistler from "@/assets/dest-whistler.jpg";
 import destYukon from "@/assets/dest-yukon.jpg";
 import tourVancouver from "@/assets/tour-vancouver.jpg";
@@ -49,12 +49,12 @@ const features = [
 ];
 
 const destinations = [
-  { img: tourBanff, name: "Banff", zh: "班夫", note: "湖光雪峰倒影，加拿大最經典的明信片風景。" },
-  { img: destJasper, name: "Jasper", zh: "傑士伯", note: "暗夜星空保護區，靜謐而深邃的山林夜晚。" },
-  { img: tourVancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市，舒緩而現代的生活步調。" },
-  { img: destWhistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。" },
-  { img: tourVictoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園的春日午後。" },
-  { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。" },
+  { img: tourBanff, name: "Banff", zh: "班夫", note: "湖光雪峰倒影，加拿大最經典的明信片風景。", noteEn: "Mirror lakes and snowy peaks — Canada's most iconic postcard." },
+  { img: tourVancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市，舒緩而現代的生活步調。", noteEn: "A city between mountains and sea — modern, calm, alive." },
+  { img: destWhistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。", noteEn: "A year-round resort — winter skiing, summer trails." },
+  { img: tourVictoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園的春日午後。", noteEn: "British charm and the gardens of Butchart on a spring afternoon." },
+  { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。", noteEn: "The most romantic wait under the night sky — green light drifting down." },
+  { img: destYukon, name: "Yukon", zh: "育空", note: "邊境之北的寂靜，星河無限延伸。", noteEn: "The quiet of the far north — endless rivers of stars." },
 ];
 
 
