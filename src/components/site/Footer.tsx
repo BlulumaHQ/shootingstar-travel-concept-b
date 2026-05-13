@@ -28,13 +28,30 @@ export function Footer() {
     { l: t("nav.faq"), to: lp("/faq") },
   ];
 
-  const popularTours = [
-    { l: locale === "en" ? "Rocky Mountain Classic" : "落磯山經典團", to: lp("/tours/rocky-mountain-classic") },
-    { l: locale === "en" ? "Banff Day Tour" : "班夫一日遊", to: lp("/tours/banff-day") },
-    { l: locale === "en" ? "Aurora Chase" : "極光追蹤之旅", to: lp("/tours/aurora-chase") },
-    { l: locale === "en" ? "Vancouver City" : "溫哥華市區深度遊", to: lp("/tours/vancouver-city") },
-    { l: locale === "en" ? "Victoria & Butchart Gardens" : "維多利亞花園之旅", to: lp("/tours/victoria-garden") },
-  ];
+  const popularToursByLocale = {
+    en: [
+      { l: "Rocky Mountain Classic", to: lp("/tours/rocky-mountain-classic") },
+      { l: "Banff Day Tour", to: lp("/tours/banff-day") },
+      { l: "Aurora Chase", to: lp("/tours/aurora-chase") },
+      { l: "Vancouver City", to: lp("/tours/vancouver-city") },
+      { l: "Victoria & Butchart Gardens", to: lp("/tours/victoria-garden") },
+    ],
+    zh: [
+      { l: "落磯山經典團", to: lp("/tours/rocky-mountain-classic") },
+      { l: "班夫一日遊", to: lp("/tours/banff-day") },
+      { l: "極光追蹤之旅", to: lp("/tours/aurora-chase") },
+      { l: "溫哥華市區深度遊", to: lp("/tours/vancouver-city") },
+      { l: "維多리아花園之旅", to: lp("/tours/victoria-garden") },
+    ],
+    ko: [
+      { l: "로키산맥 클래식 투어", to: lp("/tours/rocky-mountain-classic") },
+      { l: "밴프 데이 투어", to: lp("/tours/banff-day") },
+      { l: "오로라 체이스", to: lp("/tours/aurora-chase") },
+      { l: "밴쿠버 시티 투어", to: lp("/tours/vancouver-city") },
+      { l: "빅토리아 & 부차트 가든", to: lp("/tours/victoria-garden") },
+    ],
+  } as const;
+  const popularTours = popularToursByLocale[locale];
 
   const contact: { Icon: typeof Phone; t: string; href?: string }[] = [
     { Icon: Phone, t: "+1 (604) 123-4567", href: "tel:+16041234567" },
