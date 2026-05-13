@@ -147,21 +147,6 @@ function HomePage() {
           </div>
         </div>
 
-        {/* torn paper edge */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-5 bg-paper"
-          style={{
-            WebkitMaskImage: "radial-gradient(circle at 8px 100%, transparent 7px, #000 8px)",
-            maskImage: "radial-gradient(circle at 8px 100%, transparent 7px, #000 8px)",
-            WebkitMaskSize: "16px 16px",
-            maskSize: "16px 16px",
-            WebkitMaskRepeat: "repeat-x",
-            maskRepeat: "repeat-x",
-            WebkitMaskPosition: "bottom",
-            maskPosition: "bottom",
-          }}
-          aria-hidden
-        />
       </section>
 
 

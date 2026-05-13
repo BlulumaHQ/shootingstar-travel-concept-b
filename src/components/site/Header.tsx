@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
+import headerPaper from "@/assets/header-paper-cropped.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -19,21 +20,17 @@ export function Header() {
   }, [open]);
 
   return (
-    <header
-      className="sticky top-0 z-50 text-cream"
-      style={{
-        backgroundImage:
-          "linear-gradient(180deg, oklch(0.24 0.025 50) 0%, oklch(0.20 0.025 50) 100%), repeating-linear-gradient(90deg, rgba(0,0,0,0.18) 0 1px, transparent 1px 140px)",
-        backgroundBlendMode: "multiply",
-        boxShadow: "0 6px 24px -12px rgba(0,0,0,0.5)",
-      }}
-    >
-      {/* faint wood grain */}
+    <header className="sticky top-0 z-50 text-cream">
+      {/* torn paper background — flat top, torn bottom (extends past header) */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.10] mix-blend-overlay"
+        className="absolute left-0 right-0 top-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(120,60,20,0.6) 0 2px, transparent 2px 6px), repeating-linear-gradient(90deg, rgba(255,200,140,0.3) 0 1px, transparent 1px 22px)",
+          height: "calc(100% + 28px)",
+          backgroundImage: `url(${headerPaper})`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "top center",
+          filter: "drop-shadow(0 8px 12px rgba(0,0,0,0.35))",
         }}
         aria-hidden
       />
