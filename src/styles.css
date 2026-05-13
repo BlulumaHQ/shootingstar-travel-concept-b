@@ -44,34 +44,38 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  /* Premium travel journal palette — deep coffee, kraft, vintage cream */
-  --cream: oklch(0.955 0.022 82);          /* #F4EBDD warm cream */
-  --paper: oklch(0.885 0.035 75);          /* #D8C2A4 kraft beige */
-  --forest: oklch(0.36 0.06 50);           /* coffee accent */
-  --sage: oklch(0.62 0.045 70);            /* dusty sage */
-  --clay: oklch(0.42 0.06 45);             /* #6A4632 muted coffee */
-  --ink: oklch(0.22 0.04 40);              /* #2F1C12 deep coffee ink */
-  --tape: oklch(0.82 0.06 85 / 0.55);      /* warm masking tape */
+  --radius: 0.625rem;
+  /* Spring travel journal — airy cream, sage, lavender */
+  --cream: oklch(0.965 0.012 80);          /* #F7F3EC airy cream */
+  --paper: oklch(0.94 0.016 75);           /* #F0E8DC soft paper */
+  --sand:  oklch(0.92 0.02 75);            /* #EFE7DD */
+  --forest: oklch(0.585 0.04 155);         /* #6F8A7A sage primary */
+  --sage:  oklch(0.69 0.04 155);           /* #8DAA98 lighter sage */
+  --sage-soft: oklch(0.78 0.03 155);       /* #AFC3B4 */
+  --lavender: oklch(0.74 0.04 295);        /* #B9AEC7 accent */
+  --lavender-soft: oklch(0.86 0.03 295);   /* #DDD5E7 */
+  --clay: oklch(0.49 0.025 155);           /* #5D7265 footer / muted */
+  --ink: oklch(0.34 0.01 60);              /* #4A4038 warm graphite */
+  --tape: oklch(0.86 0.03 295 / 0.55);     /* lavender tape */
 
   --background: var(--cream);
   --foreground: var(--ink);
-  --card: oklch(0.985 0.012 85);
+  --card: oklch(0.99 0.005 80);
   --card-foreground: var(--ink);
   --popover: var(--cream);
   --popover-foreground: var(--ink);
   --primary: var(--forest);
-  --primary-foreground: var(--cream);
-  --secondary: var(--paper);
+  --primary-foreground: oklch(0.985 0.005 80);
+  --secondary: var(--lavender-soft);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.018 80);
-  --muted-foreground: oklch(0.48 0.025 60);
-  --accent: var(--clay);
-  --accent-foreground: var(--cream);
-  --destructive: oklch(0.55 0.18 28);
+  --muted: oklch(0.95 0.01 80);
+  --muted-foreground: oklch(0.52 0.015 60);
+  --accent: var(--lavender);
+  --accent-foreground: oklch(0.985 0.005 80);
+  --destructive: oklch(0.6 0.14 28);
   --destructive-foreground: var(--cream);
-  --border: oklch(0.86 0.02 80);
-  --input: oklch(0.9 0.018 80);
+  --border: oklch(0.9 0.012 80);
+  --input: oklch(0.93 0.01 80);
   --ring: var(--forest);
 }
 
@@ -94,10 +98,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(oklch(0.7 0.05 60 / 0.06) 1px, transparent 1px),
-      radial-gradient(oklch(0.5 0.05 60 / 0.04) 1px, transparent 1px);
-    background-size: 24px 24px, 18px 18px;
-    background-position: 0 0, 9px 9px;
+      radial-gradient(oklch(0.6 0.04 155 / 0.035) 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-position: 0 0;
   }
   h1, h2, h3, h4 { font-family: var(--font-journal); letter-spacing: -0.005em; font-weight: 600; }
 }
