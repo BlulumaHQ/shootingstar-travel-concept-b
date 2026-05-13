@@ -7,11 +7,14 @@ import { BusMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 export const Route = createFileRoute("/tours/")({
   head: () => ({
     meta: [
-      { title: "行程介紹 | Shootingstar Travel" },
-      { name: "description", content: "瀏覽 Shootingstar Travel 加拿大小團精選行程：洛磯山、班夫、極光、溫哥華、維多利亞與私人包團。" },
-      { property: "og:title", content: "行程介紹 | Shootingstar Travel" },
-      { property: "og:description", content: "加拿大小團精選旅程，由在地團隊用心策劃。" },
+      { title: "Tours — Shooting Star Travel" },
+      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys across Canada: the Rockies, Banff, the aurora, Vancouver, Victoria and private custom tours." },
+      { property: "og:title", content: "Tours — Shooting Star Travel" },
+      { property: "og:description", content: "Curated small-group journeys across Canada, designed by our local team." },
       { property: "og:image", content: tours[0].img },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/tours" },
     ],
   }),
   component: ToursIndexPage,
@@ -27,10 +30,10 @@ export function ToursIndexPage() {
           <span className="text-[11px] tracking-[0.4em] uppercase">Featured Journeys</span>
         </div>
         <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-          行程介紹
+          Tours
         </h1>
         <p className="mt-7 text-ink/60 max-w-2xl leading-[2] text-[15px]">
-          每段旅程都由在地團隊親自策劃，小團精緻、節奏舒適。點擊任一行程查看完整介紹。
+          Each journey is shaped by our local team — small groups, considered pace. Click any tour to see the full story.
         </p>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
@@ -55,7 +58,7 @@ export function ToursIndexPage() {
                 <p className="mt-1.5 text-[12px] text-ink/55 leading-relaxed">{t.desc}</p>
                 <div className="mt-3 flex items-center justify-between">
                   <p className="font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
-                  <span className="text-[11.5px] text-primary tracking-wide">查看行程 →</span>
+                  <span className="text-[11.5px] text-primary tracking-wide">View tour →</span>
                 </div>
               </div>
             </Link>

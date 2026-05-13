@@ -11,24 +11,27 @@ import aurora from "@/assets/tour-aurora.jpg";
 export const Route = createFileRoute("/destinations")({
   head: () => ({
     meta: [
-      { title: "目的地 | Shootingstar Travel" },
-      { name: "description", content: "從班夫到極光，探索加拿大最值得收藏的目的地。" },
-      { property: "og:title", content: "目的地 | Shootingstar Travel" },
-      { property: "og:description", content: "Banff、Jasper、Vancouver、Whistler、Victoria、Yukon、Aurora。" },
+      { title: "Destinations — Shooting Star Travel" },
+      { name: "description", content: "From Banff to the aurora — explore the Canadian destinations most worth keeping." },
+      { property: "og:title", content: "Destinations — Shooting Star Travel" },
+      { property: "og:description", content: "Banff, Jasper, Vancouver, Whistler, Victoria, Yukon and the aurora." },
       { property: "og:image", content: jasper },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/destinations" },
     ],
   }),
   component: DestPage,
 });
 
 const items = [
-  { img: banff, name: "Banff", zh: "班夫", note: "湖光雪峰，加拿大最經典的明信片風景。" },
-  { img: jasper, name: "Jasper", zh: "傑士伯", note: "暗夜星空保護區，靜謐而深邃。" },
-  { img: vancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市生活。" },
-  { img: whistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。" },
-  { img: victoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園。" },
-  { img: yukon, name: "Yukon", zh: "育空", note: "北方曠野與午夜陽光。" },
-  { img: aurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待。" },
+  { img: banff, name: "Banff", caption: "Postcard", note: "Lakes and snow-capped peaks — Canada's most iconic landscape." },
+  { img: jasper, name: "Jasper", caption: "Dark Sky", note: "A Dark Sky Preserve — quiet, deep, contemplative." },
+  { img: vancouver, name: "Vancouver", caption: "City", note: "Life lived between the mountains and the sea." },
+  { img: whistler, name: "Whistler", caption: "Resort", note: "Winter slopes, summer trails — the alpine resort favourite." },
+  { img: victoria, name: "Victoria", caption: "Gardens", note: "British charm and the Butchart Gardens." },
+  { img: yukon, name: "Yukon", caption: "Wilderness", note: "Northern wilderness and midnight sun." },
+  { img: aurora, name: "Aurora", caption: "Night Sky", note: "The most romantic kind of waiting, beneath the night sky." },
 ];
 
 export function DestPage() {
@@ -36,7 +39,7 @@ export function DestPage() {
     <SiteLayout>
       <section className="mx-auto max-w-7xl px-6 md:px-10 py-20">
         <p className="font-hand text-clay text-2xl">— destinations</p>
-        <h1 className="font-serif text-5xl md:text-6xl mt-2">探索目的地</h1>
+        <h1 className="font-serif text-5xl md:text-6xl mt-2">Explore destinations</h1>
         <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map((d) => (
             <article key={d.name} className="paper-card overflow-hidden rounded-xl">
@@ -44,7 +47,7 @@ export function DestPage() {
                 <img src={d.img} alt={d.name} loading="lazy" className="h-full w-full object-cover hover:scale-105 transition duration-700" />
               </div>
               <div className="p-6">
-                <p className="font-hand text-clay text-xl">{d.zh}</p>
+                <p className="font-hand text-clay text-xl">{d.caption}</p>
                 <h3 className="font-serif text-2xl">{d.name}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{d.note}</p>
               </div>

@@ -6,10 +6,13 @@ import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "聯絡我們 | Shootingstar Travel" },
-      { name: "description", content: "預約諮詢、客製行程、團體報價。透過 WhatsApp、KakaoTalk、WeChat 或 Email 與 Shootingstar Travel 聯繫。" },
-      { property: "og:title", content: "聯絡我們 | Shootingstar Travel" },
-      { property: "og:description", content: "下一趟旅程，從這裡開始。" },
+      { title: "Contact — Shooting Star Travel" },
+      { name: "description", content: "Book a consultation, request a custom itinerary, or get a group quote. Reach Shooting Star Travel via WhatsApp, KakaoTalk, WeChat or email." },
+      { property: "og:title", content: "Contact — Shooting Star Travel" },
+      { property: "og:description", content: "Your next journey begins here." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/contact" },
     ],
   }),
   component: ContactPage,
@@ -34,11 +37,11 @@ export function ContactPage() {
             <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Let's Begin</span>
           </div>
           <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-            下一趟旅程，<br />
-            <span className="italic text-primary">從這裡開始。</span>
+            Your next journey,<br />
+            <span className="italic text-primary">begins here.</span>
           </h1>
           <p className="mt-7 text-ink/60 max-w-xl leading-[2] text-[15px]">
-            告訴我們你想去的地方、想要的節奏與夢想。我們將於 24 小時內回覆。
+            Tell us where you'd like to go, the pace you'd like to keep, and the dream you're chasing. We reply within 24 hours.
           </p>
         </div>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
@@ -49,13 +52,13 @@ export function ContactPage() {
           <div className="grid md:grid-cols-12 gap-12 md:gap-16">
             <div className="md:col-span-7">
               <h2 className="font-serif text-[24px] md:text-[28px] text-ink font-medium tracking-[-0.01em] mb-8">
-                告訴我們你的旅行夢想
+                Tell us your travel dream
               </h2>
               {sent ? (
                 <div className="rounded-[6px] border border-primary/20 bg-card px-8 py-12 text-center shadow-[0_18px_36px_-22px_rgba(70,80,75,0.22)]">
                   <p className="text-[11px] tracking-[0.4em] uppercase text-primary/80">— Thank you</p>
-                  <p className="mt-4 font-serif text-[22px] text-ink">收到您的訊息</p>
-                  <p className="mt-3 text-ink/60 text-[14px] leading-[2]">我們將於 24 小時內回覆 ✦</p>
+                  <p className="mt-4 font-serif text-[22px] text-ink">Your message has arrived</p>
+                  <p className="mt-3 text-ink/60 text-[14px] leading-[2]">We'll be in touch within 24 hours ✦</p>
                 </div>
               ) : (
                 <form
@@ -63,9 +66,9 @@ export function ContactPage() {
                   className="space-y-5"
                 >
                   {[
-                    { n: "name", p: "姓名" },
+                    { n: "name", p: "Name" },
                     { n: "email", p: "Email", t: "email" },
-                    { n: "tour", p: "感興趣的行程" },
+                    { n: "tour", p: "Tour you're interested in" },
                   ].map((f) => (
                     <div key={f.n}>
                       <label className="block text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-2">{f.p}</label>
@@ -78,7 +81,7 @@ export function ContactPage() {
                     </div>
                   ))}
                   <div>
-                    <label className="block text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-2">您的旅行夢想</label>
+                    <label className="block text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-2">Your travel dream</label>
                     <textarea
                       required
                       rows={5}
@@ -86,7 +89,7 @@ export function ContactPage() {
                     />
                   </div>
                   <button className="mt-4 inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-9 py-3.5 text-[12px] tracking-[0.2em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]">
-                    送出詢問 <span aria-hidden>→</span>
+                    Send enquiry <span aria-hidden>→</span>
                   </button>
                 </form>
               )}
@@ -94,7 +97,7 @@ export function ContactPage() {
 
             <div className="md:col-span-5">
               <h2 className="font-serif text-[24px] md:text-[28px] text-ink font-medium tracking-[-0.01em] mb-8">
-                直接聯繫我們
+                Reach us directly
               </h2>
               <div className="space-y-0 border-t border-ink/10">
                 {channels.map((c) => (
@@ -111,7 +114,7 @@ export function ContactPage() {
               <div className="mt-12 space-y-3 text-[13.5px] text-ink/60 leading-[2]">
                 <p className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80">— Studio</p>
                 <p>Vancouver, BC, Canada</p>
-                <p>週一至週六 · 9:00 – 18:00 PST</p>
+                <p>Mon–Sat · 9:00 – 18:00 PST</p>
               </div>
             </div>
           </div>

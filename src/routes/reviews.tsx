@@ -10,11 +10,14 @@ import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks"
 export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
-      { title: "旅客分享 | Shootingstar Travel" },
-      { name: "description", content: "來自世界各地旅人的真實旅行故事、照片與回憶。" },
-      { property: "og:title", content: "旅客分享 | Shootingstar Travel" },
-      { property: "og:description", content: "真實旅客分享、照片與旅行記憶。" },
+      { title: "Traveller Stories — Shooting Star Travel" },
+      { name: "description", content: "Real travel stories, photos and memories from travellers around the world." },
+      { property: "og:title", content: "Traveller Stories — Shooting Star Travel" },
+      { property: "og:description", content: "Authentic traveller stories, photos and travel memories." },
       { property: "og:image", content: reviews[0].photos[0] },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/reviews" },
     ],
   }),
   component: ReviewsPage,
@@ -28,37 +31,37 @@ export function ShareModal({ onClose }: { onClose: () => void }) {
         {done ? (
           <div className="text-center py-6">
             <p className="font-marker text-primary text-sm tracking-[0.25em] uppercase">— thank you</p>
-            <h3 className="font-serif text-2xl text-ink mt-3">感謝分享！</h3>
+            <h3 className="font-serif text-2xl text-ink mt-3">Thank you for sharing!</h3>
             <p className="mt-4 text-ink/70 leading-[2] text-[14.5px]">
-              你的故事已收進旅人手札，我們很期待下一段相遇。
+              Your story has joined our traveller's journal. We can't wait for the next time our paths cross.
             </p>
-            <button onClick={onClose} className="mt-6 rounded-full bg-primary text-primary-foreground px-7 py-2.5 text-sm">關閉</button>
+            <button onClick={onClose} className="mt-6 rounded-full bg-primary text-primary-foreground px-7 py-2.5 text-sm">Close</button>
           </div>
         ) : (
           <form onSubmit={(e) => { e.preventDefault(); setDone(true); }} className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-serif text-2xl text-ink font-semibold">分享我的旅程</h3>
+              <h3 className="font-serif text-2xl text-ink font-semibold">Share your journey</h3>
               <button type="button" onClick={onClose} className="text-ink/50 text-xl">×</button>
             </div>
-            <input required placeholder="姓名" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+            <input required placeholder="Name" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
             <input required type="email" placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
             <select required defaultValue="" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm">
-              <option value="" disabled>選擇參加的行程</option>
+              <option value="" disabled>Choose the tour you joined</option>
               {tours.map((t) => <option key={t.slug} value={t.slug}>{t.title}</option>)}
             </select>
             <div>
-              <label className="block text-[12px] text-ink/60 mb-1.5">為這趟旅程評分</label>
+              <label className="block text-[12px] text-ink/60 mb-1.5">Rate this journey</label>
               <div className="flex gap-2">
                 {[1,2,3,4,5].map((n) => (
                   <button type="button" key={n} className="text-primary"><Star size={20} fill="currentColor" /></button>
                 ))}
               </div>
             </div>
-            <textarea required rows={4} placeholder="想分享的旅程故事…" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+            <textarea required rows={4} placeholder="The story you'd like to share…" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
             <div className="rounded-md border border-dashed border-border px-3 py-6 text-center text-[12.5px] text-ink/55">
-              📷 上傳旅行照片（可選 5–6 張，示意）
+              📷 Upload travel photos (5–6 max, illustrative)
             </div>
-            <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14px]">送出分享</button>
+            <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14px]">Submit</button>
           </form>
         )}
       </div>
@@ -80,14 +83,14 @@ export function ReviewsPage() {
                 <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Travellers' Voices</span>
               </div>
               <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-                旅客分享
+                Traveller stories
               </h1>
               <p className="mt-7 text-ink/60 max-w-xl leading-[2] text-[15px]">
-                每段旅程都是旅人寫下的真實故事。歡迎分享你的回憶，讓下一位旅人因為你而出發。
+                Each journey is a real story written by a traveller. Share yours, so the next traveller can set off because of you.
               </p>
             </div>
             <button onClick={() => setOpen(true)} className="self-start md:self-end inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]">
-              <Heart size={13} strokeWidth={1.6} /> 分享我的旅程
+              <Heart size={13} strokeWidth={1.6} /> Share my journey
             </button>
           </div>
         </div>
@@ -102,7 +105,7 @@ export function ReviewsPage() {
 
           <div className="mt-20 text-center">
             <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-primary/40 text-primary px-8 py-3 text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
-              <Heart size={13} strokeWidth={1.6} /> 分享我的旅程
+              <Heart size={13} strokeWidth={1.6} /> Share my journey
             </button>
           </div>
         </div>
