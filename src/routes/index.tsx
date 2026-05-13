@@ -66,7 +66,7 @@ const faqs = [
   { q: "如何付款？", a: "支援信用卡、Interac e-Transfer、銀行轉帳與 PayPal。" },
 ];
 
-function HomePage() {
+export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO — mobile: text-first; desktop: editorial 2-polaroid */}

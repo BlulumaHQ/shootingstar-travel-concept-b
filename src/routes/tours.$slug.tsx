@@ -39,7 +39,7 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
-function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
+export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const departures = tour?.departures ?? [
     { date: "Jul 12", seats: 8 },
     { date: "Jul 18", seats: 4 },
@@ -165,7 +165,7 @@ function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTou
   );
 }
 
-function TourDetailPage() {
+export function TourDetailPage() {
   const { tour } = Route.useLoaderData() as { tour: NonNullable<ReturnType<typeof getTour>> };
 
   return (

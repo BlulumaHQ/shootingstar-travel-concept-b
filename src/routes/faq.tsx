@@ -60,7 +60,7 @@ const groups: { title: string; items: { q: string; a: string }[] }[] = [
   },
 ];
 
-function FaqPage() {
+export function FaqPage() {
   return (
     <SiteLayout>
       <section className="bg-cream">

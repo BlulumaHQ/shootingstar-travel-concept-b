@@ -17,7 +17,7 @@ export const Route = createFileRoute("/tours/")({
   component: ToursIndexPage,
 });
 
-function ToursIndexPage() {
+export function ToursIndexPage() {
   return (
     <SiteLayout>
       <section className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-24 md:pt-32 pb-14">

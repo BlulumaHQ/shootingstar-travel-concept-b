@@ -22,7 +22,7 @@ const channels = [
   { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
 ];
 
-function ContactPage() {
+export function ContactPage() {
   const [sent, setSent] = useState(false);
   return (
     <SiteLayout>

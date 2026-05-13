@@ -20,7 +20,7 @@ export const Route = createFileRoute("/reviews")({
   component: ReviewsPage,
 });
 
-function ShareModal({ onClose }: { onClose: () => void }) {
+export function ShareModal({ onClose }: { onClose: () => void }) {
   const [done, setDone] = useState(false);
   return (
     <div className="fixed inset-0 z-[60] bg-ink/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" onClick={onClose}>
@@ -66,7 +66,7 @@ function ShareModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-function ReviewsPage() {
+export function ReviewsPage() {
   const [open, setOpen] = useState(false);
   return (
     <SiteLayout>

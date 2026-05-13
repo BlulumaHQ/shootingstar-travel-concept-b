@@ -27,7 +27,7 @@ const values = [
   { t: "讓旅程更有故事感", d: "我們相信旅行不只到達目的地，而是留下值得收藏的回憶。" },
 ];
 
-function AboutPage() {
+export function AboutPage() {
   return (
     <SiteLayout>
       {/* HERO */}
