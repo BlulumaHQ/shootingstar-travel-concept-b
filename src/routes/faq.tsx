@@ -5,10 +5,13 @@ import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "常見問題 FAQ | Shootingstar Travel" },
-      { name: "description", content: "Shootingstar Travel 加拿大旅遊常見問題：報名、付款、行程、取消改期、語言團別與出發前準備。" },
-      { property: "og:title", content: "常見問題 FAQ | Shootingstar Travel" },
-      { property: "og:description", content: "報名、付款、行程、取消、語言團別與出發前準備的完整解答。" },
+      { title: "FAQ — Shooting Star Travel" },
+      { name: "description", content: "Frequently asked questions about Shooting Star Travel: booking, payment, itineraries, cancellations, language groups, and pre-trip preparation." },
+      { property: "og:title", content: "FAQ — Shooting Star Travel" },
+      { property: "og:description", content: "Booking, payment, itineraries, cancellations, language groups, and pre-trip preparation answered." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/faq" },
     ],
   }),
   component: FaqPage,
@@ -16,46 +19,46 @@ export const Route = createFileRoute("/faq")({
 
 const groups: { title: string; items: { q: string; a: string }[] }[] = [
   {
-    title: "報名與付款",
+    title: "Booking & Payment",
     items: [
-      { q: "如何報名？", a: "您可以透過聯絡我們頁面填寫表單，或直接以 WhatsApp、KakaoTalk、WeChat 與我們聯繫，將會有專人於 24 小時內回覆。" },
-      { q: "可以使用哪些付款方式？", a: "支援信用卡、Interac e-Transfer、銀行轉帳與 PayPal，部分行程亦可現場付款。" },
-      { q: "需要先付訂金嗎？", a: "多日行程通常收取 30% 訂金以保留座位，餘款於出發前 14 天內結清。" },
-      { q: "報名後多久收到確認？", a: "通常於 24 小時內收到 Email 確認；旺季可能延長至 48 小時。" },
+      { q: "How do I book?", a: "Fill out the form on our Contact page or message us on WhatsApp, KakaoTalk or WeChat. A team member will reply within 24 hours." },
+      { q: "Which payment methods do you accept?", a: "Credit card, Interac e-Transfer, bank transfer and PayPal. Some tours may also be paid in person." },
+      { q: "Is a deposit required?", a: "Multi-day tours typically require a 30% deposit to hold your seat, with the balance due 14 days before departure." },
+      { q: "When will I receive a confirmation?", a: "Usually within 24 hours by email; up to 48 hours during peak season." },
     ],
   },
   {
-    title: "行程安排",
+    title: "Itineraries",
     items: [
-      { q: "每團多少人？", a: "我們以小團為主，平均 6–14 人，讓每位旅人都能擁有舒適的體驗空間。" },
-      { q: "是否包含住宿？", a: "多日行程包含精選住宿，皆為 3 星以上飯店或特色山屋。" },
-      { q: "是否包含餐食？", a: "依行程不同，部分包含早餐或特色餐，行程頁會明確列出。" },
-      { q: "可以客製行程嗎？", a: "當然！私人包團服務歡迎家庭、情侶、好友團體，由我們為您量身打造。" },
+      { q: "How many travellers per group?", a: "We run small groups, typically 6–14, so every traveller has space to enjoy the experience." },
+      { q: "Is accommodation included?", a: "Multi-day tours include selected accommodation — 3-star+ hotels or character mountain lodges." },
+      { q: "Are meals included?", a: "Some tours include breakfast or signature meals; each tour page lists what's covered." },
+      { q: "Can I customise an itinerary?", a: "Absolutely. Our private tours are designed for families, couples and groups of friends." },
     ],
   },
   {
-    title: "取消與改期",
+    title: "Cancellation & Changes",
     items: [
-      { q: "可以取消或改期嗎？", a: "出發前 30 天以上可全額退費；14–29 天可改期一次；14 天內恕無法退費，但仍可協助轉讓。" },
-      { q: "若因天候取消怎麼辦？", a: "因不可抗力（暴風雪、山區封路）導致無法成行，將安排改期或全額退款。" },
-      { q: "可以將名額轉讓他人嗎？", a: "可以，請於出發前 7 天告知我們聯絡資訊，方便接送與保險登記。" },
+      { q: "Can I cancel or reschedule?", a: "Full refund 30+ days before departure; one reschedule allowed 14–29 days out; within 14 days no refund, but you may transfer the seat." },
+      { q: "What if weather forces a cancellation?", a: "If a tour cannot run due to force majeure (snowstorms, road closures), we'll reschedule or refund in full." },
+      { q: "Can I transfer my seat to someone else?", a: "Yes — please share their contact details at least 7 days before departure for transfer and insurance." },
     ],
   },
   {
-    title: "語言與團別",
+    title: "Languages & Groups",
     items: [
-      { q: "提供哪些語言團？", a: "目前提供繁體中文、簡體中文、韓文與英文團別，部分私人行程可指定語言。" },
-      { q: "導遊會說中文嗎？", a: "中文團皆由華語領隊或在地中文導遊帶領，溝通完全沒有問題。" },
-      { q: "不同語言團可以一起拼團嗎？", a: "通常不會，以維持每位旅人的體驗品質；私人包團則可彈性安排。" },
+      { q: "Which language groups are offered?", a: "We currently run English, Mandarin (Traditional & Simplified) and Korean groups. Private tours can be tailored to other languages." },
+      { q: "Will the guide speak Mandarin?", a: "Mandarin departures are led by Mandarin-speaking guides — communication is seamless." },
+      { q: "Can different language groups travel together?", a: "Usually no, to preserve experience quality. Private tours can be arranged with mixed languages." },
     ],
   },
   {
-    title: "出發前準備",
+    title: "Pre-trip Preparation",
     items: [
-      { q: "需要準備哪些裝備？", a: "建議攜帶保暖外套、舒適防水鞋、防曬與保濕用品，每個行程頁都有詳細建議清單。" },
-      { q: "需要自行投保嗎？", a: "我們強烈建議旅客自行投保旅遊平安險與醫療險，以獲得最完整保障。" },
-      { q: "從哪裡集合出發？", a: "多數行程於溫哥華或卡加利市區指定地點集合，私人團可協調飯店接送。" },
-      { q: "可以帶長輩或小孩嗎？", a: "可以！我們的行程節奏舒緩，適合 6 歲以上孩童及行動方便的長輩。" },
+      { q: "What should I pack?", a: "Bring a warm jacket, comfortable waterproof shoes, sunscreen and moisturiser. Each tour page includes a detailed packing list." },
+      { q: "Do I need travel insurance?", a: "We strongly recommend personal travel and medical insurance for full peace of mind." },
+      { q: "Where is the meeting point?", a: "Most tours meet at a designated point in downtown Vancouver or Calgary. Private tours can offer hotel pickup." },
+      { q: "Can I bring older family or children?", a: "Yes — our pace is gentle and suits children aged 6+ and active seniors." },
     ],
   },
 ];
@@ -72,9 +75,9 @@ export function FaqPage() {
             <StarMark size={18} className="text-primary/65" />
             <DottedLine length={28} className="text-primary/45" />
           </div>
-          <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-7 tracking-[-0.015em] font-medium leading-[1.1]">常見問題</h1>
+          <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-7 tracking-[-0.015em] font-medium leading-[1.1]">Frequently asked</h1>
           <p className="mt-7 text-ink/60 leading-[2] text-[15px] max-w-xl mx-auto">
-            出發之前，旅人們最常問我們的事。
+            The questions our travellers ask most before they set off.
           </p>
         </div>
       </section>
@@ -106,7 +109,7 @@ export function FaqPage() {
           ))}
 
           <div className="text-center pt-10">
-            <p className="text-ink/60 text-[14px] mb-6">沒有找到你的問題？</p>
+            <p className="text-ink/60 text-[14px] mb-6">Couldn't find your question?</p>
             <Link to="/contact" className="inline-flex rounded-full bg-primary text-primary-foreground px-8 py-3.5 text-[12.5px] tracking-[0.18em] uppercase hover:bg-primary/90 transition">
               Contact Us →
             </Link>

@@ -11,23 +11,26 @@ import { CompassMark, DottedLine, JourneyPath } from "@/components/site/BrandMar
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "部落格 | Shootingstar Travel" },
-      { name: "description", content: "加拿大旅遊指南、季節攻略與在地建議，幫你規劃下一段旅程。" },
-      { property: "og:title", content: "部落格 | Shootingstar Travel" },
-      { property: "og:description", content: "加拿大旅遊知識與在地觀點，由 Shootingstar Travel 整理。" },
+      { title: "Journal — Shooting Star Travel" },
+      { name: "description", content: "Canada travel guides, seasonal advice and local notes — to help you plan your next journey." },
+      { property: "og:title", content: "Journal — Shooting Star Travel" },
+      { property: "og:description", content: "Canadian travel knowledge and a local perspective, curated by Shooting Star Travel." },
       { property: "og:image", content: rockies },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/blog" },
     ],
   }),
   component: BlogPage,
 });
 
 const posts = [
-  { img: rockies, cat: "旅遊攻略", title: "加拿大洛磯山旅遊前需要知道的 8 件事", excerpt: "天氣、交通、住宿與最佳季節，第一次去落磯山的完整準備清單。", read: "8 分鐘閱讀" },
-  { img: banff, cat: "行程比較", title: "班夫自由行與跟團旅遊怎麼選？", excerpt: "從預算、體驗深度與彈性比較兩種旅遊方式，幫你挑出最適合的玩法。", read: "6 分鐘閱讀" },
-  { img: vancouver, cat: "城市指南", title: "第一次來溫哥華，哪些景點最值得安排？", excerpt: "我們整理了 10 個本地人也常去的角落，從 Stanley Park 到 Granville Island。", read: "7 分鐘閱讀" },
-  { img: aurora, cat: "極光指南", title: "極光旅行最佳季節與準備方式", excerpt: "什麼時候最容易看到極光？要帶哪些裝備？這篇一次告訴你。", read: "9 分鐘閱讀" },
-  { img: jasper, cat: "深度旅遊", title: "傑士伯：被低估的暗夜星空保護區", excerpt: "比起班夫，傑士伯更安靜、更原始。一篇文章帶你認識這個寶藏小鎮。", read: "5 分鐘閱讀" },
-  { img: victoria, cat: "島嶼旅行", title: "維多利亞一日遊：花園、渡輪與英倫午茶", excerpt: "從溫哥華出發的最美一日離島行程提案。", read: "6 分鐘閱讀" },
+  { img: rockies, cat: "Travel Guide", title: "8 things to know before visiting the Canadian Rockies", excerpt: "Weather, transport, lodging and the best season — a complete prep list for first-timers in the Rockies.", read: "8 min read" },
+  { img: banff, cat: "Trip Comparison", title: "Banff: independent travel or guided tour?", excerpt: "Comparing budget, depth and flexibility to help you choose the way to travel that suits you best.", read: "6 min read" },
+  { img: vancouver, cat: "City Guide", title: "First time in Vancouver: which spots are worth your time?", excerpt: "Ten corners locals love, from Stanley Park to Granville Island.", read: "7 min read" },
+  { img: aurora, cat: "Aurora Guide", title: "When to chase the aurora — and how to prepare", excerpt: "When are sightings most likely, and what should you pack? A complete guide in one read.", read: "9 min read" },
+  { img: jasper, cat: "Slow Travel", title: "Jasper: the underrated Dark Sky Preserve", excerpt: "Quieter and more raw than Banff — meet a hidden-gem mountain town in this guide.", read: "5 min read" },
+  { img: victoria, cat: "Island Travel", title: "A day in Victoria: gardens, ferries and English afternoon tea", excerpt: "The most beautiful one-day island escape from Vancouver.", read: "6 min read" },
 ];
 
 export function BlogPage() {
@@ -42,10 +45,10 @@ export function BlogPage() {
             <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Travel Journal</span>
           </div>
           <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-            部落格
+            Journal
           </h1>
           <p className="mt-7 text-ink/60 max-w-xl leading-[2] text-[15px]">
-            旅遊知識、季節攻略與在地觀點。願這些文字，陪伴你規劃下一段旅程。
+            Travel notes, seasonal advice and a local perspective. May these words travel with you as you plan what's next.
           </p>
         </div>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
@@ -63,7 +66,7 @@ export function BlogPage() {
               <p className="mt-6 text-ink/60 leading-[2] text-[15px]">{feature.excerpt}</p>
               <div className="mt-7 flex items-center gap-5 text-[12px] text-ink/50 tracking-[0.1em] uppercase">
                 <span>{feature.read}</span>
-                <span className="text-primary tracking-[0.18em]">繼續閱讀 →</span>
+                <span className="text-primary tracking-[0.18em]">Read more →</span>
               </div>
             </div>
           </Link>
@@ -81,7 +84,7 @@ export function BlogPage() {
                 <p className="mt-6 text-[10.5px] tracking-[0.3em] uppercase text-primary font-medium">{p.cat}</p>
                 <h3 className="mt-2.5 font-serif text-[19px] text-ink leading-snug font-semibold group-hover:text-primary transition">{p.title}</h3>
                 <p className="mt-3 text-[13.5px] text-ink/60 leading-[1.95]">{p.excerpt}</p>
-                <p className="mt-5 text-[11px] tracking-[0.18em] uppercase text-ink/45">{p.read} · 繼續閱讀 →</p>
+                <p className="mt-5 text-[11px] tracking-[0.18em] uppercase text-ink/45">{p.read} · Read more →</p>
               </Link>
             ))}
           </div>

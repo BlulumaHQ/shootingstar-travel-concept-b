@@ -15,48 +15,48 @@ import type { Review } from "@/components/site/ReviewCard";
 
 export const reviews: Review[] = [
   {
-    avatar: g1, name: "Mei-Lin Chen", country: "Taipei, TW", tour: "落磯山經典團", rating: 5,
-    text: "走進班夫的那一刻，終於懂得什麼叫被風景擁抱。導遊細心，整趟旅程沒有趕路的緊張感。",
+    avatar: g1, name: "Mei-Lin Chen", country: "Taipei, TW", tour: "Rocky Mountain Classic", rating: 5,
+    text: "The moment we stepped into Banff, I finally understood what it feels like to be embraced by a landscape. The guide was attentive and the pace never rushed.",
     photos: [tourBanff, tourRockies, destJasper, tourIcefield, destWhistler],
   },
   {
-    avatar: g2, name: "Jihoon Park", country: "Seoul, KR", tour: "極光追蹤之旅", rating: 5,
-    text: "韓語導遊細心又溫柔，整趟旅程像和老朋友出遊。極光出現的那夜，我們都沉默了。",
+    avatar: g2, name: "Jihoon Park", country: "Seoul, KR", tour: "Aurora Chase Journey", rating: 5,
+    text: "Our Korean-speaking guide was warm and thoughtful — the trip felt like travelling with an old friend. The night the aurora appeared, we all fell silent.",
     photos: [tourAurora, destYukon, tourRockies, destJasper, tourBanff, tourIcefield],
   },
   {
-    avatar: g3, name: "The Wong Family", country: "Hong Kong", tour: "落磯山經典團", rating: 5,
-    text: "一家人最棒的回憶，孩子說明年還要再來。冰原大道的雪白讓人心都靜下來。",
+    avatar: g3, name: "The Wong Family", country: "Hong Kong", tour: "Rocky Mountain Classic", rating: 5,
+    text: "The best memory we've had as a family — our kids already want to come back next year. The white expanse along the Icefields Parkway truly settles the heart.",
     photos: [tourRockies, tourIcefield, tourBanff, destJasper, destWhistler],
   },
   {
-    avatar: g1, name: "Rachel L.", country: "Vancouver, CA", tour: "班夫一日遊", rating: 5,
-    text: "短短一天卻完整收藏經典湖景，行程順暢、講解清楚，回家立刻分享給朋友。",
+    avatar: g1, name: "Rachel L.", country: "Vancouver, CA", tour: "Banff Day Tour", rating: 5,
+    text: "A short day that still captured the iconic lakes. Smooth logistics, clear storytelling — I shared it with friends as soon as I got home.",
     photos: [tourBanff, tourRockies, destJasper, tourIcefield, tourVictoria],
   },
   {
-    avatar: g2, name: "小柔", country: "Taichung, TW", tour: "極光追蹤之旅", rating: 5,
-    text: "在 −25 度等到極光的瞬間，覺得一切都值得。工作人員幫我們拍了好多人生美照。",
+    avatar: g2, name: "Xiaorou", country: "Taichung, TW", tour: "Aurora Chase Journey", rating: 5,
+    text: "Waiting at −25 °C and finally seeing the aurora made every minute worthwhile. The team also took so many beautiful photos for us.",
     photos: [tourAurora, destYukon, tourRockies, tourBanff, destJasper, destWhistler],
   },
   {
-    avatar: g3, name: "Daniel K.", country: "Toronto, CA", tour: "哥倫比亞冰原大道", rating: 4,
-    text: "天空步道很值得，導遊也很有耐心。希望午餐可以再多一點選擇。",
+    avatar: g3, name: "Daniel K.", country: "Toronto, CA", tour: "Icefields Parkway", rating: 4,
+    text: "The Skywalk is absolutely worth it and the guide was patient. Just hoping for a wider lunch selection next time.",
     photos: [tourIcefield, tourRockies, tourBanff, destJasper, destWhistler],
   },
   {
-    avatar: g1, name: "Yuki S.", country: "Osaka, JP", tour: "維多利亞花園之旅", rating: 5,
-    text: "布查特花園真的像走進童話。一路上的渡輪海風是這趟最溫柔的記憶。",
+    avatar: g1, name: "Yuki S.", country: "Osaka, JP", tour: "Victoria Garden Journey", rating: 5,
+    text: "Butchart Gardens really felt like stepping into a fairy tale. The sea breeze on the ferry was the gentlest memory of the whole trip.",
     photos: [tourVictoria, tourVancouver, tourBanff, destWhistler, tourRockies],
   },
   {
-    avatar: g2, name: "Andy & Joy", country: "Singapore", tour: "溫哥華市區深度遊", rating: 5,
-    text: "原本只想短途散步，沒想到收穫滿滿。導遊推薦的咖啡店讓我們念念不忘。",
+    avatar: g2, name: "Andy & Joy", country: "Singapore", tour: "Vancouver City Deep Dive", rating: 5,
+    text: "We only planned a short stroll but came away with so much more. The café our guide recommended is still on our minds.",
     photos: [tourVancouver, tourToronto, tourVictoria, destWhistler, tourBanff, destJasper],
   },
   {
-    avatar: g3, name: "Hyejin Kim", country: "Busan, KR", tour: "私人包團服務", rating: 5,
-    text: "為我們家三代人量身打造的行程，連阿嬤都笑得很開心。真的非常值得。",
+    avatar: g3, name: "Hyejin Kim", country: "Busan, KR", tour: "Private Custom Tour", rating: 5,
+    text: "A trip designed for three generations of our family — even grandma was smiling the whole way. Truly worth every dollar.",
     photos: [tourRockies, tourBanff, destJasper, tourIcefield, tourVictoria, destWhistler],
   },
 ];
