@@ -142,9 +142,20 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-cream/15 flex flex-col md:flex-row items-center justify-between gap-3 text-[12px] tracking-wide text-cream/55">
-          <p>© 2026 Shootingstar Travel. Made with care in Vancouver.</p>
-          <p className="font-marker text-cream/45">— see you on the road ✦</p>
+        <div className="mt-12 md:mt-20 pt-6 md:pt-8 border-t border-cream/15 flex flex-col gap-4 text-[12px] tracking-wide text-cream/55">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <p>© 2026 Shootingstar Travel. Made with care in Vancouver.</p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              <Link to="/privacy" className="hover:text-cream transition">隱私權政策</Link>
+              <span className="text-cream/25">·</span>
+              <Link to="/terms" className="hover:text-cream transition">服務條款</Link>
+              <span className="text-cream/25">·</span>
+              <a href="https://bluluma.com/" target="_blank" rel="noopener noreferrer" className="hover:text-cream transition">
+                Web Design by BluLuma
+              </a>
+            </div>
+          </div>
+          <p className="font-marker text-cream/45 text-center md:text-right">— see you on the road ✦</p>
         </div>
       </div>
     </footer>
