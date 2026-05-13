@@ -68,55 +68,79 @@ const faqs = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — editorial 2-polaroid composition */}
+      {/* HERO — mobile: text-first; desktop: editorial 2-polaroid */}
       <section className="relative bg-cream overflow-hidden">
-        {/* dotted journey line crossing the entire hero */}
-        <JourneyPath className="absolute left-0 right-0 top-[58%] w-full h-32 text-primary/35 pointer-events-none hidden md:block" variant="long" />
+        {/* DESKTOP: dotted journey line that visually trails behind the airplane */}
+        <svg
+          aria-hidden
+          viewBox="0 0 1200 200"
+          preserveAspectRatio="none"
+          className="hidden md:block absolute inset-x-0 top-[18%] w-full h-44 text-primary/40 pointer-events-none"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeLinecap="round"
+        >
+          {/* path arcs from left, rises to where the plane sits (top-right of the polaroid block) */}
+          <path d="M -20 150 Q 240 100 520 130 T 980 60" strokeDasharray="2 7" />
+        </svg>
 
-        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-20 md:pt-28 pb-24 md:pb-36">
-          <div className="grid md:grid-cols-12 gap-14 md:gap-20 items-center">
-            <div className="md:col-span-6 order-2 md:order-1">
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-28 pb-20 md:pb-36">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-20 items-center">
+            <div className="md:col-span-6 order-1">
               <div className="flex items-center gap-3 text-primary/75">
-                <StarMark size={16} className="text-primary/65" />
-                <DottedLine length={36} className="text-primary/45" />
-                <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Spring Journal · 2026</span>
+                <StarMark size={14} className="text-primary/65" />
+                <DottedLine length={28} className="text-primary/45" />
+                <span className="text-[10.5px] md:text-[11px] tracking-[0.38em] uppercase font-medium">Spring Journal · 2026</span>
               </div>
-              <h1 className="font-serif text-[42px] md:text-[64px] leading-[1.08] tracking-[-0.015em] text-ink mt-7 font-medium">
+              <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[64px] leading-[1.12] tracking-[-0.012em] text-ink mt-5 md:mt-7 font-medium">
                 旅行不只是<br />
                 抵達一個地方，<br />
                 <span className="italic text-primary">而是被光照亮的時刻</span>
               </h1>
-              <p className="mt-9 text-ink/60 leading-[2] text-[15px] max-w-md">
+              <p className="mt-5 md:mt-9 text-ink/60 leading-[1.95] text-[14px] md:text-[15px] max-w-md">
                 小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，
                 收集加拿大山與海之間的每一道光。
               </p>
-              <div className="mt-12 flex flex-wrap items-center gap-6">
-                <Link to="/tours" className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 text-primary-foreground font-medium text-[14px] tracking-[0.08em] uppercase shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] hover:bg-primary/90 transition">
+              <div className="mt-7 md:mt-12 flex flex-wrap items-center gap-4 md:gap-6">
+                <Link to="/tours" className="inline-flex items-center gap-3 rounded-full bg-primary px-7 md:px-8 py-3 md:py-3.5 text-primary-foreground font-medium text-[13px] md:text-[14px] tracking-[0.08em] uppercase shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] hover:bg-primary/90 transition">
                   探索行程 <span aria-hidden>→</span>
                 </Link>
-                <Link to="/reviews" className="text-ink/65 text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition">
+                <Link to="/reviews" className="text-ink/65 text-[12.5px] md:text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition">
                   Travellers' Stories →
                 </Link>
               </div>
             </div>
 
-            <div className="md:col-span-6 order-1 md:order-2 relative">
-              <div className="relative h-[440px] md:h-[560px] mx-auto max-w-[520px]">
-                {/* soft ambient glow */}
+            {/* Mobile compact polaroid strip — small, decorative, beside content */}
+            <div className="md:hidden order-2 mt-2 relative">
+              <div className="relative h-[220px] mx-auto max-w-[420px]">
+                <div className="absolute -top-6 -left-4 w-32 h-32 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
+                <div className="absolute -bottom-6 -right-4 w-36 h-36 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
+                <PlaneMark size={32} strokeWidth={1.1} className="absolute -top-2 right-2 text-primary/55 rotate-[-12deg] z-30" />
+                <figure className="polaroid absolute top-2 left-2 w-[44%] rotate-[-5deg] z-10">
+                  <img src={tourBanff} alt="" className="aspect-square w-full object-cover" />
+                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Banff</figcaption>
+                </figure>
+                <figure className="polaroid absolute bottom-0 right-2 w-[44%] rotate-[4deg] z-20">
+                  <img src={tourAurora} alt="" className="aspect-square w-full object-cover" />
+                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Yukon</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            {/* DESKTOP: full polaroid composition */}
+            <div className="hidden md:block md:col-span-6 order-2 relative">
+              <div className="relative h-[560px] mx-auto max-w-[520px]">
                 <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
                 <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-
-                {/* paper plane — unified brand mark */}
-                <PlaneMark size={56} strokeWidth={1.1} className="absolute -top-4 -right-2 text-primary/55 rotate-[-12deg] hidden md:block z-30" />
-
-                {/* Polaroid 1 — back */}
-                <figure className="polaroid absolute top-2 left-0 md:left-4 w-[60%] rotate-[-5deg] z-10">
+                {/* paper plane — sits at the end of the dashed path */}
+                <PlaneMark size={56} strokeWidth={1.1} className="absolute -top-2 right-0 text-primary/65 rotate-[-12deg] z-30" />
+                <figure className="polaroid absolute top-2 left-4 w-[60%] rotate-[-5deg] z-10">
                   <img src={tourBanff} alt="Mountain reflection at golden hour" className="aspect-square w-full object-cover" />
                   <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Banff · 06:42</figcaption>
                 </figure>
-
-                {/* Polaroid 2 — front, overlapping */}
-                <figure className="polaroid absolute bottom-0 right-0 md:right-4 w-[60%] rotate-[4deg] z-20">
+                <figure className="polaroid absolute bottom-0 right-4 w-[60%] rotate-[4deg] z-20">
                   <img src={tourAurora} alt="Aurora over still lake" className="aspect-square w-full object-cover" />
                   <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Yukon · 23:18</figcaption>
                 </figure>
@@ -304,7 +328,27 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+          {/* Mobile — horizontal swipe carousel */}
+          <div className="md:hidden -mx-6 px-6">
+            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 pr-12">
+              {destinations.map((d) => (
+                <article key={d.name} className="snap-start shrink-0 w-[78%] max-w-[320px]">
+                  <div className="aspect-[4/5] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
+                    <img src={d.img} alt={d.name} loading="lazy" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-marker text-primary text-[12px] tracking-[0.2em] uppercase">{d.zh}</p>
+                    <h3 className="font-serif text-lg text-ink mt-1 font-semibold">{d.name}</h3>
+                    <p className="mt-2 text-[13px] text-ink/65 leading-[1.85]">{d.note}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="text-center text-[10.5px] tracking-[0.4em] uppercase text-ink/40 mt-2">— swipe →</p>
+          </div>
+
+          {/* Desktop — grid */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
             {destinations.map((d) => (
               <article key={d.name} className="group">
                 <div className="aspect-[4/3] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
