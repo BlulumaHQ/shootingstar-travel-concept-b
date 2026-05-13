@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -24,6 +25,11 @@ import { Route as ToursSlugRouteImport } from './routes/tours.$slug'
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -86,6 +92,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
   '/tours/': typeof ToursIndexRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/terms': typeof TermsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/tours': typeof ToursIndexRoute
 }
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
   '/tours/': typeof ToursIndexRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/terms'
     | '/tours'
     | '/tours/$slug'
     | '/tours/'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/terms'
     | '/tours/$slug'
     | '/tours'
   id:
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/terms'
     | '/tours'
     | '/tours/$slug'
     | '/tours/'
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   PrivacyRoute: typeof PrivacyRoute
   ReviewsRoute: typeof ReviewsRoute
+  TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
 }
 
@@ -176,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -272,6 +292,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   PrivacyRoute: PrivacyRoute,
   ReviewsRoute: ReviewsRoute,
+  TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
 }
 export const routeTree = rootRouteImport
