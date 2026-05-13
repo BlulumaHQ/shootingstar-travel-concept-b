@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DestinationsPage } from "../destinations";
+import { DestPage } from "../destinations";
 import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/ko/destinations")({
