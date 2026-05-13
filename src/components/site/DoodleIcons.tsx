@@ -6,9 +6,10 @@ const base = "inline-block";
 const stroke = {
   fill: "none" as const,
   stroke: "currentColor",
-  strokeWidth: 1.4,
+  strokeWidth: 1,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
+  vectorEffect: "non-scaling-stroke" as const,
 };
 
 export function CameraMapIcon({ size = 44, className = "" }: P) {

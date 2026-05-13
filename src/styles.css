@@ -44,38 +44,39 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  /* Spring travel journal — airy cream, sage, lavender */
-  --cream: oklch(0.965 0.012 80);          /* #F7F3EC airy cream */
-  --paper: oklch(0.94 0.016 75);           /* #F0E8DC soft paper */
-  --sand:  oklch(0.92 0.02 75);            /* #EFE7DD */
-  --forest: oklch(0.585 0.04 155);         /* #6F8A7A sage primary */
-  --sage:  oklch(0.69 0.04 155);           /* #8DAA98 lighter sage */
-  --sage-soft: oklch(0.78 0.03 155);       /* #AFC3B4 */
-  --lavender: oklch(0.74 0.04 295);        /* #B9AEC7 accent */
-  --lavender-soft: oklch(0.86 0.03 295);   /* #DDD5E7 */
-  --clay: oklch(0.49 0.025 155);           /* #5D7265 footer / muted */
-  --ink: oklch(0.34 0.01 60);              /* #4A4038 warm graphite */
-  --tape: oklch(0.86 0.03 295 / 0.55);     /* lavender tape */
+  --radius: 0.5rem;
+  /* Editorial luxury — warm off-white, sage, lavender accent */
+  --cream: oklch(0.975 0.008 85);          /* #FAF8F3 warm off-white */
+  --paper: oklch(0.965 0.01 85);           /* #F5F2EA */
+  --sand:  oklch(0.955 0.012 85);          /* #F1ECE2 */
+  --forest: oklch(0.555 0.035 152);        /* #6B8479 sage primary, calmer */
+  --sage:  oklch(0.66 0.035 152);          /* #87A293 lighter sage */
+  --sage-soft: oklch(0.78 0.025 152);      /* #ABBEB1 */
+  --sage-line: oklch(0.555 0.035 152 / 0.55); /* doodle stroke */
+  --lavender: oklch(0.72 0.035 295);       /* accent */
+  --lavender-soft: oklch(0.88 0.022 295);
+  --clay: oklch(0.46 0.02 152);
+  --ink: oklch(0.28 0.008 70);             /* #3A332C deep editorial graphite */
+  --tape: oklch(0.88 0.022 295 / 0.45);
 
   --background: var(--cream);
   --foreground: var(--ink);
-  --card: oklch(0.99 0.005 80);
+  --card: oklch(0.995 0.004 85);
   --card-foreground: var(--ink);
   --popover: var(--cream);
   --popover-foreground: var(--ink);
   --primary: var(--forest);
-  --primary-foreground: oklch(0.985 0.005 80);
+  --primary-foreground: oklch(0.985 0.005 85);
   --secondary: var(--lavender-soft);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.95 0.01 80);
-  --muted-foreground: oklch(0.52 0.015 60);
+  --muted: oklch(0.955 0.008 85);
+  --muted-foreground: oklch(0.5 0.012 70);
   --accent: var(--lavender);
-  --accent-foreground: oklch(0.985 0.005 80);
+  --accent-foreground: oklch(0.985 0.005 85);
   --destructive: oklch(0.6 0.14 28);
   --destructive-foreground: var(--cream);
-  --border: oklch(0.9 0.012 80);
-  --input: oklch(0.93 0.01 80);
+  --border: oklch(0.92 0.008 85);
+  --input: oklch(0.94 0.008 85);
   --ring: var(--forest);
 }
 
@@ -89,7 +90,7 @@
   --border: oklch(1 0 0 / 12%);
 }
 
-/* Subtle paper grain texture */
+/* Editorial baseline grid — extremely subtle */
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }
@@ -98,11 +99,12 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(oklch(0.6 0.04 155 / 0.035) 1px, transparent 1px);
-    background-size: 26px 26px;
+      linear-gradient(to right, oklch(0.5 0.03 152 / 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.5 0.03 152 / 0.025) 1px, transparent 1px);
+    background-size: 96px 96px, 96px 96px;
     background-position: 0 0;
   }
-  h1, h2, h3, h4 { font-family: var(--font-journal); letter-spacing: -0.005em; font-weight: 600; }
+  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; font-weight: 500; }
 }
 
 @layer utilities {
@@ -123,20 +125,22 @@
     mask-position: bottom;
   }
 
-  /* Polaroid frame */
+  /* Polaroid frame — unified premium */
   .polaroid {
     background: var(--card);
-    padding: 14px 14px 48px 14px;
+    padding: 12px 12px 44px 12px;
+    border-radius: 2px;
     box-shadow:
-      0 1px 2px oklch(0 0 0 / 0.08),
-      0 12px 28px -10px oklch(0 0 0 / 0.18);
+      0 1px 1px oklch(0 0 0 / 0.04),
+      0 22px 40px -22px oklch(0 0 0 / 0.22);
   }
+  .polaroid-square > img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; height: auto; display: block; }
 
   .tape {
     position: absolute;
-    width: 90px; height: 22px;
+    width: 80px; height: 18px;
     background: var(--tape);
-    box-shadow: 0 1px 3px oklch(0 0 0 / 0.1);
+    box-shadow: 0 1px 2px oklch(0 0 0 / 0.08);
   }
 
   .paper-card {
