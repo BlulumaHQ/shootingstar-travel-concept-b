@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const featured = allTours.slice(0, 5);
+const featured = allTours.slice(0, 6);
 
 const features = [
   { Icon: CameraMapIcon,    t: "精選行程", d: "精心規劃經典路線\n探索每一個值得收藏的角落" },
@@ -52,7 +52,6 @@ const destinations = [
   { img: tourVancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市，舒緩而現代的生活步調。" },
   { img: destWhistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。" },
   { img: tourVictoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園的春日午後。" },
-  { img: destYukon, name: "Yukon", zh: "育空", note: "北方曠野與午夜陽光的盡頭。" },
   { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。" },
 ];
 
@@ -68,40 +67,50 @@ const faqs = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO */}
-      <section className="relative bg-cream overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12 pt-16 md:pt-24 pb-20 md:pb-28">
-          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
+      {/* HERO — editorial 2-polaroid composition */}
+      <section className="relative bg-cream">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12 pt-20 md:pt-28 pb-24 md:pb-36">
+          <div className="grid md:grid-cols-12 gap-14 md:gap-20 items-center">
             <div className="md:col-span-6 order-2 md:order-1">
-              <p className="font-marker text-primary/80 text-base tracking-[0.25em] uppercase">— spring journal</p>
-              <h1 className="font-serif text-[40px] md:text-[60px] leading-[1.15] tracking-tight text-ink mt-6 font-medium">
+              <p className="font-marker text-primary/75 text-[12px] tracking-[0.32em] uppercase">Spring Journal · 2026</p>
+              <h1 className="font-serif text-[42px] md:text-[64px] leading-[1.08] tracking-[-0.015em] text-ink mt-7 font-medium">
                 旅行不只是<br />
                 抵達一個地方，<br />
                 <span className="italic text-primary">而是被光照亮的時刻</span>
               </h1>
-              <p className="mt-8 text-ink/65 leading-[2] text-[15.5px] max-w-md">
+              <p className="mt-9 text-ink/60 leading-[2] text-[15px] max-w-md">
                 小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，
                 收集加拿大山與海之間的每一道光。
               </p>
-              <div className="mt-10 flex flex-wrap items-center gap-5">
-                <Link to="/tours" className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 text-primary-foreground font-medium text-[14.5px] tracking-wide shadow-[0_10px_28px_-12px_oklch(0.585_0.04_155/0.7)] hover:bg-primary/90 transition">
-                  探索所有行程 <span aria-hidden>→</span>
+              <div className="mt-12 flex flex-wrap items-center gap-6">
+                <Link to="/tours" className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 text-primary-foreground font-medium text-[14px] tracking-[0.08em] uppercase shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] hover:bg-primary/90 transition">
+                  探索行程 <span aria-hidden>→</span>
                 </Link>
-                <Link to="/reviews" className="text-ink/70 text-[14px] underline decoration-primary/40 underline-offset-[6px] hover:text-primary transition">
-                  讀讀旅人故事 →
+                <Link to="/reviews" className="text-ink/65 text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition">
+                  Travellers' Stories →
                 </Link>
               </div>
             </div>
 
             <div className="md:col-span-6 order-1 md:order-2 relative">
-              <div className="relative">
-                <div className="absolute -top-6 -left-4 md:-left-8 w-32 h-32 rounded-full opacity-60 blur-2xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
-                <div className="absolute -bottom-8 -right-4 w-40 h-40 rounded-full opacity-50 blur-2xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <PlaneTrailIcon size={70} className="absolute -top-6 right-2 text-accent/70 rotate-[-8deg] hidden md:block" />
-                <figure className="relative polaroid rotate-[2deg] max-w-[460px] ml-auto">
-                  <span className="tape -top-4 left-10 rotate-[-8deg]" aria-hidden />
-                  <img src={tourBanff} alt="Mountain reflection at golden hour" className="h-[320px] md:h-[420px] w-full object-cover" width={800} height={600} />
-                  <figcaption className="font-marker text-ink/80 text-base mt-4 text-center">一起出發吧 ✦</figcaption>
+              <div className="relative h-[440px] md:h-[560px] mx-auto max-w-[520px]">
+                {/* soft ambient glow */}
+                <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
+                <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
+
+                {/* paper airplane — fully visible, no clip */}
+                <PlaneTrailIcon size={84} className="absolute -top-6 -right-2 text-primary/40 rotate-[-10deg] hidden md:block z-20" />
+
+                {/* Polaroid 1 — back */}
+                <figure className="polaroid absolute top-2 left-0 md:left-4 w-[60%] rotate-[-5deg] z-10">
+                  <img src={tourBanff} alt="Mountain reflection at golden hour" className="aspect-square w-full object-cover" />
+                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Banff · 06:42</figcaption>
+                </figure>
+
+                {/* Polaroid 2 — front, overlapping */}
+                <figure className="polaroid absolute bottom-0 right-0 md:right-4 w-[60%] rotate-[4deg] z-20">
+                  <img src={tourAurora} alt="Aurora over still lake" className="aspect-square w-full object-cover" />
+                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Yukon · 23:18</figcaption>
                 </figure>
               </div>
             </div>
