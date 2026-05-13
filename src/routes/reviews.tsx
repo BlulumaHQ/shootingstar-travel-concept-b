@@ -5,6 +5,7 @@ import { Star, Heart } from "lucide-react";
 import { tours } from "@/data/tours";
 import { reviews } from "@/data/reviews";
 import { ReviewCard } from "@/components/site/ReviewCard";
+import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
