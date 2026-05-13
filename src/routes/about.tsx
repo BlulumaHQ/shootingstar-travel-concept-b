@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import journal from "@/assets/about-collage.png";
-import tourBanff from "@/assets/tour-banff.jpg";
-import tourRockies from "@/assets/tour-rockies.jpg";
+import tourBanff from "@/assets/tour-banff.webp";
+import tourRockies from "@/assets/tour-rockies.webp";
 import { CompassMark, StarMark, MountainMark, PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { useLocale, type Locale } from "@/i18n/locale";
 

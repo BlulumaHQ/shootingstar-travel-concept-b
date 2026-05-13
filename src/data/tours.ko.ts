@@ -1,11 +1,11 @@
 // Korean tour data — machine-translated placeholder copy. Replace with final Korean copy when ready.
-import tourBanff from "@/assets/tour-banff.jpg";
-import tourRockies from "@/assets/tour-rockies.jpg";
-import tourAurora from "@/assets/tour-aurora.jpg";
-import tourVancouver from "@/assets/tour-vancouver.jpg";
-import tourVictoria from "@/assets/tour-victoria.jpg";
-import tourPrivate from "@/assets/tour-private.jpg";
-import tourIcefield from "@/assets/tour-icefield.jpg";
+import tourBanff from "@/assets/tour-banff.webp";
+import tourRockies from "@/assets/tour-rockies.webp";
+import tourAurora from "@/assets/tour-aurora.webp";
+import tourVancouver from "@/assets/tour-vancouver.webp";
+import tourVictoria from "@/assets/tour-victoria.webp";
+import tourPrivate from "@/assets/tour-private.webp";
+import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import type { Tour } from "./tours";
 

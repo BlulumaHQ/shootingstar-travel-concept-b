@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import banff from "@/assets/tour-banff.jpg";
+import banff from "@/assets/tour-banff.webp";
 import jasper from "@/assets/dest-jasper.jpg";
-import vancouver from "@/assets/tour-vancouver.jpg";
-import whistler from "@/assets/dest-whistler.jpg";
-import victoria from "@/assets/tour-victoria.jpg";
-import yukon from "@/assets/dest-yukon.jpg";
-import aurora from "@/assets/tour-aurora.jpg";
+import vancouver from "@/assets/tour-vancouver.webp";
+import whistler from "@/assets/dest-whistler.webp";
+import victoria from "@/assets/tour-victoria.webp";
+import yukon from "@/assets/dest-yukon.webp";
+import aurora from "@/assets/tour-aurora.webp";
 import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/destinations")({

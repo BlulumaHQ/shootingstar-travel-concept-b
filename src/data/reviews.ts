@@ -1,16 +1,16 @@
 import g1 from "@/assets/guest-1.jpg";
 import g2 from "@/assets/guest-2.jpg";
 import g3 from "@/assets/guest-3.jpg";
-import tourBanff from "@/assets/tour-banff.jpg";
-import tourRockies from "@/assets/tour-rockies.jpg";
-import tourAurora from "@/assets/tour-aurora.jpg";
-import tourIcefield from "@/assets/tour-icefield.jpg";
-import tourVancouver from "@/assets/tour-vancouver.jpg";
-import tourVictoria from "@/assets/tour-victoria.jpg";
+import tourBanff from "@/assets/tour-banff.webp";
+import tourRockies from "@/assets/tour-rockies.webp";
+import tourAurora from "@/assets/tour-aurora.webp";
+import tourIcefield from "@/assets/tour-icefield.webp";
+import tourVancouver from "@/assets/tour-vancouver.webp";
+import tourVictoria from "@/assets/tour-victoria.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destJasper from "@/assets/dest-jasper.jpg";
-import destWhistler from "@/assets/dest-whistler.jpg";
-import destYukon from "@/assets/dest-yukon.jpg";
+import destWhistler from "@/assets/dest-whistler.webp";
+import destYukon from "@/assets/dest-yukon.webp";
 import type { Review } from "@/components/site/ReviewCard";
 
 export const reviews: Review[] = [
