@@ -104,7 +104,7 @@ function BookingWidget({ defaultSlug }: { defaultSlug: string }) {
 }
 
 function TourDetailPage() {
-  const { tour } = Route.useLoaderData();
+  const { tour } = Route.useLoaderData() as { tour: NonNullable<ReturnType<typeof getTour>> };
 
   return (
     <SiteLayout>
