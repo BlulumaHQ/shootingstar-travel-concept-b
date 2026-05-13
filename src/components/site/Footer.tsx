@@ -63,11 +63,11 @@ export function Footer() {
           "linear-gradient(180deg, oklch(0.55 0.03 155) 0%, oklch(0.49 0.025 155) 100%)",
       }}
     >
-      <div className="relative mx-auto max-w-[1200px] px-6 md:px-12 pt-20 md:pt-28 pb-12 md:pb-16">
+      <div className="relative mx-auto max-w-[1200px] px-6 md:px-12 pt-28 md:pt-40 pb-14 md:pb-20">
         {/* Closing line */}
-        <div className="text-center mb-14 md:mb-20">
-          <p className="font-marker text-cream/70 text-[13px] md:text-base tracking-[0.3em] uppercase">— bon voyage</p>
-          <h3 className="font-serif text-2xl md:text-4xl mt-4 md:mt-5 leading-[1.4] text-cream font-light">
+        <div className="text-center mb-20 md:mb-28">
+          <p className="text-cream/65 text-[11px] tracking-[0.4em] uppercase">— bon voyage</p>
+          <h3 className="font-serif text-2xl md:text-[40px] mt-6 md:mt-7 leading-[1.35] text-cream font-light tracking-[-0.01em]">
             願每一段旅程，<br />都成為你最珍藏的時光。
           </h3>
         </div>
