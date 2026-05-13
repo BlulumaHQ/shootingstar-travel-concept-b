@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ZhRouteImport } from './routes/zh'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReviewsRouteImport } from './routes/reviews'
@@ -19,9 +20,15 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ZhIndexRouteImport } from './routes/zh/index'
 import { Route as ToursIndexRouteImport } from './routes/tours.index'
 import { Route as ToursSlugRouteImport } from './routes/tours.$slug'
 
+const ZhRoute = ZhRouteImport.update({
+  id: '/zh',
+  path: '/zh',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
@@ -72,6 +79,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZhIndexRoute = ZhIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ZhRoute,
+} as any)
 const ToursIndexRoute = ToursIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -94,8 +106,10 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/zh': typeof ZhRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
   '/tours/': typeof ToursIndexRoute
+  '/zh/': typeof ZhIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -109,6 +123,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/tours': typeof ToursIndexRoute
+  '/zh': typeof ZhIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -122,8 +137,10 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/zh': typeof ZhRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
   '/tours/': typeof ToursIndexRoute
+  '/zh/': typeof ZhIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -138,8 +155,10 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/terms'
     | '/tours'
+    | '/zh'
     | '/tours/$slug'
     | '/tours/'
+    | '/zh/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -153,6 +172,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/tours/$slug'
     | '/tours'
+    | '/zh'
   id:
     | '__root__'
     | '/'
@@ -165,8 +185,10 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/terms'
     | '/tours'
+    | '/zh'
     | '/tours/$slug'
     | '/tours/'
+    | '/zh/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,10 +202,18 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
+  ZhRoute: typeof ZhRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/zh': {
+      id: '/zh'
+      path: '/zh'
+      fullPath: '/zh'
+      preLoaderRoute: typeof ZhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tours': {
       id: '/tours'
       path: '/tours'
@@ -254,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zh/': {
+      id: '/zh/'
+      path: '/'
+      fullPath: '/zh/'
+      preLoaderRoute: typeof ZhIndexRouteImport
+      parentRoute: typeof ZhRoute
+    }
     '/tours/': {
       id: '/tours/'
       path: '/'
@@ -283,6 +320,16 @@ const ToursRouteChildren: ToursRouteChildren = {
 
 const ToursRouteWithChildren = ToursRoute._addFileChildren(ToursRouteChildren)
 
+interface ZhRouteChildren {
+  ZhIndexRoute: typeof ZhIndexRoute
+}
+
+const ZhRouteChildren: ZhRouteChildren = {
+  ZhIndexRoute: ZhIndexRoute,
+}
+
+const ZhRouteWithChildren = ZhRoute._addFileChildren(ZhRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -294,7 +341,18 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
+  ZhRoute: ZhRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
