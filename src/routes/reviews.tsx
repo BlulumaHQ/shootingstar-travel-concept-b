@@ -94,15 +94,15 @@ function ReviewsPage() {
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
-      <section className="bg-cream pb-24 md:pb-28">
+      <section className="bg-cream pb-32 md:pb-40 pt-8">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {reviews.map((r, i) => <ReviewCard key={i} r={r} />)}
           </div>
 
-          <div className="mt-14 text-center">
-            <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-primary/50 text-primary px-8 py-3 text-sm hover:bg-primary hover:text-primary-foreground transition">
-              <Heart size={14} /> 分享我的旅程
+          <div className="mt-20 text-center">
+            <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full border border-primary/40 text-primary px-8 py-3 text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
+              <Heart size={13} strokeWidth={1.6} /> 分享我的旅程
             </button>
           </div>
         </div>
