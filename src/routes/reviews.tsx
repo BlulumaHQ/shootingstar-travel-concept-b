@@ -70,21 +70,28 @@ function ReviewsPage() {
   const [open, setOpen] = useState(false);
   return (
     <SiteLayout>
-      <section className="bg-cream pt-16 md:pt-24 pb-12">
-        <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <section className="relative bg-cream pt-24 md:pt-32 pb-16 overflow-hidden">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div>
-              <p className="font-marker text-primary/80 text-sm tracking-[0.3em] uppercase">— traveller voices</p>
-              <h1 className="font-serif text-4xl md:text-5xl text-ink mt-3 font-medium">旅客分享</h1>
-              <p className="mt-5 text-ink/65 max-w-xl leading-[2] text-[15px]">
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={18} className="text-primary/65" />
+                <DottedLine length={36} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Travellers' Voices</span>
+              </div>
+              <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
+                旅客分享
+              </h1>
+              <p className="mt-7 text-ink/60 max-w-xl leading-[2] text-[15px]">
                 每段旅程都是旅人寫下的真實故事。歡迎分享你的回憶，讓下一位旅人因為你而出發。
               </p>
             </div>
-            <button onClick={() => setOpen(true)} className="self-start md:self-end inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[14px] hover:bg-primary/90 transition">
-              <Heart size={14} /> 分享我的旅程
+            <button onClick={() => setOpen(true)} className="self-start md:self-end inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]">
+              <Heart size={13} strokeWidth={1.6} /> 分享我的旅程
             </button>
           </div>
         </div>
+        <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
       <section className="bg-cream pb-24 md:pb-28">
