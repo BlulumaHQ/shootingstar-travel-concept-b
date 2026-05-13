@@ -1,4 +1,4 @@
-import type { Locale } from "./locale";
+import { useLocale, type Locale } from "./locale";
 
 type Dict = Record<string, Record<Locale, string>>;
 
@@ -111,9 +111,6 @@ export const dict: Dict = {
 };
 
 export function useT() {
-  // imported separately to avoid circular
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { useLocale } = require("./locale") as typeof import("./locale");
   const locale = useLocale();
   return (key: keyof typeof dict): string => dict[key]?.[locale] ?? dict[key]?.en ?? key;
 }
