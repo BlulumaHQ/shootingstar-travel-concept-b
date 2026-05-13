@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import headerPaper from "@/assets/header-paper.png";
+import headerEdge from "@/assets/header-edge.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -22,14 +23,21 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 backdrop-blur-md border-b border-border/60 bg-cream/90"
+      className="sticky top-0 z-50 backdrop-blur-md bg-cream/95"
       style={{
         backgroundImage: `url(${headerPaper})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundSize: "100% 100%",
+        backgroundPosition: "top",
         backgroundRepeat: "no-repeat",
       }}
     >
+      {/* torn paper bottom edge — hangs below header */}
+      <img
+        src={headerEdge}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute left-0 right-0 -bottom-5 md:-bottom-7 w-full h-[28px] md:h-[40px] object-cover object-bottom select-none drop-shadow-[0_4px_6px_rgba(60,60,60,0.06)]"
+      />
       <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-0">
         <Link to="/" className="flex items-center -my-3">
           <img src={logo} alt="Shootingstar Travel" className="h-[120px] md:h-[150px] w-auto" />
