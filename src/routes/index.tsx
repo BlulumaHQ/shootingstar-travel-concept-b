@@ -221,10 +221,17 @@ function HomePage() {
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
           <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-6 relative">
-              <img src={journal} alt="Travel journal" loading="lazy" className="rounded-[4px] shadow-[0_30px_60px_-30px_rgba(60,80,70,0.4)] w-full" />
+              <div className="relative">
+                <img src={journal} alt="Shooting Star travel collage" loading="lazy" className="rounded-[4px] shadow-[0_30px_60px_-30px_rgba(60,80,70,0.4)] w-full" />
+                {/* Logo sticker — bottom-left of main collage */}
+                <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-10 w-[26%] md:w-[22%] rotate-[-8deg] pointer-events-none">
+                  <div className="bg-white p-2 md:p-3 rounded-full shadow-[0_12px_28px_-10px_rgba(60,80,70,0.45)] ring-1 ring-black/5">
+                    <img src={logoSeal} alt="Shooting Star Travel" className="w-full h-auto rounded-full" />
+                  </div>
+                </div>
+              </div>
               <div className="hidden md:block absolute -bottom-10 -right-6 w-[42%]">
                 <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
-                <img src={logoSeal} alt="" aria-hidden="true" loading="lazy" className="absolute -bottom-6 -left-8 w-[40%] rotate-[-8deg] drop-shadow-[0_8px_16px_rgba(60,80,70,0.25)] opacity-95 mix-blend-multiply pointer-events-none" />
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
