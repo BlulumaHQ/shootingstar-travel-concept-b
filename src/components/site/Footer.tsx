@@ -3,30 +3,35 @@ import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
-    <footer
-      className="relative text-cream"
-      style={{
-        backgroundImage:
-          "linear-gradient(180deg, oklch(0.22 0.025 50) 0%, oklch(0.17 0.022 50) 100%)",
-      }}
-    >
-      {/* torn paper top edge */}
+    <footer className="relative text-cream">
+      {/* torn paper top edge — masks the dark footer top into an irregular tear */}
       <div
-        className="absolute -top-[1px] left-0 right-0 h-4 bg-cream"
+        aria-hidden
+        className="relative"
         style={{
+          height: "36px",
+          backgroundImage:
+            "linear-gradient(180deg, oklch(0.20 0.035 45) 0%, oklch(0.18 0.03 45) 100%)",
           WebkitMaskImage:
-            "radial-gradient(circle at 8px 0, transparent 7px, #000 8px)",
+            "radial-gradient(ellipse 14px 10px at 12px 0, transparent 9px, #000 10px)",
           maskImage:
-            "radial-gradient(circle at 8px 0, transparent 7px, #000 8px)",
-          WebkitMaskSize: "16px 16px",
-          maskSize: "16px 16px",
+            "radial-gradient(ellipse 14px 10px at 12px 0, transparent 9px, #000 10px)",
+          WebkitMaskSize: "24px 18px",
+          maskSize: "24px 18px",
           WebkitMaskRepeat: "repeat-x",
           maskRepeat: "repeat-x",
           WebkitMaskPosition: "top",
           maskPosition: "top",
+          filter: "drop-shadow(0 -2px 1px rgba(0,0,0,0.15))",
         }}
-        aria-hidden
       />
+      <div
+        className="relative"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, oklch(0.18 0.03 45) 0%, oklch(0.12 0.022 45) 100%)",
+        }}
+      >
 
       {/* wood grain texture */}
       <div
@@ -38,8 +43,8 @@ export function Footer() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-[1320px] px-6 md:px-12 pt-20 pb-10">
-        <div className="grid gap-12 md:grid-cols-12">
+      <div className="relative mx-auto max-w-[1320px] px-6 md:px-12 pt-28 pb-16">
+        <div className="grid gap-14 md:grid-cols-12">
           {/* brand col */}
           <div className="md:col-span-3">
             <Link to="/" className="flex items-center">
@@ -124,6 +129,7 @@ export function Footer() {
         <div className="mt-14 pt-6 border-t border-cream/12 flex flex-col md:flex-row items-center justify-center gap-2 text-[12px] tracking-wide text-cream/45">
           <p>© 2026 Shootingstar Travel. All Rights Reserved.</p>
         </div>
+      </div>
       </div>
     </footer>
   );

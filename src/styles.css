@@ -36,23 +36,23 @@
   --color-clay: var(--clay);
   --color-ink: var(--ink);
   --color-tape: var(--tape);
-  --font-serif: "Cormorant Garamond", "Noto Serif TC", Georgia, serif;
-  --font-sans: "Inter", "Noto Sans TC", system-ui, sans-serif;
+  --font-serif: "Klee One", "Noto Serif TC", Georgia, serif;
+  --font-sans: "Noto Sans TC", "Inter", system-ui, sans-serif;
   --font-hand: "Caveat", "Patrick Hand", "Klee One", "Noto Sans TC", cursive;
   --font-journal: "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
-  --font-marker: "Gloria Hallelujah", "Kalam", "Klee One", "Noto Sans TC", cursive;
+  --font-marker: "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
 }
 
 :root {
   --radius: 0.5rem;
-  /* Travel journal palette — warm cream, paper beige, forest, muted brown, sage */
-  --cream: oklch(0.972 0.018 85);          /* warm cream */
-  --paper: oklch(0.945 0.025 80);          /* paper beige */
-  --forest: oklch(0.34 0.045 145);         /* deep forest green */
-  --sage: oklch(0.72 0.04 145);            /* soft sage */
-  --clay: oklch(0.52 0.07 55);             /* muted brown */
-  --ink: oklch(0.28 0.025 60);             /* warm ink */
-  --tape: oklch(0.85 0.06 90 / 0.6);       /* masking tape */
+  /* Premium travel journal palette — deep coffee, kraft, vintage cream */
+  --cream: oklch(0.955 0.022 82);          /* #F4EBDD warm cream */
+  --paper: oklch(0.885 0.035 75);          /* #D8C2A4 kraft beige */
+  --forest: oklch(0.36 0.06 50);           /* coffee accent */
+  --sage: oklch(0.62 0.045 70);            /* dusty sage */
+  --clay: oklch(0.42 0.06 45);             /* #6A4632 muted coffee */
+  --ink: oklch(0.22 0.04 40);              /* #2F1C12 deep coffee ink */
+  --tape: oklch(0.82 0.06 85 / 0.55);      /* warm masking tape */
 
   --background: var(--cream);
   --foreground: var(--ink);
@@ -99,7 +99,7 @@
     background-size: 24px 24px, 18px 18px;
     background-position: 0 0, 9px 9px;
   }
-  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-journal); letter-spacing: -0.005em; font-weight: 600; }
 }
 
 @layer utilities {
