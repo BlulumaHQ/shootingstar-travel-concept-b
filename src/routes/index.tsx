@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import hero from "@/assets/hero-mountains.jpg";
-import journal from "@/assets/journal.jpg";
+import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
 import destJasper from "@/assets/dest-jasper.jpg";
 import destWhistler from "@/assets/dest-whistler.jpg";
