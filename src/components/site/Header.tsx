@@ -25,7 +25,7 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
           <span key={l} className="flex items-center gap-2">
             {i > 0 && <span className="text-ink/25">·</span>}
             <Link
-              to={target}
+              to={target as never}
               onClick={onNavigate}
               aria-current={isActive ? "true" : undefined}
               className={
@@ -72,7 +72,7 @@ export function Header() {
     >
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/")} className="flex items-center -my-2" onClick={() => setOpen(false)}>
+          <Link to={localized("/") as never} className="flex items-center -my-2" onClick={() => setOpen(false)}>
             <img src={logo} alt="Shootingstar Travel" className="h-[88px] md:h-[140px] w-auto" />
           </Link>
 
@@ -80,7 +80,7 @@ export function Header() {
             {nav.map((n) => (
               <Link
                 key={n.to + n.label}
-                to={n.to}
+                to={n.to as never}
                 className="relative text-[14.5px] tracking-wide text-ink/75 hover:text-primary transition-colors py-2"
                 activeProps={{ className: "text-primary [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0 [&]:after:left-1 [&]:after:right-1 [&]:after:h-[1.5px] [&]:after:bg-primary/70" }}
                 activeOptions={{ exact: n.to === localized("/") }}
@@ -94,7 +94,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-6">
             <LangSwitcher />
             <Link
-              to={localized("/contact")}
+              to={localized("/contact") as never}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-[13px] tracking-wide text-primary-foreground hover:bg-primary/90 transition shadow-[0_6px_18px_-8px_oklch(0.585_0.04_155/0.6)]"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -142,7 +142,7 @@ export function Header() {
             {nav.map((n, i) => (
               <Link
                 key={n.to + n.label}
-                to={n.to}
+                to={n.to as never}
                 onClick={() => setOpen(false)}
                 className="font-serif text-[26px] text-ink py-4 border-b border-ink/10 tracking-tight"
                 activeProps={{ className: "text-primary" }}
@@ -153,7 +153,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              to={localized("/contact")}
+              to={localized("/contact") as never}
               onClick={() => setOpen(false)}
               className="mt-10 inline-flex justify-center rounded-full bg-primary px-6 py-4 text-[14px] tracking-[0.15em] uppercase text-primary-foreground"
             >
