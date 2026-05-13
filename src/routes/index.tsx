@@ -147,47 +147,44 @@ function HomePage() {
 
 
       {/* FEATURED TOURS — 5 polaroid cards with hearts */}
-      <section className="relative bg-paper pt-12 pb-24">
-        <div className="mx-auto max-w-[1320px] px-6 md:px-12">
-          <div className="flex items-end justify-between mb-10 gap-4">
-            <div className="flex items-end gap-5">
-              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold">熱門行程推薦</h2>
-              <svg className="hidden md:block mb-2 w-24 h-3 text-clay/60" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-                <path d="M2 6 C 30 1, 70 11, 96 5" />
-                <path d="M96 5 l -7 -2 M96 5 l -2 7" />
-              </svg>
+      <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="flex items-end justify-between mb-14 gap-4">
+            <div>
+              <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— featured</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">熱門行程推薦</h2>
             </div>
             <Link
               to="/tours"
-              className="hidden md:inline-flex items-center gap-2 rounded-md bg-[oklch(0.30_0.04_60)] px-5 py-2.5 text-cream text-[13px] tracking-wide hover:bg-[oklch(0.26_0.04_60)] transition"
+              className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] tracking-wide hover:bg-primary hover:text-primary-foreground transition"
             >
               探索所有行程 <span aria-hidden>→</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-7">
             {tours.map((t) => (
               <article
                 key={t.title}
-                className="group relative bg-card rounded-[3px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(60,40,20,0.08),0_18px_36px_-22px_rgba(60,40,20,0.32)] hover:-translate-y-1 hover:rotate-[0.5deg] transition-all duration-500"
+                className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500"
               >
-                <div className="relative aspect-[5/4] overflow-hidden rounded-[2px]">
+                <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
-                  <button aria-label="Save" className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/85 text-clay backdrop-blur-sm hover:bg-cream transition">
+                  <button aria-label="Save" className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/90 text-primary backdrop-blur-sm hover:bg-cream transition">
                     <HeartFill size={13} strokeWidth={1.8} />
                   </button>
                 </div>
                 <div className="px-1 pt-4">
                   <h3 className="font-serif text-[15px] md:text-base text-ink leading-snug font-semibold">{t.title}</h3>
                   <p className="mt-1.5 text-[11.5px] text-ink/55 leading-relaxed">{t.desc}</p>
-                  <p className="mt-3 font-serif text-[13.5px] text-ink font-semibold">{t.price}</p>
+                  <p className="mt-3 font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
                 </div>
               </article>
             ))}
           </div>
 
-          <div className="mt-10 md:hidden text-center">
-            <Link to="/tours" className="inline-flex items-center gap-2 rounded-md bg-[oklch(0.30_0.04_60)] px-5 py-2.5 text-cream text-[13px]">
+          <div className="mt-12 md:hidden text-center">
+            <Link to="/tours" className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-primary-foreground text-[13px]">
               探索所有行程 →
             </Link>
           </div>
@@ -195,14 +192,11 @@ function HomePage() {
       </section>
 
       {/* GUEST STORIES — 4 polaroid testimonials */}
-      <section className="relative bg-paper pb-28">
-        <div className="mx-auto max-w-[1320px] px-6 md:px-12">
-          <div className="flex items-center gap-4 mb-10">
-            <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold">旅客真實分享</h2>
-            <svg className="hidden md:block w-24 h-3 text-clay/60" viewBox="0 0 100 12" preserveAspectRatio="none" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
-              <path d="M2 6 C 30 1, 70 11, 96 5" />
-              <path d="M96 5 l -7 -2 M96 5 l -2 7" />
-            </svg>
+      <section className="relative bg-[var(--sand)] py-24 md:py-28">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="mb-14">
+            <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— travellers</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">旅客真實分享</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
