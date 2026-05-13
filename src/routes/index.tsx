@@ -353,18 +353,20 @@ function HomePage() {
         className="relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)" }}
       >
-        {/* subtle doodle flight path */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.18] pointer-events-none" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden>
-          <path d="M -20 220 Q 300 80 600 160 T 1220 100" fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="2 8" className="text-ink" />
-        </svg>
-        <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-16 md:py-24 relative">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+        {/* unified journey path */}
+        <JourneyPath className="absolute inset-0 w-full h-full text-ink/30 opacity-60 pointer-events-none" variant="long" />
+        <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-24 md:py-32 relative">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-7">
-              <p className="font-marker text-ink/70 text-sm tracking-[0.3em] uppercase">— and so the journey begins</p>
-              <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-4 leading-[1.15] tracking-tight font-medium">
+              <div className="flex items-center gap-3 text-ink/65">
+                <MountainMark size={20} className="text-ink/55" />
+                <DottedLine length={32} className="text-ink/35" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">And the journey begins</span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.1] tracking-[-0.015em] font-medium">
                 下一趟旅程，<br />從這裡開始。
               </h2>
-              <p className="mt-6 text-ink/70 leading-[2] text-[15px] max-w-lg">
+              <p className="mt-7 text-ink/70 leading-[2] text-[15px] max-w-lg">
                 告訴我們你想去的地方，我們會協助你找到最適合的行程。
               </p>
             </div>
