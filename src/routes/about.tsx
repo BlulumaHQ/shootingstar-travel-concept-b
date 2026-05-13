@@ -4,6 +4,7 @@ import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
 import tourRockies from "@/assets/tour-rockies.jpg";
 import tourAurora from "@/assets/tour-aurora.jpg";
+import { CompassMark, StarMark, MountainMark, PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -30,16 +31,21 @@ function AboutPage() {
   return (
     <SiteLayout>
       {/* HERO */}
-      <section className="bg-cream">
-        <div className="mx-auto max-w-[1200px] px-6 md:px-12 pt-16 md:pt-24 pb-12">
-          <p className="font-marker text-primary/80 text-sm tracking-[0.3em] uppercase">— about us</p>
-          <h1 className="font-serif text-4xl md:text-6xl text-ink mt-3 font-medium leading-[1.15] max-w-3xl">
+      <section className="relative bg-cream">
+        <div className="mx-auto max-w-[1200px] px-6 md:px-12 pt-24 md:pt-36 pb-16 md:pb-20">
+          <div className="flex items-center gap-3 text-primary/75">
+            <CompassMark size={20} className="text-primary/65" />
+            <DottedLine length={36} className="text-primary/45" />
+            <span className="text-[11px] tracking-[0.4em] uppercase">About the Studio</span>
+          </div>
+          <h1 className="font-serif text-4xl md:text-[64px] text-ink mt-7 font-medium leading-[1.1] tracking-[-0.018em] max-w-3xl">
             關於 <span className="italic text-primary">Shooting Star Travel</span>
           </h1>
-          <p className="mt-6 text-ink/70 max-w-2xl leading-[2] text-[16px]">
+          <p className="mt-8 text-ink/65 max-w-2xl leading-[2] text-[15.5px]">
             用心規劃每一段旅程，讓旅行不只是到達目的地，而是留下值得收藏的回憶。
           </p>
         </div>
+        <JourneyPath className="absolute bottom-0 left-0 right-0 w-full h-24 text-primary/30 pointer-events-none" variant="long" />
       </section>
 
       {/* STORY — editorial collage left, text right */}
@@ -54,9 +60,12 @@ function AboutPage() {
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
-              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— our story</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 font-medium">為旅人寫下值得收藏的時光</h2>
-              <div className="mt-5 h-px w-12 bg-primary/40" />
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={16} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Our Story</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium tracking-[-0.012em] leading-[1.18]">為旅人寫下值得收藏的時光</h2>
               <div className="mt-7 space-y-5 text-ink/75 leading-[2] text-[15px]">
                 <p>
                   Shooting Star Travel 專注於加拿大在地旅遊體驗，為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。
@@ -81,10 +90,14 @@ function AboutPage() {
       {/* VALUES */}
       <section className="bg-[var(--sand)] py-20 md:py-28">
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="max-w-xl mb-14">
-            <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— what we believe</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 font-medium">我們的旅行哲學</h2>
-            <p className="mt-5 text-ink/65 leading-[2] text-[15px]">五個我們在意的事，串起每一次出發。</p>
+          <div className="max-w-xl mb-20">
+            <div className="flex items-center gap-3 text-primary/75">
+              <MountainMark size={20} className="text-primary/65" />
+              <DottedLine length={32} className="text-primary/45" />
+              <span className="text-[11px] tracking-[0.4em] uppercase">What We Believe</span>
+            </div>
+            <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium tracking-[-0.012em]">我們的旅行哲學</h2>
+            <p className="mt-6 text-ink/60 leading-[2] text-[15px]">五個我們在意的事，串起每一次出發。</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
             {values.map((v, i) => (
@@ -100,10 +113,16 @@ function AboutPage() {
       </section>
 
       {/* WHO WE SERVE */}
-      <section className="bg-cream py-24 md:py-28">
+      <section className="bg-cream py-28 md:py-36">
         <div className="mx-auto max-w-[1100px] px-6 md:px-12 text-center">
-          <p className="font-marker text-primary/80 text-sm tracking-[0.3em] uppercase">— who we travel with</p>
-          <h2 className="font-serif text-3xl md:text-4xl text-ink mt-4 font-medium">為這些旅人而設計</h2>
+          <div className="flex items-center justify-center gap-3 text-primary/75">
+            <DottedLine length={24} className="text-primary/45" />
+            <PinMark size={18} className="text-primary/65" />
+            <span className="text-[11px] tracking-[0.4em] uppercase">Who We Travel With</span>
+            <PinMark size={18} className="text-primary/65" />
+            <DottedLine length={24} className="text-primary/45" />
+          </div>
+          <h2 className="font-serif text-3xl md:text-[44px] text-ink mt-7 font-medium tracking-[-0.012em]">為這些旅人而設計</h2>
           <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-2xl mx-auto">
             無論你是第一次來加拿大、想一家人慢慢走、或是希望能用母語放心溝通——
             我們都用同樣的用心，準備一段屬於你的旅程。

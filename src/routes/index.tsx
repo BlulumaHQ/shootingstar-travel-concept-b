@@ -19,6 +19,7 @@ import { ReviewCard } from "@/components/site/ReviewCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon, PlaneTrailIcon,
 } from "@/components/site/DoodleIcons";
+import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -136,13 +137,17 @@ function HomePage() {
       {/* FEATURED TOURS */}
       <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-end justify-between mb-14 gap-4">
+          <div className="flex items-end justify-between mb-16 gap-4">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— featured</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">精選行程</h2>
+              <div className="flex items-center gap-3 text-primary/75">
+                <BusMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Featured Journeys</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">精選行程</h2>
             </div>
-            <Link to="/tours" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] tracking-wide hover:bg-primary hover:text-primary-foreground transition">
-              探索所有行程 <span aria-hidden>→</span>
+            <Link to="/tours" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
+              View all <span aria-hidden>→</span>
             </Link>
           </div>
 
@@ -183,14 +188,18 @@ function HomePage() {
       {/* GUEST STORIES — 旅客分享 */}
       <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-end justify-between gap-4 mb-12">
+          <div className="flex items-end justify-between gap-4 mb-14">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— travellers</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">旅客分享</h2>
-              <p className="mt-3 text-ink/55 text-[13.5px]">真實旅人寫下的小小回憶 ✦</p>
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Travellers' Words</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">旅客分享</h2>
+              <p className="mt-4 text-ink/55 text-[13.5px] leading-[2]">真實旅人寫下的小小回憶。</p>
             </div>
-            <Link to="/reviews" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] hover:bg-primary hover:text-primary-foreground transition">
-              更多分享 →
+            <Link to="/reviews" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
+              More stories →
             </Link>
           </div>
         </div>
@@ -248,9 +257,12 @@ function HomePage() {
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
-              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— about us</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 font-medium">關於 Shooting Star Travel</h2>
-              <div className="mt-5 h-px w-12 bg-primary/40" />
+              <div className="flex items-center gap-3 text-primary/75">
+                <CompassMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">About the Studio</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium leading-[1.18] tracking-[-0.012em]">關於 Shooting Star Travel</h2>
               <p className="mt-7 text-ink/70 leading-[2] text-[15px]">
                 用心規劃每一段旅程，讓旅行不只是到達目的地，而是留下值得收藏的回憶。
               </p>
@@ -269,9 +281,15 @@ function HomePage() {
       {/* DESTINATIONS — fixed 3-col grid */}
       <section className="relative bg-[var(--sand)] py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="text-center mb-16 md:mb-20">
-            <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— a collection of places</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-4 leading-[1.2] tracking-tight font-medium">
+          <div className="text-center mb-20 md:mb-24">
+            <div className="flex items-center justify-center gap-3 text-primary/75">
+              <DottedLine length={24} className="text-primary/45" />
+              <PinMark size={18} className="text-primary/65" />
+              <span className="text-[11px] tracking-[0.4em] uppercase">A Collection of Places</span>
+              <PinMark size={18} className="text-primary/65" />
+              <DottedLine length={24} className="text-primary/45" />
+            </div>
+            <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-6 leading-[1.15] tracking-[-0.015em] font-medium">
               值得收藏的<span className="italic text-primary">每一處風景</span>
             </h2>
             <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">
@@ -296,30 +314,34 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FAQ — compact 2-col */}
+      {/* FAQ — luxury negative space */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-20 md:py-24">
-          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-28 md:py-36">
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 tracking-tight font-medium">常見問題</h2>
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={16} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Frequently Asked</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 tracking-[-0.012em] font-medium">常見問題</h2>
             </div>
-            <Link to="/faq" className="text-primary text-[13.5px] underline decoration-primary/40 underline-offset-[6px] hover:decoration-primary">
-              查看更多常見問題 →
+            <Link to="/faq" className="text-primary text-[12px] tracking-[0.18em] uppercase underline decoration-primary/40 underline-offset-[8px] hover:decoration-primary">
+              View all FAQs →
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-10 gap-y-2">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-3">
             {faqs.map((f, i) => (
               <details
                 key={f.q}
                 open={i === 0}
-                className="group border-b border-accent/40 py-4 open:pb-5"
+                className="group border-b border-primary/15 py-6 open:pb-7"
               >
                 <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[15.5px] text-ink leading-snug">{f.q}</span>
+                  <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
                   <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
                 </summary>
-                <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
+                <p className="mt-4 text-ink/60 leading-[2] text-[14px]">{f.a}</p>
               </details>
             ))}
           </div>
@@ -331,18 +353,20 @@ function HomePage() {
         className="relative overflow-hidden"
         style={{ background: "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)" }}
       >
-        {/* subtle doodle flight path */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.18] pointer-events-none" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden>
-          <path d="M -20 220 Q 300 80 600 160 T 1220 100" fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="2 8" className="text-ink" />
-        </svg>
-        <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-16 md:py-24 relative">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+        {/* unified journey path */}
+        <JourneyPath className="absolute inset-0 w-full h-full text-ink/30 opacity-60 pointer-events-none" variant="long" />
+        <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-24 md:py-32 relative">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-7">
-              <p className="font-marker text-ink/70 text-sm tracking-[0.3em] uppercase">— and so the journey begins</p>
-              <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-4 leading-[1.15] tracking-tight font-medium">
+              <div className="flex items-center gap-3 text-ink/65">
+                <MountainMark size={20} className="text-ink/55" />
+                <DottedLine length={32} className="text-ink/35" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">And the journey begins</span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.1] tracking-[-0.015em] font-medium">
                 下一趟旅程，<br />從這裡開始。
               </h2>
-              <p className="mt-6 text-ink/70 leading-[2] text-[15px] max-w-lg">
+              <p className="mt-7 text-ink/70 leading-[2] text-[15px] max-w-lg">
                 告訴我們你想去的地方，我們會協助你找到最適合的行程。
               </p>
             </div>

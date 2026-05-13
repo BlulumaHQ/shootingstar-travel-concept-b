@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
+import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
@@ -63,45 +64,51 @@ function FaqPage() {
   return (
     <SiteLayout>
       <section className="bg-cream">
-        <div className="mx-auto max-w-[920px] px-6 md:px-10 pt-16 md:pt-24 pb-12 text-center">
-          <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-ink mt-4 tracking-tight font-medium">常見問題</h1>
-          <p className="mt-5 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">
-            出發之前，旅人們最常問我們的事 ✦
+        <div className="mx-auto max-w-[920px] px-6 md:px-10 pt-24 md:pt-36 pb-16 text-center">
+          <div className="flex items-center justify-center gap-3 text-primary/75">
+            <DottedLine length={28} className="text-primary/45" />
+            <StarMark size={18} className="text-primary/65" />
+            <span className="text-[11px] tracking-[0.4em] uppercase">Frequently Asked</span>
+            <StarMark size={18} className="text-primary/65" />
+            <DottedLine length={28} className="text-primary/45" />
+          </div>
+          <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-7 tracking-[-0.015em] font-medium leading-[1.1]">常見問題</h1>
+          <p className="mt-7 text-ink/60 leading-[2] text-[15px] max-w-xl mx-auto">
+            出發之前，旅人們最常問我們的事。
           </p>
         </div>
       </section>
 
-      <section className="bg-cream pb-24">
-        <div className="mx-auto max-w-[920px] px-6 md:px-10 space-y-14">
+      <section className="bg-cream pb-32 md:pb-40">
+        <div className="mx-auto max-w-[920px] px-6 md:px-10 space-y-20">
           {groups.map((g) => (
             <div key={g.title}>
-              <div className="flex items-baseline gap-3 mb-5">
-                <h2 className="font-serif text-2xl text-ink font-semibold">{g.title}</h2>
-                <span className="h-px flex-1 bg-accent/40" />
+              <div className="flex items-baseline gap-4 mb-7">
+                <span className="text-[11px] tracking-[0.4em] uppercase text-primary/70">{g.title}</span>
+                <span className="h-px flex-1 bg-primary/20" />
               </div>
               <div className="space-y-1">
                 {g.items.map((it, i) => (
                   <details
                     key={it.q}
                     open={i === 0}
-                    className="group border-b border-accent/40 py-4 open:pb-5"
+                    className="group border-b border-primary/15 py-6 open:pb-7"
                   >
                     <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                      <span className="font-serif text-[15.5px] text-ink leading-snug">{it.q}</span>
+                      <span className="font-serif text-[16px] text-ink leading-snug">{it.q}</span>
                       <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
                     </summary>
-                    <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{it.a}</p>
+                    <p className="mt-4 text-ink/60 leading-[2] text-[14px]">{it.a}</p>
                   </details>
                 ))}
               </div>
             </div>
           ))}
 
-          <div className="text-center pt-6">
-            <p className="text-ink/65 text-[14px] mb-5">沒有找到你的問題？</p>
-            <Link to="/contact" className="inline-flex rounded-full bg-primary text-primary-foreground px-7 py-3 text-sm hover:bg-primary/90 transition">
-              聯絡我們 →
+          <div className="text-center pt-10">
+            <p className="text-ink/60 text-[14px] mb-6">沒有找到你的問題？</p>
+            <Link to="/contact" className="inline-flex rounded-full bg-primary text-primary-foreground px-8 py-3.5 text-[12.5px] tracking-[0.18em] uppercase hover:bg-primary/90 transition">
+              Contact Us →
             </Link>
           </div>
         </div>
