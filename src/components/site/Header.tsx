@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
+import headerPaper from "@/assets/header-paper.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -20,7 +21,15 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-border/60">
+    <header
+      className="sticky top-0 z-50 backdrop-blur-md border-b border-border/60 bg-cream/90"
+      style={{
+        backgroundImage: `url(${headerPaper})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-0">
         <Link to="/" className="flex items-center -my-3">
           <img src={logo} alt="Shootingstar Travel" className="h-[120px] md:h-[150px] w-auto" />
