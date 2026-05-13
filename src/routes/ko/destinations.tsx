@@ -12,5 +12,5 @@ export const Route = createFileRoute("/ko/destinations")({
     ],
     links: hreflangLinks("/destinations", "ko"),
   }),
-  component: DestinationsPage,
+  component: DestPage,
 });
