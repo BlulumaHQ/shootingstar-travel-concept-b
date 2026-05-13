@@ -27,14 +27,22 @@ import { PlaneJourney } from "@/components/site/PlaneJourney";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { name: "description", content: "探索加拿大最值得收藏的旅程。Shootingstar Travel 提供小團旅行、洛磯山、班夫、極光與溫哥華深度旅遊體驗。" },
-      { property: "og:title", content: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { property: "og:description", content: "加拿大小團精緻旅遊・洛磯山・班夫・極光・溫哥華深度體驗。" },
+      { title: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
+      { name: "description", content: "Boutique small-group travel across Canada — Rocky Mountains, Banff, Aurora, Vancouver and beyond. Curated journeys, attentive service." },
+      { property: "og:title", content: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
+      { property: "og:description", content: "Curated small-group journeys across Canada — Rockies, Banff, Aurora, Vancouver." },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_CA" },
       { property: "og:image", content: hero },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: hero },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+      { rel: "alternate", hrefLang: "en", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+      { rel: "alternate", hrefLang: "zh-Hant", href: "https://shootingstar-travel-concept-b.lovable.app/zh" },
+      { rel: "alternate", hrefLang: "ko", href: "https://shootingstar-travel-concept-b.lovable.app/ko" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://shootingstar-travel-concept-b.lovable.app/" },
     ],
   }),
   component: HomePage,
