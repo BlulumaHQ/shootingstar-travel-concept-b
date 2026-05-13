@@ -10,10 +10,10 @@ import tourVancouver from "@/assets/tour-vancouver.jpg";
 import tourVictoria from "@/assets/tour-victoria.jpg";
 import tourAurora from "@/assets/tour-aurora.jpg";
 import guest1 from "@/assets/guest-1.jpg";
-import guest2 from "@/assets/guest-2.jpg";
-import guest3 from "@/assets/guest-3.jpg";
-import { Star, Heart as HeartFill } from "lucide-react";
+import { Heart as HeartFill } from "lucide-react";
 import { tours as allTours } from "@/data/tours";
+import { reviews as allReviews } from "@/data/reviews";
+import { ReviewCard } from "@/components/site/ReviewCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon, PlaneTrailIcon,
 } from "@/components/site/DoodleIcons";
@@ -54,11 +54,6 @@ const destinations = [
   { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。" },
 ];
 
-const stories = [
-  { img: guest1, name: "小美", tour: "落磯山經典團", quote: "導遊非常專業又貼心，景色美到讓人屏息，已經推薦給朋友們了！", rating: 5 },
-  { img: guest2, name: "阿哲", tour: "溫哥華市區深度遊", quote: "行程安排很順，時間抓得剛剛好，不會太趕也不會無聊，下次還想再參加！", rating: 5 },
-  { img: guest3, name: "Rachel", tour: "極光追蹤之旅", quote: "極光之旅超級感動！工作人員很用心，整趟旅程都非常難忘。", rating: 5 },
-];
 
 const faqs = [
   { q: "如何報名？", a: "您可以透過聯絡我們頁面填寫表單，或直接以 WhatsApp、KakaoTalk、WeChat 與我們聯繫，將會有專人於 24 小時內回覆。" },
