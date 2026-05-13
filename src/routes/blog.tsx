@@ -7,6 +7,7 @@ import aurora from "@/assets/tour-aurora.jpg";
 import jasper from "@/assets/dest-jasper.jpg";
 import victoria from "@/assets/tour-victoria.jpg";
 import { CompassMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
@@ -17,9 +18,7 @@ export const Route = createFileRoute("/blog")({
       { property: "og:description", content: "Canadian travel knowledge and a local perspective, curated by Shooting Star Travel." },
       { property: "og:image", content: rockies },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/blog" },
-    ],
+    links: hreflangLinks("/blog", "en"),
   }),
   component: BlogPage,
 });

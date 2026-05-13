@@ -2,13 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TermsPage } from "../terms";
 import { hreflangLinks } from "@/i18n/locale";
 
-export const Route = createFileRoute("/zh/terms")({
+export const Route = createFileRoute("/ko/terms")({
   head: () => ({
     meta: [
-      { title: "服務條款 | Shootingstar Travel" },
-      { property: "og:locale", content: "zh_Hant" },
+      { title: "이용 약관 | Shootingstar Travel" },
+      { property: "og:locale", content: "ko_KR" },
     ],
-    links: hreflangLinks("/terms", "zh"),
+    links: hreflangLinks("/terms", "ko"),
   }),
   component: TermsPage,
 });

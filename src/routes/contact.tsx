@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -11,9 +12,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact — Shooting Star Travel" },
       { property: "og:description", content: "Your next journey begins here." },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/contact" },
-    ],
+    links: hreflangLinks("/contact", "en"),
   }),
   component: ContactPage,
 });

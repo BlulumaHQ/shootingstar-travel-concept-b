@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AboutPage } from "../about";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/zh/about")({
   head: () => ({
@@ -9,12 +10,7 @@ export const Route = createFileRoute("/zh/about")({
       { property: "og:title", content: "關於我們 | Shootingstar Travel" },
       { property: "og:locale", content: "zh_Hant" },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/zh/about" },
-      { rel: "alternate", hrefLang: "en", href: "https://shootingstar-travel-concept-b.lovable.app/about" },
-      { rel: "alternate", hrefLang: "zh-Hant", href: "https://shootingstar-travel-concept-b.lovable.app/zh/about" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://shootingstar-travel-concept-b.lovable.app/about" },
-    ],
+    links: hreflangLinks("/about", "zh"),
   }),
   component: AboutPage,
 });

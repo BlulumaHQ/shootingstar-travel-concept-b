@@ -1,6 +1,8 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { getTour } from "@/data/tours";
+import { getTour, type Tour } from "@/data/tours";
+import { useGetTour } from "@/data/useTours";
+import { useLocale, withLocale, hreflangLinks } from "@/i18n/locale";
 import { useState } from "react";
 
 export const Route = createFileRoute("/tours/$slug")({
@@ -19,9 +21,7 @@ export const Route = createFileRoute("/tours/$slug")({
         { property: "og:description", content: t?.intro ?? "" },
         ...(t?.img ? [{ property: "og:image", content: t.img }] : []),
       ],
-      links: [
-        { rel: "canonical", href: `https://shootingstar-travel-concept-b.lovable.app/tours/${params.slug}` },
-      ],
+      links: hreflangLinks(`/tours/${params.slug}`, "en"),
     };
   },
   notFoundComponent: () => (
@@ -169,7 +169,24 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 }
 
 export function TourDetailPage() {
-  const { tour } = Route.useLoaderData() as { tour: NonNullable<ReturnType<typeof getTour>> };
+  const params = useParams({ strict: false }) as { slug?: string };
+  const slug = params.slug ?? "";
+  const getLocalizedTour = useGetTour();
+  const locale = useLocale();
+  const tour = getLocalizedTour(slug) as Tour | undefined;
+
+  if (!tour) {
+    return (
+      <SiteLayout>
+        <section className="mx-auto max-w-3xl px-6 py-32 text-center">
+          <h1 className="font-serif text-3xl text-ink">Tour not found</h1>
+          <Link to={withLocale("/tours", locale) as never} className="mt-6 inline-flex text-primary underline underline-offset-4">Back to all tours</Link>
+        </section>
+      </SiteLayout>
+    );
+  }
+
+  const toursHref = withLocale("/tours", locale);
 
   return (
     <SiteLayout>
@@ -188,7 +205,7 @@ export function TourDetailPage() {
           <div className="lg:col-span-8 space-y-12">
             {/* Title block */}
             <header className="bg-cream rounded-[8px] p-7 md:p-9 border border-border/60 shadow-[0_30px_60px_-30px_rgba(60,80,70,0.35)]">
-              <Link to="/tours" className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">← All tours</Link>
+              <Link to={toursHref as never} className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">← All tours</Link>
               <h1 className="font-serif text-3xl md:text-[42px] text-ink mt-3 font-semibold leading-[1.2]">{tour.title}</h1>
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">

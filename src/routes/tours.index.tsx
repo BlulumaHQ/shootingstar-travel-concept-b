@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
@@ -13,9 +14,7 @@ export const Route = createFileRoute("/tours/")({
       { property: "og:description", content: "Curated small-group journeys across Canada, designed by our local team." },
       { property: "og:image", content: tours[0].img },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/tours" },
-    ],
+    links: hreflangLinks("/tours", "en"),
   }),
   component: ToursIndexPage,
 });

@@ -6,6 +6,7 @@ import { tours } from "@/data/tours";
 import { reviews } from "@/data/reviews";
 import { ReviewCard } from "@/components/site/ReviewCard";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -16,9 +17,7 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:description", content: "Authentic traveller stories, photos and travel memories." },
       { property: "og:image", content: reviews[0].photos[0] },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/reviews" },
-    ],
+    links: hreflangLinks("/reviews", "en"),
   }),
   component: ReviewsPage,
 });
