@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
+import { useLocale, withLocale } from "@/i18n/locale";
+import { useT } from "@/i18n/dict";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
