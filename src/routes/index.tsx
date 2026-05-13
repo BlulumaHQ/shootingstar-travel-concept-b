@@ -19,7 +19,7 @@ import { ReviewCard } from "@/components/site/ReviewCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon, PlaneTrailIcon,
 } from "@/components/site/DoodleIcons";
-import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
+import { StarMark, MountainMark, PinMark, CompassMark, BusMark, PlaneMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/")({
   head: () => ({
