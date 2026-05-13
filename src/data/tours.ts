@@ -4,7 +4,7 @@ import tourAurora from "@/assets/tour-aurora.jpg";
 import tourVancouver from "@/assets/tour-vancouver.jpg";
 import tourVictoria from "@/assets/tour-victoria.jpg";
 import tourPrivate from "@/assets/tour-private.jpg";
-// tourIcefield import removed (Jasper-area tour deleted)
+import tourIcefield from "@/assets/tour-icefield.jpg";
 import tourToronto from "@/assets/tour-toronto.jpg";
 
 export type Tour = {
