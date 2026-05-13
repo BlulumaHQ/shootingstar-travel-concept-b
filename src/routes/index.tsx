@@ -328,7 +328,27 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
+          {/* Mobile — horizontal swipe carousel */}
+          <div className="md:hidden -mx-6 px-6">
+            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 pr-12">
+              {destinations.map((d) => (
+                <article key={d.name} className="snap-start shrink-0 w-[78%] max-w-[320px]">
+                  <div className="aspect-[4/5] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
+                    <img src={d.img} alt={d.name} loading="lazy" className="h-full w-full object-cover" />
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-marker text-primary text-[12px] tracking-[0.2em] uppercase">{d.zh}</p>
+                    <h3 className="font-serif text-lg text-ink mt-1 font-semibold">{d.name}</h3>
+                    <p className="mt-2 text-[13px] text-ink/65 leading-[1.85]">{d.note}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="text-center text-[10.5px] tracking-[0.4em] uppercase text-ink/40 mt-2">— swipe →</p>
+          </div>
+
+          {/* Desktop — grid */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
             {destinations.map((d) => (
               <article key={d.name} className="group">
                 <div className="aspect-[4/3] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
