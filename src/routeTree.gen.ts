@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ZhRouteImport } from './routes/zh'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReviewsRouteImport } from './routes/reviews'
@@ -22,13 +21,19 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ZhIndexRouteImport } from './routes/zh/index'
 import { Route as ToursIndexRouteImport } from './routes/tours.index'
+import { Route as KoIndexRouteImport } from './routes/ko/index'
+import { Route as ZhTermsRouteImport } from './routes/zh/terms'
+import { Route as ZhReviewsRouteImport } from './routes/zh/reviews'
+import { Route as ZhPrivacyRouteImport } from './routes/zh/privacy'
+import { Route as ZhFaqRouteImport } from './routes/zh/faq'
+import { Route as ZhDestinationsRouteImport } from './routes/zh/destinations'
+import { Route as ZhContactRouteImport } from './routes/zh/contact'
+import { Route as ZhBlogRouteImport } from './routes/zh/blog'
+import { Route as ZhAboutRouteImport } from './routes/zh/about'
 import { Route as ToursSlugRouteImport } from './routes/tours.$slug'
+import { Route as ZhToursIndexRouteImport } from './routes/zh/tours.index'
+import { Route as ZhToursSlugRouteImport } from './routes/zh/tours.$slug'
 
-const ZhRoute = ZhRouteImport.update({
-  id: '/zh',
-  path: '/zh',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
@@ -89,10 +94,65 @@ const ToursIndexRoute = ToursIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ToursRoute,
 } as any)
+const KoIndexRoute = KoIndexRouteImport.update({
+  id: '/ko/',
+  path: '/ko/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhTermsRoute = ZhTermsRouteImport.update({
+  id: '/zh/terms',
+  path: '/zh/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhReviewsRoute = ZhReviewsRouteImport.update({
+  id: '/zh/reviews',
+  path: '/zh/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhPrivacyRoute = ZhPrivacyRouteImport.update({
+  id: '/zh/privacy',
+  path: '/zh/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhFaqRoute = ZhFaqRouteImport.update({
+  id: '/zh/faq',
+  path: '/zh/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhDestinationsRoute = ZhDestinationsRouteImport.update({
+  id: '/zh/destinations',
+  path: '/zh/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhContactRoute = ZhContactRouteImport.update({
+  id: '/zh/contact',
+  path: '/zh/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhBlogRoute = ZhBlogRouteImport.update({
+  id: '/zh/blog',
+  path: '/zh/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhAboutRoute = ZhAboutRouteImport.update({
+  id: '/zh/about',
+  path: '/zh/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ToursSlugRoute = ToursSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ToursRoute,
+} as any)
+const ZhToursIndexRoute = ZhToursIndexRouteImport.update({
+  id: '/zh/tours/',
+  path: '/zh/tours/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhToursSlugRoute = ZhToursSlugRouteImport.update({
+  id: '/zh/tours/$slug',
+  path: '/zh/tours/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -106,10 +166,20 @@ export interface FileRoutesByFullPath {
   '/reviews': typeof ReviewsRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
-  '/zh': typeof ZhRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
+  '/zh/about': typeof ZhAboutRoute
+  '/zh/blog': typeof ZhBlogRoute
+  '/zh/contact': typeof ZhContactRoute
+  '/zh/destinations': typeof ZhDestinationsRoute
+  '/zh/faq': typeof ZhFaqRoute
+  '/zh/privacy': typeof ZhPrivacyRoute
+  '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/terms': typeof ZhTermsRoute
+  '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/zh/tours/': typeof ZhToursIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -122,8 +192,19 @@ export interface FileRoutesByTo {
   '/reviews': typeof ReviewsRoute
   '/terms': typeof TermsRoute
   '/tours/$slug': typeof ToursSlugRoute
+  '/zh/about': typeof ZhAboutRoute
+  '/zh/blog': typeof ZhBlogRoute
+  '/zh/contact': typeof ZhContactRoute
+  '/zh/destinations': typeof ZhDestinationsRoute
+  '/zh/faq': typeof ZhFaqRoute
+  '/zh/privacy': typeof ZhPrivacyRoute
+  '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/terms': typeof ZhTermsRoute
+  '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
+  '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/zh/tours': typeof ZhToursIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -137,10 +218,20 @@ export interface FileRoutesById {
   '/reviews': typeof ReviewsRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
-  '/zh': typeof ZhRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
+  '/zh/about': typeof ZhAboutRoute
+  '/zh/blog': typeof ZhBlogRoute
+  '/zh/contact': typeof ZhContactRoute
+  '/zh/destinations': typeof ZhDestinationsRoute
+  '/zh/faq': typeof ZhFaqRoute
+  '/zh/privacy': typeof ZhPrivacyRoute
+  '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/terms': typeof ZhTermsRoute
+  '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/zh/tours/': typeof ZhToursIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -155,10 +246,20 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/terms'
     | '/tours'
-    | '/zh'
     | '/tours/$slug'
+    | '/zh/about'
+    | '/zh/blog'
+    | '/zh/contact'
+    | '/zh/destinations'
+    | '/zh/faq'
+    | '/zh/privacy'
+    | '/zh/reviews'
+    | '/zh/terms'
+    | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/zh/tours/$slug'
+    | '/zh/tours/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -171,8 +272,19 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/terms'
     | '/tours/$slug'
+    | '/zh/about'
+    | '/zh/blog'
+    | '/zh/contact'
+    | '/zh/destinations'
+    | '/zh/faq'
+    | '/zh/privacy'
+    | '/zh/reviews'
+    | '/zh/terms'
+    | '/ko'
     | '/tours'
     | '/zh'
+    | '/zh/tours/$slug'
+    | '/zh/tours'
   id:
     | '__root__'
     | '/'
@@ -185,10 +297,20 @@ export interface FileRouteTypes {
     | '/reviews'
     | '/terms'
     | '/tours'
-    | '/zh'
     | '/tours/$slug'
+    | '/zh/about'
+    | '/zh/blog'
+    | '/zh/contact'
+    | '/zh/destinations'
+    | '/zh/faq'
+    | '/zh/privacy'
+    | '/zh/reviews'
+    | '/zh/terms'
+    | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/zh/tours/$slug'
+    | '/zh/tours/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -202,18 +324,21 @@ export interface RootRouteChildren {
   ReviewsRoute: typeof ReviewsRoute
   TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
-  ZhRoute: typeof ZhRouteWithChildren
+  ZhAboutRoute: typeof ZhAboutRoute
+  ZhBlogRoute: typeof ZhBlogRoute
+  ZhContactRoute: typeof ZhContactRoute
+  ZhDestinationsRoute: typeof ZhDestinationsRoute
+  ZhFaqRoute: typeof ZhFaqRoute
+  ZhPrivacyRoute: typeof ZhPrivacyRoute
+  ZhReviewsRoute: typeof ZhReviewsRoute
+  ZhTermsRoute: typeof ZhTermsRoute
+  KoIndexRoute: typeof KoIndexRoute
+  ZhToursSlugRoute: typeof ZhToursSlugRoute
+  ZhToursIndexRoute: typeof ZhToursIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/zh': {
-      id: '/zh'
-      path: '/zh'
-      fullPath: '/zh'
-      preLoaderRoute: typeof ZhRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tours': {
       id: '/tours'
       path: '/tours'
@@ -298,12 +423,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToursIndexRouteImport
       parentRoute: typeof ToursRoute
     }
+    '/ko/': {
+      id: '/ko/'
+      path: '/ko'
+      fullPath: '/ko/'
+      preLoaderRoute: typeof KoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/terms': {
+      id: '/zh/terms'
+      path: '/zh/terms'
+      fullPath: '/zh/terms'
+      preLoaderRoute: typeof ZhTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/reviews': {
+      id: '/zh/reviews'
+      path: '/zh/reviews'
+      fullPath: '/zh/reviews'
+      preLoaderRoute: typeof ZhReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/privacy': {
+      id: '/zh/privacy'
+      path: '/zh/privacy'
+      fullPath: '/zh/privacy'
+      preLoaderRoute: typeof ZhPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/faq': {
+      id: '/zh/faq'
+      path: '/zh/faq'
+      fullPath: '/zh/faq'
+      preLoaderRoute: typeof ZhFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/destinations': {
+      id: '/zh/destinations'
+      path: '/zh/destinations'
+      fullPath: '/zh/destinations'
+      preLoaderRoute: typeof ZhDestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/contact': {
+      id: '/zh/contact'
+      path: '/zh/contact'
+      fullPath: '/zh/contact'
+      preLoaderRoute: typeof ZhContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/blog': {
+      id: '/zh/blog'
+      path: '/zh/blog'
+      fullPath: '/zh/blog'
+      preLoaderRoute: typeof ZhBlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/about': {
+      id: '/zh/about'
+      path: '/zh/about'
+      fullPath: '/zh/about'
+      preLoaderRoute: typeof ZhAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tours/$slug': {
       id: '/tours/$slug'
       path: '/$slug'
       fullPath: '/tours/$slug'
       preLoaderRoute: typeof ToursSlugRouteImport
       parentRoute: typeof ToursRoute
+    }
+    '/zh/tours/': {
+      id: '/zh/tours/'
+      path: '/zh/tours'
+      fullPath: '/zh/tours/'
+      preLoaderRoute: typeof ZhToursIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/tours/$slug': {
+      id: '/zh/tours/$slug'
+      path: '/zh/tours/$slug'
+      fullPath: '/zh/tours/$slug'
+      preLoaderRoute: typeof ZhToursSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -320,16 +522,6 @@ const ToursRouteChildren: ToursRouteChildren = {
 
 const ToursRouteWithChildren = ToursRoute._addFileChildren(ToursRouteChildren)
 
-interface ZhRouteChildren {
-  ZhIndexRoute: typeof ZhIndexRoute
-}
-
-const ZhRouteChildren: ZhRouteChildren = {
-  ZhIndexRoute: ZhIndexRoute,
-}
-
-const ZhRouteWithChildren = ZhRoute._addFileChildren(ZhRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -341,8 +533,28 @@ const rootRouteChildren: RootRouteChildren = {
   ReviewsRoute: ReviewsRoute,
   TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
-  ZhRoute: ZhRouteWithChildren,
+  ZhAboutRoute: ZhAboutRoute,
+  ZhBlogRoute: ZhBlogRoute,
+  ZhContactRoute: ZhContactRoute,
+  ZhDestinationsRoute: ZhDestinationsRoute,
+  ZhFaqRoute: ZhFaqRoute,
+  ZhPrivacyRoute: ZhPrivacyRoute,
+  ZhReviewsRoute: ZhReviewsRoute,
+  ZhTermsRoute: ZhTermsRoute,
+  KoIndexRoute: KoIndexRoute,
+  ZhToursSlugRoute: ZhToursSlugRoute,
+  ZhToursIndexRoute: ZhToursIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
