@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
-import headerPaper from "@/assets/header-paper.png";
-import headerEdge from "@/assets/header-edge.png";
+import headerBg from "@/assets/header-bg.png";
 import { useEffect, useState } from "react";
 
 const nav = [
