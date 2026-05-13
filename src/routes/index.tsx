@@ -10,6 +10,8 @@ import tourVancouver from "@/assets/tour-vancouver.jpg";
 import tourVictoria from "@/assets/tour-victoria.jpg";
 import tourAurora from "@/assets/tour-aurora.jpg";
 import guest1 from "@/assets/guest-1.jpg";
+import tourGroup from "@/assets/tour-group.jpg";
+import logoSeal from "@/assets/logo-seal.png";
 import { Heart as HeartFill } from "lucide-react";
 import { tours as allTours } from "@/data/tours";
 import { reviews as allReviews } from "@/data/reviews";
@@ -220,7 +222,10 @@ function HomePage() {
           <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-6 relative">
               <img src={journal} alt="Travel journal" loading="lazy" className="rounded-[4px] shadow-[0_30px_60px_-30px_rgba(60,80,70,0.4)] w-full" />
-              <img src={guest1} alt="" loading="lazy" className="hidden md:block absolute -bottom-10 -right-6 w-[42%] aspect-[4/5] object-cover rounded-[4px] border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)]" />
+              <div className="hidden md:block absolute -bottom-10 -right-6 w-[42%]">
+                <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
+                <img src={logoSeal} alt="" aria-hidden="true" loading="lazy" className="absolute -bottom-6 -left-8 w-[40%] rotate-[-8deg] drop-shadow-[0_8px_16px_rgba(60,80,70,0.25)] opacity-95 mix-blend-multiply pointer-events-none" />
+              </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
               <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— about us</p>
