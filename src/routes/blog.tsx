@@ -18,9 +18,7 @@ export const Route = createFileRoute("/blog")({
       { property: "og:description", content: "Canadian travel knowledge and a local perspective, curated by Shooting Star Travel." },
       { property: "og:image", content: rockies },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/blog" },
-    ],
+    links: hreflangLinks("/blog", "en"),
   }),
   component: BlogPage,
 });
