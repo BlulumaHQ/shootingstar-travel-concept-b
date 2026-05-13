@@ -8,6 +8,7 @@ const nav = [
   { to: "/about", label: "關於我們" },
   { to: "/reviews", label: "旅客分享" },
   { to: "/blog", label: "部落格" },
+  { to: "/faq", label: "常見問題" },
   { to: "/contact", label: "聯絡我們" },
 ];
 
