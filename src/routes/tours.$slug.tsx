@@ -194,13 +194,6 @@ function TourDetailPage() {
                 <div><span className="text-ink/50">語言　</span><span className="text-ink">{tour.language}</span></div>
                 <div><span className="text-ink/50">價格　</span><span className="text-primary font-semibold">{tour.price}</span></div>
               </div>
-              {tour.highlights && tour.highlights.length > 0 && (
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {tour.highlights.map((h) => (
-                    <span key={h} className="rounded-full bg-[var(--lavender-soft)] text-ink/75 px-3 py-1 text-[12px]">✦ {h}</span>
-                  ))}
-                </div>
-              )}
             </header>
 
             {/* Mobile booking panel — directly under intro */}
