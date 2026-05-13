@@ -11,6 +11,7 @@ const groups = [
       { l: "關於我們", to: "/about" },
       { l: "旅客分享", to: "/reviews" },
       { l: "部落格", to: "/blog" },
+      { l: "常見問題", to: "/faq" },
     ],
   },
   {
