@@ -257,9 +257,12 @@ function HomePage() {
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
-              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— about us</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 font-medium">關於 Shooting Star Travel</h2>
-              <div className="mt-5 h-px w-12 bg-primary/40" />
+              <div className="flex items-center gap-3 text-primary/75">
+                <CompassMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">About the Studio</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium leading-[1.18] tracking-[-0.012em]">關於 Shooting Star Travel</h2>
               <p className="mt-7 text-ink/70 leading-[2] text-[15px]">
                 用心規劃每一段旅程，讓旅行不只是到達目的地，而是留下值得收藏的回憶。
               </p>
@@ -278,9 +281,15 @@ function HomePage() {
       {/* DESTINATIONS — fixed 3-col grid */}
       <section className="relative bg-[var(--sand)] py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="text-center mb-16 md:mb-20">
-            <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— a collection of places</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-4 leading-[1.2] tracking-tight font-medium">
+          <div className="text-center mb-20 md:mb-24">
+            <div className="flex items-center justify-center gap-3 text-primary/75">
+              <DottedLine length={24} className="text-primary/45" />
+              <PinMark size={18} className="text-primary/65" />
+              <span className="text-[11px] tracking-[0.4em] uppercase">A Collection of Places</span>
+              <PinMark size={18} className="text-primary/65" />
+              <DottedLine length={24} className="text-primary/45" />
+            </div>
+            <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-6 leading-[1.15] tracking-[-0.015em] font-medium">
               值得收藏的<span className="italic text-primary">每一處風景</span>
             </h2>
             <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">
