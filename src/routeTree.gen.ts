@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DestinationsRouteImport } from './routes/destinations'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -28,6 +29,11 @@ const ToursRoute = ToursRouteImport.update({
 const ReviewsRoute = ReviewsRouteImport.update({
   id: '/reviews',
   path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/tours': typeof ToursIndexRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
+  '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/tours': typeof ToursRouteWithChildren
   '/tours/$slug': typeof ToursSlugRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/destinations'
     | '/faq'
+    | '/privacy'
     | '/reviews'
     | '/tours'
     | '/tours/$slug'
@@ -128,6 +138,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/destinations'
     | '/faq'
+    | '/privacy'
     | '/reviews'
     | '/tours/$slug'
     | '/tours'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/destinations'
     | '/faq'
+    | '/privacy'
     | '/reviews'
     | '/tours'
     | '/tours/$slug'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   DestinationsRoute: typeof DestinationsRoute
   FaqRoute: typeof FaqRoute
+  PrivacyRoute: typeof PrivacyRoute
   ReviewsRoute: typeof ReviewsRoute
   ToursRoute: typeof ToursRouteWithChildren
 }
@@ -170,6 +183,13 @@ declare module '@tanstack/react-router' {
       path: '/reviews'
       fullPath: '/reviews'
       preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -250,9 +270,20 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   DestinationsRoute: DestinationsRoute,
   FaqRoute: FaqRoute,
+  PrivacyRoute: PrivacyRoute,
   ReviewsRoute: ReviewsRoute,
   ToursRoute: ToursRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
