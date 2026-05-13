@@ -171,37 +171,45 @@ function HomePage() {
       </section>
 
       {/* GUEST STORIES — 旅客分享 */}
-      <section className="relative bg-[var(--sand)] py-24 md:py-28">
+      <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <div className="flex items-end justify-between gap-4 mb-12">
             <div>
               <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— travellers</p>
               <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">旅客分享</h2>
+              <p className="mt-3 text-ink/55 text-[13.5px]">真實旅人寫下的小小回憶 ✦</p>
             </div>
             <Link to="/reviews" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] hover:bg-primary hover:text-primary-foreground transition">
               更多分享 →
             </Link>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-8">
-            {stories.map((s, i) => (
-              <figure key={i} className="relative bg-card p-5 shadow-[0_10px_26px_-14px_rgba(60,80,70,0.3)]">
-                <span className="absolute -top-3 left-8 w-16 h-5 bg-[var(--tape)] rotate-[-6deg] shadow-sm" aria-hidden />
-                <div className="flex gap-0.5 text-[oklch(0.7_0.18_70)]">
-                  {Array.from({ length: s.rating }).map((_, j) => <Star key={j} size={12} fill="currentColor" stroke="none" />)}
+        {/* Desktop marquee */}
+        <div className="hidden md:block marquee-pause relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--sand)] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--sand)] to-transparent z-10" />
+          <div className="overflow-hidden">
+            <div className="animate-marquee flex gap-6 w-max px-6">
+              {[...allReviews, ...allReviews].map((r, i) => (
+                <div key={i} className="w-[340px] shrink-0">
+                  <ReviewCard r={r} compact />
                 </div>
-                <p className="mt-4 text-[13.5px] text-ink/75 leading-[1.85]">"{s.quote}"</p>
-                <figcaption className="mt-5 pt-4 border-t border-border/60 flex items-center gap-3">
-                  <img src={s.img} alt={s.name} className="h-9 w-9 rounded-full object-cover" />
-                  <div className="leading-tight">
-                    <p className="text-[13px] text-ink font-medium">{s.name}</p>
-                    <p className="text-[11px] text-ink/55">{s.tour}</p>
-                  </div>
-                </figcaption>
-              </figure>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile swipe */}
+        <div className="md:hidden mt-2">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-4">
+            {allReviews.map((r, i) => (
+              <div key={i} className="snap-center shrink-0 w-[82vw] max-w-[340px]">
+                <ReviewCard r={r} compact />
+              </div>
             ))}
           </div>
-          <div className="mt-10 text-center md:hidden">
+          <div className="text-center mt-6 px-6">
             <Link to="/reviews" className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-[13px]">更多分享 →</Link>
           </div>
         </div>
