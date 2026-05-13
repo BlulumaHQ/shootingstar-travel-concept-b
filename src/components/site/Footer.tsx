@@ -41,7 +41,7 @@ export function Footer() {
       { l: "班夫一日遊", to: lp("/tours/banff-day") },
       { l: "極光追蹤之旅", to: lp("/tours/aurora-chase") },
       { l: "溫哥華市區深度遊", to: lp("/tours/vancouver-city") },
-      { l: "維多리아花園之旅", to: lp("/tours/victoria-garden") },
+      { l: "維多利亞花園之旅", to: lp("/tours/victoria-garden") },
     ],
     ko: [
       { l: "로키산맥 클래식 투어", to: lp("/tours/rocky-mountain-classic") },
