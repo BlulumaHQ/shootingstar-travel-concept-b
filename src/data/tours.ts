@@ -23,6 +23,8 @@ export type Tour = {
   bring: string[];
   notes: string[];
   faq: { q: string; a: string }[];
+  departures?: { date: string; seats: number }[];
+  packages?: string[];
 };
 
 export const tours: Tour[] = [

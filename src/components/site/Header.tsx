@@ -20,9 +20,9 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-md border-b border-border/60">
-      <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-1.5 md:py-2">
-        <Link to="/" className="flex items-center -my-1">
-          <img src={logo} alt="Shootingstar Travel" className="h-[78px] md:h-[96px] w-auto" />
+      <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-0">
+        <Link to="/" className="flex items-center -my-3">
+          <img src={logo} alt="Shootingstar Travel" className="h-[120px] md:h-[150px] w-auto" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">

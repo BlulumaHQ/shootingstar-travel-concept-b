@@ -39,66 +39,125 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
-function BookingWidget({ defaultSlug }: { defaultSlug: string }) {
-  const [slug, setSlug] = useState(defaultSlug);
-  const [date, setDate] = useState("");
+function BookingWidget({ tour }: { tour: ReturnType<typeof getTour> }) {
+  const departures = tour?.departures ?? [
+    { date: "Jul 12", seats: 8 },
+    { date: "Jul 18", seats: 4 },
+    { date: "Jul 26", seats: 12 },
+    { date: "Aug 09", seats: 6 },
+  ];
+  const packages = tour?.packages ?? ["中文團", "英文團", "韓文團"];
+
+  const [dateIdx, setDateIdx] = useState(0);
+  const [pkg, setPkg] = useState(packages[0]);
   const [guests, setGuests] = useState(2);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [stage, setStage] = useState<"form" | "loading" | "done">("form");
 
-  if (submitted) {
+  const dep = departures[dateIdx];
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStage("loading");
+    setTimeout(() => setStage("done"), 1400);
+  };
+
+  if (stage === "loading") {
+    return (
+      <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
+        <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— processing</p>
+        <p className="mt-2 text-ink/65 text-[14px]">正在為您保留座位…</p>
+      </div>
+    );
+  }
+
+  if (stage === "done") {
     return (
       <div className="rounded-2xl bg-cream p-8 md:p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-base tracking-[0.25em] uppercase">— demo confirmation</p>
-        <h3 className="font-serif text-2xl text-ink mt-3">收到您的預訂示意</h3>
-        <p className="mt-4 text-ink/70 leading-[2] text-[14.5px]">
-          這是預訂流程示意，正式網站將會串接第三方 Booking System (例如 Checkfront / Rezdy)。
+        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— demo confirmation</p>
+        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">預訂示意完成 ✦</h3>
+        <div className="mt-5 rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/75 leading-[1.95] space-y-1">
+          <p>行程：{tour?.title}</p>
+          <p>出發：{dep.date}　・　{pkg}</p>
+          <p>人數：{guests} 位　・　聯絡人：{name || "—"}</p>
+        </div>
+        <p className="mt-5 text-ink/65 leading-[2] text-[13.5px]">
+          這是預訂流程示意版本，正式網站將會串接 Booking System (例如 Checkfront / Rezdy)。
         </p>
-        <button onClick={() => setSubmitted(false)} className="mt-6 text-primary text-sm underline underline-offset-4">重新填寫</button>
+        <button onClick={() => setStage("form")} className="mt-6 text-primary text-sm underline underline-offset-4">重新填寫</button>
       </div>
     );
   }
 
   return (
     <form
-      onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
-      className="rounded-2xl bg-cream p-7 md:p-8 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] space-y-4"
+      onSubmit={submit}
+      className="rounded-2xl bg-cream p-6 md:p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] space-y-5"
     >
       <div className="flex items-center justify-between">
         <p className="font-marker text-primary/80 text-[13px] tracking-[0.25em] uppercase">— booking</p>
-        <span className="text-[11.5px] text-ink/55">剩餘名額 <span className="text-primary font-semibold">8</span> 位</span>
+        <span className="text-[11.5px] text-ink/55">剩餘 <span className="text-primary font-semibold">{dep.seats}</span> 位</span>
       </div>
+
+      {/* Step 1: dates */}
       <div>
-        <label className="block text-[12px] text-ink/60 mb-1.5">選擇行程</label>
-        <select value={slug} onChange={(e) => setSlug(e.target.value)} className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm">
-          {tours.map((t) => <option key={t.slug} value={t.slug}>{t.title}</option>)}
-        </select>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="block text-[12px] text-ink/60 mb-1.5">出發日期</label>
-          <input type="date" required value={date} onChange={(e) => setDate(e.target.value)} className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        </div>
-        <div>
-          <label className="block text-[12px] text-ink/60 mb-1.5">旅客人數</label>
-          <div className="flex items-center rounded-md border border-border bg-cream">
-            <button type="button" onClick={() => setGuests(Math.max(1, guests - 1))} className="px-3 py-2.5 text-ink/70">−</button>
-            <span className="flex-1 text-center text-sm">{guests}</span>
-            <button type="button" onClick={() => setGuests(guests + 1)} className="px-3 py-2.5 text-ink/70">+</button>
-          </div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">① 選擇出發日</label>
+        <div className="flex flex-wrap gap-2">
+          {departures.map((d, i) => (
+            <button
+              type="button" key={d.date}
+              onClick={() => setDateIdx(i)}
+              className={`rounded-full px-3.5 py-1.5 text-[12.5px] border transition ${
+                i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
+              }`}
+            >{d.date} <span className="opacity-70">· {d.seats}</span></button>
+          ))}
         </div>
       </div>
-      <div className="space-y-3 pt-2">
-        <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="聯絡姓名" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="電話" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+
+      {/* Step 2: package */}
+      <div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">② 語言團別</label>
+        <div className="flex flex-wrap gap-2">
+          {packages.map((p) => (
+            <button
+              type="button" key={p}
+              onClick={() => setPkg(p)}
+              className={`rounded-full px-3.5 py-1.5 text-[12.5px] border transition ${
+                p === pkg ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
+              }`}
+            >{p}</button>
+          ))}
+        </div>
       </div>
-      <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide hover:bg-primary/90 transition">
-        繼續預訂 →
+
+      {/* Step 3: guests */}
+      <div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">③ 旅客人數</label>
+        <div className="inline-flex items-center rounded-full border border-border bg-cream">
+          <button type="button" onClick={() => setGuests(Math.max(1, guests - 1))} className="px-4 py-2 text-ink/70">−</button>
+          <span className="w-10 text-center text-sm">{guests}</span>
+          <button type="button" onClick={() => setGuests(Math.min(dep.seats, guests + 1))} className="px-4 py-2 text-ink/70">+</button>
+        </div>
+      </div>
+
+      {/* Step 4: contact */}
+      <div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">④ 聯絡資訊</label>
+        <div className="space-y-2.5">
+          <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="姓名" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+          <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+          <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="電話" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+        </div>
+      </div>
+
+      <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]">
+        立即結帳 →
       </button>
-      <p className="text-[11px] text-ink/45 text-center">* 此為示意，實際付款將透過第三方系統處理</p>
+      <p className="text-[10.5px] text-ink/45 text-center">* 此為示意，實際付款將透過第三方系統處理</p>
     </form>
   );
 }
@@ -202,7 +261,7 @@ function TourDetailPage() {
         {/* SIDEBAR — booking */}
         <aside className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">
-            <BookingWidget defaultSlug={tour.slug} />
+            <BookingWidget tour={tour} />
           </div>
         </aside>
       </div>

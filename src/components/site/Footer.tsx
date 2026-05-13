@@ -73,8 +73,8 @@ export function Footer() {
 
         {/* Brand block — always visible */}
         <div className="md:hidden flex flex-col items-start gap-4 mb-2">
-          <Link to="/" className="inline-flex items-center">
-            <img src={logo} alt="Shootingstar Travel" className="h-[68px] w-auto opacity-95 brightness-0 invert" />
+          <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-5 py-3 shadow-sm">
+            <img src={logo} alt="Shootingstar Travel" className="h-[110px] w-auto" />
           </Link>
           <p className="text-sm leading-[1.9] text-cream/75 max-w-sm">
             加拿大小團精緻旅遊，用心為每位旅人寫下獨一無二的旅行篇章。
@@ -106,8 +106,8 @@ export function Footer() {
         {/* DESKTOP — multi column */}
         <div className="hidden md:grid gap-14 md:gap-12 md:grid-cols-12 items-start">
           <div className="md:col-span-4">
-            <Link to="/" className="inline-flex items-center">
-              <img src={logo} alt="Shootingstar Travel" className="h-[80px] w-auto opacity-95 brightness-0 invert" />
+            <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-6 py-4 shadow-sm">
+              <img src={logo} alt="Shootingstar Travel" className="h-[140px] w-auto" />
             </Link>
             <p className="mt-6 text-sm leading-[2] text-cream/75 max-w-sm">
               Shootingstar Travel — 加拿大小團精緻旅遊，
