@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
 import { Heart } from "lucide-react";
+import { BusMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
@@ -19,16 +20,22 @@ export const Route = createFileRoute("/tours/")({
 function ToursIndexPage() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pt-16 md:pt-24 pb-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.3em] uppercase">— featured journeys</p>
-        <h1 className="font-serif text-4xl md:text-5xl text-ink mt-3 font-medium">行程介紹</h1>
-        <p className="mt-4 text-ink/65 max-w-2xl leading-[2] text-[15px]">
+      <section className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-24 md:pt-32 pb-14">
+        <div className="flex items-center gap-3 text-primary/75">
+          <BusMark size={20} className="text-primary/65" />
+          <DottedLine length={36} className="text-primary/45" />
+          <span className="text-[11px] tracking-[0.4em] uppercase">Featured Journeys</span>
+        </div>
+        <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
+          行程介紹
+        </h1>
+        <p className="mt-7 text-ink/60 max-w-2xl leading-[2] text-[15px]">
           每段旅程都由在地團隊親自策劃，小團精緻、節奏舒適。點擊任一行程查看完整介紹。
         </p>
+        <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
-
-      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-32 md:pb-40">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {tours.map((t) => (
             <Link
               to="/tours/$slug"
