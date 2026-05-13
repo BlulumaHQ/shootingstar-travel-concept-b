@@ -17,9 +17,7 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:description", content: "Authentic traveller stories, photos and travel memories." },
       { property: "og:image", content: reviews[0].photos[0] },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/reviews" },
-    ],
+    links: hreflangLinks("/reviews", "en"),
   }),
   component: ReviewsPage,
 });
