@@ -314,30 +314,34 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FAQ — compact 2-col */}
+      {/* FAQ — luxury negative space */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-20 md:py-24">
-          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-28 md:py-36">
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 tracking-tight font-medium">常見問題</h2>
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={16} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Frequently Asked</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 tracking-[-0.012em] font-medium">常見問題</h2>
             </div>
-            <Link to="/faq" className="text-primary text-[13.5px] underline decoration-primary/40 underline-offset-[6px] hover:decoration-primary">
-              查看更多常見問題 →
+            <Link to="/faq" className="text-primary text-[12px] tracking-[0.18em] uppercase underline decoration-primary/40 underline-offset-[8px] hover:decoration-primary">
+              View all FAQs →
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-10 gap-y-2">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-3">
             {faqs.map((f, i) => (
               <details
                 key={f.q}
                 open={i === 0}
-                className="group border-b border-accent/40 py-4 open:pb-5"
+                className="group border-b border-primary/15 py-6 open:pb-7"
               >
                 <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[15.5px] text-ink leading-snug">{f.q}</span>
+                  <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
                   <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
                 </summary>
-                <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
+                <p className="mt-4 text-ink/60 leading-[2] text-[14px]">{f.a}</p>
               </details>
             ))}
           </div>
