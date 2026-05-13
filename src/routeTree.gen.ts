@@ -89,9 +89,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ZhIndexRoute = ZhIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ZhRoute,
+  id: '/zh/',
+  path: '/zh/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ToursIndexRoute = ToursIndexRouteImport.update({
   id: '/',
@@ -385,6 +385,7 @@ export interface RootRouteChildren {
   ZhReviewsRoute: typeof ZhReviewsRoute
   ZhTermsRoute: typeof ZhTermsRoute
   KoIndexRoute: typeof KoIndexRoute
+  ZhIndexRoute: typeof ZhIndexRoute
   ZhToursSlugRoute: typeof ZhToursSlugRoute
   ZhToursIndexRoute: typeof ZhToursIndexRoute
 }
@@ -463,10 +464,10 @@ declare module '@tanstack/react-router' {
     }
     '/zh/': {
       id: '/zh/'
-      path: '/'
+      path: '/zh'
       fullPath: '/zh/'
       preLoaderRoute: typeof ZhIndexRouteImport
-      parentRoute: typeof ZhRoute
+      parentRoute: typeof rootRouteImport
     }
     '/tours/': {
       id: '/tours/'
@@ -626,19 +627,10 @@ const rootRouteChildren: RootRouteChildren = {
   ZhReviewsRoute: ZhReviewsRoute,
   ZhTermsRoute: ZhTermsRoute,
   KoIndexRoute: KoIndexRoute,
+  ZhIndexRoute: ZhIndexRoute,
   ZhToursSlugRoute: ZhToursSlugRoute,
   ZhToursIndexRoute: ZhToursIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
