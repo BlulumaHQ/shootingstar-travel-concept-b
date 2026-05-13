@@ -61,7 +61,6 @@ const faqs = [
   { q: "可以取消或改期嗎？", a: "出發前 30 天以上可全額退費，依行程不同有彈性方案，詳細條款於報名時說明。" },
   { q: "是否包含住宿？", a: "多日行程包含精選住宿，皆為 3 星以上飯店或特色山屋。" },
   { q: "如何付款？", a: "支援信用卡、Interac e-Transfer、銀行轉帳與 PayPal。" },
-  { q: "可以客製行程嗎？", a: "當然！私人包團服務歡迎家庭、情侶、好友團體，由我們為您量身打造。" },
 ];
 
 function HomePage() {
@@ -272,54 +271,76 @@ function HomePage() {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ — compact 2-col */}
       <section className="bg-cream">
-        <div className="mx-auto max-w-[760px] px-6 md:px-10 py-24 md:py-28">
-          <div className="text-center mb-14">
-            <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
-            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-4 tracking-tight font-medium">常見問題</h2>
-            <div className="mx-auto mt-6 h-px w-12 bg-primary/40" />
+        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-20 md:py-24">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-10">
+            <div>
+              <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
+              <h2 className="font-serif text-3xl md:text-4xl text-ink mt-3 tracking-tight font-medium">常見問題</h2>
+            </div>
+            <Link to="/faq" className="text-primary text-[13.5px] underline decoration-primary/40 underline-offset-[6px] hover:decoration-primary">
+              查看更多常見問題 →
+            </Link>
           </div>
-          <div className="space-y-3">
-            {faqs.map((f) => (
-              <details key={f.q} className="group rounded-2xl bg-[var(--sand)] border border-border/60 px-7 py-5 transition open:bg-cream open:shadow-[0_10px_30px_-18px_oklch(0.4_0.04_155/0.4)]">
+          <div className="grid md:grid-cols-2 gap-x-10 gap-y-2">
+            {faqs.map((f, i) => (
+              <details
+                key={f.q}
+                open={i === 0}
+                className="group border-b border-accent/40 py-4 open:pb-5"
+              >
                 <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
-                  <span className="text-primary text-2xl group-open:rotate-45 transition shrink-0">+</span>
+                  <span className="font-serif text-[15.5px] text-ink leading-snug">{f.q}</span>
+                  <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
                 </summary>
-                <p className="mt-4 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
+                <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
               </details>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CONTACT CTA */}
-      <section className="relative bg-cream pb-24 md:pb-28">
-        <div className="mx-auto max-w-[1200px] px-6 md:px-10">
-          <div
-            className="relative overflow-hidden rounded-[10px] p-12 md:p-20 text-center"
-            style={{ background: "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)" }}
-          >
-            <p className="font-marker text-ink/70 text-sm tracking-[0.3em] uppercase">— and so the journey begins</p>
-            <h2 className="font-serif text-4xl md:text-6xl text-ink mt-5 leading-[1.2] tracking-tight font-medium">
-              下一趟旅程，<br/>從這裡開始。
-            </h2>
-            <div className="mx-auto mt-7 h-px w-12 bg-ink/30" />
-            <p className="mt-8 text-ink/70 max-w-xl mx-auto leading-[2] text-[15px]">
-              告訴我們你嚮往的風景，我們為你寫下最適合的旅行劇本。
-            </p>
-            <div className="mt-12 flex flex-wrap justify-center gap-3">
-              {[
-                { l: "WhatsApp", h: "https://wa.me/" },
-                { l: "KakaoTalk", h: "#" },
-                { l: "WeChat", h: "#" },
-                { l: "Email", h: "mailto:hello@shootingstartravel.ca" },
-              ].map((c) => (
-                <a key={c.l} href={c.h} className="rounded-full bg-primary text-primary-foreground px-7 py-3 text-sm tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.6)]">
-                  {c.l}
-                </a>
-              ))}
+      {/* CONTACT CTA — full-width row */}
+      <section
+        className="relative overflow-hidden"
+        style={{ background: "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)" }}
+      >
+        {/* subtle doodle flight path */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.18] pointer-events-none" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden>
+          <path d="M -20 220 Q 300 80 600 160 T 1220 100" fill="none" stroke="currentColor" strokeWidth="1.4" strokeDasharray="2 8" className="text-ink" />
+        </svg>
+        <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-16 md:py-24 relative">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+            <div className="md:col-span-7">
+              <p className="font-marker text-ink/70 text-sm tracking-[0.3em] uppercase">— and so the journey begins</p>
+              <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-4 leading-[1.15] tracking-tight font-medium">
+                下一趟旅程，<br />從這裡開始。
+              </h2>
+              <p className="mt-6 text-ink/70 leading-[2] text-[15px] max-w-lg">
+                告訴我們你想去的地方，我們會協助你找到最適合的行程。
+              </p>
+            </div>
+            <div className="md:col-span-5 md:pl-4">
+              <div className="flex flex-wrap gap-3">
+                <Link to="/tours" className="rounded-full bg-primary text-primary-foreground px-7 py-3 text-sm tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.6)]">
+                  探索所有行程 →
+                </Link>
+                <Link to="/contact" className="rounded-full border border-ink/30 text-ink px-7 py-3 text-sm tracking-wide hover:bg-cream transition">
+                  聯絡我們
+                </Link>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {[
+                  { l: "WhatsApp", h: "https://wa.me/" },
+                  { l: "Email", h: "mailto:hello@shootingstartravel.ca" },
+                  { l: "KakaoTalk", h: "#" },
+                ].map((c) => (
+                  <a key={c.l} href={c.h} className="rounded-full bg-cream/70 backdrop-blur-sm text-ink/75 px-4 py-1.5 text-[12.5px] hover:bg-cream transition">
+                    {c.l}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
