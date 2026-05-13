@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
+import { useLocale, withLocale } from "@/i18n/locale";
+import { useT } from "@/i18n/dict";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
 import tourBanff from "@/assets/tour-banff.jpg";
-import destJasper from "@/assets/dest-jasper.jpg";
+// Jasper destination removed per request
 import destWhistler from "@/assets/dest-whistler.jpg";
 import destYukon from "@/assets/dest-yukon.jpg";
 import tourVancouver from "@/assets/tour-vancouver.jpg";
@@ -25,14 +27,22 @@ import { PlaneJourney } from "@/components/site/PlaneJourney";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { name: "description", content: "探索加拿大最值得收藏的旅程。Shootingstar Travel 提供小團旅行、洛磯山、班夫、極光與溫哥華深度旅遊體驗。" },
-      { property: "og:title", content: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { property: "og:description", content: "加拿大小團精緻旅遊・洛磯山・班夫・極光・溫哥華深度體驗。" },
+      { title: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
+      { name: "description", content: "Boutique small-group travel across Canada — Rocky Mountains, Banff, Aurora, Vancouver and beyond. Curated journeys, attentive service." },
+      { property: "og:title", content: "Shootingstar Travel | Boutique Small-Group Tours in Canada" },
+      { property: "og:description", content: "Curated small-group journeys across Canada — Rockies, Banff, Aurora, Vancouver." },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "en_CA" },
       { property: "og:image", content: hero },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: hero },
+    ],
+    links: [
+      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+      { rel: "alternate", hrefLang: "en", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+      { rel: "alternate", hrefLang: "zh-Hant", href: "https://shootingstar-travel-concept-b.lovable.app/zh" },
+      { rel: "alternate", hrefLang: "ko", href: "https://shootingstar-travel-concept-b.lovable.app/ko" },
+      { rel: "alternate", hrefLang: "x-default", href: "https://shootingstar-travel-concept-b.lovable.app/" },
     ],
   }),
   component: HomePage,
@@ -49,12 +59,12 @@ const features = [
 ];
 
 const destinations = [
-  { img: tourBanff, name: "Banff", zh: "班夫", note: "湖光雪峰倒影，加拿大最經典的明信片風景。" },
-  { img: destJasper, name: "Jasper", zh: "傑士伯", note: "暗夜星空保護區，靜謐而深邃的山林夜晚。" },
-  { img: tourVancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市，舒緩而現代的生活步調。" },
-  { img: destWhistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。" },
-  { img: tourVictoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園的春日午後。" },
-  { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。" },
+  { img: tourBanff, name: "Banff", zh: "班夫", note: "湖光雪峰倒影，加拿大最經典的明信片風景。", noteEn: "Mirror lakes and snowy peaks — Canada's most iconic postcard." },
+  { img: tourVancouver, name: "Vancouver", zh: "溫哥華", note: "山與海之間的城市，舒緩而現代的生活步調。", noteEn: "A city between mountains and sea — modern, calm, alive." },
+  { img: destWhistler, name: "Whistler", zh: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。", noteEn: "A year-round resort — winter skiing, summer trails." },
+  { img: tourVictoria, name: "Victoria", zh: "維多利亞", note: "英倫風情與布查特花園的春日午後。", noteEn: "British charm and the gardens of Butchart on a spring afternoon." },
+  { img: tourAurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待，綠光輕輕落下。", noteEn: "The most romantic wait under the night sky — green light drifting down." },
+  { img: destYukon, name: "Yukon", zh: "育空", note: "邊境之北的寂靜，星河無限延伸。", noteEn: "The quiet of the far north — endless rivers of stars." },
 ];
 
 
@@ -66,7 +76,7 @@ const faqs = [
   { q: "如何付款？", a: "支援信用卡、Interac e-Transfer、銀行轉帳與 PayPal。" },
 ];
 
-function HomePage() {
+export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO — mobile: text-first; desktop: editorial 2-polaroid */}

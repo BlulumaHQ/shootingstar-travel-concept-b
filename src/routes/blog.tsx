@@ -30,7 +30,7 @@ const posts = [
   { img: victoria, cat: "島嶼旅行", title: "維多利亞一日遊：花園、渡輪與英倫午茶", excerpt: "從溫哥華出發的最美一日離島行程提案。", read: "6 分鐘閱讀" },
 ];
 
-function BlogPage() {
+export function BlogPage() {
   const [feature, ...rest] = posts;
   return (
     <SiteLayout>

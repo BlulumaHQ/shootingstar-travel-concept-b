@@ -31,7 +31,7 @@ const items = [
   { img: aurora, name: "Aurora", zh: "極光", note: "夜空下最浪漫的等待。" },
 ];
 
-function DestPage() {
+export function DestPage() {
   return (
     <SiteLayout>
       <section className="mx-auto max-w-7xl px-6 md:px-10 py-20">
