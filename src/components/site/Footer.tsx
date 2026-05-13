@@ -33,9 +33,9 @@ const contact = [
 ];
 
 function ColTitle({ children }: { children: React.ReactNode }) {
-  // Unified typeface — same font-sans family, only weight/tracking change
+  // Same font family as the link list — only weight change. No tracking/uppercase shift.
   return (
-    <h4 className="text-[11px] font-medium text-cream/55 tracking-[0.32em] uppercase">
+    <h4 className="text-[14px] font-semibold text-cream">
       {children}
     </h4>
   );
@@ -83,9 +83,9 @@ export function Footer() {
 
         {/* MOBILE — open layout (no accordions) */}
         <div className="md:hidden flex flex-col items-center text-center gap-12">
-          {/* centered logo */}
-          <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-6 py-4 shadow-sm">
-            <img src={logo} alt="Shootingstar Travel" className="h-[110px] w-auto" />
+          {/* centered logo — slightly larger, less white padding */}
+          <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-3 py-2 shadow-sm">
+            <img src={logo} alt="Shootingstar Travel" className="h-[130px] w-auto" />
           </Link>
           <p className="text-[13.5px] leading-[2] text-cream/70 max-w-xs">
             加拿大小團精緻旅遊，<br />用心為每位旅人寫下獨一無二的旅行篇章。
@@ -110,7 +110,7 @@ export function Footer() {
 
           {/* contact — always visible */}
           <div>
-            <ColTitle>Contact</ColTitle>
+            <ColTitle>聯絡資訊</ColTitle>
             <ul className="mt-5 space-y-3 text-[13.5px] text-cream/75">
               {contact.map(({ Icon, t, href }) => (
                 <li key={t} className="flex items-center justify-center gap-2.5">
@@ -142,17 +142,18 @@ export function Footer() {
           </div>
         </div>
 
-        {/* DESKTOP — generous breathing room */}
-        <div className="hidden md:grid grid-cols-12 gap-16 items-start">
-          <div className="col-span-4 pr-6">
-            <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-6 py-4 shadow-sm">
-              <img src={logo} alt="Shootingstar Travel" className="h-[130px] w-auto" />
+        {/* DESKTOP — strict 5-column system: logo | spacer | links | tours | contact */}
+        <div className="hidden md:grid grid-cols-12 gap-10 items-start">
+          {/* Col 1 — logo only (no contact info here) */}
+          <div className="col-span-3">
+            <Link to="/" className="inline-flex items-center bg-cream/95 rounded-2xl px-3 py-2 shadow-sm">
+              <img src={logo} alt="Shootingstar Travel" className="h-[150px] w-auto" />
             </Link>
-            <p className="mt-7 text-[14px] leading-[2] text-cream/70 max-w-xs">
+            <p className="mt-7 text-[13.5px] leading-[2] text-cream/70 max-w-xs">
               Shootingstar Travel — 加拿大小團精緻旅遊，
               用心為每位旅人寫下獨一無二的旅行篇章。
             </p>
-            <div className="mt-8 flex items-center gap-3">
+            <div className="mt-7 flex items-center gap-3">
               {socials.map(({ Icon, href, label }) => (
                 <a
                   key={label}
@@ -166,27 +167,33 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="col-span-2 col-start-6">
+          {/* Col 2 — empty spacer */}
+          <div className="col-span-1" aria-hidden />
+
+          {/* Col 3 — quick links */}
+          <div className="col-span-2">
             <ColTitle>快速連結</ColTitle>
-            <ul className="mt-7 space-y-3.5 text-[13.5px] text-cream/75">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-cream/75">
               {quickLinks.map((l) => (
                 <li key={l.l}><Link to={l.to} className="hover:text-cream transition">{l.l}</Link></li>
               ))}
             </ul>
           </div>
 
+          {/* Col 4 — popular tours */}
           <div className="col-span-3">
             <ColTitle>熱門行程</ColTitle>
-            <ul className="mt-7 space-y-3.5 text-[13.5px] text-cream/75">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-cream/75">
               {popularTours.map((l) => (
                 <li key={l.l}><Link to={l.to} className="hover:text-cream transition">{l.l}</Link></li>
               ))}
             </ul>
           </div>
 
+          {/* Col 5 — contact */}
           <div className="col-span-3">
             <ColTitle>聯絡資訊</ColTitle>
-            <ul className="mt-7 space-y-3.5 text-[13.5px] text-cream/75">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-cream/75">
               {contact.map(({ Icon, t, href }) => (
                 <li key={t} className="flex items-start gap-2.5">
                   <Icon size={14} strokeWidth={1.5} className="text-cream/55 mt-1" />
