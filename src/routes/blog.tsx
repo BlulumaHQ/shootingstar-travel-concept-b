@@ -6,6 +6,7 @@ import vancouver from "@/assets/tour-vancouver.jpg";
 import aurora from "@/assets/tour-aurora.jpg";
 import jasper from "@/assets/dest-jasper.jpg";
 import victoria from "@/assets/tour-victoria.jpg";
+import { CompassMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/blog")({
   head: () => ({
