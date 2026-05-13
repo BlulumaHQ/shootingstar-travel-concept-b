@@ -1,7 +1,7 @@
 import { useLocation } from "@tanstack/react-router";
 
 export type Locale = "en" | "zh" | "ko";
-export const locales: Locale[] = ["en", "zh", "ko"];
+export const locales: Locale[] = ["en", "ko", "zh"];
 
 export const localeLabels: Record<Locale, string> = {
   en: "EN",
