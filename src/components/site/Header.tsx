@@ -20,16 +20,19 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 text-cream">
-      {/* torn paper background — flat top, torn bottom */}
+    <header
+      className="sticky top-0 z-50 text-cream"
+      style={{ backgroundColor: "#4a2a18" }}
+    >
+      {/* torn paper bottom edge overlay */}
       <div
-        className="absolute inset-x-0 top-0 -bottom-3 pointer-events-none"
+        className="absolute left-0 right-0 -bottom-4 h-10 pointer-events-none"
         style={{
           backgroundImage: `url(${headerPaper})`,
-          backgroundSize: "100% 100%",
+          backgroundSize: "100% 200%",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "bottom center",
-          filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.35))",
+          backgroundPosition: "center bottom",
+          filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.35))",
         }}
         aria-hidden
       />
