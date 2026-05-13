@@ -236,9 +236,9 @@ function HomePage() {
               </figure>
             </div>
             <div>
-              <p className="font-marker text-clay/75 text-base tracking-wide">— our journey</p>
-              <h2 className="font-serif text-4xl md:text-5xl text-ink mt-2 tracking-tight">關於這段旅程</h2>
-              <div className="mt-5 h-px w-16 bg-clay/30" />
+              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— our journey</p>
+              <h2 className="font-serif text-4xl md:text-5xl text-ink mt-3 tracking-tight font-medium">關於這段旅程</h2>
+              <div className="mt-5 h-px w-12 bg-primary/40" />
               <p className="mt-8 text-foreground/75 leading-[1.95] text-[15px]">
                 我們相信旅行不只是抵達一個地方，而是與一群人一起記住一段時光。<br /><br />
                 Shootingstar Travel 由一群熱愛加拿大山林的旅人創立。十年來我們踏遍洛磯山的每一道光、追過育空夜空裡的每一場極光，只為了把最真實、最動人的加拿大，帶到你的眼前。<br /><br />
