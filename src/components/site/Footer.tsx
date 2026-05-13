@@ -1,29 +1,28 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
+import tornPaper from "@/assets/header-paper-cropped.png";
 
 export function Footer() {
   return (
     <footer
-      className="relative text-cream"
+      className="relative text-cream pt-10"
       style={{
         backgroundImage:
-          "linear-gradient(180deg, oklch(0.22 0.025 50) 0%, oklch(0.17 0.022 50) 100%)",
+          "linear-gradient(180deg, oklch(0.20 0.035 45) 0%, oklch(0.14 0.025 45) 100%)",
       }}
     >
-      {/* torn paper top edge */}
+      {/* torn paper top edge — flipped header asset */}
       <div
-        className="absolute -top-[1px] left-0 right-0 h-4 bg-cream"
+        className="absolute left-0 right-0 pointer-events-none"
         style={{
-          WebkitMaskImage:
-            "radial-gradient(circle at 8px 0, transparent 7px, #000 8px)",
-          maskImage:
-            "radial-gradient(circle at 8px 0, transparent 7px, #000 8px)",
-          WebkitMaskSize: "16px 16px",
-          maskSize: "16px 16px",
-          WebkitMaskRepeat: "repeat-x",
-          maskRepeat: "repeat-x",
-          WebkitMaskPosition: "top",
-          maskPosition: "top",
+          top: "-28px",
+          height: "60px",
+          backgroundImage: `url(${tornPaper})`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "bottom center",
+          transform: "scaleY(-1)",
+          filter: "drop-shadow(0 -6px 10px rgba(0,0,0,0.35))",
         }}
         aria-hidden
       />
@@ -38,8 +37,8 @@ export function Footer() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-[1320px] px-6 md:px-12 pt-20 pb-10">
-        <div className="grid gap-12 md:grid-cols-12">
+      <div className="relative mx-auto max-w-[1320px] px-6 md:px-12 pt-28 pb-16">
+        <div className="grid gap-14 md:grid-cols-12">
           {/* brand col */}
           <div className="md:col-span-3">
             <Link to="/" className="flex items-center">
