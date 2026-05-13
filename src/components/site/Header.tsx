@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
-import headerPaper from "@/assets/header-paper.png";
-import headerEdge from "@/assets/header-edge.png";
+import headerBg from "@/assets/header-bg.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -22,21 +21,17 @@ export function Header() {
   }, [open]);
 
   return (
-    <header
-      className="sticky top-0 z-50 backdrop-blur-md bg-cream/95"
-      style={{
-        backgroundImage: `url(${headerPaper})`,
-        backgroundSize: "100% 100%",
-        backgroundPosition: "top",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* torn paper bottom edge — hangs below header */}
-      <img
-        src={headerEdge}
-        alt=""
+    <header className="sticky top-0 z-50 bg-transparent">
+      {/* paper background with built-in torn bottom edge — fully transparent below the tear */}
+      <div
         aria-hidden
-        className="pointer-events-none absolute left-0 right-0 -bottom-5 md:-bottom-7 w-full h-[28px] md:h-[40px] object-cover object-bottom select-none drop-shadow-[0_4px_6px_rgba(60,60,60,0.06)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[125%] -z-0 select-none drop-shadow-[0_4px_8px_rgba(60,60,60,0.06)]"
+        style={{
+          backgroundImage: `url(${headerBg})`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "top",
+        }}
       />
       <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10 py-0">
         <Link to="/" className="flex items-center -my-3">

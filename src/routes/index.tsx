@@ -19,7 +19,7 @@ import { ReviewCard } from "@/components/site/ReviewCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon, PlaneTrailIcon,
 } from "@/components/site/DoodleIcons";
-import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
+import { StarMark, MountainMark, PinMark, CompassMark, BusMark, PlaneMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -69,11 +69,18 @@ function HomePage() {
   return (
     <SiteLayout>
       {/* HERO — editorial 2-polaroid composition */}
-      <section className="relative bg-cream">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12 pt-20 md:pt-28 pb-24 md:pb-36">
+      <section className="relative bg-cream overflow-hidden">
+        {/* dotted journey line crossing the entire hero */}
+        <JourneyPath className="absolute left-0 right-0 top-[58%] w-full h-32 text-primary/35 pointer-events-none hidden md:block" variant="long" />
+
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-20 md:pt-28 pb-24 md:pb-36">
           <div className="grid md:grid-cols-12 gap-14 md:gap-20 items-center">
             <div className="md:col-span-6 order-2 md:order-1">
-              <p className="font-marker text-primary/75 text-[12px] tracking-[0.32em] uppercase">Spring Journal · 2026</p>
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={16} className="text-primary/65" />
+                <DottedLine length={36} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase font-medium">Spring Journal · 2026</span>
+              </div>
               <h1 className="font-serif text-[42px] md:text-[64px] leading-[1.08] tracking-[-0.015em] text-ink mt-7 font-medium">
                 旅行不只是<br />
                 抵達一個地方，<br />
@@ -99,8 +106,8 @@ function HomePage() {
                 <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
                 <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
 
-                {/* paper airplane — fully visible, no clip */}
-                <PlaneTrailIcon size={84} className="absolute -top-6 -right-2 text-primary/40 rotate-[-10deg] hidden md:block z-20" />
+                {/* paper plane — unified brand mark */}
+                <PlaneMark size={56} strokeWidth={1.1} className="absolute -top-4 -right-2 text-primary/55 rotate-[-12deg] hidden md:block z-30" />
 
                 {/* Polaroid 1 — back */}
                 <figure className="polaroid absolute top-2 left-0 md:left-4 w-[60%] rotate-[-5deg] z-10">
