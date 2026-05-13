@@ -80,89 +80,64 @@ const faqs = [
 function HomePage() {
   return (
     <SiteLayout>
-      {/* HERO — cabin window scene */}
-      <section className="relative overflow-hidden bg-[oklch(0.18_0.02_50)]">
-        <div className="absolute inset-0">
-          <img
-            src={heroCabin}
-            alt="Cabin window view of the Canadian Rockies at golden hour"
-            className="h-full w-full object-cover"
-            width={1920}
-            height={1080}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-paper" />
-        </div>
-
-        <div className="relative mx-auto max-w-[1400px] px-6 md:px-12 pt-10 md:pt-14 pb-40 md:pb-56">
-          <div className="grid md:grid-cols-12 gap-8 items-start min-h-[460px] md:min-h-[560px]">
-            {/* LEFT — taped notebook page with handwritten quote */}
-            <div className="md:col-span-7 relative">
-              <div
-                className="relative bg-[oklch(0.94_0.04_85)] px-8 md:px-14 py-10 md:py-16 rotate-[-2deg] shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] max-w-[560px]"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(to bottom, transparent 0 38px, rgba(80,60,30,0.18) 38px 39px)",
-                }}
-              >
-                {/* spiral binding holes */}
-                <div className="absolute left-3 top-0 bottom-0 flex flex-col justify-around py-6">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <span key={i} className="block w-3 h-3 rounded-full bg-[oklch(0.32_0.04_60)] shadow-inner" />
-                  ))}
-                </div>
-                <span className="absolute -top-4 right-10 w-24 h-6 bg-[var(--tape)] rotate-[8deg] shadow-sm" aria-hidden />
-                <span className="absolute -top-3 left-20 w-20 h-5 bg-[var(--tape)] rotate-[-6deg] shadow-sm" aria-hidden />
-
-                <h1 className="font-marker text-ink text-[30px] md:text-[48px] leading-[1.4] tracking-tight">
-                  旅行不只是到達，<br />
-                  而是每一段路上<br />
-                  遇見的美好 <span className="text-[oklch(0.55_0.15_25)]">♡</span>
-                </h1>
-              </div>
-
-              <div className="mt-10 flex flex-wrap items-center gap-5 pl-2">
+      {/* HERO — airy editorial */}
+      <section className="relative bg-cream overflow-hidden">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12 pt-20 md:pt-28 pb-24 md:pb-32">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
+            <div className="md:col-span-6 order-2 md:order-1">
+              <p className="font-marker text-primary/80 text-base tracking-[0.25em] uppercase">— spring journal</p>
+              <h1 className="font-serif text-[40px] md:text-[64px] leading-[1.15] tracking-tight text-ink mt-6 font-medium">
+                旅行不只是<br />
+                抵達一個地方，<br />
+                <span className="italic text-primary">而是被光照亮的時刻</span>
+              </h1>
+              <p className="mt-8 text-ink/65 leading-[2] text-[15.5px] max-w-md">
+                小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，
+                收集加拿大山與海之間的每一道光。
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-5">
                 <Link
                   to="/tours"
-                  className="inline-flex items-center gap-3 rounded-full bg-cream/95 px-9 py-4 text-ink font-medium text-[15px] tracking-wide shadow-[0_12px_28px_-10px_rgba(0,0,0,0.55)] hover:bg-cream transition"
+                  className="inline-flex items-center gap-3 rounded-full bg-primary px-8 py-3.5 text-primary-foreground font-medium text-[14.5px] tracking-wide shadow-[0_10px_28px_-12px_oklch(0.585_0.04_155/0.7)] hover:bg-primary/90 transition"
                 >
                   探索所有行程 <span aria-hidden>→</span>
                 </Link>
-                <Link to="/stories" className="font-marker text-cream/90 text-base underline decoration-cream/50 underline-offset-[6px] hover:text-cream">
+                <Link to="/stories" className="text-ink/70 text-[14px] underline decoration-primary/40 underline-offset-[6px] hover:text-primary transition">
                   讀讀旅人故事 →
                 </Link>
               </div>
             </div>
 
-            {/* RIGHT — taped polaroid */}
-            <div className="md:col-span-5 relative">
-              <figure className="relative ml-auto w-[230px] md:w-[300px] rotate-[4deg] polaroid">
-                <span className="tape -top-4 left-6 rotate-[-12deg]" aria-hidden />
-                <span className="tape -top-3 right-4 w-[60px] rotate-[14deg]" aria-hidden />
-                <img src={tourBanff} alt="Travellers watching the lake" className="h-[200px] md:h-[260px] w-full object-cover" width={600} height={400} />
-                <figcaption className="font-marker text-ink/85 text-base mt-3 text-center">
-                  一起出發吧！
-                </figcaption>
-              </figure>
+            <div className="md:col-span-6 order-1 md:order-2 relative">
+              <div className="relative">
+                <div className="absolute -top-6 -left-4 md:-left-8 w-32 h-32 rounded-full opacity-60 blur-2xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
+                <div className="absolute -bottom-8 -right-4 w-40 h-40 rounded-full opacity-50 blur-2xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
+                <figure className="relative polaroid rotate-[2deg] max-w-[460px] ml-auto">
+                  <span className="tape -top-4 left-10 rotate-[-8deg]" aria-hidden />
+                  <img src={tourBanff} alt="Mountain reflection at golden hour" className="h-[320px] md:h-[420px] w-full object-cover" width={800} height={600} />
+                  <figcaption className="font-marker text-ink/80 text-base mt-4 text-center">
+                    一起出發吧 ✦
+                  </figcaption>
+                </figure>
+              </div>
             </div>
           </div>
         </div>
-
       </section>
 
-
-      {/* FEATURES — 5 icon row */}
-      <section className="relative bg-paper pt-20 pb-12">
-        <div className="mx-auto max-w-[1320px] px-6 md:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10">
+      {/* FEATURES — 5 icon row, breathable */}
+      <section className="relative bg-[var(--sand)] py-20 md:py-24">
+        <div className="mx-auto max-w-[1240px] px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-14">
             {features.map((f) => {
               const Icon = f.icon;
               return (
                 <div key={f.t} className="flex flex-col items-start">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-cream border border-clay/20 text-ink shadow-sm">
-                    <Icon size={18} strokeWidth={1.6} />
+                  <span className="grid h-12 w-12 place-items-center rounded-full bg-cream border border-primary/15 text-primary shadow-[0_4px_14px_-6px_oklch(0.585_0.04_155/0.4)]">
+                    <Icon size={20} strokeWidth={1.5} />
                   </span>
-                  <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
-                  <p className="mt-2 text-[12.5px] text-ink/60 leading-[1.7] whitespace-pre-line">{f.d}</p>
+                  <p className="mt-6 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
+                  <p className="mt-2.5 text-[12.5px] text-ink/60 leading-[1.85] whitespace-pre-line">{f.d}</p>
                 </div>
               );
             })}
