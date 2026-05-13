@@ -130,6 +130,7 @@ export function Footer() {
           <p>© 2026 Shootingstar Travel. All Rights Reserved.</p>
         </div>
       </div>
+      </div>
     </footer>
   );
 }
