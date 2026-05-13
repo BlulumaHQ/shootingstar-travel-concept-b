@@ -137,13 +137,17 @@ function HomePage() {
       {/* FEATURED TOURS */}
       <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-end justify-between mb-14 gap-4">
+          <div className="flex items-end justify-between mb-16 gap-4">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— featured</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">精選行程</h2>
+              <div className="flex items-center gap-3 text-primary/75">
+                <BusMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Featured Journeys</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">精選行程</h2>
             </div>
-            <Link to="/tours" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] tracking-wide hover:bg-primary hover:text-primary-foreground transition">
-              探索所有行程 <span aria-hidden>→</span>
+            <Link to="/tours" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
+              View all <span aria-hidden>→</span>
             </Link>
           </div>
 
@@ -184,14 +188,18 @@ function HomePage() {
       {/* GUEST STORIES — 旅客分享 */}
       <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-end justify-between gap-4 mb-12">
+          <div className="flex items-end justify-between gap-4 mb-14">
             <div>
-              <p className="font-marker text-primary/75 text-sm tracking-[0.25em] uppercase">— travellers</p>
-              <h2 className="font-serif text-3xl md:text-4xl text-ink tracking-tight font-semibold mt-3">旅客分享</h2>
-              <p className="mt-3 text-ink/55 text-[13.5px]">真實旅人寫下的小小回憶 ✦</p>
+              <div className="flex items-center gap-3 text-primary/75">
+                <StarMark size={18} className="text-primary/65" />
+                <DottedLine length={32} className="text-primary/45" />
+                <span className="text-[11px] tracking-[0.4em] uppercase">Travellers' Words</span>
+              </div>
+              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">旅客分享</h2>
+              <p className="mt-4 text-ink/55 text-[13.5px] leading-[2]">真實旅人寫下的小小回憶。</p>
             </div>
-            <Link to="/reviews" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[13px] hover:bg-primary hover:text-primary-foreground transition">
-              更多分享 →
+            <Link to="/reviews" className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
+              More stories →
             </Link>
           </div>
         </div>
