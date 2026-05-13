@@ -254,124 +254,78 @@ function HomePage() {
         </div>
       </section>
 
-      {/* DESTINATIONS — editorial asymmetric postcard wall */}
-      <section className="relative bg-paper py-32 overflow-hidden">
-        <div className="mx-auto max-w-[1320px] px-6 md:px-10">
-          {/* Editorial header — left aligned, asymmetric */}
-          <div className="grid md:grid-cols-12 gap-10 items-end mb-20">
-            <div className="md:col-span-7">
-              <p className="font-marker text-clay/75 text-base">— a collection of places</p>
-              <h2 className="font-serif text-5xl md:text-6xl text-ink mt-3 leading-[1.05] tracking-tight">
-                值得收藏的<br className="hidden md:block" />
-                <span className="italic text-clay">每一處風景</span>
-              </h2>
-            </div>
-            <div className="md:col-span-4 md:col-start-9">
-              <p className="text-ink/65 leading-[1.95] text-[15px]">
-                從洛磯山的清晨倒影，到育空夜空裡的綠光——
-                我們為你挑選了七個最值得寫進日記的目的地。
-              </p>
-              <Link to="/destinations" className="mt-6 inline-flex items-center gap-2 font-serif text-sm tracking-[0.2em] uppercase text-ink/75 hover:text-primary border-b border-clay/40 pb-1">
-                完整地圖 <span aria-hidden>→</span>
-              </Link>
-            </div>
+      {/* DESTINATIONS — clean editorial alternating layout */}
+      <section className="relative bg-cream py-24 md:py-32">
+        <div className="mx-auto max-w-[1200px] px-6 md:px-12">
+          <div className="text-center mb-20 md:mb-24">
+            <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— a collection of places</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-4 leading-[1.2] tracking-tight font-medium">
+              值得收藏的<span className="italic text-primary">每一處風景</span>
+            </h2>
+            <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">
+              從洛磯山的清晨倒影，到育空夜空裡的綠光——
+              我們挑選了七個最值得寫進日記的目的地。
+            </p>
           </div>
 
-          {/* Magazine asymmetric grid — varied sizes, intentional negative space */}
-          <div className="grid grid-cols-12 gap-x-6 gap-y-10 md:gap-y-16">
-            {/* Banff — large feature */}
-            <Link to="/destinations" className="group col-span-12 md:col-span-7 relative">
-              <div className="relative overflow-hidden aspect-[5/4]">
-                <img src={destinations[0].img} alt={destinations[0].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5 flex items-baseline gap-4">
-                <span className="font-marker text-clay text-sm">01 ·</span>
-                <div>
-                  <h3 className="font-serif text-2xl md:text-3xl text-ink tracking-tight">{destinations[0].name}</h3>
-                  <p className="text-sm text-ink/60 mt-1">{destinations[0].zh} — 加拿大最經典的湖光雪峰倒影</p>
-                </div>
-              </div>
-            </Link>
+          <div className="space-y-24 md:space-y-32">
+            {destinations.map((d, i) => {
+              const reversed = i % 2 === 1;
+              return (
+                <Link
+                  to="/destinations"
+                  key={d.name}
+                  className="group grid md:grid-cols-12 gap-8 md:gap-14 items-center"
+                >
+                  <div className={`md:col-span-7 ${reversed ? "md:order-2" : ""}`}>
+                    <div className="relative overflow-hidden rounded-[4px] aspect-[4/3] shadow-[0_30px_60px_-30px_oklch(0.4_0.04_155/0.4)]">
+                      <img src={d.img} alt={d.name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
+                    </div>
+                  </div>
+                  <div className={`md:col-span-5 ${reversed ? "md:order-1 md:pr-6" : "md:pl-6"}`}>
+                    <span className="font-marker text-primary/80 text-sm tracking-[0.25em]">{String(i + 1).padStart(2, "0")} —</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-ink tracking-tight mt-3 font-medium">{d.name}</h3>
+                    <p className="font-marker text-ink/60 text-lg mt-2">{d.zh}</p>
+                    <div className="mt-5 h-px w-12 bg-primary/40" />
+                    <p className="mt-6 text-ink/65 leading-[2] text-[14.5px]">
+                      {d.zh === "班夫" && "湖光雪峰倒影，加拿大最經典的明信片風景。"}
+                      {d.zh === "傑士伯" && "暗夜星空保護區，靜謐而深邃的山林夜晚。"}
+                      {d.zh === "溫哥華" && "山與海之間的城市，舒緩而現代的生活步調。"}
+                      {d.zh === "惠斯勒" && "冬日滑雪、夏日山徑的度假名所。"}
+                      {d.zh === "維多利亞" && "英倫風情與布查特花園的春日午後。"}
+                      {d.zh === "育空" && "北方曠野與午夜陽光的盡頭。"}
+                      {d.zh === "極光" && "夜空下最浪漫的等待，綠光輕輕落下。"}
+                    </p>
+                    <span className="mt-7 inline-flex items-center gap-2 font-serif text-sm tracking-[0.2em] uppercase text-primary border-b border-primary/40 pb-1 group-hover:border-primary">
+                      Read more <span aria-hidden>→</span>
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-            {/* Jasper — tall portrait, offset down */}
-            <Link to="/destinations" className="group col-span-6 md:col-span-4 md:col-start-9 md:mt-24 relative">
-              <div className="relative overflow-hidden aspect-[3/4]">
-                <img src={destinations[1].img} alt={destinations[1].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5">
-                <span className="font-marker text-clay text-sm">02</span>
-                <h3 className="font-serif text-xl md:text-2xl text-ink tracking-tight mt-1">{destinations[1].name}</h3>
-                <p className="text-xs text-ink/60 mt-1">{destinations[1].zh} — 暗夜星空保護區</p>
-              </div>
-            </Link>
 
-            {/* Vancouver — wide landscape */}
-            <Link to="/destinations" className="group col-span-12 md:col-span-5 md:col-start-2 md:mt-8 relative">
-              <div className="relative overflow-hidden aspect-[4/3]">
-                <img src={destinations[2].img} alt={destinations[2].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5">
-                <span className="font-marker text-clay text-sm">03</span>
-                <h3 className="font-serif text-xl md:text-2xl text-ink tracking-tight mt-1">{destinations[2].name}</h3>
-                <p className="text-xs text-ink/60 mt-1">{destinations[2].zh} — 山與海之間的城市</p>
-              </div>
-            </Link>
-
-            {/* Whistler — portrait */}
-            <Link to="/destinations" className="group col-span-6 md:col-span-3 md:col-start-8 relative">
-              <div className="relative overflow-hidden aspect-[3/4]">
-                <img src={destinations[3].img} alt={destinations[3].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5">
-                <span className="font-marker text-clay text-sm">04</span>
-                <h3 className="font-serif text-xl text-ink tracking-tight mt-1">{destinations[3].name}</h3>
-                <p className="text-xs text-ink/60 mt-1">{destinations[3].zh}</p>
-              </div>
-            </Link>
-
-            {/* Editorial pull-quote — breaks the grid */}
-            <div className="hidden md:flex col-span-3 col-start-1 items-center justify-center mt-16">
-              <blockquote className="font-serif italic text-ink/70 text-[17px] leading-[1.7] border-l border-clay/40 pl-5">
-                「每個地方，<br />都值得慢慢走過一次。」
-              </blockquote>
-            </div>
-
-            {/* Victoria */}
-            <Link to="/destinations" className="group col-span-6 md:col-span-4 md:col-start-5 md:mt-12 relative">
-              <div className="relative overflow-hidden aspect-[4/5]">
-                <img src={destinations[4].img} alt={destinations[4].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5">
-                <span className="font-marker text-clay text-sm">05</span>
-                <h3 className="font-serif text-xl text-ink tracking-tight mt-1">{destinations[4].name}</h3>
-                <p className="text-xs text-ink/60 mt-1">{destinations[4].zh} — 英倫風情與花園</p>
-              </div>
-            </Link>
-
-            {/* Yukon */}
-            <Link to="/destinations" className="group col-span-6 md:col-span-4 md:col-start-9 relative">
-              <div className="relative overflow-hidden aspect-[4/5]">
-                <img src={destinations[5].img} alt={destinations[5].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-              </div>
-              <div className="mt-5">
-                <span className="font-marker text-clay text-sm">06</span>
-                <h3 className="font-serif text-xl text-ink tracking-tight mt-1">{destinations[5].name}</h3>
-                <p className="text-xs text-ink/60 mt-1">{destinations[5].zh} — 北方曠野</p>
-              </div>
-            </Link>
-
-            {/* Aurora — wide finale */}
-            <Link to="/destinations" className="group col-span-12 md:col-span-9 md:col-start-3 md:mt-12 relative">
-              <div className="relative overflow-hidden aspect-[21/9]">
-                <img src={destinations[6].img} alt={destinations[6].name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1400ms]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-ink/40 via-transparent to-transparent" />
-                <div className="absolute left-8 bottom-7 text-cream">
-                  <span className="font-marker text-cream/85 text-sm">07 — finale</span>
-                  <h3 className="font-serif text-3xl md:text-5xl tracking-tight mt-2">{destinations[6].name}</h3>
-                  <p className="font-marker text-cream/80 text-base mt-1">{destinations[6].zh} — 夜空下最浪漫的等待</p>
-                </div>
-              </div>
-            </Link>
+      {/* FAQ — narrow, editorial, soft */}
+      <section className="bg-[var(--sand)]">
+        <div className="mx-auto max-w-[760px] px-6 md:px-10 py-24 md:py-32">
+          <div className="text-center mb-16">
+            <p className="font-marker text-primary/75 text-sm tracking-[0.3em] uppercase">— frequently asked</p>
+            <h2 className="font-serif text-4xl md:text-5xl text-ink mt-4 tracking-tight font-medium">常見問題</h2>
+            <div className="mx-auto mt-6 h-px w-12 bg-primary/40" />
+          </div>
+          <div className="space-y-3">
+            {faqs.map((f) => (
+              <details key={f.q} className="group rounded-2xl bg-cream/70 border border-border/60 px-7 py-5 transition open:bg-cream open:shadow-[0_10px_30px_-18px_oklch(0.4_0.04_155/0.4)]">
+                <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
+                  <span className="font-serif text-[17px] text-ink leading-snug">{f.q}</span>
+                  <span className="text-primary text-2xl group-open:rotate-45 transition shrink-0">+</span>
+                </summary>
+                <p className="mt-5 text-ink/65 leading-[2] text-[14.5px]">{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
