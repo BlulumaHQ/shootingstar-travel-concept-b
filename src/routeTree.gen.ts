@@ -40,6 +40,7 @@ import { Route as KoContactRouteImport } from './routes/ko/contact'
 import { Route as KoBlogRouteImport } from './routes/ko/blog'
 import { Route as KoAboutRouteImport } from './routes/ko/about'
 import { Route as ZhToursIndexRouteImport } from './routes/zh/tours.index'
+import { Route as KoToursIndexRouteImport } from './routes/ko/tours.index'
 import { Route as ZhToursSlugRouteImport } from './routes/zh/tours.$slug'
 
 const ToursRoute = ToursRouteImport.update({
@@ -197,6 +198,11 @@ const ZhToursIndexRoute = ZhToursIndexRouteImport.update({
   path: '/zh/tours/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KoToursIndexRoute = KoToursIndexRouteImport.update({
+  id: '/ko/tours/',
+  path: '/ko/tours/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ZhToursSlugRoute = ZhToursSlugRouteImport.update({
   id: '/zh/tours/$slug',
   path: '/zh/tours/$slug',
@@ -235,6 +241,7 @@ export interface FileRoutesByFullPath {
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/ko/tours/': typeof KoToursIndexRoute
   '/zh/tours/': typeof ZhToursIndexRoute
 }
 export interface FileRoutesByTo {
@@ -268,6 +275,7 @@ export interface FileRoutesByTo {
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/ko/tours': typeof KoToursIndexRoute
   '/zh/tours': typeof ZhToursIndexRoute
 }
 export interface FileRoutesById {
@@ -303,6 +311,7 @@ export interface FileRoutesById {
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/ko/tours/': typeof KoToursIndexRoute
   '/zh/tours/': typeof ZhToursIndexRoute
 }
 export interface FileRouteTypes {
@@ -339,6 +348,7 @@ export interface FileRouteTypes {
     | '/tours/'
     | '/zh/'
     | '/zh/tours/$slug'
+    | '/ko/tours/'
     | '/zh/tours/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
     | '/tours'
     | '/zh'
     | '/zh/tours/$slug'
+    | '/ko/tours'
     | '/zh/tours'
   id:
     | '__root__'
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/tours/'
     | '/zh/'
     | '/zh/tours/$slug'
+    | '/ko/tours/'
     | '/zh/tours/'
   fileRoutesById: FileRoutesById
 }
@@ -438,6 +450,7 @@ export interface RootRouteChildren {
   ZhTermsRoute: typeof ZhTermsRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhToursSlugRoute: typeof ZhToursSlugRoute
+  KoToursIndexRoute: typeof KoToursIndexRoute
   ZhToursIndexRoute: typeof ZhToursIndexRoute
 }
 
@@ -660,6 +673,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZhToursIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ko/tours/': {
+      id: '/ko/tours/'
+      path: '/ko/tours'
+      fullPath: '/ko/tours/'
+      preLoaderRoute: typeof KoToursIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zh/tours/$slug': {
       id: '/zh/tours/$slug'
       path: '/zh/tours/$slug'
@@ -711,6 +731,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZhTermsRoute: ZhTermsRoute,
   KoIndexRoute: KoIndexRoute,
   ZhToursSlugRoute: ZhToursSlugRoute,
+  KoToursIndexRoute: KoToursIndexRoute,
   ZhToursIndexRoute: ZhToursIndexRoute,
 }
 export const routeTree = rootRouteImport
