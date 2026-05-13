@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
-import headerEdge from "@/assets/header-edge.png";
+import tornEdge from "@/assets/header-torn-edge.png";
 import { useEffect, useState } from "react";
 
 const nav = [
@@ -21,8 +21,11 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* Solid cream bar — flush to the very top, no gap */}
+    <header
+      className="sticky top-0 z-50"
+      style={{ transform: "translateZ(0)", willChange: "transform", backfaceVisibility: "hidden" }}
+    >
+      {/* Solid cream bar — flush to top, stable on scroll */}
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
           <Link to="/" className="flex items-center -my-2" onClick={() => setOpen(false)}>
@@ -65,18 +68,27 @@ export function Header() {
             </svg>
           </button>
         </div>
+
+        {/* Torn paper bottom — uploaded asset, transparent below the edge.
+            Positioned absolutely OUT of layout flow so cream bar height stays stable.
+            The top portion of the image overlaps the cream bar (same color) so the
+            transition is seamless and the torn line appears as the edge. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-0 right-0 top-full h-[22px] md:h-[32px] overflow-hidden"
+          style={{ transform: "translateZ(0)" }}
+        >
+          <img
+            src={tornEdge}
+            alt=""
+            className="block w-full h-full select-none"
+            style={{ objectFit: "fill" }}
+            draggable={false}
+          />
+        </div>
       </div>
 
-      {/* Torn paper bottom edge — overlaps next section, fully transparent below */}
-      <img
-        src={headerEdge}
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute left-0 right-0 top-full w-full h-[18px] md:h-[28px] select-none drop-shadow-[0_4px_6px_rgba(60,60,60,0.05)]"
-        style={{ objectFit: "fill" }}
-      />
-
-      {/* Mobile menu — full screen overlay */}
+      {/* Mobile menu */}
       {open && (
         <div className="lg:hidden fixed inset-0 top-[88px] z-40 bg-cream overflow-y-auto">
           <nav className="px-8 pt-10 pb-16 flex flex-col">

@@ -19,7 +19,8 @@ import { ReviewCard } from "@/components/site/ReviewCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon, PlaneTrailIcon,
 } from "@/components/site/DoodleIcons";
-import { StarMark, MountainMark, PinMark, CompassMark, BusMark, PlaneMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
+import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
+import { PlaneJourney } from "@/components/site/PlaneJourney";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,20 +71,8 @@ function HomePage() {
     <SiteLayout>
       {/* HERO — mobile: text-first; desktop: editorial 2-polaroid */}
       <section className="relative bg-cream overflow-hidden">
-        {/* DESKTOP: dotted journey line that visually trails behind the airplane */}
-        <svg
-          aria-hidden
-          viewBox="0 0 1200 200"
-          preserveAspectRatio="none"
-          className="hidden md:block absolute inset-x-0 top-[18%] w-full h-44 text-primary/40 pointer-events-none"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinecap="round"
-        >
-          {/* path arcs from left, rises to where the plane sits (top-right of the polaroid block) */}
-          <path d="M -20 150 Q 240 100 520 130 T 980 60" strokeDasharray="2 7" />
-        </svg>
+        {/* Unified paper-plane + dashed journey path (one asset, always aligned) */}
+        <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
 
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-28 pb-20 md:pb-36">
           <div className="grid md:grid-cols-12 gap-10 md:gap-20 items-center">
@@ -117,7 +106,6 @@ function HomePage() {
               <div className="relative h-[220px] mx-auto max-w-[420px]">
                 <div className="absolute -top-6 -left-4 w-32 h-32 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
                 <div className="absolute -bottom-6 -right-4 w-36 h-36 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <PlaneMark size={32} strokeWidth={1.1} className="absolute -top-2 right-2 text-primary/55 rotate-[-12deg] z-30" />
                 <figure className="polaroid absolute top-2 left-2 w-[44%] rotate-[-5deg] z-10">
                   <img src={tourBanff} alt="" className="aspect-square w-full object-cover" />
                   <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Banff</figcaption>
@@ -134,8 +122,6 @@ function HomePage() {
               <div className="relative h-[560px] mx-auto max-w-[520px]">
                 <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
                 <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                {/* paper plane — sits at the end of the dashed path */}
-                <PlaneMark size={56} strokeWidth={1.1} className="absolute -top-2 right-0 text-primary/65 rotate-[-12deg] z-30" />
                 <figure className="polaroid absolute top-2 left-4 w-[60%] rotate-[-5deg] z-10">
                   <img src={tourBanff} alt="Mountain reflection at golden hour" className="aspect-square w-full object-cover" />
                   <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Banff · 06:42</figcaption>
@@ -237,8 +223,6 @@ function HomePage() {
 
         {/* Desktop marquee */}
         <div className="hidden md:block marquee-pause relative">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[var(--sand)] to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[var(--sand)] to-transparent z-10" />
           <div className="overflow-hidden">
             <div className="animate-marquee flex gap-6 w-max px-6">
               {[...allReviews, ...allReviews].map((r, i) => (
@@ -283,8 +267,8 @@ function HomePage() {
                   }}
                 />
               </div>
-              <div className="hidden md:block absolute -bottom-10 -right-6 w-[42%]">
-                <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
+              <div className="absolute -bottom-10 -right-6 md:-right-6 w-[42%] block">
+                <img src={tourGroup} alt="Shooting Star tour group at a scenic viewpoint" loading="lazy" className="aspect-[4/5] object-cover rounded-[4px] border-[5px] md:border-[6px] border-cream shadow-[0_20px_40px_-20px_rgba(60,80,70,0.4)] w-full" />
               </div>
             </div>
             <div className="md:col-span-6 md:pl-4">
