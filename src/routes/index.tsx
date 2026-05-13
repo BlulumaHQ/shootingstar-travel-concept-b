@@ -123,9 +123,9 @@ function HomePage() {
               <div className="mt-10 flex flex-wrap items-center gap-5 pl-2">
                 <Link
                   to="/tours"
-                  className="inline-flex items-center gap-3 rounded-full bg-cream/95 px-8 py-3.5 text-ink font-medium text-sm tracking-wide shadow-[0_10px_24px_-10px_rgba(0,0,0,0.5)] hover:bg-cream transition"
+                  className="inline-flex items-center gap-3 rounded-full bg-cream/95 px-9 py-4 text-ink font-medium text-[15px] tracking-wide shadow-[0_12px_28px_-10px_rgba(0,0,0,0.55)] hover:bg-cream transition"
                 >
-                  探索行程 <span aria-hidden>→</span>
+                  探索所有行程 <span aria-hidden>→</span>
                 </Link>
                 <Link to="/stories" className="font-marker text-cream/90 text-base underline decoration-cream/50 underline-offset-[6px] hover:text-cream">
                   讀讀旅人故事 →
