@@ -1,21 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomePage } from "../index";
+import { seoHead } from "@/i18n/seo";
 
 export const Route = createFileRoute("/zh/")({
   head: () => ({
-    meta: [
-      { title: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { name: "description", content: "探索加拿大最值得收藏的旅程。Shootingstar Travel 提供小團旅行、洛磯山、班夫、極光與溫哥華深度旅遊體驗。" },
-      { property: "og:title", content: "Shootingstar Travel | 加拿大旅行團與深度旅遊體驗" },
-      { property: "og:description", content: "加拿大小團精緻旅遊・洛磯山・班夫・極光・溫哥華深度體驗。" },
-      { property: "og:locale", content: "zh_Hant" },
-    ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/zh" },
-      { rel: "alternate", hrefLang: "en", href: "https://shootingstar-travel-concept-b.lovable.app/" },
-      { rel: "alternate", hrefLang: "zh-Hant", href: "https://shootingstar-travel-concept-b.lovable.app/zh" },
-      { rel: "alternate", hrefLang: "ko", href: "https://shootingstar-travel-concept-b.lovable.app/ko" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://shootingstar-travel-concept-b.lovable.app/" },
+    ...seoHead({
+      path: "/",
+      locale: "zh",
+      title: "Shootingstar Travel｜加拿大洛磯山脈精品旅遊・溫哥華深度遊・極光追尋",
+      description: "加拿大在地精品小團旅遊。洛磯山脈、班夫、溫哥華、維多利亞與黃刀鎮極光，提供中文、韓文、英文貼心嚮導，為您客製安心、有溫度的加拿大旅程。",
+    }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "TravelAgency",
+          name: "Shootingstar Travel",
+          url: "https://shootingstar-travel-concept-b.lovable.app/zh",
+          areaServed: ["Canada"],
+          knowsLanguage: ["zh", "en", "ko"],
+        }),
+      },
     ],
   }),
   component: HomePage,
