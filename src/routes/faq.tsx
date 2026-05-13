@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
