@@ -1,31 +1,37 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
-import tornPaper from "@/assets/header-paper-cropped.png";
 
 export function Footer() {
   return (
-    <footer
-      className="relative text-cream pt-10"
-      style={{
-        backgroundImage:
-          "linear-gradient(180deg, oklch(0.20 0.035 45) 0%, oklch(0.14 0.025 45) 100%)",
-      }}
-    >
-      {/* torn paper top edge — flipped header asset */}
+    <footer className="relative text-cream">
+      {/* torn paper top edge — masks the dark footer top into an irregular tear */}
       <div
-        className="absolute left-0 right-0 pointer-events-none"
-        style={{
-          top: "-28px",
-          height: "60px",
-          backgroundImage: `url(${tornPaper})`,
-          backgroundSize: "100% 100%",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "bottom center",
-          transform: "scaleY(-1)",
-          filter: "drop-shadow(0 -6px 10px rgba(0,0,0,0.35))",
-        }}
         aria-hidden
+        className="relative"
+        style={{
+          height: "36px",
+          backgroundImage:
+            "linear-gradient(180deg, oklch(0.20 0.035 45) 0%, oklch(0.18 0.03 45) 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 14px 10px at 12px 0, transparent 9px, #000 10px)",
+          maskImage:
+            "radial-gradient(ellipse 14px 10px at 12px 0, transparent 9px, #000 10px)",
+          WebkitMaskSize: "24px 18px",
+          maskSize: "24px 18px",
+          WebkitMaskRepeat: "repeat-x",
+          maskRepeat: "repeat-x",
+          WebkitMaskPosition: "top",
+          maskPosition: "top",
+          filter: "drop-shadow(0 -2px 1px rgba(0,0,0,0.15))",
+        }}
       />
+      <div
+        className="relative"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, oklch(0.18 0.03 45) 0%, oklch(0.12 0.022 45) 100%)",
+        }}
+      >
 
       {/* wood grain texture */}
       <div
