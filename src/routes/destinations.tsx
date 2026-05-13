@@ -7,6 +7,7 @@ import whistler from "@/assets/dest-whistler.jpg";
 import victoria from "@/assets/tour-victoria.jpg";
 import yukon from "@/assets/dest-yukon.jpg";
 import aurora from "@/assets/tour-aurora.jpg";
+import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/destinations")({
   head: () => ({
