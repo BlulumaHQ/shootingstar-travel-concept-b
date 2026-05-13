@@ -98,10 +98,9 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     background-image:
-      radial-gradient(oklch(0.7 0.05 60 / 0.06) 1px, transparent 1px),
-      radial-gradient(oklch(0.5 0.05 60 / 0.04) 1px, transparent 1px);
-    background-size: 24px 24px, 18px 18px;
-    background-position: 0 0, 9px 9px;
+      radial-gradient(oklch(0.6 0.04 155 / 0.035) 1px, transparent 1px);
+    background-size: 26px 26px;
+    background-position: 0 0;
   }
   h1, h2, h3, h4 { font-family: var(--font-journal); letter-spacing: -0.005em; font-weight: 600; }
 }
