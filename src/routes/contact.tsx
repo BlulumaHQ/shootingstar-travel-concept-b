@@ -12,9 +12,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact — Shooting Star Travel" },
       { property: "og:description", content: "Your next journey begins here." },
     ],
-    links: [
-      { rel: "canonical", href: "https://shootingstar-travel-concept-b.lovable.app/contact" },
-    ],
+    links: hreflangLinks("/contact", "en"),
   }),
   component: ContactPage,
 });
