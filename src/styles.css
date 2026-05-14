@@ -112,12 +112,12 @@
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 60;
     background-image: url("/paper-texture.webp");
-    background-size: 600px 600px;
+    background-size: 720px 720px;
     background-repeat: repeat;
-    mix-blend-mode: multiply;
-    opacity: 0.5;
+    mix-blend-mode: overlay;
+    opacity: 0.55;
   }
   h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; font-weight: 500; }
 }
