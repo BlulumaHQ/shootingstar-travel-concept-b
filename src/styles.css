@@ -104,6 +104,21 @@
     background-size: 96px 96px, 96px 96px;
     background-position: 0 0;
   }
+  /* Global paper texture overlay — sits above all section backgrounds,
+     below interactive content. Uses overlay blend so it adds grain on both
+     light and dark sections without changing their underlying color. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background-image: url("/paper-texture.webp");
+    background-size: 720px 720px;
+    background-repeat: repeat;
+    mix-blend-mode: overlay;
+    opacity: 0.55;
+  }
   h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; font-weight: 500; }
 }
 
