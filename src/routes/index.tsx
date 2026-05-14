@@ -654,7 +654,7 @@ export function HomePage() {
           </div>
           <div className="grid md:grid-cols-2 gap-x-12 gap-y-3">
             {p.faqs.map((f, i) => (
-              <details key={f.q} open={i === 0} className="group border-b border-primary/15 py-6 open:pb-7">
+              <details key={f.q} open={i < 2} className="group border-b border-primary/15 py-6 open:pb-7">
                 <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
                   <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
                   <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
