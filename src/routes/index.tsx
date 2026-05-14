@@ -11,6 +11,7 @@ import tourVancouver from "@/assets/tour-vancouver.webp";
 import tourVictoria from "@/assets/tour-victoria.webp";
 import tourAurora from "@/assets/tour-aurora.webp";
 import tourGroup from "@/assets/tour-group.webp";
+import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
 import { Heart as HeartFill } from "lucide-react";
 import { useTours } from "@/data/useTours";
@@ -561,10 +562,21 @@ export function HomePage() {
       </section>
 
       {/* CONTACT CTA */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, var(--lavender-soft) 0%, var(--sage-soft) 100%)" }}
-      >
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${bgLake})` }}
+          aria-hidden
+        />
+        {/* brand-tinted overlay for readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, oklch(0.97 0.02 95 / 0.86) 0%, oklch(0.93 0.04 165 / 0.72) 55%, oklch(0.86 0.05 200 / 0.55) 100%)",
+          }}
+          aria-hidden
+        />
         <JourneyPath className="absolute inset-0 w-full h-full text-ink/30 opacity-60 pointer-events-none" variant="long" />
         <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-24 md:py-32 relative">
           <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
