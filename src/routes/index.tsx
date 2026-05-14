@@ -271,65 +271,8 @@ export function HomePage() {
 
   return (
     <SiteLayout>
-      {/* HERO */}
-      <section className="relative bg-cream overflow-hidden">
-        <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
-        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-28 pb-20 md:pb-36">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-20 items-center">
-            <div className="md:col-span-6 order-1">
-              <div className="flex items-center gap-3 text-primary/75">
-                <StarMark size={14} className="text-primary/65" />
-                <DottedLine length={28} className="text-primary/45" />
-                <span className="text-[10.5px] md:text-[11px] tracking-[0.38em] uppercase font-medium">{p.heroEyebrow}</span>
-              </div>
-              <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[64px] leading-[1.12] tracking-[-0.012em] text-ink mt-5 md:mt-7 font-medium">
-                {p.heroL1}<br />
-                {p.heroL2}<br />
-                <span className="italic text-primary">{p.heroL3}</span>
-              </h1>
-              <p className="mt-5 md:mt-9 text-ink/60 leading-[1.95] text-[14px] md:text-[15px] max-w-md">{p.heroBody}</p>
-              <div className="mt-7 md:mt-12 flex flex-wrap items-center gap-4 md:gap-6">
-                <Link to={link("/tours") as never} className="inline-flex items-center gap-3 rounded-full bg-primary px-7 md:px-8 py-3 md:py-3.5 text-primary-foreground font-medium text-[13px] md:text-[14px] tracking-[0.08em] uppercase shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] hover:bg-primary/90 transition">
-                  {p.ctaExplore} <span aria-hidden>→</span>
-                </Link>
-                <Link to={link("/reviews") as never} className="text-ink/65 text-[12.5px] md:text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition">
-                  {p.ctaStories}
-                </Link>
-              </div>
-            </div>
-
-            <div className="md:hidden order-2 mt-2 relative">
-              <div className="relative h-[220px] mx-auto max-w-[420px]">
-                <div className="absolute -top-6 -left-4 w-32 h-32 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
-                <div className="absolute -bottom-6 -right-4 w-36 h-36 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <figure className="polaroid absolute top-2 left-2 w-[44%] rotate-[-5deg] z-10">
-                  <img src={tourBanff} alt="" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Banff</figcaption>
-                </figure>
-                <figure className="polaroid absolute bottom-0 right-2 w-[44%] rotate-[4deg] z-20">
-                  <img src={tourAurora} alt="" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Yukon</figcaption>
-                </figure>
-              </div>
-            </div>
-
-            <div className="hidden md:block md:col-span-6 order-2 relative">
-              <div className="relative h-[560px] mx-auto max-w-[520px]">
-                <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
-                <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <figure className="polaroid absolute top-2 left-4 w-[60%] rotate-[-5deg] z-10">
-                  <img src={tourBanff} alt="Mountain reflection at golden hour" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Banff · 06:42</figcaption>
-                </figure>
-                <figure className="polaroid absolute bottom-0 right-4 w-[60%] rotate-[4deg] z-20">
-                  <img src={tourAurora} alt="Aurora over still lake" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Yukon · 23:18</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO SLIDESHOW */}
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} />
 
       {/* TRUST / FEATURE ICONS */}
       <section className="relative bg-[var(--sand)] py-20 md:py-24">
