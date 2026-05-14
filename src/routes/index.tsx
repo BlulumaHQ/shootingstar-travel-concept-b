@@ -22,6 +22,9 @@ import {
 } from "@/components/site/DoodleIcons";
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
+import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
+import heroBanff from "@/assets/hero-banff.jpg";
+import heroBanff2 from "@/assets/hero-banff-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -258,6 +261,165 @@ const FEATURE_ICONS = [CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHea
 
 const DEST_IMAGES = [tourBanff, tourVancouver, destWhistler, tourVictoria, tourAurora, destYukon];
 
+type HeroCopy = {
+  banff: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  aurora: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  vancouver: { eyebrow: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+};
+
+const HERO_COPY: Record<Locale, HeroCopy> = {
+  en: {
+    banff: {
+      eyebrow: "Featured Journey · Spring 2026",
+      badge: "Limited Departure",
+      lines: ["Banff & the", "Canadian Rockies", "— a turquoise hush."],
+      body: "Turquoise lakes, alpine air and slow mornings on Bow Valley Parkway. A handcrafted boutique itinerary through the heart of the Canadian Rockies.",
+      tags: ["Small Group Tour", "Premium Experience", "Korean Friendly", "Vancouver Departure"],
+      primary: "View Tour",
+      secondary: "See Itinerary →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "Seasonal Campaign · Winter Nights",
+      badge: "Aurora Season",
+      lines: ["Stay up late for", "the green light over", "Yellowknife."],
+      body: "Three quiet nights chasing the aurora through Canada's far north — heated viewing cabins, warm tea and time written for the sky.",
+      tags: ["3-Night Aurora", "Heated Cabins", "Korean Guide"],
+      primary: "View Aurora Tour",
+      secondary: "Read the journal →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "City Departures · Year-Round",
+      lines: ["Vancouver,", "between mountain", "and quiet sea."],
+      body: "A boutique day on the West Coast — Stanley Park, Granville Island, Capilano. Slow city travel, designed for first-time visitors and returning friends alike.",
+      tags: ["Day Tour", "All Languages", "Daily Departure"],
+      primary: "View City Tours",
+      secondary: "Plan with us →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+  zh: {
+    banff: {
+      eyebrow: "精選企劃 · 2026 春季",
+      badge: "限量出發",
+      lines: ["班夫與", "加拿大洛磯山脈", "——湖水靜靜的綠松石色。"],
+      body: "綠松石色的湖泊、清冷的高山空氣，與弓河谷大道上緩慢的早晨。一段手作精品行程，深入加拿大洛磯山脈的心臟。",
+      tags: ["小團出發", "精緻體驗", "韓語友善", "溫哥華出發"],
+      primary: "查看行程",
+      secondary: "詳細安排 →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "季節企劃 · 冬季夜空",
+      badge: "極光季",
+      lines: ["在黃刀鎮", "等待夜空裡", "那道綠光。"],
+      body: "三個安靜的夜晚，在加拿大遙遠的北方等待極光——溫暖的觀星小屋、熱茶，與一段為夜空寫下的時光。",
+      tags: ["三晚極光", "暖房觀星", "中文嚮導"],
+      primary: "查看極光行程",
+      secondary: "閱讀旅誌 →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "城市出發 · 全年",
+      lines: ["溫哥華，", "山與靜海", "之間的城市。"],
+      body: "一日精選的西岸時光——史丹利公園、固蘭湖島、卡皮拉諾吊橋。慢步調的都市旅行，為初訪與重逢的旅人而設。",
+      tags: ["一日行程", "多語服務", "每日出發"],
+      primary: "查看城市行程",
+      secondary: "與我們規劃 →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+  ko: {
+    banff: {
+      eyebrow: "추천 여정 · 2026 봄",
+      badge: "한정 출발",
+      lines: ["밴프와", "캐나디안 록키 — ", "터쿠아즈빛 고요."],
+      body: "터쿠아즈 호수, 알파인의 맑은 공기, 보우 밸리 파크웨이의 느린 아침. 캐나디안 록키의 심장으로 떠나는 핸드크래프트 부티크 여정.",
+      tags: ["소그룹 투어", "프리미엄 경험", "한국어 안내", "밴쿠버 출발"],
+      primary: "투어 보기",
+      secondary: "일정 보기 →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "시즌 캠페인 · 겨울밤",
+      badge: "오로라 시즌",
+      lines: ["옐로나이프의", "밤하늘 위", "초록빛을 기다리며."],
+      body: "캐나다의 먼 북녘에서 오로라를 기다리는 세 밤 — 따뜻한 관측 캐빈, 따뜻한 차, 그리고 하늘을 위해 쓰인 시간.",
+      tags: ["3박 오로라", "난방 캐빈", "한국어 가이드"],
+      primary: "오로라 투어 보기",
+      secondary: "여행 일지 →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "시티 출발 · 연중",
+      lines: ["밴쿠버,", "산과 고요한 바다", "사이의 도시."],
+      body: "웨스트 코스트의 하루 — 스탠리 파크, 그랜빌 아일랜드, 카필라노. 처음 오는 분과 다시 찾는 친구 모두를 위한 느린 도시 여행.",
+      tags: ["데이 투어", "다국어 안내", "매일 출발"],
+      primary: "시티 투어 보기",
+      secondary: "함께 계획하기 →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+};
+
+function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSlide[] {
+  const c = HERO_COPY[locale];
+  return [
+    {
+      id: "banff",
+      eyebrow: c.banff.eyebrow,
+      badge: c.banff.badge,
+      headingLines: c.banff.lines,
+      body: c.banff.body,
+      tags: c.banff.tags,
+      primary: { label: c.banff.primary, to: link("/tours/rocky-mountain-classic") },
+      secondary: { label: c.banff.secondary, to: link("/tours/rocky-mountain-classic") },
+      image: heroBanff,
+      imageCaption: c.banff.cap1,
+      accentImage: heroBanff2,
+      accentCaption: c.banff.cap2,
+    },
+    {
+      id: "aurora",
+      eyebrow: c.aurora.eyebrow,
+      badge: c.aurora.badge,
+      headingLines: c.aurora.lines,
+      body: c.aurora.body,
+      tags: c.aurora.tags,
+      primary: { label: c.aurora.primary, to: link("/tours/aurora-chase") },
+      secondary: { label: c.aurora.secondary, to: link("/blog") },
+      image: tourAurora,
+      imageCaption: c.aurora.cap1,
+      accentImage: destYukon,
+      accentCaption: c.aurora.cap2,
+    },
+    {
+      id: "vancouver",
+      eyebrow: c.vancouver.eyebrow,
+      headingLines: c.vancouver.lines,
+      body: c.vancouver.body,
+      tags: c.vancouver.tags,
+      primary: { label: c.vancouver.primary, to: link("/tours/vancouver-city") },
+      secondary: { label: c.vancouver.secondary, to: link("/contact") },
+      image: tourVancouver,
+      imageCaption: c.vancouver.cap1,
+      accentImage: tourGroup,
+      accentCaption: c.vancouver.cap2,
+    },
+  ];
+}
+
+
 export function HomePage() {
   const locale = useLocale();
   const p = PACKS[locale];
@@ -268,65 +430,8 @@ export function HomePage() {
 
   return (
     <SiteLayout>
-      {/* HERO */}
-      <section className="relative bg-cream overflow-hidden">
-        <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
-        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-28 pb-20 md:pb-36">
-          <div className="grid md:grid-cols-12 gap-10 md:gap-20 items-center">
-            <div className="md:col-span-6 order-1">
-              <div className="flex items-center gap-3 text-primary/75">
-                <StarMark size={14} className="text-primary/65" />
-                <DottedLine length={28} className="text-primary/45" />
-                <span className="text-[10.5px] md:text-[11px] tracking-[0.38em] uppercase font-medium">{p.heroEyebrow}</span>
-              </div>
-              <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[64px] leading-[1.12] tracking-[-0.012em] text-ink mt-5 md:mt-7 font-medium">
-                {p.heroL1}<br />
-                {p.heroL2}<br />
-                <span className="italic text-primary">{p.heroL3}</span>
-              </h1>
-              <p className="mt-5 md:mt-9 text-ink/60 leading-[1.95] text-[14px] md:text-[15px] max-w-md">{p.heroBody}</p>
-              <div className="mt-7 md:mt-12 flex flex-wrap items-center gap-4 md:gap-6">
-                <Link to={link("/tours") as never} className="inline-flex items-center gap-3 rounded-full bg-primary px-7 md:px-8 py-3 md:py-3.5 text-primary-foreground font-medium text-[13px] md:text-[14px] tracking-[0.08em] uppercase shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] hover:bg-primary/90 transition">
-                  {p.ctaExplore} <span aria-hidden>→</span>
-                </Link>
-                <Link to={link("/reviews") as never} className="text-ink/65 text-[12.5px] md:text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition">
-                  {p.ctaStories}
-                </Link>
-              </div>
-            </div>
-
-            <div className="md:hidden order-2 mt-2 relative">
-              <div className="relative h-[220px] mx-auto max-w-[420px]">
-                <div className="absolute -top-6 -left-4 w-32 h-32 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
-                <div className="absolute -bottom-6 -right-4 w-36 h-36 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <figure className="polaroid absolute top-2 left-2 w-[44%] rotate-[-5deg] z-10">
-                  <img src={tourBanff} alt="" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Banff</figcaption>
-                </figure>
-                <figure className="polaroid absolute bottom-0 right-2 w-[44%] rotate-[4deg] z-20">
-                  <img src={tourAurora} alt="" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/65 text-[11px] mt-2 text-center">Yukon</figcaption>
-                </figure>
-              </div>
-            </div>
-
-            <div className="hidden md:block md:col-span-6 order-2 relative">
-              <div className="relative h-[560px] mx-auto max-w-[520px]">
-                <div className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl" style={{ background: "var(--lavender-soft)" }} aria-hidden />
-                <div className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl" style={{ background: "var(--sage-soft)" }} aria-hidden />
-                <figure className="polaroid absolute top-2 left-4 w-[60%] rotate-[-5deg] z-10">
-                  <img src={tourBanff} alt="Mountain reflection at golden hour" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Banff · 06:42</figcaption>
-                </figure>
-                <figure className="polaroid absolute bottom-0 right-4 w-[60%] rotate-[4deg] z-20">
-                  <img src={tourAurora} alt="Aurora over still lake" className="aspect-square w-full object-cover" />
-                  <figcaption className="font-marker text-ink/70 text-[13px] mt-3 text-center tracking-wide">Yukon · 23:18</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO SLIDESHOW */}
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} />
 
       {/* TRUST / FEATURE ICONS */}
       <section className="relative bg-[var(--sand)] py-20 md:py-24">
