@@ -22,6 +22,9 @@ import {
 } from "@/components/site/DoodleIcons";
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
+import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
+import heroBanff from "@/assets/hero-banff.jpg";
+import heroBanff2 from "@/assets/hero-banff-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
