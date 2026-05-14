@@ -261,6 +261,165 @@ const FEATURE_ICONS = [CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHea
 
 const DEST_IMAGES = [tourBanff, tourVancouver, destWhistler, tourVictoria, tourAurora, destYukon];
 
+type HeroCopy = {
+  banff: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  aurora: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  vancouver: { eyebrow: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+};
+
+const HERO_COPY: Record<Locale, HeroCopy> = {
+  en: {
+    banff: {
+      eyebrow: "Featured Journey · Spring 2026",
+      badge: "Limited Departure",
+      lines: ["Banff & the", "Canadian Rockies", "— a turquoise hush."],
+      body: "Turquoise lakes, alpine air and slow mornings on Bow Valley Parkway. A handcrafted boutique itinerary through the heart of the Canadian Rockies.",
+      tags: ["Small Group Tour", "Premium Experience", "Korean Friendly", "Vancouver Departure"],
+      primary: "View Tour",
+      secondary: "See Itinerary →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "Seasonal Campaign · Winter Nights",
+      badge: "Aurora Season",
+      lines: ["Stay up late for", "the green light over", "Yellowknife."],
+      body: "Three quiet nights chasing the aurora through Canada's far north — heated viewing cabins, warm tea and time written for the sky.",
+      tags: ["3-Night Aurora", "Heated Cabins", "Korean Guide"],
+      primary: "View Aurora Tour",
+      secondary: "Read the journal →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "City Departures · Year-Round",
+      lines: ["Vancouver,", "between mountain", "and quiet sea."],
+      body: "A boutique day on the West Coast — Stanley Park, Granville Island, Capilano. Slow city travel, designed for first-time visitors and returning friends alike.",
+      tags: ["Day Tour", "All Languages", "Daily Departure"],
+      primary: "View City Tours",
+      secondary: "Plan with us →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+  zh: {
+    banff: {
+      eyebrow: "精選企劃 · 2026 春季",
+      badge: "限量出發",
+      lines: ["班夫與", "加拿大洛磯山脈", "——湖水靜靜的綠松石色。"],
+      body: "綠松石色的湖泊、清冷的高山空氣，與弓河谷大道上緩慢的早晨。一段手作精品行程，深入加拿大洛磯山脈的心臟。",
+      tags: ["小團出發", "精緻體驗", "韓語友善", "溫哥華出發"],
+      primary: "查看行程",
+      secondary: "詳細安排 →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "季節企劃 · 冬季夜空",
+      badge: "極光季",
+      lines: ["在黃刀鎮", "等待夜空裡", "那道綠光。"],
+      body: "三個安靜的夜晚，在加拿大遙遠的北方等待極光——溫暖的觀星小屋、熱茶，與一段為夜空寫下的時光。",
+      tags: ["三晚極光", "暖房觀星", "中文嚮導"],
+      primary: "查看極光行程",
+      secondary: "閱讀旅誌 →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "城市出發 · 全年",
+      lines: ["溫哥華，", "山與靜海", "之間的城市。"],
+      body: "一日精選的西岸時光——史丹利公園、固蘭湖島、卡皮拉諾吊橋。慢步調的都市旅行，為初訪與重逢的旅人而設。",
+      tags: ["一日行程", "多語服務", "每日出發"],
+      primary: "查看城市行程",
+      secondary: "與我們規劃 →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+  ko: {
+    banff: {
+      eyebrow: "추천 여정 · 2026 봄",
+      badge: "한정 출발",
+      lines: ["밴프와", "캐나디안 록키 — ", "터쿠아즈빛 고요."],
+      body: "터쿠아즈 호수, 알파인의 맑은 공기, 보우 밸리 파크웨이의 느린 아침. 캐나디안 록키의 심장으로 떠나는 핸드크래프트 부티크 여정.",
+      tags: ["소그룹 투어", "프리미엄 경험", "한국어 안내", "밴쿠버 출발"],
+      primary: "투어 보기",
+      secondary: "일정 보기 →",
+      cap1: "Moraine Lake · 06:42",
+      cap2: "Lake Louise",
+    },
+    aurora: {
+      eyebrow: "시즌 캠페인 · 겨울밤",
+      badge: "오로라 시즌",
+      lines: ["옐로나이프의", "밤하늘 위", "초록빛을 기다리며."],
+      body: "캐나다의 먼 북녘에서 오로라를 기다리는 세 밤 — 따뜻한 관측 캐빈, 따뜻한 차, 그리고 하늘을 위해 쓰인 시간.",
+      tags: ["3박 오로라", "난방 캐빈", "한국어 가이드"],
+      primary: "오로라 투어 보기",
+      secondary: "여행 일지 →",
+      cap1: "Yukon · 23:18",
+      cap2: "Aurora · 02:11",
+    },
+    vancouver: {
+      eyebrow: "시티 출발 · 연중",
+      lines: ["밴쿠버,", "산과 고요한 바다", "사이의 도시."],
+      body: "웨스트 코스트의 하루 — 스탠리 파크, 그랜빌 아일랜드, 카필라노. 처음 오는 분과 다시 찾는 친구 모두를 위한 느린 도시 여행.",
+      tags: ["데이 투어", "다국어 안내", "매일 출발"],
+      primary: "시티 투어 보기",
+      secondary: "함께 계획하기 →",
+      cap1: "Stanley Park",
+      cap2: "Granville · 11:24",
+    },
+  },
+};
+
+function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSlide[] {
+  const c = HERO_COPY[locale];
+  return [
+    {
+      id: "banff",
+      eyebrow: c.banff.eyebrow,
+      badge: c.banff.badge,
+      headingLines: c.banff.lines,
+      body: c.banff.body,
+      tags: c.banff.tags,
+      primary: { label: c.banff.primary, to: link("/tours/rocky-mountain-classic") },
+      secondary: { label: c.banff.secondary, to: link("/tours/rocky-mountain-classic") },
+      image: heroBanff,
+      imageCaption: c.banff.cap1,
+      accentImage: heroBanff2,
+      accentCaption: c.banff.cap2,
+    },
+    {
+      id: "aurora",
+      eyebrow: c.aurora.eyebrow,
+      badge: c.aurora.badge,
+      headingLines: c.aurora.lines,
+      body: c.aurora.body,
+      tags: c.aurora.tags,
+      primary: { label: c.aurora.primary, to: link("/tours/aurora-chase") },
+      secondary: { label: c.aurora.secondary, to: link("/blog") },
+      image: tourAurora,
+      imageCaption: c.aurora.cap1,
+      accentImage: destYukon,
+      accentCaption: c.aurora.cap2,
+    },
+    {
+      id: "vancouver",
+      eyebrow: c.vancouver.eyebrow,
+      headingLines: c.vancouver.lines,
+      body: c.vancouver.body,
+      tags: c.vancouver.tags,
+      primary: { label: c.vancouver.primary, to: link("/tours/vancouver-city") },
+      secondary: { label: c.vancouver.secondary, to: link("/contact") },
+      image: tourVancouver,
+      imageCaption: c.vancouver.cap1,
+      accentImage: tourGroup,
+      accentCaption: c.vancouver.cap2,
+    },
+  ];
+}
+
+
 export function HomePage() {
   const locale = useLocale();
   const p = PACKS[locale];
