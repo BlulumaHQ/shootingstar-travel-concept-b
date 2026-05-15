@@ -2,8 +2,42 @@ import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-rout
 import { SiteLayout } from "@/components/site/Layout";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
-import { useLocale, withLocale, hreflangLinks } from "@/i18n/locale";
+import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useState } from "react";
+
+const LABELS: Record<Locale, {
+  allTours: string; duration: string; language: string; price: string;
+  itineraryEyebrow: string; itinerary: string;
+  pricingEyebrow: string; pricing: string; tourRate: string; gratuity: string;
+  galleryEyebrow: string; gallery: string;
+  included: string; notIncluded: string; optional: string;
+  notesEyebrow: string; notes: string; faq: string;
+}> = {
+  en: {
+    allTours: "← All tours", duration: "Duration", language: "Language", price: "Price",
+    itineraryEyebrow: "itinerary", itinerary: "Itinerary",
+    pricingEyebrow: "pricing", pricing: "Pricing", tourRate: "Tour Rate", gratuity: "Suggested Guide Gratuity",
+    galleryEyebrow: "gallery", gallery: "Trip gallery",
+    included: "Included", notIncluded: "Not Included", optional: "Optional Experiences",
+    notesEyebrow: "travel notes", notes: "Travel Notes", faq: "Frequently asked",
+  },
+  zh: {
+    allTours: "← 所有行程", duration: "天數", language: "語言", price: "費用",
+    itineraryEyebrow: "行程", itinerary: "行程安排",
+    pricingEyebrow: "費用", pricing: "費用說明", tourRate: "行程費用", gratuity: "建議導遊小費",
+    galleryEyebrow: "相簿", gallery: "旅程相簿",
+    included: "費用包含", notIncluded: "費用不含", optional: "選購體驗",
+    notesEyebrow: "旅行須知", notes: "旅行須知", faq: "常見問題",
+  },
+  ko: {
+    allTours: "← 전체 투어", duration: "기간", language: "언어", price: "요금",
+    itineraryEyebrow: "일정", itinerary: "일정",
+    pricingEyebrow: "요금", pricing: "요금 안내", tourRate: "투어 요금", gratuity: "권장 가이드 팁",
+    galleryEyebrow: "갤러리", gallery: "투어 갤러리",
+    included: "포함 사항", notIncluded: "불포함 사항", optional: "선택 옵션",
+    notesEyebrow: "여행 안내", notes: "여행 안내", faq: "자주 묻는 질문",
+  },
+};
 
 export const Route = createFileRoute("/tours/$slug")({
   loader: ({ params }) => {
@@ -187,6 +221,7 @@ export function TourDetailPage() {
   }
 
   const toursHref = withLocale("/tours", locale);
+  const T = LABELS[locale];
 
   return (
     <SiteLayout>
