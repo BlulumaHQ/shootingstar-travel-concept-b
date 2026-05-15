@@ -107,9 +107,10 @@
   /* Global paper texture overlay — sits above all section backgrounds,
      below interactive content. Uses overlay blend so it adds grain on both
      light and dark sections without changing their underlying color. */
-  body::before {
+  main { position: relative; }
+  main::before {
     content: "";
-    position: fixed;
+    position: absolute;
     inset: 0;
     pointer-events: none;
     z-index: 60;
