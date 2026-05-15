@@ -25,6 +25,7 @@ import { Route as ZhIndexRouteImport } from './routes/zh/index'
 import { Route as ToursIndexRouteImport } from './routes/tours.index'
 import { Route as KoIndexRouteImport } from './routes/ko/index'
 import { Route as ZhTermsRouteImport } from './routes/zh/terms'
+import { Route as ZhRockyMountainLakeToursRouteImport } from './routes/zh/rocky-mountain-lake-tours'
 import { Route as ZhReviewsRouteImport } from './routes/zh/reviews'
 import { Route as ZhPrivacyRouteImport } from './routes/zh/privacy'
 import { Route as ZhFaqRouteImport } from './routes/zh/faq'
@@ -34,6 +35,7 @@ import { Route as ZhBlogRouteImport } from './routes/zh/blog'
 import { Route as ZhAboutRouteImport } from './routes/zh/about'
 import { Route as ToursSlugRouteImport } from './routes/tours.$slug'
 import { Route as KoTermsRouteImport } from './routes/ko/terms'
+import { Route as KoRockyMountainLakeToursRouteImport } from './routes/ko/rocky-mountain-lake-tours'
 import { Route as KoReviewsRouteImport } from './routes/ko/reviews'
 import { Route as KoPrivacyRouteImport } from './routes/ko/privacy'
 import { Route as KoFaqRouteImport } from './routes/ko/faq'
@@ -126,6 +128,12 @@ const ZhTermsRoute = ZhTermsRouteImport.update({
   path: '/zh/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZhRockyMountainLakeToursRoute =
+  ZhRockyMountainLakeToursRouteImport.update({
+    id: '/zh/rocky-mountain-lake-tours',
+    path: '/zh/rocky-mountain-lake-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ZhReviewsRoute = ZhReviewsRouteImport.update({
   id: '/zh/reviews',
   path: '/zh/reviews',
@@ -171,6 +179,12 @@ const KoTermsRoute = KoTermsRouteImport.update({
   path: '/ko/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KoRockyMountainLakeToursRoute =
+  KoRockyMountainLakeToursRouteImport.update({
+    id: '/ko/rocky-mountain-lake-tours',
+    path: '/ko/rocky-mountain-lake-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const KoReviewsRoute = KoReviewsRouteImport.update({
   id: '/ko/reviews',
   path: '/ko/reviews',
@@ -247,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/ko/faq': typeof KoFaqRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
+  '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
   '/ko/terms': typeof KoTermsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/zh/about': typeof ZhAboutRoute
@@ -256,6 +271,7 @@ export interface FileRoutesByFullPath {
   '/zh/faq': typeof ZhFaqRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
@@ -284,6 +300,7 @@ export interface FileRoutesByTo {
   '/ko/faq': typeof KoFaqRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
+  '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
   '/ko/terms': typeof KoTermsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/zh/about': typeof ZhAboutRoute
@@ -293,6 +310,7 @@ export interface FileRoutesByTo {
   '/zh/faq': typeof ZhFaqRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
   '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
@@ -323,6 +341,7 @@ export interface FileRoutesById {
   '/ko/faq': typeof KoFaqRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
+  '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
   '/ko/terms': typeof KoTermsRoute
   '/tours/$slug': typeof ToursSlugRoute
   '/zh/about': typeof ZhAboutRoute
@@ -332,6 +351,7 @@ export interface FileRoutesById {
   '/zh/faq': typeof ZhFaqRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
+  '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
@@ -363,6 +383,7 @@ export interface FileRouteTypes {
     | '/ko/faq'
     | '/ko/privacy'
     | '/ko/reviews'
+    | '/ko/rocky-mountain-lake-tours'
     | '/ko/terms'
     | '/tours/$slug'
     | '/zh/about'
@@ -372,6 +393,7 @@ export interface FileRouteTypes {
     | '/zh/faq'
     | '/zh/privacy'
     | '/zh/reviews'
+    | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
     | '/ko/'
     | '/tours/'
@@ -400,6 +422,7 @@ export interface FileRouteTypes {
     | '/ko/faq'
     | '/ko/privacy'
     | '/ko/reviews'
+    | '/ko/rocky-mountain-lake-tours'
     | '/ko/terms'
     | '/tours/$slug'
     | '/zh/about'
@@ -409,6 +432,7 @@ export interface FileRouteTypes {
     | '/zh/faq'
     | '/zh/privacy'
     | '/zh/reviews'
+    | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
     | '/ko'
     | '/tours'
@@ -438,6 +462,7 @@ export interface FileRouteTypes {
     | '/ko/faq'
     | '/ko/privacy'
     | '/ko/reviews'
+    | '/ko/rocky-mountain-lake-tours'
     | '/ko/terms'
     | '/tours/$slug'
     | '/zh/about'
@@ -447,6 +472,7 @@ export interface FileRouteTypes {
     | '/zh/faq'
     | '/zh/privacy'
     | '/zh/reviews'
+    | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
     | '/ko/'
     | '/tours/'
@@ -477,6 +503,7 @@ export interface RootRouteChildren {
   KoFaqRoute: typeof KoFaqRoute
   KoPrivacyRoute: typeof KoPrivacyRoute
   KoReviewsRoute: typeof KoReviewsRoute
+  KoRockyMountainLakeToursRoute: typeof KoRockyMountainLakeToursRoute
   KoTermsRoute: typeof KoTermsRoute
   ZhAboutRoute: typeof ZhAboutRoute
   ZhBlogRoute: typeof ZhBlogRoute
@@ -485,6 +512,7 @@ export interface RootRouteChildren {
   ZhFaqRoute: typeof ZhFaqRoute
   ZhPrivacyRoute: typeof ZhPrivacyRoute
   ZhReviewsRoute: typeof ZhReviewsRoute
+  ZhRockyMountainLakeToursRoute: typeof ZhRockyMountainLakeToursRoute
   ZhTermsRoute: typeof ZhTermsRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhIndexRoute: typeof ZhIndexRoute
@@ -608,6 +636,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZhTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zh/rocky-mountain-lake-tours': {
+      id: '/zh/rocky-mountain-lake-tours'
+      path: '/zh/rocky-mountain-lake-tours'
+      fullPath: '/zh/rocky-mountain-lake-tours'
+      preLoaderRoute: typeof ZhRockyMountainLakeToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zh/reviews': {
       id: '/zh/reviews'
       path: '/zh/reviews'
@@ -669,6 +704,13 @@ declare module '@tanstack/react-router' {
       path: '/ko/terms'
       fullPath: '/ko/terms'
       preLoaderRoute: typeof KoTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ko/rocky-mountain-lake-tours': {
+      id: '/ko/rocky-mountain-lake-tours'
+      path: '/ko/rocky-mountain-lake-tours'
+      fullPath: '/ko/rocky-mountain-lake-tours'
+      preLoaderRoute: typeof KoRockyMountainLakeToursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ko/reviews': {
@@ -783,6 +825,7 @@ const rootRouteChildren: RootRouteChildren = {
   KoFaqRoute: KoFaqRoute,
   KoPrivacyRoute: KoPrivacyRoute,
   KoReviewsRoute: KoReviewsRoute,
+  KoRockyMountainLakeToursRoute: KoRockyMountainLakeToursRoute,
   KoTermsRoute: KoTermsRoute,
   ZhAboutRoute: ZhAboutRoute,
   ZhBlogRoute: ZhBlogRoute,
@@ -791,6 +834,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZhFaqRoute: ZhFaqRoute,
   ZhPrivacyRoute: ZhPrivacyRoute,
   ZhReviewsRoute: ZhReviewsRoute,
+  ZhRockyMountainLakeToursRoute: ZhRockyMountainLakeToursRoute,
   ZhTermsRoute: ZhTermsRoute,
   KoIndexRoute: KoIndexRoute,
   ZhIndexRoute: ZhIndexRoute,
