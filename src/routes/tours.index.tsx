@@ -1,17 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
+import { useTours } from "@/data/useTours";
+import { useLocale, withLocale, hreflangLinks } from "@/i18n/locale";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
-import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
     meta: [
       { title: "Tours — Shooting Star Travel" },
-      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys across Canada: the Rockies, Banff, the aurora, Vancouver, Victoria and private custom tours." },
+      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys: Seattle, Victoria, Whistler, the Canadian Rockies and custom private tours." },
       { property: "og:title", content: "Tours — Shooting Star Travel" },
-      { property: "og:description", content: "Curated small-group journeys across Canada, designed by our local team." },
+      { property: "og:description", content: "Curated small-group journeys, designed by our local team." },
       { property: "og:image", content: tours[0].img },
     ],
     links: hreflangLinks("/tours", "en"),
@@ -20,6 +21,8 @@ export const Route = createFileRoute("/tours/")({
 });
 
 export function ToursIndexPage() {
+  const locale = useLocale();
+  const tours = useTours();
   return (
     <SiteLayout>
       <section className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-24 md:pt-32 pb-14">
@@ -40,8 +43,7 @@ export function ToursIndexPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {tours.map((t) => (
             <Link
-              to="/tours/$slug"
-              params={{ slug: t.slug }}
+              to={withLocale(`/tours/${t.slug}`, locale) as never}
               key={t.slug}
               className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
             >

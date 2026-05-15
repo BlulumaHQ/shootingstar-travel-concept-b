@@ -1,11 +1,17 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
-import tourAurora from "@/assets/tour-aurora.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import tourVictoria from "@/assets/tour-victoria.webp";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
+import destWhistler from "@/assets/dest-whistler.webp";
+
+export type RoomOption = {
+  label: string;
+  guests: string;
+  price: string;
+};
 
 export type Tour = {
   slug: string;
@@ -15,168 +21,287 @@ export type Tour = {
   desc: string;
   intro: string;
   duration: string;
-  group: string;
-  language: string;
+  group?: string;
+  language?: string;
+  /** Headline price shown on cards and hero, e.g. "From $140 USD / person". */
   price: string;
+  /** Optional pickup / drop-off summary for multi-day itineraries. */
+  pickup?: string;
   itinerary: { stop: string; title: string; body: string }[];
+  /** Per-room pricing for hotel-included tours. */
+  roomOptions?: RoomOption[];
+  /** Explanation of room-occupancy pricing in the page locale. */
+  roomNote?: string;
+  /** Suggested guide gratuity, displayed under pricing. */
+  gratuity?: string;
   included: string[];
-  bring: string[];
+  notIncluded?: string[];
+  /** Optional self-paid experiences guests can add. */
+  optional?: string[];
+  /** Travel notes / good-to-know paragraph or list. */
   notes: string[];
-  faq: { q: string; a: string }[];
+  /** Booking call-to-action label for this tour. */
+  bookingCta?: string;
+  /** Legacy fields kept optional for compatibility with existing UI. */
+  bring?: string[];
+  faq?: { q: string; a: string }[];
   departures?: { date: string; seats: number }[];
   packages?: string[];
 };
 
 export const tours: Tour[] = [
   {
-    slug: "rocky-mountain-classic",
-    img: tourRockies,
-    gallery: [tourRockies, tourBanff, tourIcefield],
-    title: "Rocky Mountain Classic — 5 Days, 4 Nights",
-    desc: "Banff · Lake Louise · Icefields Parkway",
-    intro: "Departing from Calgary, journey deep into Canada's most majestic mountain range and collect every alpine sunrise and starlit night.",
-    duration: "5 days, 4 nights",
-    group: "Small group of 8–14",
+    slug: "seattle-1-day",
+    img: tourVancouver,
+    gallery: [tourVancouver, tourToronto],
+    title: "Seattle 1-Day Tour | The Soul of the Emerald City",
+    desc: "A guided one-day city escape covering Seattle's skyline, Pike Place Market, the Original Starbucks, Amazon Spheres, and the University of Washington.",
+    intro:
+      "Discover the best of Seattle in one thoughtfully planned day trip. From postcard-perfect skyline views and the historic Pike Place Market to the city's modern tech landmarks and the beautiful University of Washington campus, this tour is designed for travelers who want to experience Seattle without the stress of driving, parking, or planning every stop. A comfortable guided city escape for guests who want a smooth, efficient, and memorable introduction to the Emerald City.",
+    duration: "1 day",
     language: "English / Mandarin / Korean",
-    price: "From CAD $1,280",
+    price: "From $140 USD / person",
+    gratuity: "$20 USD / person",
     itinerary: [
-      { stop: "Day 1", title: "Calgary → Banff", body: "Arrive in Banff in the afternoon, take in Sulphur Mountain gondola views, and enjoy dinner in the hot-spring town." },
-      { stop: "Day 2", title: "Moraine Lake & Lake Louise", body: "Catch the morning light over the Valley of the Ten Peaks, then a slow afternoon by Lake Louise." },
-      { stop: "Day 3", title: "Icefields Parkway", body: "Pass Bow Lake and Crowfoot Glacier on the way to the Columbia Icefield Snowcoach and Skywalk." },
-      { stop: "Day 4", title: "Jasper National Park", body: "Cruise to Spirit Island on Maligne Lake; return to Banff for an evening in the village." },
-      { stop: "Day 5", title: "Return to Calgary", body: "Stop in Canmore on the way back, ending the journey at the airport in the afternoon." },
+      { stop: "Stop 1", title: "Kerry Park", body: "Enjoy one of Seattle's most iconic viewpoints, where the Space Needle, downtown skyline, Puget Sound, and Mount Rainier can be seen together on clear days." },
+      { stop: "Stop 2", title: "Amazon Spheres", body: "Visit the exterior of Amazon's famous glass-dome landmark — a glimpse into Seattle's role as a global technology hub. Interior access is not included as the Spheres are primarily a private workspace." },
+      { stop: "Stop 3", title: "Pike Place Market", body: "Explore one of the oldest public markets in the United States. Local food, fresh seafood, artisan shops, the famous flying fish, and the lively atmosphere of Seattle's waterfront market." },
+      { stop: "Stop 4", title: "Original Starbucks", body: "Stop by the historic first Starbucks location, opened in 1971, and experience one of Seattle's most famous cultural landmarks." },
+      { stop: "Stop 5", title: "Gum Wall", body: "Visit one of Seattle's most unusual and colorful photo spots, located near Pike Place Market." },
+      { stop: "Stop 6", title: "Space Needle & Chihuly Garden and Glass", body: "Guests may choose to visit the Space Needle or Chihuly Garden and Glass as optional self-paid attractions, depending on personal preference and available time." },
+      { stop: "Stop 7", title: "University of Washington", body: "Walk through one of the most beautiful university campuses in the United States, including the famous Suzzallo Library — known for its grand Gothic-style reading room and, in spring, the campus cherry blossoms." },
     ],
-    included: ["Professional English / Mandarin / Korean guide", "4 nights in 3-star+ hotels", "Daily breakfast plus 4 meals", "All transportation and entrance fees", "Travel insurance"],
-    bring: ["Warm jacket (even in summer)", "Comfortable non-slip walking shoes", "Reusable water bottle and sunscreen", "Personal medication", "Camera"],
+    included: [
+      "Comfortable transportation",
+      "Professional bilingual guide",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "5% tax",
+      "Meals",
+      "Attraction admission tickets",
+      "Suggested Guide Gratuity",
+    ],
+    optional: [
+      "Space Needle Admission",
+      "Chihuly Garden and Glass Admission",
+    ],
     notes: [
-      "Mountain weather is changeable — please allow flexibility.",
-      "Full refund available 30+ days before departure.",
-      "Not suitable for children under 6.",
+      "Seattle weather can change quickly. Layered clothing, a light rain jacket, and comfortable walking shoes are recommended.",
     ],
-    faq: [
-      { q: "Are flights included?", a: "No. We recommend flying into Calgary (YYC); we can arrange airport transfers." },
-      { q: "Do I need a visa?", a: "Please apply for an eTA or Canadian visa according to your passport nationality." },
-      { q: "Are single rooms available?", a: "Yes, a single-room upgrade is available for an extra fee — please request at booking." },
-    ],
+    bookingCta: "Book Your Seattle 1-Day Tour",
   },
   {
-    slug: "banff-day",
-    img: tourBanff,
-    gallery: [tourBanff, tourRockies],
-    title: "Banff National Park — One Day",
-    desc: "Moraine Lake · Lake Louise · Bow Falls",
-    intro: "A curated single-day journey from Banff covering the three iconic Rockies lakes at an easy pace.",
-    duration: "1 day (approx. 9 hours)",
-    group: "Small group of 6–12",
-    language: "English / Mandarin",
-    price: "From CAD $179",
-    itinerary: [
-      { stop: "08:00", title: "Departure from Banff", body: "Meet at the designated point; guide briefing." },
-      { stop: "09:30", title: "Moraine Lake", body: "Climb the rockpile viewpoint and take in the Valley of the Ten Peaks." },
-      { stop: "12:00", title: "Lunch at Lake Louise", body: "Free time and lunch lakeside (own expense)." },
-      { stop: "15:00", title: "Bow Falls", body: "Short walk to the falls and views of the Banff Springs Hotel." },
-      { stop: "17:30", title: "Return to Banff", body: "End of day." },
-    ],
-    included: ["Professional guide", "All transportation", "National Park entrance fees"],
-    bring: ["Lunch on own", "Warm layers", "Comfortable walking shoes"],
-    notes: ["Moraine Lake has summer access restrictions; the order may change."],
-    faq: [
-      { q: "Can I bring children?", a: "Yes, suitable for ages 4 and up." },
-      { q: "Is lunch included?", a: "No. There are several restaurants to choose from at Lake Louise." },
-    ],
-  },
-  {
-    slug: "aurora-chase",
-    img: tourAurora,
-    gallery: [tourAurora],
-    title: "Aurora Chase Journey",
-    desc: "Yellowknife · Aurora cabin · pro photography",
-    intro: "Wait beneath the aurora belt in Yellowknife as the green light gently descends.",
-    duration: "5 days, 4 nights",
-    group: "Small group of 6–10",
-    language: "English / Mandarin",
-    price: "From CAD $229 (per chase night)",
-    itinerary: [
-      { stop: "Day 1", title: "Arrive in Yellowknife", body: "Airport pickup, hotel check-in, evening orientation." },
-      { stop: "Day 2–4", title: "Aurora chase", body: "Depart for the aurora cabin at 22:00, returning around 02:00." },
-      { stop: "Day 5", title: "Departure", body: "Airport drop-off; until next time." },
-    ],
-    included: ["Aurora cabin access", "Arctic-grade clothing rental", "Hot drinks and snacks", "Photography guidance"],
-    bring: ["Passport", "Personal thermal base layers", "Spare camera batteries"],
-    notes: ["Auroras are a natural phenomenon — sightings are not guaranteed."],
-    faq: [
-      { q: "Best season?", a: "November through April is the prime viewing window." },
-      { q: "Do I need my own camera?", a: "Recommended; the guide can help with settings." },
-    ],
-  },
-  {
-    slug: "vancouver-city",
+    slug: "seattle-2-day",
     img: tourToronto,
     gallery: [tourToronto, tourVancouver],
-    title: "Vancouver City — Deep Dive",
-    desc: "City highlights · in-depth experience",
-    intro: "A local guide walks you through the corners of Vancouver with the best stories.",
-    duration: "1 day",
-    group: "Small group of 4–10",
+    title: "Seattle 2-Day Tour | The Ultimate Seattle Getaway & Shopping Experience",
+    desc: "An overnight Seattle getaway with iconic landmarks, local seafood, aviation history, Trader Joe's, and Seattle Premium Outlets. Hotel included.",
+    intro:
+      "Enjoy a relaxed overnight Seattle getaway with iconic landmarks, local food, aviation history, and premium outlet shopping. This two-day tour is ideal for guests who want more time in Seattle without the fatigue of cross-border driving, hotel planning, parking, and carrying shopping bags from place to place. With hotel accommodation, transportation, and a professional guide included, this tour offers a smoother and more comfortable way to experience Seattle.",
+    duration: "2 days, 1 night",
     language: "English / Mandarin / Korean",
-    price: "From CAD $129",
+    price: "From $370 USD / person",
+    gratuity: "$40 USD / person for 2 days",
     itinerary: [
-      { stop: "09:00", title: "Stanley Park", body: "Seawall ride and totem-pole stop." },
-      { stop: "11:30", title: "Granville Island", body: "Public market and artisan shops." },
-      { stop: "14:00", title: "Gastown", body: "Steam clock and cobblestone streets." },
-      { stop: "16:00", title: "Canada Place", body: "Waterfront views and city skyline." },
+      { stop: "Day 1", title: "Kerry Park", body: "Start with Seattle's classic skyline viewpoint featuring the Space Needle, downtown Seattle, Puget Sound, and Mount Rainier on clear days." },
+      { stop: "Day 1", title: "Pike Place Market", body: "Visit the city's most famous public market, known for fresh seafood, local vendors, the flying fish, and vibrant Seattle culture." },
+      { stop: "Day 1", title: "Original Starbucks", body: "Stop at the historic first Starbucks location and experience one of Seattle's most recognized landmarks." },
+      { stop: "Day 1", title: "The Crab Pot", body: "A scheduled stop at Seattle's famous waterfront seafood restaurant. Meal cost is not included; guests may order based on personal preference." },
+      { stop: "Day 1", title: "Museum of Flight", body: "Explore Seattle's aviation heritage at one of the world's largest independent air and space museums. Admission is optional and self-paid." },
+      { stop: "Day 1", title: "Trader Joe's", body: "Shopping time at one of the most popular U.S. grocery stops for Canadian visitors — known for snacks, specialty items, seasonings, and reusable bags." },
+      { stop: "Day 2", title: "Space Needle / Chihuly Museum", body: "Guests may choose to visit the Space Needle or Chihuly Garden and Glass as optional self-paid attractions." },
+      { stop: "Day 2", title: "Gas Works Park", body: "Visit one of Seattle's most unique parks, known for its industrial structures and skyline views across Lake Union." },
+      { stop: "Day 2", title: "University of Washington", body: "Walk through the beautiful University of Washington campus and visit the exterior or accessible areas of Suzzallo Library when available." },
+      { stop: "Day 2", title: "Seattle Premium Outlets", body: "End the trip with dedicated shopping time at Seattle Premium Outlets, featuring a wide selection of international and designer brands." },
     ],
-    included: ["Professional guide", "All transportation", "Granville Island ferry"],
-    bring: ["Comfortable shoes", "Rain gear (Vancouver gets rainy)", "Camera"],
-    notes: ["Lunch on own; the guide can recommend local spots."],
-    faq: [
-      { q: "Where do we depart from?", a: "Burrard Station in downtown Vancouver." },
+    roomOptions: [
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $370 USD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $400 USD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $430 USD / person" },
     ],
+    roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
+    included: [
+      "1-night hotel accommodation",
+      "Comfortable transportation",
+      "Professional guide",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "5% tax",
+      "Meals",
+      "Attraction admission tickets",
+      "Suggested Guide Gratuity",
+    ],
+    optional: [
+      "Space Needle Admission",
+      "Chihuly Garden and Glass Admission",
+      "Museum of Flight Admission",
+    ],
+    notes: [
+      "Guests crossing from Canada must bring a valid passport and ensure their U.S. visa or ESTA status is valid if required.",
+    ],
+    bookingCta: "Book Your Seattle 2-Day Getaway",
   },
   {
-    slug: "victoria-garden",
+    slug: "victoria-1-day",
     img: tourVictoria,
     gallery: [tourVictoria],
-    title: "Victoria Garden Journey",
-    desc: "Ferry + Butchart Gardens + classic downtown",
-    intro: "British charm and an afternoon among gardens — the most relaxed island getaway.",
+    title: "Victoria 1-Day Tour | British Charm & Coastal Garden Escape",
+    desc: "A scenic island day trip with BC Ferries included, featuring Victoria's Inner Harbour, Fisherman's Wharf, Government Street, and optional Butchart Gardens.",
+    intro:
+      "Experience the elegance of Victoria in one seamless day trip. This tour includes round-trip BC Ferries transportation and takes guests through the scenic Gulf Islands to British Columbia's charming capital — known for its historic architecture, beautiful harbour, colourful floating homes, and world-famous gardens. A comfortable and well-organized island escape designed to remove the stress of ferry planning, vehicle boarding, and island driving.",
     duration: "1 day",
-    group: "Small group of 6–14",
-    language: "English / Mandarin",
-    price: "From CAD $219",
+    language: "English / Mandarin / Korean",
+    price: "From $170 USD / person",
+    gratuity: "$20 USD / person",
     itinerary: [
-      { stop: "07:00", title: "Vancouver meet-up", body: "Drive to Tsawwassen Ferry Terminal." },
-      { stop: "09:00", title: "BC Ferries", body: "Crossing with views over the strait." },
-      { stop: "11:00", title: "Butchart Gardens", body: "Sunken Garden · Rose Garden · Japanese Garden." },
-      { stop: "14:30", title: "Downtown Victoria", body: "Parliament Buildings and Inner Harbour stroll." },
-      { stop: "20:00", title: "Return to Vancouver", body: "End of trip." },
+      { stop: "Stop 1", title: "BC Ferries Scenic Cruise", body: "Travel across the beautiful Georgia Strait and Gulf Islands by ferry. Enjoy ocean views, fresh air, and the relaxed pace of the journey." },
+      { stop: "Stop 2", title: "The Butchart Gardens", body: "Visit one of Victoria's most famous attractions and one of the world's most celebrated floral gardens. Admission is optional and self-paid." },
+      { stop: "Stop 3", title: "Fisherman's Wharf", body: "Explore a colourful floating home community with local food, harbour views, and a relaxed seaside atmosphere." },
+      { stop: "Stop 4", title: "Mile Zero Monument", body: "Stop at the symbolic starting point of the Trans-Canada Highway and enjoy views of the surrounding coastline." },
+      { stop: "Stop 5", title: "Inner Harbour & Government Street", body: "Walk through the heart of Victoria, including the BC Parliament Buildings, Fairmont Empress Hotel, harbourfront views, shops, cafés, and British-inspired streetscapes." },
     ],
-    included: ["Ferry tickets", "Butchart Gardens admission", "All transportation"],
-    bring: ["Light walking shoes", "Camera", "Sunscreen"],
-    notes: ["Bloom season is May–September; scenery varies by month."],
-    faq: [{ q: "Can I book solo?", a: "Yes — minimum 2 to depart." }],
+    included: [
+      "Comfortable transportation",
+      "Professional guide",
+      "Round-trip BC Ferries tickets",
+      "Vehicle boarding fees",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "5% tax",
+      "Meals",
+      "Attraction admission tickets",
+      "Suggested Guide Gratuity",
+    ],
+    optional: ["The Butchart Gardens Admission"],
+    notes: [
+      "The ferry deck and harbour areas can be windy. A windproof jacket and comfortable walking shoes are recommended.",
+    ],
+    bookingCta: "Book Your Victoria 1-Day Tour",
   },
   {
-    slug: "private-tour",
+    slug: "whistler-1-day",
+    img: destWhistler,
+    gallery: [destWhistler],
+    title: "Whistler 1-Day Tour | Sea-to-Sky Highway & Alpine Escape",
+    desc: "A Sea-to-Sky Highway alpine escape with Porteau Cove, Shannon Falls, Squamish, Brandywine Falls, and Whistler Village.",
+    intro:
+      "Travel along the spectacular Sea-to-Sky Highway and experience some of British Columbia's most beautiful coastal and mountain scenery. This one-day tour combines ocean viewpoints, waterfalls, forest trails, alpine landscapes, and the world-famous Whistler Village. Designed for guests who want to enjoy the mountains without the stress of driving winding roads, finding parking, or planning every stop.",
+    duration: "1 day",
+    language: "English / Mandarin / Korean",
+    price: "From $130 USD / person",
+    gratuity: "$20 USD / person",
+    itinerary: [
+      { stop: "Stop 1", title: "Porteau Cove", body: "A scenic stop along the Sea-to-Sky Highway with views of Howe Sound, coastal mountains, and the ocean." },
+      { stop: "Stop 2", title: "Shannon Falls", body: "Visit one of British Columbia's tallest waterfalls and enjoy a short walk through the forest to the viewing area." },
+      { stop: "Stop 3", title: "Squamish", body: "Pass through the outdoor recreation capital of Canada and enjoy views of the famous Stawamus Chief granite monolith." },
+      { stop: "Stop 4", title: "Brandywine Falls", body: "Explore a beautiful forested viewpoint overlooking the dramatic Brandywine Falls." },
+      { stop: "Stop 5", title: "Whistler Village", body: "Free time in the pedestrian-friendly alpine village — shops, cafés, restaurants, galleries, and photo opportunities around the Olympic rings." },
+    ],
+    included: [
+      "Comfortable transportation",
+      "Professional guide",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "5% tax",
+      "Meals",
+      "Attraction admission tickets",
+      "Suggested Guide Gratuity",
+    ],
+    optional: ["Peak 2 Peak Gondola"],
+    notes: [
+      "Whistler is usually cooler than Vancouver, especially in mountain areas. A warm layer, windproof jacket, and comfortable walking shoes are recommended.",
+    ],
+    bookingCta: "Book Your Whistler 1-Day Tour",
+  },
+  {
+    slug: "rockies-3-day",
+    img: tourRockies,
+    gallery: [tourRockies, tourBanff, tourIcefield],
+    title: "3-Day Rocky Mountains Tour | Banff, Moraine Lake & Icefields Adventure",
+    desc: "A 3-day Calgary-based Rockies itinerary featuring Banff, Lake Louise, Moraine Lake, Columbia Icefield, Peyto Lake, and Emerald Lake. Hotel included.",
+    intro:
+      "Discover the Canadian Rockies with a comfortable 3-day guided journey from Calgary. This itinerary includes Banff, Lake Louise, Moraine Lake, Bow Lake, Peyto Lake, Emerald Lake, Columbia Icefield, and other iconic mountain viewpoints. Designed for guests who want to experience the beauty of the Rockies without the stress of long-distance mountain driving, parking, route planning, and attraction logistics.",
+    duration: "3 days, 2 nights",
+    language: "English / Mandarin / Korean",
+    price: "From $830 USD / person",
+    gratuity: "$60 USD / person for 3 days (calculated as $20 USD per day)",
+    pickup: "Pickup: Calgary Airport at approximately 11:20 AM on Day 1. Drop-Off: Calgary Airport at approximately 5:00 PM on Day 3.",
+    itinerary: [
+      { stop: "Day 1", title: "Calgary Airport Pickup", body: "Meet your guide at Calgary Airport and begin the journey toward Banff National Park." },
+      { stop: "Day 1", title: "Banff Town", body: "Time in Banff Town for lunch, shopping, and a relaxed introduction to the mountain village atmosphere." },
+      { stop: "Day 1", title: "Cascade of Time Garden", body: "Visit the historic garden area near Banff Avenue, offering landscaped paths and mountain views." },
+      { stop: "Day 1", title: "Banff Gondola", body: "Guests may choose to experience the Banff Gondola as an optional paid activity." },
+      { stop: "Day 1", title: "Fairmont Banff Springs Hotel", body: "Stop at the iconic castle-like hotel known as one of Banff's most famous landmarks." },
+      { stop: "Day 1", title: "Bow Falls", body: "A scenic waterfall viewpoint near Banff Springs Hotel." },
+      { stop: "Day 1", title: "Surprise Corner", body: "Enjoy one of the classic photo viewpoints overlooking the Fairmont Banff Springs Hotel and surrounding mountain scenery." },
+      { stop: "Day 2", title: "Bow Lake", body: "Visit a beautiful glacier-fed lake surrounded by mountain scenery along the Icefields Parkway." },
+      { stop: "Day 2", title: "Columbia Icefield", body: "Explore one of the most impressive icefield regions in the Canadian Rockies. The Columbia Icefield Adventure is available as an optional paid experience." },
+      { stop: "Day 2", title: "Peyto Lake", body: "Stop at one of the most famous turquoise lake viewpoints in the Rockies." },
+      { stop: "Day 2", title: "Emerald Lake", body: "Visit Emerald Lake, known for its vivid colour, mountain backdrop, and peaceful alpine setting." },
+      { stop: "Day 3", title: "Two Jack Lake", body: "Begin the day with a calm lake stop near Banff, known for mountain reflections and peaceful scenery." },
+      { stop: "Day 3", title: "Moraine Lake", body: "Visit one of the most iconic lakes in Canada, known for turquoise water and the Valley of the Ten Peaks. Access is subject to seasonal operation, shuttle/pass availability, and park regulations." },
+      { stop: "Day 3", title: "Lake Louise", body: "Explore the world-famous Lake Louise, known for its glacier-fed turquoise water and mountain backdrop." },
+      { stop: "Day 3", title: "Calgary Airport Drop-Off", body: "Return to Calgary Airport at approximately 5:00 PM." },
+    ],
+    roomOptions: [
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $830 USD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $890 USD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $1050 USD / person" },
+    ],
+    roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
+    included: [
+      "Hotel accommodation",
+      "Comfortable transportation",
+      "Driver / guide",
+      "National park pass",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "Flights",
+      "Meals",
+      "Personal expenses",
+      "5% tax",
+      "Optional experiences",
+      "Suggested Guide Gratuity",
+    ],
+    optional: [
+      "Banff Gondola Experience: $90 USD adult / $60 USD child age 6–15",
+      "Columbia Icefield Adventure: $100 USD adult / $60 USD child age 6–15",
+      "Moraine Lake Shuttle / Access Pass: $16 USD",
+    ],
+    notes: [
+      "Mountain weather can change quickly. Guests should bring layered clothing, comfortable walking shoes, and a warm jacket.",
+      "Moraine Lake access depends on seasonal road rules, shuttle access, and Parks Canada regulations.",
+    ],
+    bookingCta: "Book Your Rocky Mountains 3-Day Tour",
+  },
+  {
+    slug: "custom-tour",
     img: tourPrivate,
     gallery: [tourPrivate],
-    title: "Private Custom Tours",
-    desc: "Tailored for you, your family, and friends",
-    intro: "Flexible dates, flexible routes, flexible pace — let us write your one-of-a-kind travel script.",
-    duration: "Custom (1–14 days)",
-    group: "2–20 travellers",
+    title: "Custom Private Tour | Coming Soon",
+    desc: "A flexible private tour option for custom travel plans, private groups, and personalized itineraries. Coming soon.",
+    intro:
+      "A custom private tour option will be available soon for guests who need a more flexible itinerary, private transportation, or a personalized travel plan. This page is currently reserved for future tour expansion. Please contact Shooting Star Travel for private tour requests or customized group arrangements.",
+    duration: "Custom",
     language: "English / Mandarin / Korean",
-    price: "Quote on request",
+    price: "Custom Quote",
     itinerary: [
-      { stop: "Step 1", title: "Discovery call", body: "Tell us your party size, dates, interests, and budget." },
-      { stop: "Step 2", title: "Itinerary proposal", body: "We send a tailored route and quote within 48 hours." },
-      { stop: "Step 3", title: "Confirmation & deposit", body: "Confirm the details and place a deposit." },
-      { stop: "Step 4", title: "Departure!", body: "Your private guide accompanies you throughout." },
+      { stop: "—", title: "Private itinerary planning", body: "We design the route around your group, dates, interests, and pace." },
+      { stop: "—", title: "Flexible pickup and drop-off options", body: "Pickup and drop-off arranged to suit your travel plan." },
+      { stop: "—", title: "Custom destination requests", body: "Tell us where you'd like to go — we'll build the journey around it." },
+      { stop: "—", title: "Small-group or private group arrangements", body: "Available for couples, families, and private groups of all sizes." },
     ],
-    included: ["Bespoke itinerary design", "Private vehicle", "Dedicated guide"],
-    bring: ["Depends on the trip"],
-    notes: ["We recommend booking at least one month in advance."],
-    faq: [{ q: "Minimum group size?", a: "Just 2 travellers." }],
+    included: ["To be confirmed based on the custom itinerary."],
+    notIncluded: ["To be confirmed based on the custom itinerary."],
+    notes: [
+      "Custom quote based on itinerary, group size, hotel requirements, and travel dates.",
+    ],
+    bookingCta: "Request a Custom Tour Quote",
   },
 ];
 

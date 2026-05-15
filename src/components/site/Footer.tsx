@@ -30,25 +30,25 @@ export function Footer() {
 
   const popularToursByLocale = {
     en: [
-      { l: "Rocky Mountain Classic", to: lp("/tours/rocky-mountain-classic") },
-      { l: "Banff Day Tour", to: lp("/tours/banff-day") },
-      { l: "Aurora Chase", to: lp("/tours/aurora-chase") },
-      { l: "Vancouver City", to: lp("/tours/vancouver-city") },
-      { l: "Victoria & Butchart Gardens", to: lp("/tours/victoria-garden") },
+      { l: "Seattle 1-Day Tour", to: lp("/tours/seattle-1-day") },
+      { l: "Seattle 2-Day Tour", to: lp("/tours/seattle-2-day") },
+      { l: "Victoria 1-Day Tour", to: lp("/tours/victoria-1-day") },
+      { l: "Whistler 1-Day Tour", to: lp("/tours/whistler-1-day") },
+      { l: "Rocky Mountains 3-Day Tour", to: lp("/tours/rockies-3-day") },
     ],
     zh: [
-      { l: "落磯山經典團", to: lp("/tours/rocky-mountain-classic") },
-      { l: "班夫一日遊", to: lp("/tours/banff-day") },
-      { l: "極光追蹤之旅", to: lp("/tours/aurora-chase") },
-      { l: "溫哥華市區深度遊", to: lp("/tours/vancouver-city") },
-      { l: "維多利亞花園之旅", to: lp("/tours/victoria-garden") },
+      { l: "西雅圖一日遊", to: lp("/tours/seattle-1-day") },
+      { l: "西雅圖兩日遊", to: lp("/tours/seattle-2-day") },
+      { l: "維多利亞一日遊", to: lp("/tours/victoria-1-day") },
+      { l: "惠斯勒一日遊", to: lp("/tours/whistler-1-day") },
+      { l: "加拿大洛磯山三日遊", to: lp("/tours/rockies-3-day") },
     ],
     ko: [
-      { l: "로키산맥 클래식 투어", to: lp("/tours/rocky-mountain-classic") },
-      { l: "밴프 데이 투어", to: lp("/tours/banff-day") },
-      { l: "오로라 체이스", to: lp("/tours/aurora-chase") },
-      { l: "밴쿠버 시티 투어", to: lp("/tours/vancouver-city") },
-      { l: "빅토리아 & 부차트 가든", to: lp("/tours/victoria-garden") },
+      { l: "시애틀 1일 투어", to: lp("/tours/seattle-1-day") },
+      { l: "시애틀 2일 투어", to: lp("/tours/seattle-2-day") },
+      { l: "빅토리아 1일 투어", to: lp("/tours/victoria-1-day") },
+      { l: "휘슬러 1일 투어", to: lp("/tours/whistler-1-day") },
+      { l: "캐나다 록키 3일 투어", to: lp("/tours/rockies-3-day") },
     ],
   } as const;
   const popularTours = popularToursByLocale[locale];
