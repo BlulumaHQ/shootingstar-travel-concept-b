@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToursRouteImport } from './routes/tours'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RockyMountainLakeToursRouteImport } from './routes/rocky-mountain-lake-tours'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -58,6 +59,11 @@ const TermsRoute = TermsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RockyMountainLakeToursRoute = RockyMountainLakeToursRouteImport.update({
+  id: '/rocky-mountain-lake-tours',
+  path: '/rocky-mountain-lake-tours',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -230,6 +236,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/ko/about': typeof KoAboutRoute
@@ -304,6 +312,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
+  '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
@@ -343,6 +352,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/rocky-mountain-lake-tours'
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
@@ -380,6 +390,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/rocky-mountain-lake-tours'
     | '/sitemap.xml'
     | '/terms'
     | '/ko/about'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/privacy'
     | '/reviews'
+    | '/rocky-mountain-lake-tours'
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
@@ -454,6 +466,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   PrivacyRoute: typeof PrivacyRoute
   ReviewsRoute: typeof ReviewsRoute
+  RockyMountainLakeToursRoute: typeof RockyMountainLakeToursRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
@@ -502,6 +515,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rocky-mountain-lake-tours': {
+      id: '/rocky-mountain-lake-tours'
+      path: '/rocky-mountain-lake-tours'
+      fullPath: '/rocky-mountain-lake-tours'
+      preLoaderRoute: typeof RockyMountainLakeToursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -752,6 +772,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   PrivacyRoute: PrivacyRoute,
   ReviewsRoute: ReviewsRoute,
+  RockyMountainLakeToursRoute: RockyMountainLakeToursRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
@@ -781,13 +802,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

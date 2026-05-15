@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import bgLake from "@/assets/bg-lake-louise.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourBanff from "@/assets/tour-banff.webp";
