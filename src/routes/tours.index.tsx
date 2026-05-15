@@ -1,17 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
+import { useTours } from "@/data/useTours";
+import { useLocale, withLocale, hreflangLinks } from "@/i18n/locale";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
-import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
     meta: [
       { title: "Tours — Shooting Star Travel" },
-      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys across Canada: the Rockies, Banff, the aurora, Vancouver, Victoria and private custom tours." },
+      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys: Seattle, Victoria, Whistler, the Canadian Rockies and custom private tours." },
       { property: "og:title", content: "Tours — Shooting Star Travel" },
-      { property: "og:description", content: "Curated small-group journeys across Canada, designed by our local team." },
+      { property: "og:description", content: "Curated small-group journeys, designed by our local team." },
       { property: "og:image", content: tours[0].img },
     ],
     links: hreflangLinks("/tours", "en"),
