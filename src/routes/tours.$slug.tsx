@@ -205,15 +205,17 @@ export function TourDetailPage() {
           <div className="lg:col-span-8 space-y-12">
             {/* Title block */}
             <header className="bg-cream rounded-[8px] p-7 md:p-9 border border-border/60 shadow-[0_30px_60px_-30px_rgba(60,80,70,0.35)]">
-              <Link to={toursHref as never} className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">← All tours</Link>
+              <Link to={toursHref as never} className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">{T.allTours}</Link>
               <h1 className="font-serif text-3xl md:text-[42px] text-ink mt-3 font-semibold leading-[1.2]">{tour.title}</h1>
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
-                <div><span className="text-ink/50">Duration </span><span className="text-ink">{tour.duration}</span></div>
-                <div><span className="text-ink/50">Group </span><span className="text-ink">{tour.group}</span></div>
-                <div><span className="text-ink/50">Language </span><span className="text-ink">{tour.language}</span></div>
-                <div><span className="text-ink/50">Price </span><span className="text-primary font-semibold">{tour.price}</span></div>
+                <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
+                {tour.language && <div><span className="text-ink/50">{T.language} </span><span className="text-ink">{tour.language}</span></div>}
+                <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{tour.price}</span></div>
               </div>
+              {tour.pickup && (
+                <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
+              )}
             </header>
 
             {/* Mobile booking panel */}
@@ -223,8 +225,8 @@ export function TourDetailPage() {
 
             {/* ITINERARY */}
             <section>
-              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— itinerary</p>
-              <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">Itinerary</h2>
+              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.itineraryEyebrow}</p>
+              <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.itinerary}</h2>
               <ol className="mt-7 relative border-l border-primary/30 pl-6 space-y-7">
                 {tour.itinerary.map((it, i) => (
                   <li key={i} className="relative">
@@ -237,10 +239,43 @@ export function TourDetailPage() {
               </ol>
             </section>
 
+            {/* PRICING */}
+            <section>
+              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.pricingEyebrow}</p>
+              <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.pricing}</h2>
+              {tour.roomOptions && tour.roomOptions.length > 0 ? (
+                <>
+                  <div className="mt-6 grid sm:grid-cols-3 gap-4">
+                    {tour.roomOptions.map((r) => (
+                      <div key={r.label} className="rounded-[6px] border border-border/70 bg-cream p-5">
+                        <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{r.guests}</p>
+                        <h4 className="font-serif text-[16px] text-ink mt-1 font-semibold leading-snug">{r.label}</h4>
+                        <p className="mt-3 font-serif text-primary text-[17px] font-semibold">{r.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {tour.roomNote && (
+                    <p className="mt-4 text-[13px] text-ink/65 leading-[1.95] italic">{tour.roomNote}</p>
+                  )}
+                </>
+              ) : (
+                <div className="mt-6 rounded-[6px] border border-border/70 bg-cream p-5">
+                  <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{T.tourRate}</p>
+                  <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{tour.price}</p>
+                </div>
+              )}
+              {tour.gratuity && (
+                <p className="mt-4 text-[13px] text-ink/70">
+                  <span className="text-ink/55">{T.gratuity}: </span>
+                  <span className="text-ink">{tour.gratuity}</span>
+                </p>
+              )}
+            </section>
+
             {tour.gallery && tour.gallery.length > 0 && (
               <section>
-                <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— gallery</p>
-                <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">Trip gallery</h2>
+                <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.galleryEyebrow}</p>
+                <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.gallery}</h2>
                 <div className="mt-7 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                   {tour.gallery.map((g, i) => (
                     <div key={i} className="aspect-square overflow-hidden rounded-[4px]">
@@ -253,10 +288,10 @@ export function TourDetailPage() {
 
             <section className="grid md:grid-cols-3 gap-8">
               {[
-                { t: "What's included", items: tour.included },
-                { t: "What to bring", items: tour.bring },
-                { t: "Good to know", items: tour.notes },
-              ].map((b) => (
+                { t: T.included, items: tour.included },
+                { t: T.notIncluded, items: tour.notIncluded ?? [] },
+                { t: T.optional, items: tour.optional ?? [] },
+              ].filter((b) => b.items.length > 0).map((b) => (
                 <div key={b.t}>
                   <h3 className="font-serif text-lg text-ink font-semibold">{b.t}</h3>
                   <div className="mt-3 h-px w-8 bg-primary/40" />
@@ -267,10 +302,22 @@ export function TourDetailPage() {
               ))}
             </section>
 
-            {tour.faq.length > 0 && (
+            {tour.notes.length > 0 && (
+              <section>
+                <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.notesEyebrow}</p>
+                <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.notes}</h2>
+                <ul className="mt-5 space-y-3 text-[14px] text-ink/70 leading-[1.95]">
+                  {tour.notes.map((n) => (
+                    <li key={n} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{n}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {tour.faq && tour.faq.length > 0 && (
               <section>
                 <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— faq</p>
-                <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">Frequently asked</h2>
+                <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.faq}</h2>
                 <div className="mt-6 space-y-3">
                   {tour.faq.map((f) => (
                     <details key={f.q} className="group rounded-2xl bg-[var(--sand)] px-6 py-4 open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60">
