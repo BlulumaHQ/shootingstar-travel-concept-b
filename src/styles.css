@@ -98,27 +98,10 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      linear-gradient(to right, oklch(0.5 0.03 152 / 0.025) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(0.5 0.03 152 / 0.025) 1px, transparent 1px);
-    background-size: 96px 96px, 96px 96px;
-    background-position: 0 0;
-  }
-  /* Global paper texture overlay — sits above all section backgrounds,
-     below interactive content. Uses overlay blend so it adds grain on both
-     light and dark sections without changing their underlying color. */
-  main { position: relative; }
-  main::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 60;
     background-image: url("/paper-texture.webp");
     background-size: 720px 720px;
     background-repeat: repeat;
-    mix-blend-mode: overlay;
-    opacity: 0.55;
+    background-attachment: fixed;
   }
   h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.01em; font-weight: 500; }
 }
