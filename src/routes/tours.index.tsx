@@ -21,6 +21,8 @@ export const Route = createFileRoute("/tours/")({
 });
 
 export function ToursIndexPage() {
+  const locale = useLocale();
+  const tours = useTours();
   return (
     <SiteLayout>
       <section className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-24 md:pt-32 pb-14">
@@ -41,8 +43,7 @@ export function ToursIndexPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {tours.map((t) => (
             <Link
-              to="/tours/$slug"
-              params={{ slug: t.slug }}
+              to={withLocale(`/tours/${t.slug}`, locale) as never}
               key={t.slug}
               className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
             >
