@@ -196,11 +196,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 className="flex flex-col rounded-2xl border border-border/70 bg-cream overflow-hidden shadow-[0_20px_50px_-30px_rgba(60,80,70,0.35)]"
               >
                 <div className="relative h-52 overflow-hidden">
-                  <img src={t.img} alt={t.name} className="h-full w-full object-cover" />
-                  <span className="absolute top-4 left-4 rounded-full bg-cream/95 text-ink px-3 py-1 text-[11px] tracking-[0.2em] uppercase">
+                  <TourSlides images={TOUR_IMAGES[t.key]} alt={t.name} />
+                  <span className="absolute top-4 left-4 z-10 rounded-full bg-cream/95 text-ink px-3 py-1 text-[11px] tracking-[0.2em] uppercase">
                     {t.tag}
                   </span>
                 </div>
+
                 <div className="flex flex-col flex-1 p-6">
                   <h3 className="font-serif text-[20px] text-ink font-semibold leading-snug">
                     {t.name}
