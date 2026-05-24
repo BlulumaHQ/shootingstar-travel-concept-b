@@ -696,8 +696,8 @@ function IncludeBlock({
   );
 }
 
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
+function FaqItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="rounded-xl border border-border/70 bg-cream overflow-hidden">
       <button
