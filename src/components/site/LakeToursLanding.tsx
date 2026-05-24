@@ -272,7 +272,25 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
+      {/* PAINTERLY BAND — calm reflection sits behind a soft cream wash so it reads like a painting */}
+      <section aria-hidden className="relative h-[42vh] min-h-[320px] md:h-[58vh] overflow-hidden">
+        <img
+          src={PAINTING_BG}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+          style={{ filter: "saturate(0.85) contrast(0.95)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-cream/55 via-cream/20 to-cream/70 mix-blend-soft-light" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/30 via-transparent to-paper/40" />
+        <div className="relative h-full mx-auto max-w-[1100px] px-5 md:px-10 flex items-end pb-10 md:pb-14">
+          <p className="font-marker text-ink/70 text-[12px] md:text-[13px] tracking-[0.3em] uppercase">
+            Banff · Moraine · Lake Louise
+          </p>
+        </div>
+      </section>
+
       {/* COMPARE */}
+
       <section id="compare" className="py-20 md:py-28">
         <div className="mx-auto max-w-[1240px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.compare.eyebrow}</p>
