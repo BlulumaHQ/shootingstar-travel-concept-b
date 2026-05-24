@@ -1,7 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import bgLake from "@/assets/bg-lake-louise.webp";
+import lake009 from "@/assets/lake-tours/lake-009.webp";
+import lake010 from "@/assets/lake-tours/lake-010.webp";
+import lake011 from "@/assets/lake-tours/lake-011.webp";
+import lake013 from "@/assets/lake-tours/lake-013.webp";
+import lake014 from "@/assets/lake-tours/lake-014.webp";
+import lake015 from "@/assets/lake-tours/lake-015.webp";
+import lake052 from "@/assets/lake-tours/lake-052.webp";
+import lake055 from "@/assets/lake-tours/lake-055.webp";
+import lake057 from "@/assets/lake-tours/lake-057.webp";
 import type { LakeToursContent, TourKey } from "@/content/lake-tours";
+
+// Page-only image set (shared across en / zh / ko routes)
+const HERO_IMAGE = lake009;
+const PAINTING_BG = lake010; // calm reflection, used as faint painterly backdrop
+const FINAL_CTA_BG = lake011;
+const TOUR_IMAGES: Record<TourKey, [string, string]> = {
+  halfday: [lake057, lake014],
+  sunrise: [lake011, lake052],
+  extended: [lake055, lake015],
+};
+
 
 export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const TOURS = content.tours;
