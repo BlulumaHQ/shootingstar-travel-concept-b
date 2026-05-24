@@ -1,7 +1,7 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
-import tourVictoria from "@/assets/tour-victoria.webp";
+import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -74,8 +74,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "victoria-1-day",
-    img: tourVictoria,
-    gallery: [tourVictoria],
+    img: victoriaHero,
+    gallery: victoriaGallery,
     title: "維多利亞一日遊｜英倫風情與海岸花園",
     desc: "含 BC Ferries 來回渡輪的離島一日遊，走訪維多利亞內港、漁人碼頭、政府街與可選的布查特花園。",
     intro:

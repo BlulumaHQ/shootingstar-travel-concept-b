@@ -1,11 +1,11 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
-import tourVictoria from "@/assets/tour-victoria.webp";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
+import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 
 export type RoomOption = {
   label: string;
@@ -145,8 +145,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "victoria-1-day",
-    img: tourVictoria,
-    gallery: [tourVictoria],
+    img: victoriaHero,
+    gallery: victoriaGallery,
     title: "Victoria 1-Day Tour | British Charm & Coastal Garden Escape",
     desc: "A scenic island day trip with BC Ferries included, featuring Victoria's Inner Harbour, Fisherman's Wharf, Government Street, and optional Butchart Gardens.",
     intro:
