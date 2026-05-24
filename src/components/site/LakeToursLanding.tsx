@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
-import bgLake from "@/assets/bg-lake-louise.webp";
+import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake010 from "@/assets/lake-tours/lake-010.webp";
 import lake011 from "@/assets/lake-tours/lake-011.webp";
