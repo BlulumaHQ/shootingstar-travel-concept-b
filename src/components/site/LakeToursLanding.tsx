@@ -1,7 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
-import bgLake from "@/assets/bg-lake-louise.webp";
+import lake009 from "@/assets/lake-tours/lake-009.webp";
+import lake010 from "@/assets/lake-tours/lake-010.webp";
+import lake011 from "@/assets/lake-tours/lake-011.webp";
+import lake013 from "@/assets/lake-tours/lake-013.webp";
+import lake014 from "@/assets/lake-tours/lake-014.webp";
+import lake015 from "@/assets/lake-tours/lake-015.webp";
+import lake052 from "@/assets/lake-tours/lake-052.webp";
+import lake055 from "@/assets/lake-tours/lake-055.webp";
+import lake057 from "@/assets/lake-tours/lake-057.webp";
 import type { LakeToursContent, TourKey } from "@/content/lake-tours";
+
+// Page-only image set (shared across en / zh / ko routes)
+const HERO_IMAGE = lake009;
+const PAINTING_BG = lake010; // calm reflection, used as faint painterly backdrop
+const FINAL_CTA_BG = lake011;
+const TOUR_IMAGES: Record<TourKey, [string, string]> = {
+  halfday: [lake057, lake014],
+  sunrise: [lake011, lake052],
+  extended: [lake055, lake015],
+};
+
 
 export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const TOURS = content.tours;
@@ -41,10 +60,11 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       {/* HERO */}
       <section className="relative overflow-hidden bg-ink">
         <img
-          src={bgLake}
+          src={HERO_IMAGE}
           alt="Moraine Lake / 모레인 호수 / 夢蓮湖"
           className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/60" />
         <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-20 md:py-32 grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 text-cream">
@@ -175,11 +195,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 className="flex flex-col rounded-2xl border border-border/70 bg-cream overflow-hidden shadow-[0_20px_50px_-30px_rgba(60,80,70,0.35)]"
               >
                 <div className="relative h-52 overflow-hidden">
-                  <img src={t.img} alt={t.name} className="h-full w-full object-cover" />
-                  <span className="absolute top-4 left-4 rounded-full bg-cream/95 text-ink px-3 py-1 text-[11px] tracking-[0.2em] uppercase">
+                  <TourSlides images={TOUR_IMAGES[t.key]} alt={t.name} />
+                  <span className="absolute top-4 left-4 z-10 rounded-full bg-cream/95 text-ink px-3 py-1 text-[11px] tracking-[0.2em] uppercase">
                     {t.tag}
                   </span>
                 </div>
+
                 <div className="flex flex-col flex-1 p-6">
                   <h3 className="font-serif text-[20px] text-ink font-semibold leading-snug">
                     {t.name}
@@ -250,7 +271,25 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
+      {/* PAINTERLY BAND — calm reflection sits behind a soft cream wash so it reads like a painting */}
+      <section aria-hidden className="relative h-[42vh] min-h-[320px] md:h-[58vh] overflow-hidden">
+        <img
+          src={PAINTING_BG}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover scale-105"
+          style={{ filter: "saturate(0.85) contrast(0.95)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-cream/55 via-cream/20 to-cream/70 mix-blend-soft-light" />
+        <div className="absolute inset-0 bg-gradient-to-b from-paper/30 via-transparent to-paper/40" />
+        <div className="relative h-full mx-auto max-w-[1100px] px-5 md:px-10 flex items-end pb-10 md:pb-14">
+          <p className="font-marker text-ink/70 text-[12px] md:text-[13px] tracking-[0.3em] uppercase">
+            Banff · Moraine · Lake Louise
+          </p>
+        </div>
+      </section>
+
       {/* COMPARE */}
+
       <section id="compare" className="py-20 md:py-28">
         <div className="mx-auto max-w-[1240px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.compare.eyebrow}</p>
@@ -468,7 +507,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
       {/* FINAL CTA */}
       <section className="relative overflow-hidden py-24 md:py-32 bg-ink text-cream">
-        <img src={bgLake} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <img src={FINAL_CTA_BG} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
         <div className="relative mx-auto max-w-[900px] px-5 md:px-10 text-center">
           <p className="font-marker text-cream/80 text-[13px] tracking-[0.3em] uppercase">
             {c.finalCta.eyebrow}
@@ -663,3 +702,35 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     </div>
   );
 }
+
+function TourSlides({ images, alt }: { images: [string, string]; alt: string }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((v) => (v + 1) % images.length), 4200);
+    return () => clearInterval(id);
+  }, [images.length]);
+  return (
+    <div className="absolute inset-0">
+      {images.map((src, idx) => (
+        <img
+          key={src}
+          src={src}
+          alt={idx === 0 ? alt : ""}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-out"
+          style={{ opacity: i === idx ? 1 : 0 }}
+        />
+      ))}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {images.map((_, idx) => (
+          <span
+            key={idx}
+            className={`h-1 rounded-full transition-all ${
+              i === idx ? "w-5 bg-cream" : "w-1.5 bg-cream/60"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
