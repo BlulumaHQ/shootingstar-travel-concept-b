@@ -61,10 +61,11 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       {/* HERO */}
       <section className="relative overflow-hidden bg-ink">
         <img
-          src={bgLake}
+          src={HERO_IMAGE}
           alt="Moraine Lake / 모레인 호수 / 夢蓮湖"
           className="absolute inset-0 h-full w-full object-cover opacity-80"
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/60" />
         <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-20 md:py-32 grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 text-cream">
