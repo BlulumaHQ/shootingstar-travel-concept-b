@@ -490,7 +490,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
       {/* FINAL CTA */}
       <section className="relative overflow-hidden py-24 md:py-32 bg-ink text-cream">
-        <img src={bgLake} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <img src={FINAL_CTA_BG} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
         <div className="relative mx-auto max-w-[900px] px-5 md:px-10 text-center">
           <p className="font-marker text-cream/80 text-[13px] tracking-[0.3em] uppercase">
             {c.finalCta.eyebrow}
