@@ -209,10 +209,6 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
                   <dl className="mt-5 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
                     <div className="flex justify-between gap-4">
-                      <dt className="text-ink/55">{c.options.labels.price}</dt>
-                      <dd className="text-primary font-serif font-semibold">{t.priceLabel}</dd>
-                    </div>
-                    <div className="flex justify-between gap-4">
                       <dt className="text-ink/55">{c.options.labels.pickup}</dt>
                       <dd className="text-right">{t.pickup}</dd>
                     </div>
@@ -254,16 +250,23 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                     </div>
                   )}
 
-                  <p className="mt-5 text-[12px] text-ink/55 italic">
-                    {c.options.labels.gratuityNote}
-                  </p>
+                  <div className="mt-auto pt-6 flex flex-col gap-4 border-t border-border/60">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-[13px] text-ink/55">{c.options.labels.price}</span>
+                      <span className="font-serif text-[24px] text-primary font-bold tracking-tight">{t.priceLabel}</span>
+                    </div>
 
-                  <button
-                    onClick={() => handleSelectTour(t.key)}
-                    className="mt-6 w-full rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
-                  >
-                    {t.cta} →
-                  </button>
+                    <p className="text-[12px] text-ink/55 italic leading-relaxed">
+                      {c.options.labels.gratuityNote}
+                    </p>
+
+                    <button
+                      onClick={() => handleSelectTour(t.key)}
+                      className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+                    >
+                      {t.cta} →
+                    </button>
+                  </div>
                 </div>
               </article>
             ))}
