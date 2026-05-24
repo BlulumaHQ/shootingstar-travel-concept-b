@@ -703,3 +703,35 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     </div>
   );
 }
+
+function TourSlides({ images, alt }: { images: [string, string]; alt: string }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((v) => (v + 1) % images.length), 4200);
+    return () => clearInterval(id);
+  }, [images.length]);
+  return (
+    <div className="absolute inset-0">
+      {images.map((src, idx) => (
+        <img
+          key={src}
+          src={src}
+          alt={idx === 0 ? alt : ""}
+          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-[1200ms] ease-out"
+          style={{ opacity: i === idx ? 1 : 0 }}
+        />
+      ))}
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+        {images.map((_, idx) => (
+          <span
+            key={idx}
+            className={`h-1 rounded-full transition-all ${
+              i === idx ? "w-5 bg-cream" : "w-1.5 bg-cream/60"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
