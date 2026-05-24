@@ -495,15 +495,25 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
       {/* FAQ */}
       <section className="py-20 md:py-28 bg-paper/50">
-        <div className="mx-auto max-w-[900px] px-5 md:px-10">
+        <div className="mx-auto max-w-[1100px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.faq.eyebrow}</p>
           <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
             {c.faq.h2}
           </h2>
-          <div className="mt-10 space-y-3">
-            {c.faq.items.map((f, i) => (
-              <FaqItem key={i} q={f.q} a={f.a} />
-            ))}
+
+          <div className="mt-10 grid md:grid-cols-2 gap-4">
+            {/* Left column — first half */}
+            <div className="space-y-3">
+              {c.faq.items.slice(0, Math.ceil(c.faq.items.length / 2)).map((f, i) => (
+                <FaqItem key={i} q={f.q} a={f.a} defaultOpen={i === 0} />
+              ))}
+            </div>
+            {/* Right column — second half */}
+            <div className="space-y-3">
+              {c.faq.items.slice(Math.ceil(c.faq.items.length / 2)).map((f, i) => (
+                <FaqItem key={i} q={f.q} a={f.a} defaultOpen={i === 0} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
