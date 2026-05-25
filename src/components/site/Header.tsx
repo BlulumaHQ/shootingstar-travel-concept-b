@@ -72,8 +72,8 @@ export function Header() {
     >
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/") as never} className="flex items-center -my-2" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Shootingstar Travel" className="h-[104px] md:h-[164px] w-auto" />
+          <Link to={localized("/") as never} className="flex items-center -my-1" onClick={() => setOpen(false)}>
+            <img src={logo} alt="Shootingstar Travel" className="h-[72px] md:h-[100px] w-auto" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -122,7 +122,7 @@ export function Header() {
 
         <div
           aria-hidden
-          className="pointer-events-none absolute left-0 right-0 top-full h-[22px] md:h-[32px] overflow-hidden"
+          className="pointer-events-none absolute left-0 right-0 top-full h-[14px] md:h-[20px] overflow-hidden"
           style={{ transform: "translateZ(0)" }}
         >
           <img
@@ -137,7 +137,7 @@ export function Header() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden fixed inset-0 top-[88px] z-40 bg-cream overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 top-[72px] z-40 bg-cream overflow-y-auto">
           <nav className="px-8 pt-10 pb-16 flex flex-col">
             {nav.map((n, i) => (
               <Link
