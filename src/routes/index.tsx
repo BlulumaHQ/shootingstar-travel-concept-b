@@ -584,9 +584,9 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.aboutEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium leading-[1.18] tracking-[-0.012em]">{p.aboutHeading}</h2>
-              <p className="mt-7 text-ink/70 leading-[2] text-[15px]">{p.aboutP1}</p>
-              <p className="mt-5 text-ink/70 leading-[2] text-[15px]">{p.aboutP2}</p>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink mt-5 font-semibold leading-[1.18] tracking-[-0.015em]">{p.aboutHeading}</h2>
+              <p className="mt-7 text-ink/80 leading-[2.05] text-[15.5px]">{p.aboutP1}</p>
+              <p className="mt-6 text-ink/80 leading-[2.05] text-[15.5px]">{p.aboutP2}</p>
               <Link to={link("/about") as never} className="mt-8 inline-flex items-center gap-2 text-primary text-[14px] underline underline-offset-[6px] decoration-primary/40 hover:decoration-primary">
                 {p.meetUs}
               </Link>
