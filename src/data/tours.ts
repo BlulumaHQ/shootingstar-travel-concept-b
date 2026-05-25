@@ -2,6 +2,7 @@ import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
+import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -95,8 +96,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "seattle-2-day",
-    img: tourToronto,
-    gallery: [tourToronto, tourVancouver],
+    img: seattle2Hero,
+    gallery: seattle2Gallery,
     title: "Seattle 2-Day Tour | The Ultimate Seattle Getaway & Shopping Experience",
     desc: "An overnight Seattle getaway with iconic landmarks, local seafood, aviation history, Trader Joe's, and Seattle Premium Outlets. Hotel included.",
     intro:

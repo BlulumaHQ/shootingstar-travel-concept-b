@@ -2,6 +2,7 @@ import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
+import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
@@ -40,8 +41,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "seattle-2-day",
-    img: tourToronto,
-    gallery: [tourToronto, tourVancouver],
+    img: seattle2Hero,
+    gallery: seattle2Gallery,
     title: "시애틀 2일 투어 | 시애틀 완전 정복 & 쇼핑 여행",
     desc: "랜드마크, 해산물, 항공 박물관, Trader Joe's, 시애틀 프리미엄 아울렛까지 즐기는 1박 2일 시애틀 여행. 호텔 포함.",
     intro:
