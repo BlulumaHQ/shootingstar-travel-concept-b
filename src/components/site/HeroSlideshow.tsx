@@ -17,6 +17,7 @@ export type HeroSlide = {
   accentImage?: string;
   accentCaption?: string;
   polaroidImage?: string;        // optional single PNG to replace the polaroid composition
+  backgroundImage?: string;      // optional per-slide background override
 };
 
 type Props = {
@@ -69,14 +70,24 @@ export function HeroSlideshow({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {backgroundImage && (
+      {(slides.some((s) => s.backgroundImage) || backgroundImage) && (
         <>
-          <img
-            src={backgroundImage}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          {slides.map((s, i) => {
+            const bg = s.backgroundImage ?? backgroundImage;
+            if (!bg) return null;
+            return (
+              <img
+                key={s.id}
+                src={bg}
+                alt=""
+                aria-hidden
+                className={
+                  "absolute inset-0 w-full h-full object-cover transition-opacity duration-[1400ms] ease-out " +
+                  (i === index ? "opacity-100" : "opacity-0")
+                }
+              />
+            );
+          })}
           <div
             aria-hidden
             className="absolute inset-0 bg-cream/94 md:bg-cream/92"
@@ -85,7 +96,6 @@ export function HeroSlideshow({
             aria-hidden
             className="absolute inset-0 bg-gradient-to-r from-cream/70 via-cream/50 to-cream/30"
           />
-          {/* very subtle paper grain — almost invisible */}
           <div
             aria-hidden
             className="absolute inset-0 opacity-25 mix-blend-multiply pointer-events-none"
@@ -221,7 +231,7 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
 
         {/* RIGHT — editorial polaroid composition */}
         <div className="md:col-span-6 order-2 relative">
-          <div className="relative h-[300px] md:h-[600px] mx-auto max-w-[520px] md:max-w-[680px]">
+          <div className="relative h-[380px] md:h-[760px] mx-auto max-w-[600px] md:max-w-[820px]">
             <div
               className="absolute -top-12 -left-8 w-52 h-52 rounded-full opacity-50 blur-3xl"
               style={{ background: "var(--lavender-soft)" }}
