@@ -1,4 +1,5 @@
 import tourBanff from "@/assets/tour-banff.webp";
+import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
@@ -127,8 +128,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "rockies-3-day",
-    img: tourRockies,
-    gallery: [tourRockies, tourBanff, tourIcefield],
+    img: banff3Hero,
+    gallery: banff3Gallery,
     title: "캐나다 록키 3일 투어 | 밴프, 모레인 호수 & 아이스필드",
     desc: "캘거리 출발 3일 록키 투어 — 밴프, 레이크 루이스, 모레인 호수, 컬럼비아 아이스필드, 페이토 호수, 에메랄드 호수. 호텔 포함.",
     intro:

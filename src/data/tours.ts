@@ -1,4 +1,5 @@
 import tourBanff from "@/assets/tour-banff.webp";
+import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
@@ -222,8 +223,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "rockies-3-day",
-    img: tourRockies,
-    gallery: [tourRockies, tourBanff, tourIcefield],
+    img: banff3Hero,
+    gallery: banff3Gallery,
     title: "3-Day Rocky Mountains Tour | Banff, Moraine Lake & Icefields Adventure",
     desc: "A 3-day Calgary-based Rockies itinerary featuring Banff, Lake Louise, Moraine Lake, Columbia Icefield, Peyto Lake, and Emerald Lake. Hotel included.",
     intro:
