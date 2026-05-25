@@ -11,7 +11,7 @@ export type HeroSlide = {
   body: string;
   tags?: string[];
   primary: { label: string; to: string };
-  secondary: { label: string; to: string };
+  secondary?: { label: string; to: string };
   image: string;
   imageCaption: string;          // e.g. "Moraine Lake · 06:42"
   accentImage?: string;
