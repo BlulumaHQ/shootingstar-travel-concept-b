@@ -6,6 +6,7 @@ import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
+import { whistlerHero, whistlerGallery } from "./whistler-gallery";
 import type { Tour } from "./tours";
 
 export const tours: Tour[] = [
@@ -99,8 +100,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "whistler-1-day",
-    img: destWhistler,
-    gallery: [destWhistler],
+    img: whistlerHero,
+    gallery: whistlerGallery,
     title: "惠斯勒一日遊｜海天公路與高山小鎮",
     desc: "沿著海天公路的高山一日遊，走訪 Porteau Cove、香農瀑布、Squamish、Brandywine 瀑布與惠斯勒村。",
     intro:
