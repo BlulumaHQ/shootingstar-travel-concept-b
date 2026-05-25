@@ -171,20 +171,21 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
             </span>
           </div>
 
-          <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[60px] leading-[1.12] tracking-[-0.012em] text-ink mt-5 md:mt-7 font-medium">
+          <h1 className="font-serif text-[34px] sm:text-[44px] md:text-[64px] leading-[1.08] tracking-[-0.018em] text-ink mt-6 md:mt-8 font-semibold">
             {s.headingLines.map((ln, i) => {
               const last = i === s.headingLines.length - 1;
               return (
                 <span key={i} className="block">
-                  {last ? <span className="italic text-primary">{ln}</span> : ln}
+                  {last ? <span className="italic text-primary font-medium">{ln}</span> : ln}
                 </span>
               );
             })}
           </h1>
 
-          <p className="mt-5 md:mt-8 text-ink/60 leading-[1.95] text-[14px] md:text-[15px] max-w-md">
+          <p className="mt-7 md:mt-10 text-ink/85 leading-[1.95] text-[15px] md:text-[16.5px] max-w-md">
             {s.body}
           </p>
+
 
           {s.tags && s.tags.length > 0 && (
             <ul className="mt-5 flex flex-wrap gap-2">
