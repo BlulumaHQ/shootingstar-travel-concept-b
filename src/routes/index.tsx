@@ -622,7 +622,7 @@ export function HomePage() {
                   <div className="mt-4">
                     <p className="font-marker text-primary text-[12px] tracking-[0.2em] uppercase">{d.sub}</p>
                     <h3 className="font-serif text-lg text-ink mt-1 font-semibold">{d.name}</h3>
-                    <p className="mt-2 text-[13px] text-ink/65 leading-[1.85]">{d.note}</p>
+                    <p className="mt-2 text-[13.5px] text-ink/75 leading-[1.9]">{d.note}</p>
                   </div>
                 </article>
               ))}
