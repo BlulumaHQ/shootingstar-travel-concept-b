@@ -606,10 +606,10 @@ export function HomePage() {
               <PinMark size={18} className="text-primary/65" />
               <DottedLine length={24} className="text-primary/45" />
             </div>
-            <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-6 leading-[1.15] tracking-[-0.015em] font-medium">
-              {p.destHeadingA}<span className="italic text-primary">{p.destHeadingB}</span>
+            <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.12] tracking-[-0.02em] font-semibold">
+              {p.destHeadingA}<span className="italic text-primary font-medium">{p.destHeadingB}</span>
             </h2>
-            <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">{p.destBody}</p>
+            <p className="mt-7 text-ink/75 leading-[2] text-[15.5px] max-w-xl mx-auto">{p.destBody}</p>
           </div>
 
           <div className="md:hidden -mx-6 px-6">
