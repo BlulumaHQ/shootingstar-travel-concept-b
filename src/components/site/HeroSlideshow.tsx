@@ -84,10 +84,9 @@ export function HeroSlideshow({
         </>
       )}
 
-      <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
+      <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/55 pointer-events-none" />
 
-
-      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-24 pb-24 md:pb-32">
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-8 md:pt-16 pb-16 md:pb-20">
         <div className="relative">
           {slides.map((s, i) => (
             <Slide key={s.id} slide={s} active={i === index} hidden={i !== index} />
@@ -207,7 +206,7 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
 
         {/* RIGHT — editorial polaroid composition */}
         <div className="md:col-span-6 order-2 relative">
-          <div className="relative h-[260px] md:h-[560px] mx-auto max-w-[420px] md:max-w-[540px]">
+          <div className="relative h-[220px] md:h-[440px] mx-auto max-w-[420px] md:max-w-[540px]">
             <div
               className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl"
               style={{ background: "var(--lavender-soft)" }}
