@@ -221,14 +221,14 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
 
         {/* RIGHT — editorial polaroid composition */}
         <div className="md:col-span-6 order-2 relative">
-          <div className="relative h-[220px] md:h-[440px] mx-auto max-w-[420px] md:max-w-[540px]">
+          <div className="relative h-[300px] md:h-[600px] mx-auto max-w-[520px] md:max-w-[680px]">
             <div
-              className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl"
+              className="absolute -top-12 -left-8 w-52 h-52 rounded-full opacity-50 blur-3xl"
               style={{ background: "var(--lavender-soft)" }}
               aria-hidden
             />
             <div
-              className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl"
+              className="absolute -bottom-14 -right-8 w-64 h-64 rounded-full opacity-55 blur-3xl"
               style={{ background: "var(--sage-soft)" }}
               aria-hidden
             />
@@ -243,9 +243,10 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
               <img
                 src={s.polaroidImage}
                 alt={s.imageCaption}
-                className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-[0_18px_30px_oklch(0_0_0/0.18)]"
+                className="absolute inset-0 w-full h-full object-contain z-10 rotate-[-1.5deg] drop-shadow-[0_30px_50px_oklch(0_0_0/0.28)]"
               />
             ) : (
+
               <>
                 <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
                   <img
