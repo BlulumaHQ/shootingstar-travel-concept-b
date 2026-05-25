@@ -72,8 +72,8 @@ export function Header() {
     >
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/") as never} className="flex items-center -my-1" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Shootingstar Travel" className="h-[72px] md:h-[100px] w-auto" />
+          <Link to={localized("/") as never} className="flex items-center -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
+            <img src={logo} alt="Shootingstar Travel" className="h-[92px] md:h-[140px] w-auto" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
