@@ -442,8 +442,8 @@ export function HomePage() {
       {/* HERO SLIDESHOW */}
       <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
-      {/* TRUST / FEATURE ICONS */}
-      <section className="relative bg-[var(--sand)] py-20 md:py-24">
+      {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
+      <section className="relative bg-[var(--sand)] py-16 md:py-20">
         <div className="mx-auto max-w-[1240px] px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-14">
             {p.feat.map((f, i) => {
@@ -452,13 +452,14 @@ export function HomePage() {
                 <div key={f.t} className="flex flex-col items-start">
                   <span className="text-primary"><Icon size={48} /></span>
                   <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
-                  <p className="mt-2.5 text-[12.5px] text-ink/60 leading-[1.85] whitespace-pre-line">{f.d}</p>
+                  <p className="mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
                 </div>
               );
             })}
           </div>
         </div>
       </section>
+
 
       {/* FEATURED TOURS */}
       <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
