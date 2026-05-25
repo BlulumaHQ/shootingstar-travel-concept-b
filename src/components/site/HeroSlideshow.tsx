@@ -16,6 +16,7 @@ export type HeroSlide = {
   imageCaption: string;          // e.g. "Moraine Lake · 06:42"
   accentImage?: string;
   accentCaption?: string;
+  polaroidImage?: string;        // optional single PNG to replace the polaroid composition
 };
 
 type Props = {
@@ -23,15 +24,19 @@ type Props = {
   intervalMs?: number;
   prevLabel?: string;
   nextLabel?: string;
+  backgroundImage?: string;
 };
+
 
 export function HeroSlideshow({
   slides,
   intervalMs = 7500,
   prevLabel = "Previous slide",
   nextLabel = "Next slide",
+  backgroundImage,
 }: Props) {
   const [index, setIndex] = useState(0);
+
   const [paused, setPaused] = useState(false);
   const touchStart = useRef<number | null>(null);
 
@@ -64,7 +69,23 @@ export function HeroSlideshow({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      {backgroundImage && (
+        <>
+          <img
+            src={backgroundImage}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/80 to-cream/55 md:from-cream/92 md:via-cream/72 md:to-cream/35"
+          />
+        </>
+      )}
+
       <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
+
 
       <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-24 pb-24 md:pb-32">
         <div className="relative">
