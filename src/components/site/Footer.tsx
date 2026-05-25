@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
-import paperTexture from "@/assets/paper-texture.webp";
-import footerWaves from "@/assets/footer-waves.jpg";
 import { Instagram, Facebook, MessageCircle, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
+
 
 const socials = [
   { Icon: Instagram, href: "#", label: "Instagram" },
