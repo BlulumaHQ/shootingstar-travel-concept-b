@@ -71,7 +71,7 @@
   --secondary: var(--lavender-soft);
   --secondary-foreground: var(--ink);
   --muted: oklch(0.955 0.008 85);
-  --muted-foreground: oklch(0.5 0.012 70);
+  --muted-foreground: oklch(0.42 0.012 70);
   --accent: var(--lavender);
   --accent-foreground: oklch(0.985 0.005 85);
   --destructive: oklch(0.6 0.14 28);
