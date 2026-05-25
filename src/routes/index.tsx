@@ -25,6 +25,9 @@ import { PlaneJourney } from "@/components/site/PlaneJourney";
 import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroBanff2 from "@/assets/hero-banff-2.jpg";
+import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
+import heroPolaroids from "@/assets/hero-polaroids.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -382,12 +385,14 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       headingLines: c.banff.lines,
       body: c.banff.body,
       tags: c.banff.tags,
-      primary: { label: c.banff.primary, to: link("/tours/rockies-3-day") },
-      secondary: { label: c.banff.secondary, to: link("/tours/rockies-3-day") },
+      primary: { label: c.banff.primary, to: link("/rocky-mountain-lake-tours") },
+      secondary: { label: c.banff.secondary, to: link("/rocky-mountain-lake-tours") },
       image: heroBanff,
       imageCaption: c.banff.cap1,
       accentImage: heroBanff2,
       accentCaption: c.banff.cap2,
+      polaroidImage: heroPolaroids,
+
     },
     {
       id: "aurora",
@@ -396,12 +401,14 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       headingLines: c.aurora.lines,
       body: c.aurora.body,
       tags: c.aurora.tags,
-      primary: { label: c.aurora.primary, to: link("/tours") },
+      primary: { label: c.aurora.primary, to: link("/rocky-mountain-lake-tours") },
       secondary: { label: c.aurora.secondary, to: link("/blog") },
       image: tourAurora,
       imageCaption: c.aurora.cap1,
       accentImage: destYukon,
       accentCaption: c.aurora.cap2,
+      polaroidImage: heroPolaroids,
+
     },
     {
       id: "vancouver",
@@ -409,13 +416,15 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       headingLines: c.vancouver.lines,
       body: c.vancouver.body,
       tags: c.vancouver.tags,
-      primary: { label: c.vancouver.primary, to: link("/tours/whistler-1-day") },
+      primary: { label: c.vancouver.primary, to: link("/rocky-mountain-lake-tours") },
       secondary: { label: c.vancouver.secondary, to: link("/contact") },
       image: tourVancouver,
       imageCaption: c.vancouver.cap1,
       accentImage: tourGroup,
       accentCaption: c.vancouver.cap2,
+      polaroidImage: heroPolaroids,
     },
+
   ];
 }
 
@@ -431,7 +440,7 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroSlideshow slides={buildHeroSlides(locale, link)} />
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
       {/* TRUST / FEATURE ICONS */}
       <section className="relative bg-[var(--sand)] py-20 md:py-24">

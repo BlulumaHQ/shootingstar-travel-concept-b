@@ -16,6 +16,7 @@ export type HeroSlide = {
   imageCaption: string;          // e.g. "Moraine Lake · 06:42"
   accentImage?: string;
   accentCaption?: string;
+  polaroidImage?: string;        // optional single PNG to replace the polaroid composition
 };
 
 type Props = {
@@ -23,15 +24,19 @@ type Props = {
   intervalMs?: number;
   prevLabel?: string;
   nextLabel?: string;
+  backgroundImage?: string;
 };
+
 
 export function HeroSlideshow({
   slides,
   intervalMs = 7500,
   prevLabel = "Previous slide",
   nextLabel = "Next slide",
+  backgroundImage,
 }: Props) {
   const [index, setIndex] = useState(0);
+
   const [paused, setPaused] = useState(false);
   const touchStart = useRef<number | null>(null);
 
@@ -64,7 +69,23 @@ export function HeroSlideshow({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
+      {backgroundImage && (
+        <>
+          <img
+            src={backgroundImage}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/80 to-cream/55 md:from-cream/92 md:via-cream/72 md:to-cream/35"
+          />
+        </>
+      )}
+
       <PlaneJourney className="absolute inset-x-0 top-[16%] w-full h-32 md:h-44 text-primary/55 pointer-events-none" />
+
 
       <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-24 pb-24 md:pb-32">
         <div className="relative">
@@ -201,32 +222,43 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
               </span>
             )}
 
-            <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
+            {s.polaroidImage ? (
               <img
-                src={s.image}
+                src={s.polaroidImage}
                 alt={s.imageCaption}
-                className="aspect-[5/4] md:aspect-[4/5] w-full object-cover"
-                width={1200}
-                height={1200}
+                className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-[0_18px_30px_oklch(0_0_0/0.18)]"
               />
-              <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
-                {s.imageCaption}
-              </figcaption>
-            </figure>
+            ) : (
+              <>
+                <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
+                  <img
+                    src={s.image}
+                    alt={s.imageCaption}
+                    className="aspect-[5/4] md:aspect-[4/5] w-full object-cover"
+                    width={1200}
+                    height={1200}
+                  />
+                  <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
+                    {s.imageCaption}
+                  </figcaption>
+                </figure>
 
-            {s.accentImage && (
-              <figure className="polaroid absolute bottom-0 right-2 md:right-4 w-[44%] md:w-[50%] rotate-[5deg] z-20">
-                <img
-                  src={s.accentImage}
-                  alt={s.accentCaption ?? ""}
-                  className="aspect-square w-full object-cover"
-                  loading="lazy"
-                />
-                <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
-                  {s.accentCaption}
-                </figcaption>
-              </figure>
+                {s.accentImage && (
+                  <figure className="polaroid absolute bottom-0 right-2 md:right-4 w-[44%] md:w-[50%] rotate-[5deg] z-20">
+                    <img
+                      src={s.accentImage}
+                      alt={s.accentCaption ?? ""}
+                      className="aspect-square w-full object-cover"
+                      loading="lazy"
+                    />
+                    <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
+                      {s.accentCaption}
+                    </figcaption>
+                  </figure>
+                )}
+              </>
             )}
+
           </div>
         </div>
       </div>
