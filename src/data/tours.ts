@@ -5,6 +5,7 @@ import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
+import { whistlerHero, whistlerGallery } from "./whistler-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 
 export type RoomOption = {
@@ -183,8 +184,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "whistler-1-day",
-    img: destWhistler,
-    gallery: [destWhistler],
+    img: whistlerHero,
+    gallery: whistlerGallery,
     title: "Whistler 1-Day Tour | Sea-to-Sky Highway & Alpine Escape",
     desc: "A Sea-to-Sky Highway alpine escape with Porteau Cove, Shannon Falls, Squamish, Brandywine Falls, and Whistler Village.",
     intro:

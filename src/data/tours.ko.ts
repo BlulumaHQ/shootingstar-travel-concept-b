@@ -6,6 +6,7 @@ import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
+import { whistlerHero, whistlerGallery } from "./whistler-gallery";
 import type { Tour } from "./tours";
 
 export const tours: Tour[] = [
@@ -99,8 +100,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "whistler-1-day",
-    img: destWhistler,
-    gallery: [destWhistler],
+    img: whistlerHero,
+    gallery: whistlerGallery,
     title: "휘슬러 1일 투어 | 시 투 스카이 하이웨이와 알파인 마을",
     desc: "Sea-to-Sky Highway를 따라 즐기는 알파인 1일 투어. 포르토 코브, 섀넌 폭포, 스쿼미시, 브랜디와인 폭포, 휘슬러 빌리지를 만나보세요.",
     intro:
