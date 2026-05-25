@@ -79,7 +79,11 @@ export function HeroSlideshow({
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/80 to-cream/55 md:from-cream/92 md:via-cream/72 md:to-cream/35"
+            className="absolute inset-0 bg-cream/80 md:bg-cream/75"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-r from-cream/40 via-cream/20 to-transparent"
           />
         </>
       )}
