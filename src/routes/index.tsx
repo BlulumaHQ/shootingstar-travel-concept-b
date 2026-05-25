@@ -657,23 +657,28 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.faqEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 tracking-[-0.012em] font-medium">{p.faqHeading}</h2>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink mt-5 tracking-[-0.015em] font-semibold">{p.faqHeading}</h2>
             </div>
             <Link to={link("/faq") as never} className="text-primary text-[12px] tracking-[0.18em] uppercase underline decoration-primary/40 underline-offset-[8px] hover:decoration-primary">
               {p.viewAllFaqs}
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-3">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-2">
             {p.faqs.map((f, i) => (
-              <details key={f.q} open={i < 2} className="group border-b border-primary/15 py-6 open:pb-7">
-                <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
-                  <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
+              <details
+                key={f.q}
+                open={i < 2}
+                className="group border-b border-primary/15 py-2 transition-colors hover:border-primary/35 open:border-primary/40"
+              >
+                <summary className="flex items-center justify-between cursor-pointer list-none gap-6 py-5 px-2 -mx-2 rounded-[4px] transition hover:bg-primary/[0.04] group-open:bg-primary/[0.05]">
+                  <span className="font-serif text-[16.5px] md:text-[17.5px] text-ink leading-snug font-semibold group-open:text-primary transition-colors">{f.q}</span>
+                  <span className="text-primary text-2xl group-open:rotate-45 transition shrink-0 leading-none">+</span>
                 </summary>
-                <p className="mt-4 text-ink/60 leading-[2] text-[14px]">{f.a}</p>
+                <p className="mt-1 mb-4 px-2 text-ink/80 leading-[2.05] text-[14.5px]">{f.a}</p>
               </details>
             ))}
           </div>
+
         </div>
       </section>
 
