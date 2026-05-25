@@ -11,7 +11,7 @@ export type HeroSlide = {
   body: string;
   tags?: string[];
   primary: { label: string; to: string };
-  secondary: { label: string; to: string };
+  secondary?: { label: string; to: string };
   image: string;
   imageCaption: string;          // e.g. "Moraine Lake · 06:42"
   accentImage?: string;
@@ -193,12 +193,15 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
             >
               {s.primary.label} <span aria-hidden>→</span>
             </Link>
-            <Link
-              to={s.secondary.to as never}
-              className="text-ink/65 text-[12.5px] md:text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition"
-            >
-              {s.secondary.label}
-            </Link>
+            {s.secondary && (
+              <Link
+                to={s.secondary.to as never}
+                className="text-ink/65 text-[12.5px] md:text-[13.5px] tracking-[0.08em] uppercase underline decoration-primary/30 underline-offset-[6px] hover:text-primary transition"
+              >
+                {s.secondary.label}
+              </Link>
+            )}
+
           </div>
         </div>
 
