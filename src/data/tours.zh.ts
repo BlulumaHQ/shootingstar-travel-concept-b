@@ -1,4 +1,5 @@
 import tourBanff from "@/assets/tour-banff.webp";
+import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
@@ -127,8 +128,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "rockies-3-day",
-    img: tourRockies,
-    gallery: [tourRockies, tourBanff, tourIcefield],
+    img: banff3Hero,
+    gallery: banff3Gallery,
     title: "加拿大洛磯山三日遊｜班夫・夢蓮湖・冰原大道",
     desc: "從卡加利出發的三日洛磯山行程，走訪班夫、露易絲湖、夢蓮湖、哥倫比亞冰原、佩托湖與翡翠湖，含住宿。",
     intro:
