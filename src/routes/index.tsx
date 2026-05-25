@@ -461,8 +461,8 @@ export function HomePage() {
       </section>
 
 
-      {/* FEATURED TOURS */}
-      <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
+      {/* FEATURED TOURS — breathing space */}
+      <section className="relative bg-cream pt-28 md:pt-36 pb-28 md:pb-36">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <div className="flex items-end justify-between mb-16 gap-4">
             <div>
@@ -471,19 +471,19 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.featuredEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">{p.featuredHeading}</h2>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink tracking-[-0.015em] font-semibold mt-5">{p.featuredHeading}</h2>
             </div>
             <Link to={link("/tours") as never} className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
               {p.viewAll} <span aria-hidden>→</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {featured.map((t) => (
               <Link
                 to={link(`/tours/${t.slug}`) as never}
                 key={t.slug}
-                className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
+                className="group relative bg-card rounded-[6px] p-3 pb-6 shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] hover:-translate-y-1.5 hover:shadow-[0_4px_10px_-2px_rgba(70,80,75,0.08),0_48px_80px_-32px_rgba(70,80,75,0.4)] transition-all duration-500 block"
               >
                 <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
@@ -491,12 +491,12 @@ export function HomePage() {
                     <HeartFill size={13} strokeWidth={1.8} />
                   </button>
                 </div>
-                <div className="px-1 pt-4">
-                  <h3 className="font-serif text-[15px] md:text-base text-ink leading-snug font-semibold">{t.title}</h3>
-                  <p className="mt-1.5 text-[11.5px] text-ink/55 leading-relaxed">{t.desc}</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
-                    <span className="text-[11px] text-primary">{p.viewTour}</span>
+                <div className="px-2 pt-5">
+                  <h3 className="font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
+                  <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <p className="font-serif text-[14px] text-primary font-semibold">{t.price}</p>
+                    <span className="text-[11px] text-primary tracking-[0.18em] uppercase">{p.viewTour}</span>
                   </div>
                 </div>
               </Link>
@@ -510,6 +510,7 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* GUEST STORIES */}
       <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
