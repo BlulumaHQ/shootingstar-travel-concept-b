@@ -2,6 +2,7 @@ import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
+import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
@@ -40,8 +41,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "seattle-2-day",
-    img: tourToronto,
-    gallery: [tourToronto, tourVancouver],
+    img: seattle2Hero,
+    gallery: seattle2Gallery,
     title: "西雅圖兩日遊｜城市深度＋暢貨購物之旅",
     desc: "輕鬆過夜的西雅圖小旅行，含經典景點、海鮮餐廳、航空博物館、Trader Joe's 與 Seattle Premium Outlets，含住宿。",
     intro:
