@@ -710,7 +710,7 @@ export function HomePage() {
               <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.1] tracking-[-0.015em] font-medium">
                 {p.ctaTitleA}<br />{p.ctaTitleB}
               </h2>
-              <p className="mt-7 text-ink/70 leading-[2] text-[15px] max-w-lg">{p.ctaBody}</p>
+              <p className="mt-7 text-ink/80 leading-[2.05] text-[15.5px] max-w-lg">{p.ctaBody}</p>
             </div>
             <div className="md:col-span-5 md:pl-4">
               <div className="flex flex-wrap gap-3">
