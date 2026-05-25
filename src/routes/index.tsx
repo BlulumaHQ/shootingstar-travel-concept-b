@@ -26,7 +26,9 @@ import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroBanff2 from "@/assets/hero-banff-2.jpg";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
+import heroBgYellowknife from "@/assets/hero-bg-yellowknife.webp";
 import heroPolaroids from "@/assets/hero-polaroids.png";
+import heroPolaroidsYellowknife from "@/assets/hero-polaroids-yellowknife.png";
 
 
 export const Route = createFileRoute("/")({
@@ -386,13 +388,13 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       body: c.banff.body,
       tags: c.banff.tags,
       primary: { label: c.banff.primary, to: link("/rocky-mountain-lake-tours") },
-      
+
       image: heroBanff,
       imageCaption: c.banff.cap1,
       accentImage: heroBanff2,
       accentCaption: c.banff.cap2,
       polaroidImage: heroPolaroids,
-
+      backgroundImage: heroBgMoraine,
     },
     {
       id: "aurora",
@@ -407,24 +409,9 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       imageCaption: c.aurora.cap1,
       accentImage: destYukon,
       accentCaption: c.aurora.cap2,
-      polaroidImage: heroPolaroids,
-
+      polaroidImage: heroPolaroidsYellowknife,
+      backgroundImage: heroBgYellowknife,
     },
-    {
-      id: "vancouver",
-      eyebrow: c.vancouver.eyebrow,
-      headingLines: c.vancouver.lines,
-      body: c.vancouver.body,
-      tags: c.vancouver.tags,
-      primary: { label: c.vancouver.primary, to: link("/rocky-mountain-lake-tours") },
-      secondary: { label: c.vancouver.secondary, to: link("/contact") },
-      image: tourVancouver,
-      imageCaption: c.vancouver.cap1,
-      accentImage: tourGroup,
-      accentCaption: c.vancouver.cap2,
-      polaroidImage: heroPolaroids,
-    },
-
   ];
 }
 
@@ -443,7 +430,7 @@ export function HomePage() {
       <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
-      <section className="relative bg-[var(--sand)] py-16 md:py-20">
+      <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
         <div className="mx-auto max-w-[1240px] px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-14">
             {p.feat.map((f, i) => {
