@@ -222,32 +222,43 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
               </span>
             )}
 
-            <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
+            {s.polaroidImage ? (
               <img
-                src={s.image}
+                src={s.polaroidImage}
                 alt={s.imageCaption}
-                className="aspect-[5/4] md:aspect-[4/5] w-full object-cover"
-                width={1200}
-                height={1200}
+                className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-[0_18px_30px_oklch(0_0_0/0.18)]"
               />
-              <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
-                {s.imageCaption}
-              </figcaption>
-            </figure>
+            ) : (
+              <>
+                <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
+                  <img
+                    src={s.image}
+                    alt={s.imageCaption}
+                    className="aspect-[5/4] md:aspect-[4/5] w-full object-cover"
+                    width={1200}
+                    height={1200}
+                  />
+                  <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
+                    {s.imageCaption}
+                  </figcaption>
+                </figure>
 
-            {s.accentImage && (
-              <figure className="polaroid absolute bottom-0 right-2 md:right-4 w-[44%] md:w-[50%] rotate-[5deg] z-20">
-                <img
-                  src={s.accentImage}
-                  alt={s.accentCaption ?? ""}
-                  className="aspect-square w-full object-cover"
-                  loading="lazy"
-                />
-                <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
-                  {s.accentCaption}
-                </figcaption>
-              </figure>
+                {s.accentImage && (
+                  <figure className="polaroid absolute bottom-0 right-2 md:right-4 w-[44%] md:w-[50%] rotate-[5deg] z-20">
+                    <img
+                      src={s.accentImage}
+                      alt={s.accentCaption ?? ""}
+                      className="aspect-square w-full object-cover"
+                      loading="lazy"
+                    />
+                    <figcaption className="font-marker text-ink/70 text-[11px] md:text-[13px] mt-2 md:mt-3 text-center tracking-wide">
+                      {s.accentCaption}
+                    </figcaption>
+                  </figure>
+                )}
+              </>
             )}
+
           </div>
         </div>
       </div>
