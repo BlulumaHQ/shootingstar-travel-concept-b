@@ -639,7 +639,7 @@ export function HomePage() {
                 <div className="mt-5">
                   <p className="font-marker text-primary text-[13px] tracking-[0.2em] uppercase">{d.sub}</p>
                   <h3 className="font-serif text-xl text-ink mt-1.5 font-semibold">{d.name}</h3>
-                  <p className="mt-3 text-[13.5px] text-ink/65 leading-[1.9]">{d.note}</p>
+                  <p className="mt-3 text-[14px] text-ink/75 leading-[1.95]">{d.note}</p>
                 </div>
               </article>
             ))}
