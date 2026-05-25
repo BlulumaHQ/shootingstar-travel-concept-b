@@ -386,7 +386,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       body: c.banff.body,
       tags: c.banff.tags,
       primary: { label: c.banff.primary, to: link("/rocky-mountain-lake-tours") },
-      secondary: { label: c.banff.secondary, to: link("/rocky-mountain-lake-tours") },
+      
       image: heroBanff,
       imageCaption: c.banff.cap1,
       accentImage: heroBanff2,
