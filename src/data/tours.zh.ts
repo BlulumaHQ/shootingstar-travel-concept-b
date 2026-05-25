@@ -1,6 +1,7 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
+import { seattleHero, seattleGallery } from "./seattle-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
@@ -12,8 +13,8 @@ import type { Tour } from "./tours";
 export const tours: Tour[] = [
   {
     slug: "seattle-1-day",
-    img: tourVancouver,
-    gallery: [tourVancouver, tourToronto],
+    img: seattleHero,
+    gallery: seattleGallery,
     title: "西雅圖一日遊｜翡翠之城精華輕旅行",
     desc: "一日精選導覽，走訪西雅圖天際線、派克市場、星巴克創始店、Amazon Spheres 與華盛頓大學校園。",
     intro:

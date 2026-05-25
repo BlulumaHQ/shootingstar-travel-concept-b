@@ -1,6 +1,7 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
+import { seattleHero, seattleGallery } from "./seattle-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -53,8 +54,8 @@ export type Tour = {
 export const tours: Tour[] = [
   {
     slug: "seattle-1-day",
-    img: tourVancouver,
-    gallery: [tourVancouver, tourToronto],
+    img: seattleHero,
+    gallery: seattleGallery,
     title: "Seattle 1-Day Tour | The Soul of the Emerald City",
     desc: "A guided one-day city escape covering Seattle's skyline, Pike Place Market, the Original Starbucks, Amazon Spheres, and the University of Washington.",
     intro:
