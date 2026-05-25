@@ -1,6 +1,13 @@
-import g1 from "@/assets/guest-1.jpg";
-import g2 from "@/assets/guest-2.jpg";
-import g3 from "@/assets/guest-3.jpg";
+import aMinjun from "@/assets/avatars/a-minjun.jpg";
+import aSarah from "@/assets/avatars/a-sarah.jpg";
+import aJiwon from "@/assets/avatars/a-jiwon.jpg";
+import aMarcus from "@/assets/avatars/a-marcus.jpg";
+import aSoyeon from "@/assets/avatars/a-soyeon.jpg";
+import aLin from "@/assets/avatars/a-linjy.jpg";
+import aYuna from "@/assets/avatars/a-yuna.jpg";
+import aChen from "@/assets/avatars/a-chen.jpg";
+import aHyunwoo from "@/assets/avatars/a-hyunwoo.jpg";
+import aJames from "@/assets/avatars/a-james.jpg";
 
 // Banff (banff3 + lake-tours)
 import b1 from "@/assets/banff3/b1.webp";
@@ -50,60 +57,60 @@ import type { Review } from "@/components/site/ReviewCard";
 export const reviews: Review[] = [
   // ── Banff × 3 ───────────────────────────────────────────
   {
-    avatar: g2, name: "Minjun Lee", country: "Seoul, KR", tour: "Banff & Lake Louise", rating: 5,
+    avatar: aMinjun, name: "Minjun Lee", country: "Seoul, KR", tour: "Banff & Lake Louise", rating: 5,
     text: "Moraine Lake at 7am — colder than I expected and almost no one around. Our guide had hot coffee waiting in the van. Honestly the photos don't do it justice, the water really is that blue.",
     photos: [b3, lake10, b7, lake55],
   },
   {
-    avatar: g1, name: "Sarah Thompson", country: "Burnaby, CA", tour: "Banff Day Tour", rating: 5,
+    avatar: aSarah, name: "Sarah Thompson", country: "Burnaby, CA", tour: "Banff Day Tour", rating: 5,
     text: "I've lived in BC for 12 years and somehow never made it to Banff. Did the day tour with my mom who was visiting — small group, no rushing, and the guide knew exactly where to stop for the best light. Mom hasn't stopped talking about it.",
     photos: [b1, b5, lake13],
   },
   {
-    avatar: g3, name: "Jiwon Kang", country: "Daejeon, KR", tour: "Rocky Mountain Classic", rating: 5,
+    avatar: aJiwon, name: "Jiwon Kang", country: "Daejeon, KR", tour: "Rocky Mountain Classic", rating: 5,
     text: "신혼여행으로 갔는데… okay sorry, mixing languages. Three days in the Rockies, slept in a cabin in Canmore, saw elk on the road. The Korean-speaking guide made my parents feel so comfortable. Worth every penny.",
     photos: [b2, b8, b4, b6, lake55],
   },
 
   // ── Seattle × 2 ─────────────────────────────────────────
   {
-    avatar: g1, name: "Marcus Chen", country: "Richmond, CA", tour: "Seattle Weekend", rating: 5,
+    avatar: aMarcus, name: "Marcus Chen", country: "Richmond, CA", tour: "Seattle Weekend", rating: 5,
     text: "Drove down from Richmond for a long weekend. Pike Place at opening time before the crowds was a game changer. Also the guide took us to a tiny ramen spot in the International District that wasn't on any of my lists.",
     photos: [sa7, sa2, sb6, sa4],
   },
   {
-    avatar: g2, name: "Soyeon Han", country: "Incheon, KR", tour: "Seattle Weekend", rating: 4,
+    avatar: aSoyeon, name: "Soyeon Han", country: "Incheon, KR", tour: "Seattle Weekend", rating: 4,
     text: "First time in Seattle and the weather actually cooperated! Loved Kerry Park at sunset — Mt Rainier showed up for about 20 minutes and we all just stood there. Only thing: I wish we had more time at Chihuly.",
     photos: [sa5, sb3, sa1, sb8],
   },
 
   // ── Victoria × 2 ────────────────────────────────────────
   {
-    avatar: g3, name: "Lin Jia-Ying", country: "Vancouver, CA", tour: "Victoria & Butchart Gardens", rating: 5,
+    avatar: aLin, name: "Lin Jia-Ying", country: "Vancouver, CA", tour: "Victoria & Butchart Gardens", rating: 5,
     text: "從 Tsawwassen 坐 ferry 過去，天氣超好。Butchart Gardens 真的比照片漂亮太多了，下午回 Inner Harbour 喝下午茶剛剛好。導遊知道哪裡可以避開團客，很加分。",
     photos: [v2, v4, v7],
   },
   {
-    avatar: g2, name: "Yuna Choi", country: "Daegu, KR", tour: "Victoria Garden Journey", rating: 5,
+    avatar: aYuna, name: "Yuna Choi", country: "Daegu, KR", tour: "Victoria Garden Journey", rating: 5,
     text: "엄마랑 둘이 다녀왔어요. 페리에서 본 바다, 부차트 가든의 장미 정원, 그리고 작은 카페에서 먹은 스콘까지 — 하루가 너무 짧게 느껴졌어요. 가이드님이 한국어로 꼼꼼히 설명해주셔서 편안했습니다.",
     photos: [v1, v5, v8, v4],
   },
 
   // ── Vancouver × 1 ───────────────────────────────────────
   {
-    avatar: g3, name: "Chen Chun-Hong", country: "Taipei, TW", tour: "Vancouver City Deep Dive", rating: 5,
+    avatar: aChen, name: "Chen Chun-Hong", country: "Taipei, TW", tour: "Vancouver City Deep Dive", rating: 5,
     text: "從台北飛來，原本只把溫哥華當中轉站。後來臨時加了一天市區深度遊，Granville Island 跟 Stanley Park 都很喜歡，Whistler 順遊那段山路也美到不行。下次一定要待久一點。",
     photos: [tourVancouver, w4, w2, w6],
   },
 
   // ── Yellowknife × 2 ─────────────────────────────────────
   {
-    avatar: g2, name: "Hyunwoo Kim", country: "Busan, KR", tour: "Aurora Chase — Yellowknife", rating: 5,
+    avatar: aHyunwoo, name: "Hyunwoo Kim", country: "Busan, KR", tour: "Aurora Chase — Yellowknife", rating: 5,
     text: "−32도였어요. 진짜. 첫째 날 밤은 구름 때문에 못 봤는데 셋째 날 새벽 2시쯤 가이드가 깨워줘서 나갔더니 하늘이 초록색으로 일렁이고 있었어요. 평생 못 잊을 것 같아요.",
     photos: [ykPolas, ykBg, tourAurora, destYukon],
   },
   {
-    avatar: g1, name: "James Patel", country: "Surrey, CA", tour: "Aurora Chase Journey", rating: 5,
+    avatar: aJames, name: "James Patel", country: "Surrey, CA", tour: "Aurora Chase Journey", rating: 5,
     text: "Took my partner for her 40th. Three nights, two with strong aurora activity. The heated teepee out at Aurora Village made the cold totally manageable. Pro tip: actually bring the gloves they tell you to bring.",
     photos: [tourAurora, ykBg, destYukon],
   },
