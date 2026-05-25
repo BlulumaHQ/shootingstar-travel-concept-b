@@ -128,14 +128,15 @@
     mask-position: bottom;
   }
 
-  /* Polaroid frame — unified premium */
+  /* Polaroid frame — unified premium with deeper soft shadow */
   .polaroid {
     background: var(--card);
-    padding: 12px 12px 44px 12px;
+    padding: 14px 14px 52px 14px;
     border-radius: 2px;
     box-shadow:
-      0 1px 1px oklch(0 0 0 / 0.04),
-      0 22px 40px -22px oklch(0 0 0 / 0.22);
+      0 1px 1px oklch(0 0 0 / 0.05),
+      0 6px 14px -6px oklch(0 0 0 / 0.12),
+      0 38px 70px -28px oklch(0 0 0 / 0.32);
   }
   .polaroid-square > img { aspect-ratio: 1 / 1; object-fit: cover; width: 100%; height: auto; display: block; }
 
@@ -146,11 +147,24 @@
     box-shadow: 0 1px 2px oklch(0 0 0 / 0.08);
   }
 
+  /* Editorial tactile card — large soft shadow, low opacity */
   .paper-card {
     background: var(--card);
     box-shadow:
       0 1px 0 oklch(0 0 0 / 0.04),
-      0 12px 30px -16px oklch(0 0 0 / 0.18);
+      0 4px 10px -4px oklch(0 0 0 / 0.08),
+      0 32px 60px -28px oklch(0 0 0 / 0.24);
+  }
+
+  /* Very subtle paper grain overlay (use on top of sections) */
+  .grain-overlay::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("/paper-texture.webp");
+    background-size: 480px 480px;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    pointer-events: none;
   }
 
   .stamp {
