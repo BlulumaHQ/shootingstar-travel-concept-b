@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
 import paperTexture from "@/assets/paper-texture.webp";
+import footerWaves from "@/assets/footer-waves.jpg";
 import { Instagram, Facebook, MessageCircle, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
@@ -83,10 +84,21 @@ export function Footer() {
         />
       </div>
 
+      {/* Sage wave pattern background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          backgroundImage: `url(${footerWaves})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       {/* Soft paper texture */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-40 mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 opacity-30 mix-blend-multiply"
         style={{
           backgroundImage: `url(${paperTexture})`,
           backgroundSize: "600px",
@@ -96,12 +108,12 @@ export function Footer() {
       {/* Warm tonal washes */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full opacity-50 blur-3xl"
+        className="pointer-events-none absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full opacity-40 blur-3xl"
         style={{ background: "var(--lavender-soft)" }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-40 -right-32 w-[620px] h-[620px] rounded-full opacity-50 blur-3xl"
+        className="pointer-events-none absolute -bottom-40 -right-32 w-[620px] h-[620px] rounded-full opacity-40 blur-3xl"
         style={{ background: "var(--sage-soft)" }}
       />
 
