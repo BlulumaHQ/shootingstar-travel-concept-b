@@ -79,18 +79,28 @@ export function HeroSlideshow({
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-cream/92 md:bg-cream/90"
+            className="absolute inset-0 bg-cream/94 md:bg-cream/92"
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-cream/60 via-cream/40 to-cream/20"
+            className="absolute inset-0 bg-gradient-to-r from-cream/70 via-cream/50 to-cream/30"
+          />
+          {/* very subtle paper grain — almost invisible */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-25 mix-blend-multiply pointer-events-none"
+            style={{
+              backgroundImage: `url("/paper-texture.webp")`,
+              backgroundSize: "480px 480px",
+            }}
           />
         </>
       )}
 
-      <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/55 pointer-events-none" />
+      <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/45 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-8 md:pt-16 pb-16 md:pb-20">
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-28">
+
         <div className="relative">
           {slides.map((s, i) => (
             <Slide key={s.id} slide={s} active={i === index} hidden={i !== index} />
