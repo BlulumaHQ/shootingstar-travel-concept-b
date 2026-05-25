@@ -5,7 +5,7 @@ import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
 import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
-import tourPrivate from "@/assets/tour-private.webp";
+
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
@@ -174,28 +174,6 @@ export const tours: Tour[] = [
       "모레인 호수 방문 가능 여부는 시즌별 도로 규정, 셔틀 운영, 캐나다 국립공원 규정에 따라 달라집니다.",
     ],
     bookingCta: "록키 3일 투어 예약하기",
-  },
-  {
-    slug: "custom-tour",
-    img: tourPrivate,
-    gallery: [tourPrivate],
-    title: "프라이빗 맞춤 투어 | 곧 출시",
-    desc: "유연한 일정, 프라이빗 차량, 맞춤형 여행을 위한 프라이빗 투어 옵션. 곧 출시됩니다.",
-    intro:
-      "보다 유연한 일정, 프라이빗 차량, 맞춤형 여행 계획이 필요한 분들을 위한 프라이빗 투어 옵션이 곧 제공될 예정입니다. 본 페이지는 향후 투어 확장을 위해 마련된 공간입니다. 프라이빗 투어 또는 단체 맞춤 진행이 필요하시면 Shooting Star Travel로 문의해 주세요.",
-    duration: "맞춤",
-    language: "한국어 / 영어 / 중국어",
-    price: "맞춤 견적",
-    itinerary: [
-      { stop: "—", title: "프라이빗 일정 설계", body: "그룹 인원, 일정, 관심사, 페이스에 맞춰 일정을 설계해 드립니다." },
-      { stop: "—", title: "유연한 픽업·드롭오프", body: "여행 일정에 맞게 픽업·드롭오프 위치를 조정합니다." },
-      { stop: "—", title: "맞춤 목적지 요청", body: "원하시는 목적지를 알려주시면, 그에 맞춰 일정을 구성합니다." },
-      { stop: "—", title: "소그룹 / 프라이빗 그룹 진행", body: "커플, 가족, 다양한 규모의 프라이빗 그룹 모두 가능합니다." },
-    ],
-    included: ["맞춤 일정에 따라 별도 안내."],
-    notIncluded: ["맞춤 일정에 따라 별도 안내."],
-    notes: ["일정, 그룹 인원, 호텔 요구사항, 여행 일자에 따라 견적이 산출됩니다."],
-    bookingCta: "맞춤 투어 견적 요청",
   },
 ];
 

@@ -4,7 +4,7 @@ import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
 import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
-import tourPrivate from "@/assets/tour-private.webp";
+
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
@@ -282,30 +282,6 @@ export const tours: Tour[] = [
       "Moraine Lake access depends on seasonal road rules, shuttle access, and Parks Canada regulations.",
     ],
     bookingCta: "Book Your Rocky Mountains 3-Day Tour",
-  },
-  {
-    slug: "custom-tour",
-    img: tourPrivate,
-    gallery: [tourPrivate],
-    title: "Custom Private Tour | Coming Soon",
-    desc: "A flexible private tour option for custom travel plans, private groups, and personalized itineraries. Coming soon.",
-    intro:
-      "A custom private tour option will be available soon for guests who need a more flexible itinerary, private transportation, or a personalized travel plan. This page is currently reserved for future tour expansion. Please contact Shooting Star Travel for private tour requests or customized group arrangements.",
-    duration: "Custom",
-    language: "English / Mandarin / Korean",
-    price: "Custom Quote",
-    itinerary: [
-      { stop: "—", title: "Private itinerary planning", body: "We design the route around your group, dates, interests, and pace." },
-      { stop: "—", title: "Flexible pickup and drop-off options", body: "Pickup and drop-off arranged to suit your travel plan." },
-      { stop: "—", title: "Custom destination requests", body: "Tell us where you'd like to go — we'll build the journey around it." },
-      { stop: "—", title: "Small-group or private group arrangements", body: "Available for couples, families, and private groups of all sizes." },
-    ],
-    included: ["To be confirmed based on the custom itinerary."],
-    notIncluded: ["To be confirmed based on the custom itinerary."],
-    notes: [
-      "Custom quote based on itinerary, group size, hotel requirements, and travel dates.",
-    ],
-    bookingCta: "Request a Custom Tour Quote",
   },
 ];
 

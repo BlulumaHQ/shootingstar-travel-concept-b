@@ -10,7 +10,7 @@ export const Route = createFileRoute("/tours/")({
   head: () => ({
     meta: [
       { title: "Tours — Shooting Star Travel" },
-      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys: Seattle, Victoria, Whistler, the Canadian Rockies and custom private tours." },
+      { name: "description", content: "Browse Shooting Star Travel's curated small-group journeys: Seattle, Victoria, Whistler, and the Canadian Rockies." },
       { property: "og:title", content: "Tours — Shooting Star Travel" },
       { property: "og:description", content: "Curated small-group journeys, designed by our local team." },
       { property: "og:image", content: tours[0].img },

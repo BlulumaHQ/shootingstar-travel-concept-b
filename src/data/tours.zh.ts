@@ -5,7 +5,7 @@ import tourVancouver from "@/assets/tour-vancouver.webp";
 import { seattleHero, seattleGallery } from "./seattle-gallery";
 import { seattle2Hero, seattle2Gallery } from "./seattle2-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
-import tourPrivate from "@/assets/tour-private.webp";
+
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
 import destWhistler from "@/assets/dest-whistler.webp";
@@ -174,28 +174,6 @@ export const tours: Tour[] = [
       "夢蓮湖是否能造訪須依季節道路規定、接駁車與加拿大國家公園規範。",
     ],
     bookingCta: "預訂洛磯山三日遊",
-  },
-  {
-    slug: "custom-tour",
-    img: tourPrivate,
-    gallery: [tourPrivate],
-    title: "私人客製行程｜即將推出",
-    desc: "為彈性行程、私人交通與客製旅程而設的私人包團服務，即將推出。",
-    intro:
-      "為需要彈性行程、私人交通或客製旅遊規劃的旅客所推出的私人包團服務即將上線。此頁面目前保留作為未來行程擴充使用。如需私人包團或客製團體安排，歡迎聯絡 Shooting Star Travel。",
-    duration: "客製",
-    language: "中文 / 英文 / 韓文",
-    price: "客製報價",
-    itinerary: [
-      { stop: "—", title: "私人行程規劃", body: "依您的人數、日期、興趣與節奏量身設計路線。" },
-      { stop: "—", title: "彈性接送地點", body: "依您的旅行安排調整接送時間與地點。" },
-      { stop: "—", title: "客製目的地需求", body: "告訴我們想去的地方，我們為您規劃。" },
-      { stop: "—", title: "小團或私人包團", body: "可服務情侶、家庭與各種規模的私人團體。" },
-    ],
-    included: ["依客製行程確認"],
-    notIncluded: ["依客製行程確認"],
-    notes: ["依行程內容、人數、住宿需求與旅遊日期客製報價。"],
-    bookingCta: "索取客製行程報價",
   },
 ];
 
