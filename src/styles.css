@@ -56,7 +56,8 @@
   --lavender: oklch(0.72 0.035 295);       /* accent */
   --lavender-soft: oklch(0.88 0.022 295);
   --clay: oklch(0.46 0.02 152);
-  --ink: oklch(0.28 0.008 70);             /* #3A332C deep editorial graphite */
+  --ink: oklch(0.24 0.01 70);              /* deeper editorial graphite — stronger contrast */
+  --ink-soft: oklch(0.36 0.012 70);        /* warm dark gray for body copy */
   --tape: oklch(0.88 0.022 295 / 0.45);
 
   --background: var(--cream);
