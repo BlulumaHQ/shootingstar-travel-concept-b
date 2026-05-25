@@ -79,18 +79,28 @@ export function HeroSlideshow({
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-cream/92 md:bg-cream/90"
+            className="absolute inset-0 bg-cream/94 md:bg-cream/92"
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-cream/60 via-cream/40 to-cream/20"
+            className="absolute inset-0 bg-gradient-to-r from-cream/70 via-cream/50 to-cream/30"
+          />
+          {/* very subtle paper grain — almost invisible */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-25 mix-blend-multiply pointer-events-none"
+            style={{
+              backgroundImage: `url("/paper-texture.webp")`,
+              backgroundSize: "480px 480px",
+            }}
           />
         </>
       )}
 
-      <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/55 pointer-events-none" />
+      <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/45 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-8 md:pt-16 pb-16 md:pb-20">
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-28">
+
         <div className="relative">
           {slides.map((s, i) => (
             <Slide key={s.id} slide={s} active={i === index} hidden={i !== index} />
@@ -161,20 +171,21 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
             </span>
           </div>
 
-          <h1 className="font-serif text-[32px] sm:text-[40px] md:text-[60px] leading-[1.12] tracking-[-0.012em] text-ink mt-5 md:mt-7 font-medium">
+          <h1 className="font-serif text-[34px] sm:text-[44px] md:text-[64px] leading-[1.08] tracking-[-0.018em] text-ink mt-6 md:mt-8 font-semibold">
             {s.headingLines.map((ln, i) => {
               const last = i === s.headingLines.length - 1;
               return (
                 <span key={i} className="block">
-                  {last ? <span className="italic text-primary">{ln}</span> : ln}
+                  {last ? <span className="italic text-primary font-medium">{ln}</span> : ln}
                 </span>
               );
             })}
           </h1>
 
-          <p className="mt-5 md:mt-8 text-ink/60 leading-[1.95] text-[14px] md:text-[15px] max-w-md">
+          <p className="mt-7 md:mt-10 text-ink/85 leading-[1.95] text-[15px] md:text-[16.5px] max-w-md">
             {s.body}
           </p>
+
 
           {s.tags && s.tags.length > 0 && (
             <ul className="mt-5 flex flex-wrap gap-2">
@@ -210,14 +221,14 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
 
         {/* RIGHT — editorial polaroid composition */}
         <div className="md:col-span-6 order-2 relative">
-          <div className="relative h-[220px] md:h-[440px] mx-auto max-w-[420px] md:max-w-[540px]">
+          <div className="relative h-[300px] md:h-[600px] mx-auto max-w-[520px] md:max-w-[680px]">
             <div
-              className="absolute -top-10 -left-6 w-44 h-44 rounded-full opacity-50 blur-3xl"
+              className="absolute -top-12 -left-8 w-52 h-52 rounded-full opacity-50 blur-3xl"
               style={{ background: "var(--lavender-soft)" }}
               aria-hidden
             />
             <div
-              className="absolute -bottom-10 -right-6 w-52 h-52 rounded-full opacity-50 blur-3xl"
+              className="absolute -bottom-14 -right-8 w-64 h-64 rounded-full opacity-55 blur-3xl"
               style={{ background: "var(--sage-soft)" }}
               aria-hidden
             />
@@ -232,9 +243,10 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
               <img
                 src={s.polaroidImage}
                 alt={s.imageCaption}
-                className="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-[0_18px_30px_oklch(0_0_0/0.18)]"
+                className="absolute inset-0 w-full h-full object-contain z-10 rotate-[-1.5deg] drop-shadow-[0_30px_50px_oklch(0_0_0/0.28)]"
               />
             ) : (
+
               <>
                 <figure className="polaroid absolute top-2 left-2 md:left-4 w-[58%] md:w-[64%] rotate-[-4deg] z-10">
                   <img

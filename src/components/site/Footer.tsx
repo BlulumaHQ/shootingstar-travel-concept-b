@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
-import paperTexture from "@/assets/paper-texture.webp";
-import footerWaves from "@/assets/footer-waves.jpg";
 import { Instagram, Facebook, MessageCircle, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
+
 
 const socials = [
   { Icon: Instagram, href: "#", label: "Instagram" },
@@ -84,38 +83,54 @@ export function Footer() {
         />
       </div>
 
-      {/* Sage wave pattern background */}
+      {/* Soft fog gradient — paper to mist */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70"
+        className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `url(${footerWaves})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          background:
+            "linear-gradient(180deg, var(--cream) 0%, var(--paper) 38%, var(--sand) 72%, oklch(0.93 0.012 152) 100%)",
         }}
       />
-      {/* Soft paper texture */}
+
+      {/* Subtle mountain silhouette — cinematic far horizon */}
+      <svg
+        aria-hidden
+        viewBox="0 0 1440 360"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute inset-x-0 bottom-0 w-full h-[280px] md:h-[360px] opacity-[0.22]"
+      >
+        {/* Far range — faintest */}
+        <path
+          d="M0 260 L120 210 L220 235 L340 180 L460 220 L580 175 L700 215 L820 165 L940 205 L1060 170 L1180 200 L1300 175 L1440 210 L1440 360 L0 360 Z"
+          fill="var(--sage-soft)"
+          opacity="0.55"
+        />
+        {/* Mid range */}
+        <path
+          d="M0 295 L100 260 L210 285 L320 240 L440 280 L560 235 L680 275 L800 230 L920 270 L1040 235 L1160 275 L1280 240 L1440 270 L1440 360 L0 360 Z"
+          fill="var(--sage)"
+          opacity="0.55"
+        />
+        {/* Near range — strongest */}
+        <path
+          d="M0 330 L130 305 L260 320 L380 290 L500 315 L620 285 L760 320 L880 295 L1000 318 L1140 290 L1280 315 L1440 300 L1440 360 L0 360 Z"
+          fill="var(--forest)"
+          opacity="0.5"
+        />
+      </svg>
+
+      {/* Soft fog wash near the horizon */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-30 mix-blend-multiply"
+        className="pointer-events-none absolute inset-x-0 bottom-[160px] md:bottom-[220px] h-40 md:h-56"
         style={{
-          backgroundImage: `url(${paperTexture})`,
-          backgroundSize: "600px",
-          backgroundRepeat: "repeat",
+          background:
+            "linear-gradient(180deg, transparent 0%, oklch(0.97 0.01 90 / 0.55) 50%, transparent 100%)",
+          filter: "blur(6px)",
         }}
       />
-      {/* Warm tonal washes */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full opacity-40 blur-3xl"
-        style={{ background: "var(--lavender-soft)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-40 -right-32 w-[620px] h-[620px] rounded-full opacity-40 blur-3xl"
-        style={{ background: "var(--sage-soft)" }}
-      />
+
 
       <div className="relative mx-auto max-w-[1240px] px-6 md:px-14 pt-24 md:pt-32 pb-12 md:pb-16">
         {/* Editorial closing block */}
@@ -141,7 +156,7 @@ export function Footer() {
           <Link to={lp("/")} className="inline-flex items-center">
             <img src={logo} alt="Shootingstar Travel" className="h-[120px] w-auto" />
           </Link>
-          <p className="text-[13.5px] leading-[2] text-ink/65 max-w-xs">
+          <p className="text-[13.5px] leading-[2] text-ink/80 max-w-xs">
             {t("footer.tagline")}
           </p>
 
@@ -163,7 +178,7 @@ export function Footer() {
 
           <div>
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
-            <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+            <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
               {contact.map(({ Icon, t: txt, href }) => (
                 <li key={txt} className="flex items-center justify-center gap-2.5">
                   <Icon size={13} strokeWidth={1.5} className="text-primary/60" />
@@ -180,7 +195,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-10 w-full max-w-sm text-left">
             <div>
               <ColTitle>{t("footer.quickLinks")}</ColTitle>
-              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
                 {quickLinks.map((l) => (
                   <li key={l.l}>
                     <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -190,7 +205,7 @@ export function Footer() {
             </div>
             <div>
               <ColTitle>{t("footer.popularTours")}</ColTitle>
-              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
                 {popularTours.map((l) => (
                   <li key={l.l}>
                     <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -207,7 +222,7 @@ export function Footer() {
             <Link to={lp("/")} className="inline-flex items-center">
               <img src={logo} alt="Shootingstar Travel" className="h-[140px] w-auto" />
             </Link>
-            <p className="mt-7 text-[13.5px] leading-[2] text-ink/65 max-w-xs">
+            <p className="mt-7 text-[13.5px] leading-[2] text-ink/80 max-w-xs">
               {t("footer.tagline")}
             </p>
             <div className="mt-7 flex items-center gap-3">
@@ -228,7 +243,7 @@ export function Footer() {
 
           <div className="col-span-2">
             <ColTitle>{t("footer.quickLinks")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {quickLinks.map((l) => (
                 <li key={l.l}>
                   <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -239,7 +254,7 @@ export function Footer() {
 
           <div className="col-span-3">
             <ColTitle>{t("footer.popularTours")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {popularTours.map((l) => (
                 <li key={l.l}>
                   <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -250,7 +265,7 @@ export function Footer() {
 
           <div className="col-span-3">
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {contact.map(({ Icon, t: txt, href }) => (
                 <li key={txt} className="flex items-start gap-2.5">
                   <Icon size={14} strokeWidth={1.5} className="text-primary/60 mt-1" />

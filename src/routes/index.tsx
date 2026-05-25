@@ -442,8 +442,8 @@ export function HomePage() {
       {/* HERO SLIDESHOW */}
       <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
-      {/* TRUST / FEATURE ICONS */}
-      <section className="relative bg-[var(--sand)] py-20 md:py-24">
+      {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
+      <section className="relative bg-[var(--sand)] py-16 md:py-20">
         <div className="mx-auto max-w-[1240px] px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-14">
             {p.feat.map((f, i) => {
@@ -452,7 +452,7 @@ export function HomePage() {
                 <div key={f.t} className="flex flex-col items-start">
                   <span className="text-primary"><Icon size={48} /></span>
                   <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
-                  <p className="mt-2.5 text-[12.5px] text-ink/60 leading-[1.85] whitespace-pre-line">{f.d}</p>
+                  <p className="mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
                 </div>
               );
             })}
@@ -460,8 +460,9 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* FEATURED TOURS */}
-      <section className="relative bg-cream pt-20 md:pt-24 pb-24 md:pb-28">
+
+      {/* FEATURED TOURS — breathing space */}
+      <section className="relative bg-cream pt-28 md:pt-36 pb-28 md:pb-36">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <div className="flex items-end justify-between mb-16 gap-4">
             <div>
@@ -470,19 +471,19 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.featuredEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">{p.featuredHeading}</h2>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink tracking-[-0.015em] font-semibold mt-5">{p.featuredHeading}</h2>
             </div>
             <Link to={link("/tours") as never} className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
               {p.viewAll} <span aria-hidden>→</span>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {featured.map((t) => (
               <Link
                 to={link(`/tours/${t.slug}`) as never}
                 key={t.slug}
-                className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
+                className="group relative bg-card rounded-[6px] p-3 pb-6 shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] hover:-translate-y-1.5 hover:shadow-[0_4px_10px_-2px_rgba(70,80,75,0.08),0_48px_80px_-32px_rgba(70,80,75,0.4)] transition-all duration-500 block"
               >
                 <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
@@ -490,12 +491,12 @@ export function HomePage() {
                     <HeartFill size={13} strokeWidth={1.8} />
                   </button>
                 </div>
-                <div className="px-1 pt-4">
-                  <h3 className="font-serif text-[15px] md:text-base text-ink leading-snug font-semibold">{t.title}</h3>
-                  <p className="mt-1.5 text-[11.5px] text-ink/55 leading-relaxed">{t.desc}</p>
-                  <div className="mt-3 flex items-center justify-between">
-                    <p className="font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
-                    <span className="text-[11px] text-primary">{p.viewTour}</span>
+                <div className="px-2 pt-5">
+                  <h3 className="font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
+                  <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
+                  <div className="mt-4 flex items-center justify-between">
+                    <p className="font-serif text-[14px] text-primary font-semibold">{t.price}</p>
+                    <span className="text-[11px] text-primary tracking-[0.18em] uppercase">{p.viewTour}</span>
                   </div>
                 </div>
               </Link>
@@ -510,6 +511,7 @@ export function HomePage() {
         </div>
       </section>
 
+
       {/* GUEST STORIES */}
       <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
@@ -520,8 +522,8 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.storiesEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">{p.storiesHeading}</h2>
-              <p className="mt-4 text-ink/55 text-[13.5px] leading-[2]">{p.storiesBody}</p>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink tracking-[-0.015em] font-semibold mt-5">{p.storiesHeading}</h2>
+              <p className="mt-5 text-ink/75 text-[14.5px] leading-[2]">{p.storiesBody}</p>
             </div>
             <Link to={link("/reviews") as never} className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
               {p.moreStories}
@@ -582,9 +584,9 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.aboutEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium leading-[1.18] tracking-[-0.012em]">{p.aboutHeading}</h2>
-              <p className="mt-7 text-ink/70 leading-[2] text-[15px]">{p.aboutP1}</p>
-              <p className="mt-5 text-ink/70 leading-[2] text-[15px]">{p.aboutP2}</p>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink mt-5 font-semibold leading-[1.18] tracking-[-0.015em]">{p.aboutHeading}</h2>
+              <p className="mt-7 text-ink/80 leading-[2.05] text-[15.5px]">{p.aboutP1}</p>
+              <p className="mt-6 text-ink/80 leading-[2.05] text-[15.5px]">{p.aboutP2}</p>
               <Link to={link("/about") as never} className="mt-8 inline-flex items-center gap-2 text-primary text-[14px] underline underline-offset-[6px] decoration-primary/40 hover:decoration-primary">
                 {p.meetUs}
               </Link>
@@ -604,10 +606,10 @@ export function HomePage() {
               <PinMark size={18} className="text-primary/65" />
               <DottedLine length={24} className="text-primary/45" />
             </div>
-            <h2 className="font-serif text-4xl md:text-[52px] text-ink mt-6 leading-[1.15] tracking-[-0.015em] font-medium">
-              {p.destHeadingA}<span className="italic text-primary">{p.destHeadingB}</span>
+            <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.12] tracking-[-0.02em] font-semibold">
+              {p.destHeadingA}<span className="italic text-primary font-medium">{p.destHeadingB}</span>
             </h2>
-            <p className="mt-6 text-ink/65 leading-[2] text-[15px] max-w-xl mx-auto">{p.destBody}</p>
+            <p className="mt-7 text-ink/75 leading-[2] text-[15.5px] max-w-xl mx-auto">{p.destBody}</p>
           </div>
 
           <div className="md:hidden -mx-6 px-6">
@@ -620,7 +622,7 @@ export function HomePage() {
                   <div className="mt-4">
                     <p className="font-marker text-primary text-[12px] tracking-[0.2em] uppercase">{d.sub}</p>
                     <h3 className="font-serif text-lg text-ink mt-1 font-semibold">{d.name}</h3>
-                    <p className="mt-2 text-[13px] text-ink/65 leading-[1.85]">{d.note}</p>
+                    <p className="mt-2 text-[13.5px] text-ink/75 leading-[1.9]">{d.note}</p>
                   </div>
                 </article>
               ))}
@@ -637,7 +639,7 @@ export function HomePage() {
                 <div className="mt-5">
                   <p className="font-marker text-primary text-[13px] tracking-[0.2em] uppercase">{d.sub}</p>
                   <h3 className="font-serif text-xl text-ink mt-1.5 font-semibold">{d.name}</h3>
-                  <p className="mt-3 text-[13.5px] text-ink/65 leading-[1.9]">{d.note}</p>
+                  <p className="mt-3 text-[14px] text-ink/75 leading-[1.95]">{d.note}</p>
                 </div>
               </article>
             ))}
@@ -655,23 +657,28 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.faqEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 tracking-[-0.012em] font-medium">{p.faqHeading}</h2>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink mt-5 tracking-[-0.015em] font-semibold">{p.faqHeading}</h2>
             </div>
             <Link to={link("/faq") as never} className="text-primary text-[12px] tracking-[0.18em] uppercase underline decoration-primary/40 underline-offset-[8px] hover:decoration-primary">
               {p.viewAllFaqs}
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-12 gap-y-3">
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-2">
             {p.faqs.map((f, i) => (
-              <details key={f.q} open={i < 2} className="group border-b border-primary/15 py-6 open:pb-7">
-                <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[16px] text-ink leading-snug">{f.q}</span>
-                  <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
+              <details
+                key={f.q}
+                open={i < 2}
+                className="group border-b border-primary/15 py-2 transition-colors hover:border-primary/35 open:border-primary/40"
+              >
+                <summary className="flex items-center justify-between cursor-pointer list-none gap-6 py-5 px-2 -mx-2 rounded-[4px] transition hover:bg-primary/[0.04] group-open:bg-primary/[0.05]">
+                  <span className="font-serif text-[16.5px] md:text-[17.5px] text-ink leading-snug font-semibold group-open:text-primary transition-colors">{f.q}</span>
+                  <span className="text-primary text-2xl group-open:rotate-45 transition shrink-0 leading-none">+</span>
                 </summary>
-                <p className="mt-4 text-ink/60 leading-[2] text-[14px]">{f.a}</p>
+                <p className="mt-1 mb-4 px-2 text-ink/80 leading-[2.05] text-[14.5px]">{f.a}</p>
               </details>
             ))}
           </div>
+
         </div>
       </section>
 
@@ -703,7 +710,7 @@ export function HomePage() {
               <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.1] tracking-[-0.015em] font-medium">
                 {p.ctaTitleA}<br />{p.ctaTitleB}
               </h2>
-              <p className="mt-7 text-ink/70 leading-[2] text-[15px] max-w-lg">{p.ctaBody}</p>
+              <p className="mt-7 text-ink/80 leading-[2.05] text-[15.5px] max-w-lg">{p.ctaBody}</p>
             </div>
             <div className="md:col-span-5 md:pl-4">
               <div className="flex flex-wrap gap-3">
