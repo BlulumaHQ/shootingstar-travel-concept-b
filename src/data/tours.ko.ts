@@ -1,6 +1,7 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
+import { seattleHero, seattleGallery } from "./seattle-gallery";
 import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
@@ -12,8 +13,8 @@ import type { Tour } from "./tours";
 export const tours: Tour[] = [
   {
     slug: "seattle-1-day",
-    img: tourVancouver,
-    gallery: [tourVancouver, tourToronto],
+    img: seattleHero,
+    gallery: seattleGallery,
     title: "시애틀 1일 투어 | 에메랄드 시티의 정수",
     desc: "시애틀 스카이라인, 파이크 플레이스 마켓, 스타벅스 1호점, 아마존 스피어, 워싱턴 대학교 캠퍼스를 하루에 둘러보는 가이드 투어.",
     intro:
