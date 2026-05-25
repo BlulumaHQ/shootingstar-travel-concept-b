@@ -25,6 +25,9 @@ import { PlaneJourney } from "@/components/site/PlaneJourney";
 import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroBanff2 from "@/assets/hero-banff-2.jpg";
+import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
+import heroPolaroids from "@/assets/hero-polaroids.png";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -431,7 +434,7 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroSlideshow slides={buildHeroSlides(locale, link)} />
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
       {/* TRUST / FEATURE ICONS */}
       <section className="relative bg-[var(--sand)] py-20 md:py-24">
