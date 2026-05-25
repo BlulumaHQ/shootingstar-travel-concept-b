@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
+import { TourGallery } from "@/components/site/TourGallery";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
@@ -311,12 +312,8 @@ export function TourDetailPage() {
               <section>
                 <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.galleryEyebrow}</p>
                 <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.gallery}</h2>
-                <div className="mt-7 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                  {tour.gallery.map((g, i) => (
-                    <div key={i} className="aspect-square overflow-hidden rounded-[4px]">
-                      <img src={g} alt="" loading="lazy" className="h-full w-full object-cover hover:scale-105 transition duration-700" />
-                    </div>
-                  ))}
+                <div className="mt-7">
+                  <TourGallery images={tour.gallery} title={tour.title} />
                 </div>
               </section>
             )}

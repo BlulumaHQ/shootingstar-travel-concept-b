@@ -1,7 +1,7 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
-import tourVictoria from "@/assets/tour-victoria.webp";
+import { victoriaHero, victoriaGallery } from "./victoria-gallery";
 import tourPrivate from "@/assets/tour-private.webp";
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -74,8 +74,8 @@ export const tours: Tour[] = [
   },
   {
     slug: "victoria-1-day",
-    img: tourVictoria,
-    gallery: [tourVictoria],
+    img: victoriaHero,
+    gallery: victoriaGallery,
     title: "빅토리아 1일 투어 | 영국풍 매력과 해안 정원의 하루",
     desc: "BC Ferries 왕복 페리 포함, 빅토리아 이너 하버, 어부의 부두, 정부 거리, 옵션 부차드 가든을 둘러보는 섬 투어.",
     intro:
