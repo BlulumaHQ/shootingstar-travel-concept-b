@@ -522,8 +522,8 @@ export function HomePage() {
                 <DottedLine length={32} className="text-primary/45" />
                 <span className="text-[11px] tracking-[0.4em] uppercase">{p.storiesEyebrow}</span>
               </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink tracking-[-0.012em] font-medium mt-5">{p.storiesHeading}</h2>
-              <p className="mt-4 text-ink/55 text-[13.5px] leading-[2]">{p.storiesBody}</p>
+              <h2 className="font-serif text-3xl md:text-[44px] text-ink tracking-[-0.015em] font-semibold mt-5">{p.storiesHeading}</h2>
+              <p className="mt-5 text-ink/75 text-[14.5px] leading-[2]">{p.storiesBody}</p>
             </div>
             <Link to={link("/reviews") as never} className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
               {p.moreStories}
