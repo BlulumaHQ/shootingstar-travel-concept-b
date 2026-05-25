@@ -156,7 +156,7 @@ export function Footer() {
           <Link to={lp("/")} className="inline-flex items-center">
             <img src={logo} alt="Shootingstar Travel" className="h-[120px] w-auto" />
           </Link>
-          <p className="text-[13.5px] leading-[2] text-ink/65 max-w-xs">
+          <p className="text-[13.5px] leading-[2] text-ink/80 max-w-xs">
             {t("footer.tagline")}
           </p>
 
@@ -178,7 +178,7 @@ export function Footer() {
 
           <div>
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
-            <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+            <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
               {contact.map(({ Icon, t: txt, href }) => (
                 <li key={txt} className="flex items-center justify-center gap-2.5">
                   <Icon size={13} strokeWidth={1.5} className="text-primary/60" />
@@ -195,7 +195,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-10 w-full max-w-sm text-left">
             <div>
               <ColTitle>{t("footer.quickLinks")}</ColTitle>
-              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
                 {quickLinks.map((l) => (
                   <li key={l.l}>
                     <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -205,7 +205,7 @@ export function Footer() {
             </div>
             <div>
               <ColTitle>{t("footer.popularTours")}</ColTitle>
-              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/70">
+              <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
                 {popularTours.map((l) => (
                   <li key={l.l}>
                     <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -222,7 +222,7 @@ export function Footer() {
             <Link to={lp("/")} className="inline-flex items-center">
               <img src={logo} alt="Shootingstar Travel" className="h-[140px] w-auto" />
             </Link>
-            <p className="mt-7 text-[13.5px] leading-[2] text-ink/65 max-w-xs">
+            <p className="mt-7 text-[13.5px] leading-[2] text-ink/80 max-w-xs">
               {t("footer.tagline")}
             </p>
             <div className="mt-7 flex items-center gap-3">
@@ -243,7 +243,7 @@ export function Footer() {
 
           <div className="col-span-2">
             <ColTitle>{t("footer.quickLinks")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {quickLinks.map((l) => (
                 <li key={l.l}>
                   <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -254,7 +254,7 @@ export function Footer() {
 
           <div className="col-span-3">
             <ColTitle>{t("footer.popularTours")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {popularTours.map((l) => (
                 <li key={l.l}>
                   <Link to={l.to} className="hover:text-primary transition">{l.l}</Link>
@@ -265,7 +265,7 @@ export function Footer() {
 
           <div className="col-span-3">
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
-            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/70">
+            <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
               {contact.map(({ Icon, t: txt, href }) => (
                 <li key={txt} className="flex items-start gap-2.5">
                   <Icon size={14} strokeWidth={1.5} className="text-primary/60 mt-1" />
