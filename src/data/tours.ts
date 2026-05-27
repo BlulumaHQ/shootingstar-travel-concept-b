@@ -9,6 +9,7 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
+import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -565,6 +566,48 @@ export const tours: Tour[] = [
       "Outlet shopping schedules may vary depending on store hours.",
     ],
     bookingCta: "Book Your Oregon Coast 3-Day Tour",
+  },
+  {
+    slug: "vancouver-city-1-day",
+    img: vancouverCityHero,
+    gallery: vancouverCityGallery,
+    title: "Vancouver City 1-Day Tour | Stanley Park, Granville Island & Capilano Suspension Bridge",
+    desc: "A relaxed one-day city escape through Vancouver's most iconic landmarks — Stanley Park, Granville Island, Gastown, and the Capilano Suspension Bridge.",
+    intro:
+      "Discover the very best of Vancouver in one thoughtfully planned day trip. From the seawall views of Stanley Park and the historic charm of Gastown to the vibrant Granville Island Public Market and the breathtaking rainforest of the Capilano Suspension Bridge, this tour is designed for guests who want to feel the soul of Vancouver without the stress of driving, parking, or planning every stop. A comfortable, well-paced city escape that blends nature, culture, and coastal scenery in a single day.",
+    duration: "1 day",
+    language: "English / Mandarin / Korean",
+    price: "From $130 USD / person",
+    gratuity: "$20 USD / person",
+    itinerary: [
+      { stop: "Stop 1", title: "Stanley Park & Seawall", body: "Begin the day at Vancouver's most beloved urban park. Enjoy ocean views of Coal Harbour, the North Shore mountains, and the famous totem poles at Brockton Point." },
+      { stop: "Stop 2", title: "Prospect Point & Lions Gate Bridge", body: "Stop at one of Stanley Park's most scenic viewpoints overlooking the Lions Gate Bridge and Burrard Inlet." },
+      { stop: "Stop 3", title: "Capilano Suspension Bridge Park", body: "Walk across the iconic 137-metre suspension bridge above the Capilano River, surrounded by towering coastal rainforest. Admission is optional and self-paid." },
+      { stop: "Stop 4", title: "Gastown & Steam Clock", body: "Explore Vancouver's oldest neighbourhood with its cobblestone streets, Victorian buildings, boutique cafés, and the world-famous steam clock." },
+      { stop: "Stop 5", title: "Canada Place & Vancouver Harbour", body: "Walk along the waterfront promenade, take in views of the iconic sail-shaped roof, seaplanes, and cruise ships at the Vancouver Harbour." },
+      { stop: "Stop 6", title: "Granville Island Public Market", body: "Discover one of Vancouver's most beloved foodie destinations — artisan bakeries, fresh produce, seafood stalls, local crafts, and waterfront views of False Creek." },
+      { stop: "Stop 7", title: "Queen Elizabeth Park", body: "End the day at Vancouver's highest point with panoramic city skyline views, manicured gardens, and seasonal flower displays." },
+    ],
+    included: [
+      "Comfortable transportation",
+      "Professional bilingual guide",
+      "Parking fees for scheduled tour stops",
+    ],
+    notIncluded: [
+      "5% tax",
+      "Meals",
+      "Attraction admission tickets",
+      "Suggested Guide Gratuity",
+    ],
+    optional: [
+      "Capilano Suspension Bridge Park admission",
+      "FlyOver Canada experience at Canada Place",
+    ],
+    notes: [
+      "Vancouver weather can change quickly. Layered clothing, a light rain jacket, and comfortable walking shoes are recommended.",
+      "Granville Island vendors and Public Market hours may vary by season.",
+    ],
+    bookingCta: "Book Your Vancouver City 1-Day Tour",
   },
 ];
 

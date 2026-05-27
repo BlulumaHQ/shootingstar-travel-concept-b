@@ -10,6 +10,7 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
+import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -373,6 +374,36 @@ export const tours: Tour[] = [
     optional: ["Astoria Column 門票", "季節性海岸活動"],
     notes: ["奧勒岡天氣變化快，建議洋蔥式穿搭。", "Outlet 營業時間依店家而異。"],
     bookingCta: "預訂奧勒岡海岸三日遊",
+  },
+  {
+    slug: "vancouver-city-1-day",
+    img: vancouverCityHero,
+    gallery: vancouverCityGallery,
+    title: "溫哥華市區一日遊｜史丹利公園、格蘭維爾島與卡皮拉諾吊橋",
+    desc: "一日精選城市導覽，走訪溫哥華最具代表性的景點：史丹利公園、格蘭維爾島、煤氣鎮以及卡皮拉諾吊橋。",
+    intro:
+      "用一個精心規劃的日程，輕鬆走訪溫哥華最迷人的景點。從史丹利公園的海濱步道、煤氣鎮的歷史街角，到熱鬧的格蘭維爾島公共市場，以及壯麗的卡皮拉諾吊橋雨林步道，這趟行程適合想感受溫哥華城市靈魂卻不想自駕、找停車位或安排路線的旅人。一日之內結合自然、文化與海岸風光，舒適順暢、節奏剛剛好。",
+    duration: "1 日",
+    language: "中文 / 英文 / 韓文",
+    price: "USD $130 起 / 每位",
+    gratuity: "USD $20 / 每位",
+    itinerary: [
+      { stop: "景點 1", title: "史丹利公園與海堤步道", body: "從溫哥華最受喜愛的都市公園開始一天，欣賞煤氣港、北岸山脈以及 Brockton Point 著名圖騰柱。" },
+      { stop: "景點 2", title: "Prospect Point 與獅門大橋", body: "停留史丹利公園最具代表性的觀景點之一，俯瞰獅門大橋與布勒內灣。" },
+      { stop: "景點 3", title: "卡皮拉諾吊橋公園", body: "走上跨越 Capilano 河、長達 137 公尺的著名吊橋，置身於高聳的海岸雨林之中。門票自費自選。" },
+      { stop: "景點 4", title: "煤氣鎮與蒸汽鐘", body: "走訪溫哥華最古老的街區，欣賞鵝卵石街道、維多利亞式建築、特色咖啡館與世界知名的蒸汽鐘。" },
+      { stop: "景點 5", title: "加拿大廣場與溫哥華港", body: "沿著海濱步道散步，欣賞如船帆般的標誌性屋頂、水上飛機與停泊於溫哥華港的郵輪。" },
+      { stop: "景點 6", title: "格蘭維爾島公共市場", body: "造訪溫哥華最具人氣的美食目的地之一，麵包坊、新鮮蔬果、海鮮攤位與在地手作職人，搭配 False Creek 海濱風光。" },
+      { stop: "景點 7", title: "伊麗莎白女王公園", body: "在溫哥華最高點結束一天，欣賞城市天際線全景、花園造景與季節性花卉。" },
+    ],
+    included: ["舒適專車", "中英 / 中韓雙語專業導遊", "行程內景點停車費"],
+    notIncluded: ["5% 稅金", "餐食", "景點門票", "建議導遊小費"],
+    optional: ["卡皮拉諾吊橋公園門票", "加拿大廣場 FlyOver Canada 體驗"],
+    notes: [
+      "溫哥華天氣多變，建議洋蔥式穿搭、輕便防雨外套與舒適步行鞋。",
+      "格蘭維爾島攤商與公共市場營業時間依季節而異。",
+    ],
+    bookingCta: "預訂溫哥華市區一日遊",
   },
 ];
 

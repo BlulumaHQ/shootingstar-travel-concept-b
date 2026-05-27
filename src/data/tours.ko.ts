@@ -10,6 +10,7 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
+import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -373,6 +374,36 @@ export const tours: Tour[] = [
     optional: ["아스토리아 칼럼 입장권", "시즌별 해안 액티비티"],
     notes: ["오리건 날씨는 변화가 빠르므로 레이어드 의류를 권장합니다.", "아울렛 영업 시간은 매장별로 다를 수 있습니다."],
     bookingCta: "오리건 코스트 3일 투어 예약하기",
+  },
+  {
+    slug: "vancouver-city-1-day",
+    img: vancouverCityHero,
+    gallery: vancouverCityGallery,
+    title: "밴쿠버 시티 1일 투어 | 스탠리 파크, 그랜빌 아일랜드 & 캐필라노 서스펜션 브리지",
+    desc: "스탠리 파크, 그랜빌 아일랜드, 개스타운, 캐필라노 서스펜션 브리지까지 — 밴쿠버의 가장 상징적인 명소를 하루에 만나보는 시티 투어입니다.",
+    intro:
+      "세심하게 설계된 하루 일정으로 밴쿠버의 매력을 한 번에 만나보세요. 스탠리 파크의 시월 산책로, 개스타운의 역사적인 거리, 활기 넘치는 그랜빌 아일랜드 공공 시장, 그리고 해안 우림 속의 캐필라노 서스펜션 브리지까지 — 운전, 주차, 동선 계획의 부담 없이 밴쿠버의 정수를 편안하게 즐기고 싶은 게스트를 위한 투어입니다. 자연, 문화, 해안 풍경이 균형 있게 어우러진 하루를 약속합니다.",
+    duration: "1일",
+    language: "한국어 / 영어 / 중국어",
+    price: "USD $130부터 / 1인",
+    gratuity: "USD $20 / 1인",
+    itinerary: [
+      { stop: "스팟 1", title: "스탠리 파크 & 시월", body: "밴쿠버에서 가장 사랑받는 도심 공원에서 하루를 시작합니다. 콜 하버, 노스쇼어 산맥, 브록턴 포인트의 토템 폴을 감상하세요." },
+      { stop: "스팟 2", title: "프로스펙트 포인트 & 라이언스 게이트 브리지", body: "스탠리 파크의 대표 전망 포인트에서 라이언스 게이트 브리지와 버라드 인렛의 풍경을 한눈에 담아보세요." },
+      { stop: "스팟 3", title: "캐필라노 서스펜션 브리지 파크", body: "캐필라노 강 위 137m 높이의 상징적인 서스펜션 브리지를 건너며 거대한 해안 우림 속을 걸어봅니다. 입장료는 별도 자비 부담입니다." },
+      { stop: "스팟 4", title: "개스타운 & 스팀 클락", body: "자갈길, 빅토리안 건축, 부티크 카페, 그리고 세계적으로 유명한 스팀 클락이 있는 밴쿠버에서 가장 오래된 동네를 둘러봅니다." },
+      { stop: "스팟 5", title: "캐나다 플레이스 & 밴쿠버 하버", body: "워터프론트 산책로를 따라 걸으며 상징적인 돛 모양 지붕, 수상비행기, 크루즈 선이 정박한 항구의 풍경을 즐겨보세요." },
+      { stop: "스팟 6", title: "그랜빌 아일랜드 공공 시장", body: "밴쿠버에서 가장 사랑받는 미식 명소 중 하나로, 베이커리, 신선한 농산물, 해산물 가판, 로컬 공예품, 그리고 False Creek의 워터프론트 뷰가 어우러집니다." },
+      { stop: "스팟 7", title: "퀸 엘리자베스 파크", body: "밴쿠버의 가장 높은 지점에서 도심 스카이라인 파노라마와 정원, 계절별 꽃을 감상하며 하루를 마무리합니다." },
+    ],
+    included: ["편안한 차량", "한국어 / 영어 / 중국어 전문 가이드", "일정 내 주차비"],
+    notIncluded: ["5% 세금", "식사", "입장권", "권장 가이드 팁"],
+    optional: ["캐필라노 서스펜션 브리지 파크 입장권", "캐나다 플레이스 FlyOver Canada 체험"],
+    notes: [
+      "밴쿠버 날씨는 변화가 빠르므로 레이어드 의류, 가벼운 방수 재킷, 편안한 워킹화를 권장합니다.",
+      "그랜빌 아일랜드 매장과 공공 시장 운영 시간은 시즌에 따라 달라질 수 있습니다.",
+    ],
+    bookingCta: "밴쿠버 시티 1일 투어 예약하기",
   },
 ];
 
