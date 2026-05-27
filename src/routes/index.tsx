@@ -61,6 +61,7 @@ export const Route = createFileRoute("/")({
 });
 
 type Pack = {
+  slogan: string;
   heroEyebrow: string;
   heroL1: string; heroL2: string; heroL3: string;
   heroBody: string;
