@@ -171,18 +171,15 @@ const PACKS: Record<Locale, Pack> = {
     aboutP1: "用心規劃每一段旅程,讓旅行不只是到達目的地,而是留下值得收藏的回憶。",
     aboutP2: "我們專注於加拿大在地旅遊體驗,為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排,讓每位旅人都能放心、自在地走進每一段風景。",
     meetUs: "認識我們 →",
-    destEyebrow: "A Collection of Places",
-    destHeadingA: "值得收藏的",
-    destHeadingB: "每一處風景",
-    destBody: "從洛磯山的清晨倒影,到育空夜空裡的綠光—— 六個最值得寫進日記的目的地。",
-    swipe: "— 滑動 →",
-    destinations: [
-      { name: "Banff", sub: "班夫", note: "湖光雪峰倒影,加拿大最經典的明信片風景。" },
-      { name: "Vancouver", sub: "溫哥華", note: "山與海之間的城市,舒緩而現代的生活步調。" },
-      { name: "Whistler", sub: "惠斯勒", note: "冬日滑雪、夏日山徑的度假名所。" },
-      { name: "Victoria", sub: "維多利亞", note: "英倫風情與布查特花園的春日午後。" },
-      { name: "Aurora", sub: "極光", note: "夜空下最浪漫的等待,綠光輕輕落下。" },
-      { name: "Yukon", sub: "育空", note: "邊境之北的寂靜,星河無限延伸。" },
+    beliefsEyebrow: "我們的旅行哲學",
+    beliefsHeading: "五個我們在乎的事",
+    beliefsBody: "貫穿每一次出發。",
+    beliefs: [
+      { num: "01", title: "小團更舒適", desc: "每團 8–14 人 — 不趕、不擠,每位旅人都被照顧到。" },
+      { num: "02", title: "細節都用心", desc: "從機場接送到街角咖啡,每個接觸點都精挑細選。" },
+      { num: "03", title: "中英韓三語導遊", desc: "用旅人母語對話與述說的旅程。" },
+      { num: "04", title: "安全與清晰溝通", desc: "完整旅遊保險與 24 小時聯絡專線,讓家人安心。" },
+      { num: "05", title: "有故事的旅程", desc: "我們相信旅行不在抵達,而在值得收藏的回憶。" },
     ],
     faqEyebrow: "Frequently Asked",
     faqHeading: "常見問題",
@@ -233,18 +230,15 @@ const PACKS: Record<Locale, Pack> = {
     aboutP1: "모든 여정은 도착 그 이상의 의미가 되도록 정성껏 설계됩니다 — 간직할 가치가 있는 추억으로.",
     aboutP2: "캐나다 현지 체험에 집중하여 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다. 소그룹 출발, 세심한 기획, 숨 쉴 여유가 있는 일정.",
     meetUs: "팀 소개 →",
-    destEyebrow: "A Collection of Places",
-    destHeadingA: "간직할 가치 있는 ",
-    destHeadingB: "모든 풍경",
-    destBody: "로키의 새벽 반영부터 유콘 밤하늘의 초록빛까지 — 일기에 적어둘 가치가 있는 여섯 곳의 목적지.",
-    swipe: "— 스와이프 →",
-    destinations: [
-      { name: "Banff", sub: "밴프", note: "거울 같은 호수와 설산 — 캐나다에서 가장 상징적인 풍경." },
-      { name: "Vancouver", sub: "밴쿠버", note: "산과 바다 사이의 도시 — 현대적이고 평온한 일상." },
-      { name: "Whistler", sub: "휘슬러", note: "겨울 스키, 여름 트레일 — 사계절 리조트." },
-      { name: "Victoria", sub: "빅토리아", note: "영국풍의 매력과 부차트 가든의 봄날 오후." },
-      { name: "Aurora", sub: "오로라", note: "밤하늘 아래 가장 낭만적인 기다림 — 부드럽게 내려오는 초록빛." },
-      { name: "Yukon", sub: "유콘", note: "먼 북녘의 고요 — 끝없이 흐르는 별의 강." },
+    beliefsEyebrow: "우리의 여행 철학",
+    beliefsHeading: "우리가 아끼는 다섯 가지",
+    beliefsBody: "모든 출발에 담겨 있습니다.",
+    beliefs: [
+      { num: "01", title: "소그룹의 편안함", desc: "그룹당 8–14명 — 서두르지 않고, 붐비지 않게, 모든 여행자가 돌봄받는 여정." },
+      { num: "02", title: "디테일까지 정성껏", desc: "공항 픽업부터 골목 카페까지, 모든 접점은 정성껏 고릅니다." },
+      { num: "03", title: "한·중·영 3개국어 가이드", desc: "여행자의 모국어로 대화하고 이야기를 전하는 여정." },
+      { num: "04", title: "안전과 명확한 소통", desc: "포괄적인 여행 보험과 24시간 연락 라인 — 가족도 안심할 수 있습니다." },
+      { num: "05", title: "이야기가 있는 여정", desc: "우리는 여행이 도착이 아니라, 간직할 가치가 있는 추억이라고 믿습니다." },
     ],
     faqEyebrow: "Frequently Asked",
     faqHeading: "자주 묻는 질문",
@@ -398,7 +392,7 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} slogan={p.slogan} />
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
       <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
@@ -553,53 +547,30 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* DESTINATIONS */}
+      {/* WHAT WE BELIEVE */}
       <section className="relative bg-[var(--sand)] py-24 md:py-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="text-center mb-20 md:mb-24">
+          <div className="text-center mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-3 text-primary/75">
               <DottedLine length={24} className="text-primary/45" />
-              <PinMark size={18} className="text-primary/65" />
-              <span className="text-[11px] tracking-[0.4em] uppercase">{p.destEyebrow}</span>
-              <PinMark size={18} className="text-primary/65" />
+              <span className="text-[11px] tracking-[0.4em] uppercase">{p.beliefsEyebrow}</span>
               <DottedLine length={24} className="text-primary/45" />
             </div>
             <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.12] tracking-[-0.02em] font-semibold">
-              {p.destHeadingA}<span className="italic text-primary font-medium">{p.destHeadingB}</span>
+              {p.beliefsHeading}
             </h2>
-            <p className="mt-7 text-ink/75 leading-[2] text-[15.5px] max-w-xl mx-auto">{p.destBody}</p>
+            <p className="mt-5 text-ink/75 leading-[2] text-[15.5px] max-w-xl mx-auto">{p.beliefsBody}</p>
           </div>
 
-          <div className="md:hidden -mx-6 px-6">
-            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 pr-12">
-              {p.destinations.map((d, i) => (
-                <article key={d.name} className="snap-start shrink-0 w-[78%] max-w-[320px]">
-                  <div className="aspect-[4/5] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
-                    <img src={DEST_IMAGES[i]} alt={d.name} loading="lazy" className="h-full w-full object-cover" />
-                  </div>
-                  <div className="mt-4">
-                    <p className="font-marker text-primary text-[12px] tracking-[0.2em] uppercase">{d.sub}</p>
-                    <h3 className="font-serif text-lg text-ink mt-1 font-semibold">{d.name}</h3>
-                    <p className="mt-2 text-[13.5px] text-ink/75 leading-[1.9]">{d.note}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <p className="text-center text-[10.5px] tracking-[0.4em] uppercase text-ink/40 mt-2">{p.swipe}</p>
-          </div>
-
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
-            {p.destinations.map((d, i) => (
-              <article key={d.name} className="group">
-                <div className="aspect-[4/3] overflow-hidden rounded-[4px] shadow-[0_20px_40px_-25px_rgba(60,80,70,0.35)]">
-                  <img src={DEST_IMAGES[i]} alt={d.name} loading="lazy" className="h-full w-full object-cover group-hover:scale-[1.04] transition duration-[1200ms]" />
+          <div className="max-w-[900px] mx-auto space-y-10 md:space-y-12">
+            {p.beliefs.map((b) => (
+              <div key={b.num} className="flex gap-6 md:gap-8 items-start">
+                <span className="font-serif text-[36px] md:text-[48px] text-primary/30 leading-none font-medium shrink-0 w-[60px] md:w-[76px] text-right">{b.num}</span>
+                <div className="pt-1.5 md:pt-2.5">
+                  <h3 className="font-serif text-[18px] md:text-[20px] text-ink font-semibold leading-snug">{b.title}</h3>
+                  <p className="mt-2.5 text-[14.5px] md:text-[15.5px] text-ink/75 leading-[1.95]">{b.desc}</p>
                 </div>
-                <div className="mt-5">
-                  <p className="font-marker text-primary text-[13px] tracking-[0.2em] uppercase">{d.sub}</p>
-                  <h3 className="font-serif text-xl text-ink mt-1.5 font-semibold">{d.name}</h3>
-                  <p className="mt-3 text-[14px] text-ink/75 leading-[1.95]">{d.note}</p>
-                </div>
-              </article>
+              </div>
             ))}
           </div>
         </div>
