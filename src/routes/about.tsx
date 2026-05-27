@@ -39,6 +39,7 @@ type Pack = {
 
 const PACKS: Record<Locale, Pack> = {
   en: {
+    slogan: "Travel is more than movement — it is a journey that shines like a shooting star.",
     eyebrow: "About the Studio",
     titleA: "About ", titleB: "Shooting Star Travel",
     intro: "We craft each journey with care so travel becomes more than arriving — it becomes a memory worth keeping.",
