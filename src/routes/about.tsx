@@ -27,6 +27,7 @@ export const Route = createFileRoute("/about")({
 });
 
 type Pack = {
+  slogan: string;
   eyebrow: string; titleA: string; titleB: string; intro: string;
   storyEyebrow: string; storyHeading: string; storyBody: string[];
   stat1: string; stat1L: string; stat2: string; stat2L: string; stat3: string; stat3L: string;

@@ -663,6 +663,9 @@ export function HomePage() {
         <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-24 md:py-32 relative">
           <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-7">
+              <p className="font-serif text-lg md:text-xl text-ink/70 italic mb-5">
+                {p.slogan}
+              </p>
               <div className="flex items-center gap-3 text-ink/65">
                 <MountainMark size={20} className="text-ink/55" />
                 <DottedLine length={32} className="text-ink/35" />
