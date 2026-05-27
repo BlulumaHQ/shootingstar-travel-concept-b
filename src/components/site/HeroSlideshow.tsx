@@ -26,6 +26,7 @@ type Props = {
   prevLabel?: string;
   nextLabel?: string;
   backgroundImage?: string;
+  slogan?: string;
 };
 
 
@@ -35,6 +36,7 @@ export function HeroSlideshow({
   prevLabel = "Previous slide",
   nextLabel = "Next slide",
   backgroundImage,
+  slogan,
 }: Props) {
   const [index, setIndex] = useState(0);
 
@@ -110,6 +112,13 @@ export function HeroSlideshow({
       <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/45 pointer-events-none" />
 
       <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-28">
+        {slogan && (
+          <div className="text-center mb-6 md:mb-10">
+            <p className="font-serif text-[17px] md:text-[21px] text-ink/70 italic tracking-wide leading-relaxed">
+              {slogan}
+            </p>
+          </div>
+        )}
 
         <div className="relative">
           {slides.map((s, i) => (
