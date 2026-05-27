@@ -9,6 +9,7 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
+import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
