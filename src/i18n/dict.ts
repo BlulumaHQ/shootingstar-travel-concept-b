@@ -22,9 +22,9 @@ export const dict: Dict = {
   },
   "footer.bonVoyage": { en: "— bon voyage", zh: "— bon voyage", ko: "— bon voyage" },
   "footer.closing": {
-    en: "May every journey become a memory you treasure.",
-    zh: "願每一段旅程，都成為你最珍藏的時光。",
-    ko: "모든 여정이 당신의 가장 소중한 시간이 되기를.",
+    en: "Travel is more than movement — it is a journey that shines like a shooting star.",
+    zh: "旅行，不只是移動，而是一場如流星般閃耀的旅程。",
+    ko: "여행은 단지 이동이 아니라, 유성처럼 빛나는 여정입니다.",
   },
   "footer.follow": { en: "Follow", zh: "Follow", ko: "Follow" },
   "footer.quickLinks": { en: "Quick Links", zh: "快速連結", ko: "빠른 링크" },
