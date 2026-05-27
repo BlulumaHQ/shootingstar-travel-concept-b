@@ -548,28 +548,30 @@ export function HomePage() {
       </section>
 
       {/* WHAT WE BELIEVE */}
-      <section className="relative bg-[var(--sand)] py-24 md:py-32">
+      <section
+        className="relative py-20 md:py-28"
+        style={{
+          background:
+            "linear-gradient(160deg, color-mix(in oklab, var(--sage-soft) 45%, var(--cream)) 0%, color-mix(in oklab, var(--sage) 22%, var(--cream)) 100%)",
+        }}
+      >
         <div className="mx-auto max-w-[1200px] px-6 md:px-12">
-          <div className="text-center mb-16 md:mb-20">
-            <div className="flex items-center justify-center gap-3 text-primary/75">
-              <DottedLine length={24} className="text-primary/45" />
+          <div className="max-w-xl mb-20">
+            <div className="flex items-center gap-3 text-primary/75">
+              <MountainMark size={20} className="text-primary/65" />
+              <DottedLine length={32} className="text-primary/45" />
               <span className="text-[11px] tracking-[0.4em] uppercase">{p.beliefsEyebrow}</span>
-              <DottedLine length={24} className="text-primary/45" />
             </div>
-            <h2 className="font-serif text-4xl md:text-[56px] text-ink mt-6 leading-[1.12] tracking-[-0.02em] font-semibold">
-              {p.beliefsHeading}
-            </h2>
-            <p className="mt-5 text-ink/75 leading-[2] text-[15.5px] max-w-xl mx-auto">{p.beliefsBody}</p>
+            <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium tracking-[-0.012em]">{p.beliefsHeading}</h2>
+            <p className="mt-6 text-ink/60 leading-[2] text-[15px]">{p.beliefsBody}</p>
           </div>
-
-          <div className="max-w-[900px] mx-auto space-y-10 md:space-y-12">
-            {p.beliefs.map((b) => (
-              <div key={b.num} className="flex gap-6 md:gap-8 items-start">
-                <span className="font-serif text-[36px] md:text-[48px] text-primary/30 leading-none font-medium shrink-0 w-[60px] md:w-[76px] text-right">{b.num}</span>
-                <div className="pt-1.5 md:pt-2.5">
-                  <h3 className="font-serif text-[18px] md:text-[20px] text-ink font-semibold leading-snug">{b.title}</h3>
-                  <p className="mt-2.5 text-[14.5px] md:text-[15.5px] text-ink/75 leading-[1.95]">{b.desc}</p>
-                </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10">
+            {p.beliefs.map((b, i) => (
+              <div key={b.num}>
+                <p className="font-marker text-primary text-sm tracking-[0.2em]">{b.num ?? `0${i + 1}`}</p>
+                <h3 className="font-serif text-[17px] text-ink mt-3 font-semibold leading-snug">{b.title}</h3>
+                <div className="mt-3 h-px w-8 bg-primary/40" />
+                <p className="mt-4 text-[13px] text-ink/65 leading-[1.95]">{b.desc}</p>
               </div>
             ))}
           </div>
