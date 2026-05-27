@@ -144,6 +144,9 @@ export function AboutPage() {
           <h1 className="font-serif text-4xl md:text-[64px] text-ink mt-7 font-medium leading-[1.1] tracking-[-0.018em] max-w-3xl">
             {p.titleA}<span className="italic text-primary">{p.titleB}</span>
           </h1>
+          <p className="mt-5 font-serif text-xl md:text-2xl text-ink/70 italic leading-relaxed max-w-2xl">
+            {p.slogan}
+          </p>
           <p className="mt-8 text-ink/65 max-w-2xl leading-[2] text-[15.5px]">{p.intro}</p>
         </div>
         <JourneyPath className="absolute bottom-0 left-0 right-0 w-full h-24 text-primary/30 pointer-events-none" variant="long" />
