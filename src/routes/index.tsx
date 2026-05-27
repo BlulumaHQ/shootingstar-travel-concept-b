@@ -61,6 +61,7 @@ export const Route = createFileRoute("/")({
 });
 
 type Pack = {
+  slogan: string;
   heroEyebrow: string;
   heroL1: string; heroL2: string; heroL3: string;
   heroBody: string;
@@ -80,6 +81,7 @@ type Pack = {
 
 const PACKS: Record<Locale, Pack> = {
   en: {
+    slogan: "Travel is more than movement — it is a journey that shines like a shooting star.",
     heroEyebrow: "Spring Journal · 2026",
     heroL1: "Travel is not just",
     heroL2: "arriving somewhere —",
@@ -141,6 +143,7 @@ const PACKS: Record<Locale, Pack> = {
     ctaContact: "Contact us",
   },
   zh: {
+    slogan: "旅行，不只是移動，而是一場如流星般閃耀的旅程。",
     heroEyebrow: "Spring Journal · 2026",
     heroL1: "旅行不只是",
     heroL2: "抵達一個地方,",
@@ -202,6 +205,7 @@ const PACKS: Record<Locale, Pack> = {
     ctaContact: "聯絡我們",
   },
   ko: {
+    slogan: "여행은 단지 이동이 아니라, 유성처럼 빛나는 여정입니다.",
     heroEyebrow: "Spring Journal · 2026",
     heroL1: "여행은 단지",
     heroL2: "어딘가에 도착하는 것이 아니라 —",
@@ -397,7 +401,7 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
+      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} slogan={p.slogan} />
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
       <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
@@ -659,6 +663,9 @@ export function HomePage() {
         <div className="mx-auto max-w-[1240px] px-6 md:px-12 py-24 md:py-32 relative">
           <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-center">
             <div className="md:col-span-7">
+              <p className="font-serif text-lg md:text-xl text-ink/70 italic mb-5">
+                {p.slogan}
+              </p>
               <div className="flex items-center gap-3 text-ink/65">
                 <MountainMark size={20} className="text-ink/55" />
                 <DottedLine length={32} className="text-ink/35" />

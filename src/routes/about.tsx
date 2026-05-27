@@ -27,6 +27,7 @@ export const Route = createFileRoute("/about")({
 });
 
 type Pack = {
+  slogan: string;
   eyebrow: string; titleA: string; titleB: string; intro: string;
   storyEyebrow: string; storyHeading: string; storyBody: string[];
   stat1: string; stat1L: string; stat2: string; stat2L: string; stat3: string; stat3L: string;
@@ -38,6 +39,7 @@ type Pack = {
 
 const PACKS: Record<Locale, Pack> = {
   en: {
+    slogan: "Travel is more than movement — it is a journey that shines like a shooting star.",
     eyebrow: "About the Studio",
     titleA: "About ", titleB: "Shooting Star Travel",
     intro: "We craft each journey with care so travel becomes more than arriving — it becomes a memory worth keeping.",
@@ -67,6 +69,7 @@ const PACKS: Record<Locale, Pack> = {
     whoTags: ["Mandarin-speaking families", "Korean long-stay & holiday", "Couples & honeymooners", "International small groups"],
   },
   zh: {
+    slogan: "旅行，不只是移動，而是一場如流星般閃耀的旅程。",
     eyebrow: "About the Studio",
     titleA: "關於 ", titleB: "Shooting Star Travel",
     intro: "用心規劃每一段旅程,讓旅行不只是到達目的地,而是留下值得收藏的回憶。",
@@ -96,6 +99,7 @@ const PACKS: Record<Locale, Pack> = {
     whoTags: ["中文家庭", "韓文長期 / 假期", "情侶與蜜月", "國際小團"],
   },
   ko: {
+    slogan: "여행은 단지 이동이 아니라, 유성처럼 빛나는 여정입니다.",
     eyebrow: "About the Studio",
     titleA: "소개 ", titleB: "Shooting Star Travel",
     intro: "모든 여정을 정성껏 설계해 여행이 도착 그 이상이 되도록 — 간직할 가치 있는 추억으로.",
@@ -140,6 +144,9 @@ export function AboutPage() {
           <h1 className="font-serif text-4xl md:text-[64px] text-ink mt-7 font-medium leading-[1.1] tracking-[-0.018em] max-w-3xl">
             {p.titleA}<span className="italic text-primary">{p.titleB}</span>
           </h1>
+          <p className="mt-5 font-serif text-xl md:text-2xl text-ink/70 italic leading-relaxed max-w-2xl">
+            {p.slogan}
+          </p>
           <p className="mt-8 text-ink/65 max-w-2xl leading-[2] text-[15.5px]">{p.intro}</p>
         </div>
         <JourneyPath className="absolute bottom-0 left-0 right-0 w-full h-24 text-primary/30 pointer-events-none" variant="long" />
