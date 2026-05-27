@@ -143,6 +143,7 @@ const PACKS: Record<Locale, Pack> = {
     ctaContact: "Contact us",
   },
   zh: {
+    slogan: "旅行，不只是移動，而是一場如流星般閃耀的旅程。",
     heroEyebrow: "Spring Journal · 2026",
     heroL1: "旅行不只是",
     heroL2: "抵達一個地方,",
@@ -204,6 +205,7 @@ const PACKS: Record<Locale, Pack> = {
     ctaContact: "聯絡我們",
   },
   ko: {
+    slogan: "여행은 단지 이동이 아니라, 유성처럼 빛나는 여정입니다.",
     heroEyebrow: "Spring Journal · 2026",
     heroL1: "여행은 단지",
     heroL2: "어딘가에 도착하는 것이 아니라 —",
