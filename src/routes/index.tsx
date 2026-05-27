@@ -71,8 +71,8 @@ type Pack = {
   featuredEyebrow: string; featuredHeading: string; viewAll: string; viewAllMobile: string; viewTour: string;
   storiesEyebrow: string; storiesHeading: string; storiesBody: string; moreStories: string; moreStoriesMobile: string;
   aboutEyebrow: string; aboutHeading: string; aboutP1: string; aboutP2: string; meetUs: string;
-  destEyebrow: string; destHeadingA: string; destHeadingB: string; destBody: string; swipe: string;
-  destinations: { name: string; sub: string; note: string }[];
+  beliefsEyebrow: string; beliefsHeading: string; beliefsBody: string;
+  beliefs: { num: string; title: string; desc: string }[];
   faqEyebrow: string; faqHeading: string; viewAllFaqs: string;
   faqs: { q: string; a: string }[];
   ctaSectionEyebrow: string; ctaTitleA: string; ctaTitleB: string; ctaBody: string;
