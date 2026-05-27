@@ -26,9 +26,10 @@ import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroBanff2 from "@/assets/hero-banff-2.jpg";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
-import heroBgYellowknife from "@/assets/hero-bg-yellowknife.webp";
 import heroPolaroids from "@/assets/hero-polaroids.png";
-import heroPolaroidsYellowknife from "@/assets/hero-polaroids-yellowknife.png";
+import vegasV1 from "@/assets/vegas-canyon/v1.webp";
+import vegasV2 from "@/assets/vegas-canyon/v2.webp";
+import vegasV3 from "@/assets/vegas-canyon/v3.webp";
 
 
 export const Route = createFileRoute("/")({
@@ -366,20 +367,19 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSl
       backgroundImage: heroBgMoraine,
     },
     {
-      id: "aurora",
-      eyebrow: c.aurora.eyebrow,
-      badge: c.aurora.badge,
-      headingLines: c.aurora.lines,
-      body: c.aurora.body,
-      tags: c.aurora.tags,
-      primary: { label: c.aurora.primary, to: link("/rocky-mountain-lake-tours") },
-      secondary: { label: c.aurora.secondary, to: link("/blog") },
-      image: tourAurora,
-      imageCaption: c.aurora.cap1,
-      accentImage: destYukon,
-      accentCaption: c.aurora.cap2,
-      polaroidImage: heroPolaroidsYellowknife,
-      backgroundImage: heroBgYellowknife,
+      id: "vegas",
+      eyebrow: c.vegas.eyebrow,
+      badge: c.vegas.badge,
+      headingLines: c.vegas.lines,
+      body: c.vegas.body,
+      tags: c.vegas.tags,
+      primary: { label: c.vegas.primary, to: link("/tours/vegas-canyon-4-day") },
+      secondary: { label: c.vegas.secondary, to: link("/tours/vegas-canyon-4-day") },
+      image: vegasV1,
+      imageCaption: c.vegas.cap1,
+      accentImage: vegasV3,
+      accentCaption: c.vegas.cap2,
+      backgroundImage: vegasV2,
     },
   ];
 }
