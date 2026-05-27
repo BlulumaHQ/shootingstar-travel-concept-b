@@ -111,7 +111,7 @@ export function HeroSlideshow({
 
       <PlaneJourney className="absolute inset-x-0 top-[12%] w-full h-28 md:h-36 text-primary/45 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-10 md:pt-20 pb-20 md:pb-28">
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 pt-6 md:pt-12 pb-12 md:pb-16">
         {slogan && (
           <div className="text-center mb-6 md:mb-10">
             <p className="font-serif text-[17px] md:text-[21px] text-ink/70 italic tracking-wide leading-relaxed">
@@ -240,7 +240,7 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
 
         {/* RIGHT — editorial polaroid composition */}
         <div className="md:col-span-6 order-2 relative">
-          <div className="relative h-[380px] md:h-[760px] mx-auto max-w-[600px] md:max-w-[820px]">
+          <div className="relative h-[300px] md:h-[520px] mx-auto max-w-[600px] md:max-w-[820px]">
             <div
               className="absolute -top-12 -left-8 w-52 h-52 rounded-full opacity-50 blur-3xl"
               style={{ background: "var(--lavender-soft)" }}
