@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
@@ -390,7 +391,7 @@ export function HomePage() {
   const p = PACKS[locale];
   const tours = useTours();
   const reviews = useReviews();
-  const featured = tours.slice(0, 6);
+  const featured = useMemo(() => [...tours].sort(() => Math.random() - 0.5).slice(0, 6), [tours]);
   const link = (path: string) => withLocale(path, locale);
 
   return (
