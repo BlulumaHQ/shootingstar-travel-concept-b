@@ -99,6 +99,7 @@ const PACKS: Record<Locale, Pack> = {
     whoTags: ["中文家庭", "韓文長期 / 假期", "情侶與蜜月", "國際小團"],
   },
   ko: {
+    slogan: "여행은 단지 이동이 아니라, 유성처럼 빛나는 여정입니다.",
     eyebrow: "About the Studio",
     titleA: "소개 ", titleB: "Shooting Star Travel",
     intro: "모든 여정을 정성껏 설계해 여행이 도착 그 이상이 되도록 — 간직할 가치 있는 추억으로.",
