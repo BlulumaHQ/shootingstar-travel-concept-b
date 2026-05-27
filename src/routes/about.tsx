@@ -69,6 +69,7 @@ const PACKS: Record<Locale, Pack> = {
     whoTags: ["Mandarin-speaking families", "Korean long-stay & holiday", "Couples & honeymooners", "International small groups"],
   },
   zh: {
+    slogan: "旅行，不只是移動，而是一場如流星般閃耀的旅程。",
     eyebrow: "About the Studio",
     titleA: "關於 ", titleB: "Shooting Star Travel",
     intro: "用心規劃每一段旅程,讓旅行不只是到達目的地,而是留下值得收藏的回憶。",
