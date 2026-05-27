@@ -268,8 +268,7 @@ const DEST_IMAGES = [tourBanff, tourVancouver, destWhistler, tourVictoria, tourA
 
 type HeroCopy = {
   banff: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
-  aurora: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
-  vancouver: { eyebrow: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  vegas: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
 };
 
 const HERO_COPY: Record<Locale, HeroCopy> = {
