@@ -65,13 +65,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           className="absolute inset-0 h-full w-full object-cover"
         />
 
-        {/* Strong scrim for legibility */}
-        <div className="absolute inset-0 bg-ink/55" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink/70" />
+        {/* Soft scrim — keeps the lake visible, just a touch of contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/25 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/40" />
 
         <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-20 md:py-32 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 text-cream [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
+          <div className="lg:col-span-7 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
             <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
               {c.hero.eyebrow}
             </p>
