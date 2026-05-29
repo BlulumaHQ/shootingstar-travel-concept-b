@@ -38,8 +38,8 @@ export const Route = createFileRoute("/")({
     ...seoHead({
       path: "/",
       locale: "en",
-      title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Vancouver Tours",
-      description: "Boutique small-group tours across Canada — the Canadian Rockies, Banff, Vancouver, Victoria and aurora chases — with English, Mandarin and Korean-friendly guides. Slow travel, considered detail.",
+      title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Western US Tours",
+      description: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond — with English, Mandarin and Korean-friendly guides. Slow travel, considered detail.",
     }),
     scripts: [
       {
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/")({
           "@type": "TravelAgency",
           name: "Shootingstar Travel",
           url: "https://shootingstar-travel-concept-b.lovable.app/",
-          areaServed: ["Canada", "British Columbia", "Alberta", "Yukon"],
+          areaServed: ["Canada", "British Columbia", "Alberta", "Yukon", "United States", "Washington", "Oregon", "California", "Nevada"],
           knowsLanguage: ["en", "zh", "ko"],
           sameAs: [],
           address: { "@type": "PostalAddress", addressLocality: "Vancouver", addressRegion: "BC", addressCountry: "CA" },
