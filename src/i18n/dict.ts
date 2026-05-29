@@ -49,9 +49,9 @@ export const dict: Dict = {
   "hero.title.l2": { en: "arriving somewhere —", zh: "抵達一個地方，", ko: "어딘가에 도착하는 것이 아니라 —" },
   "hero.title.l3": { en: "it is the moment light finds you.", zh: "而是被光照亮的時刻", ko: "빛이 당신을 비추는 순간입니다." },
   "hero.body": {
-    en: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada at the lightest pace, gathering every glimmer between mountain and sea.",
-    zh: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，收集加拿大山與海之間的每一道光。",
-    ko: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다의 산과 바다 사이의 빛을 모으세요.",
+    en: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada and the Western United States at the lightest pace, gathering every glimmer between mountain and sea.",
+    zh: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，走過加拿大與美國西部，收集山與海之間的每一道光。",
+    ko: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다와 미국 서부의 산과 바다 사이의 빛을 모으세요.",
   },
   "hero.exploreTours": { en: "Explore Tours", zh: "探索行程", ko: "투어 둘러보기" },
   "hero.travellerStories": { en: "Travellers' Stories →", zh: "Travellers' Stories →", ko: "Travellers' Stories →" },
