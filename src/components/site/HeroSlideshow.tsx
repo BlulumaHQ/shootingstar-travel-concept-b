@@ -92,11 +92,11 @@ export function HeroSlideshow({
           })}
           <div
             aria-hidden
-            className="absolute inset-0 bg-cream/94 md:bg-cream/92"
+            className="absolute inset-0 bg-cream/97 md:bg-cream/95"
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-cream/70 via-cream/50 to-cream/30"
+            className="absolute inset-0 bg-gradient-to-r from-cream/90 via-cream/70 to-cream/40"
           />
           <div
             aria-hidden
@@ -195,7 +195,7 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
               const last = i === s.headingLines.length - 1;
               return (
                 <span key={i} className="block">
-                  {last ? <span className="italic text-primary font-medium">{ln}</span> : ln}
+                  {last ? <span className="italic text-primary font-semibold [text-shadow:0_1px_0_oklch(0.99_0.01_95/0.8)]">{ln}</span> : ln}
                 </span>
               );
             })}
