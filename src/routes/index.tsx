@@ -228,7 +228,7 @@ const PACKS: Record<Locale, Pack> = {
     aboutEyebrow: "About the Studio",
     aboutHeading: "Shooting Star Travel 소개",
     aboutP1: "모든 여정은 도착 그 이상의 의미가 되도록 정성껏 설계됩니다 — 간직할 가치가 있는 추억으로.",
-    aboutP2: "캐나다 현지 체험에 집중하여 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다. 소그룹 출발, 세심한 기획, 숨 쉴 여유가 있는 일정.",
+    aboutP2: "캐나다와 미국 서부 전역의 소그룹 여행에 집중하여, 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다. 소그룹 출발, 세심한 기획, 숨 쉴 여유가 있는 일정.",
     meetUs: "팀 소개 →",
     beliefsEyebrow: "우리의 여행 철학",
     beliefsHeading: "우리가 아끼는 다섯 가지",
