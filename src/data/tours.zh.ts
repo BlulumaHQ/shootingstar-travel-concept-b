@@ -10,7 +10,6 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
-import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -28,9 +27,9 @@ export const tours: Tour[] = [
     intro:
       "用一個精心安排的日程，輕鬆走訪西雅圖最具代表性的景點。從經典天際線觀景點、歷史悠久的派克市場，到現代科技地標與美麗的華盛頓大學校園，這趟行程適合想體驗西雅圖卻不想自駕、找停車位或安排路線的旅人。專業導遊隨行，順暢、舒適、令人印象深刻的城市小旅行。",
     duration: "1 日",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $140 起 / 每位",
-    gratuity: "USD $20 / 每位",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$140 CAD 起 / 每位",
+    gratuity: "$20 USD / 每位",
     itinerary: [
       { stop: "景點 1", title: "Kerry Park 觀景點", body: "西雅圖最經典的觀景台之一，晴天可同時望見太空針塔、市中心天際線、普吉灣與雷尼爾山。" },
       { stop: "景點 2", title: "Amazon Spheres", body: "近距離欣賞 Amazon 著名的玻璃球建築外觀，感受西雅圖作為全球科技重鎮的氣息。內部為員工辦公空間，不開放參觀。" },
@@ -55,9 +54,9 @@ export const tours: Tour[] = [
     intro:
       "享受一趟舒適的西雅圖過夜小旅行，結合經典景點、在地美食、航空歷史與精品 Outlet 購物。兩日行程適合想花更多時間在西雅圖、又不想自行跨境開車、安排住宿、找停車或拖著大包小包行李的旅人。含住宿、專車與專業導遊，是更輕鬆舒適的西雅圖體驗方式。",
     duration: "2 日 1 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $370 起 / 每位",
-    gratuity: "USD $40 / 每位（兩日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$370 CAD 起 / 每位",
+    gratuity: "$40 USD / 每位（兩日）",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park 觀景點", body: "以西雅圖經典天際線開啟旅程，晴天可同時望見太空針塔、市中心、普吉灣與雷尼爾山。" },
       { stop: "Day 1", title: "派克市場", body: "走訪西雅圖最著名的公共市場，欣賞新鮮海鮮、在地店家、丟魚秀與西雅圖文化氛圍。" },
@@ -71,9 +70,9 @@ export const tours: Tour[] = [
       { stop: "Day 2", title: "Seattle Premium Outlets", body: "以充裕的購物時間結束旅程，多家國際與設計師品牌任您選購。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $370 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $400 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $430 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$370 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$400 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$430 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["1 晚飯店住宿", "舒適專車", "專業導遊", "行程內景點停車費"],
@@ -91,9 +90,9 @@ export const tours: Tour[] = [
     intro:
       "用一段順暢的一日行程，感受維多利亞的優雅。本行程含來回 BC Ferries 渡輪，帶您穿越美麗的喬治亞海峽與海灣群島，抵達不列顛哥倫比亞省充滿魅力的首府——以歷史建築、美麗港灣、彩色水上屋與世界知名花園聞名。專業安排，免去自駕、訂船與島上停車的繁瑣。",
     duration: "1 日",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $170 起 / 每位",
-    gratuity: "USD $20 / 每位",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$170 CAD 起 / 每位",
+    gratuity: "$20 CAD / 每位",
     itinerary: [
       { stop: "景點 1", title: "BC Ferries 海上巡航", body: "搭乘渡輪穿越壯麗的喬治亞海峽與海灣群島，享受海景、清新空氣與悠閒節奏。" },
       { stop: "景點 2", title: "布查特花園 The Butchart Gardens", body: "維多利亞最著名的景點之一，亦為世界知名花園。門票為自費選項。" },
@@ -116,9 +115,9 @@ export const tours: Tour[] = [
     intro:
       "沿著壯麗的海天公路（Sea-to-Sky Highway）一路前行，欣賞不列顛哥倫比亞省最美的海岸與山景。本行程結合海岸觀景點、瀑布、森林步道、高山風光與聞名世界的惠斯勒村，適合想輕鬆享受山林、無需自行開蜿蜒山路與找停車位的旅客。",
     duration: "1 日",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $130 起 / 每位",
-    gratuity: "USD $20 / 每位",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$130 CAD 起 / 每位",
+    gratuity: "$20 CAD / 每位",
     itinerary: [
       { stop: "景點 1", title: "Porteau Cove", body: "海天公路上的人氣觀景點，可欣賞 Howe Sound 海灣、海岸山脈與廣闊海景。" },
       { stop: "景點 2", title: "香農瀑布 Shannon Falls", body: "不列顛哥倫比亞省最高的瀑布之一，沿森林步道短程走至觀景台。" },
@@ -141,9 +140,9 @@ export const tours: Tour[] = [
     intro:
       "用三天時間，舒適完整地體驗加拿大洛磯山脈。本行程從卡加利出發，走訪班夫、露易絲湖、夢蓮湖、弓湖、佩托湖、翡翠湖、哥倫比亞冰原與其他經典山岳景點。為想欣賞洛磯山美景、又不想長途自駕、找停車與規劃景點的旅客專業安排。",
     duration: "3 日 2 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $830 起 / 每位",
-    gratuity: "USD $60 / 每位（三日，每日 USD $20 計算）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$830 CAD 起 / 每位",
+    gratuity: "$60 CAD / 每位（三日，每日 $20 CAD 計算）",
     pickup: "出發：第一日約上午 11:20 卡加利機場集合。返程：第三日約下午 5:00 抵達卡加利機場。",
     itinerary: [
       { stop: "Day 1", title: "卡加利機場接機", body: "於卡加利機場與導遊會合，啟程前往班夫國家公園。" },
@@ -163,17 +162,17 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "卡加利機場送機", body: "約下午 5:00 抵達卡加利機場，結束行程。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $830 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $890 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $1050 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$830 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$890 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$1050 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["飯店住宿", "舒適專車", "司機 / 導遊", "國家公園通行證", "行程內景點停車費"],
     notIncluded: ["機票", "餐食", "個人花費", "5% 稅金", "選購體驗", "建議導遊小費"],
     optional: [
-      "班夫纜車體驗：成人 USD $90 / 6–15 歲兒童 USD $60",
-      "哥倫比亞冰原體驗：成人 USD $100 / 6–15 歲兒童 USD $60",
-      "夢蓮湖接駁／通行費：USD $16",
+      "班夫纜車體驗：成人 $90 CAD / 6–15 歲兒童 $60 CAD",
+      "哥倫比亞冰原體驗：成人 $100 CAD / 6–15 歲兒童 $60 CAD",
+      "夢蓮湖接駁／通行費：$16 CAD",
     ],
     notes: [
       "山區天氣多變，建議洋蔥式穿搭、舒適步行鞋與保暖外套。",
@@ -190,9 +189,9 @@ export const tours: Tour[] = [
     intro:
       "用兩天時間，輕鬆體驗歐肯納根的湖光山色、季節採果、酒莊文化與適合全家共遊的景點。免去長途自駕與行程安排的煩惱，享受一段舒適、療癒的夏日小旅行。",
     duration: "2 日 1 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $999 起 / 每位",
-    gratuity: "USD $40 / 每位（兩日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$999 CAD 起 / 每位",
+    gratuity: "$40 CAD / 每位（兩日）",
     itinerary: [
       { stop: "Day 1", title: "新娘瀑布 Bridal Falls", body: "造訪 Bridal Falls 省立公園，欣賞 BC 省最具代表性的瀑布之一。" },
       { stop: "Day 1", title: "Merritt", body: "途經 BC 省內陸高速公路，於山景環繞中稍作停留。" },
@@ -203,9 +202,9 @@ export const tours: Tour[] = [
       { stop: "Day 2", title: "酒莊巡禮", body: "走訪歐肯納根酒莊，欣賞葡萄園景觀，並可自費品酒。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $999 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $999 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $999 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$999 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["1 晚飯店住宿", "舒適專車", "專業導遊", "行程內景點停車費"],
@@ -223,9 +222,9 @@ export const tours: Tour[] = [
     intro:
       "八天時間，深度體驗加州、內華達州與亞利桑那州的精華。從舊金山金門大橋、拉斯維加斯燈火，到大峽谷與洛杉磯主題樂園——專業導遊一路相伴，免去長途自駕、訂房與排程的勞累。",
     duration: "8 日 7 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $999 起 / 每位",
-    gratuity: "USD $160 / 每位（八日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$999 CAD 起 / 每位",
+    gratuity: "$160 USD / 每位（八日）",
     pickup: "出發：第一日上午 10:30 舊金山國際機場。返程：第八日下午 3:00 洛杉磯國際機場。",
     itinerary: [
       { stop: "Day 1", title: "舊金山機場接機", body: "上午 10:30 於舊金山國際機場接機。" },
@@ -252,9 +251,9 @@ export const tours: Tour[] = [
       { stop: "Day 8", title: "LAX 機場送機", body: "下午 3:00 抵達洛杉磯國際機場。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $999 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $999 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $999 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$999 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["7 晚飯店住宿", "舒適專車", "專業導遊", "停車費"],
@@ -272,9 +271,9 @@ export const tours: Tour[] = [
     intro:
       "探索美國西南部的自然奇景，並享受拉斯維加斯的繽紛夜色。本行程帶您走訪經典峽谷、沙漠景觀與難忘的公路旅行體驗。",
     duration: "4 日 3 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $999 起 / 每位",
-    gratuity: "USD $80 / 每位（四日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$999 CAD 起 / 每位",
+    gratuity: "$80 USD / 每位（四日）",
     pickup: "出發：第一日下午 4:00 於拉斯維加斯巴黎酒店。返程：第四日下午 3:00 於洛杉磯國際機場。",
     itinerary: [
       { stop: "Day 1", title: "拉斯維加斯接送", body: "下午 4:00 於拉斯維加斯巴黎酒店集合。" },
@@ -290,9 +289,9 @@ export const tours: Tour[] = [
       { stop: "Day 4", title: "LAX 機場送機", body: "下午 3:00 抵達洛杉磯國際機場。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $999 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $999 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $999 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$999 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["3 晚飯店住宿", "舒適專車", "專業導遊", "停車費"],
@@ -310,9 +309,9 @@ export const tours: Tour[] = [
     intro:
       "用三天時間體驗洛杉磯的精彩：好萊塢、購物區、加州生活與兩大主題樂園——免去自駕與停車的煩惱，盡情享受南加州陽光。",
     duration: "3 日 2 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $999 起 / 每位",
-    gratuity: "USD $60 / 每位（三日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$999 CAD 起 / 每位",
+    gratuity: "$60 USD / 每位（三日）",
     pickup: "出發：第一日上午 11:50 洛杉磯國際機場。返程：第三日下午 5:00 洛杉磯國際機場。",
     itinerary: [
       { stop: "Day 1", title: "LAX 機場接機", body: "上午 11:50 於洛杉磯國際機場接機。" },
@@ -326,9 +325,9 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "LAX 機場送機", body: "下午 5:00 抵達洛杉磯國際機場。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $999 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $999 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $999 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$999 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["2 晚飯店住宿", "舒適專車", "專業導遊", "停車費"],
@@ -346,9 +345,9 @@ export const tours: Tour[] = [
     intro:
       "走訪奧勒岡海岸的療癒美景、壯麗瀑布、Outlet 購物與在地美食文化。一趟結合自然、購物與美食的太平洋西北小旅行。",
     duration: "3 日 2 夜",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $999 起 / 每位",
-    gratuity: "USD $60 / 每位（三日）",
+    language: "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。",
+    price: "$999 CAD 起 / 每位",
+    gratuity: "$60 USD / 每位（三日）",
     itinerary: [
       { stop: "Day 1", title: "派克市場 Pike Place Market", body: "走訪西雅圖經典公共市場。" },
       { stop: "Day 1", title: "華盛頓州議會大廈", body: "參觀華盛頓州政府區與歷史建築。" },
@@ -364,9 +363,9 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "Trader Joe's", body: "回程前的購物停留。" },
     ],
     roomOptions: [
-      { label: "家庭／團體四人房", guests: "4 位旅客", price: "USD $999 起 / 每位" },
-      { label: "三人共用房", guests: "3 位旅客", price: "USD $999 起 / 每位" },
-      { label: "雙人私人房", guests: "2 位旅客", price: "USD $999 起 / 每位" },
+      { label: "家庭／團體四人房", guests: "4 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "三人共用房", guests: "3 位旅客", price: "$999 CAD 起 / 每位" },
+      { label: "雙人私人房", guests: "2 位旅客", price: "$999 CAD 起 / 每位" },
     ],
     roomNote: "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。",
     included: ["2 晚飯店住宿", "舒適專車", "專業導遊", "停車費"],
@@ -374,36 +373,6 @@ export const tours: Tour[] = [
     optional: ["Astoria Column 門票", "季節性海岸活動"],
     notes: ["奧勒岡天氣變化快，建議洋蔥式穿搭。", "Outlet 營業時間依店家而異。"],
     bookingCta: "預訂奧勒岡海岸三日遊",
-  },
-  {
-    slug: "vancouver-city-1-day",
-    img: vancouverCityHero,
-    gallery: vancouverCityGallery,
-    title: "溫哥華市區一日遊｜史丹利公園、格蘭維爾島與卡皮拉諾吊橋",
-    desc: "一日精選城市導覽，走訪溫哥華最具代表性的景點：史丹利公園、格蘭維爾島、煤氣鎮以及卡皮拉諾吊橋。",
-    intro:
-      "用一個精心規劃的日程，輕鬆走訪溫哥華最迷人的景點。從史丹利公園的海濱步道、煤氣鎮的歷史街角，到熱鬧的格蘭維爾島公共市場，以及壯麗的卡皮拉諾吊橋雨林步道，這趟行程適合想感受溫哥華城市靈魂卻不想自駕、找停車位或安排路線的旅人。一日之內結合自然、文化與海岸風光，舒適順暢、節奏剛剛好。",
-    duration: "1 日",
-    language: "中文 / 英文 / 韓文",
-    price: "USD $130 起 / 每位",
-    gratuity: "USD $20 / 每位",
-    itinerary: [
-      { stop: "景點 1", title: "史丹利公園與海堤步道", body: "從溫哥華最受喜愛的都市公園開始一天，欣賞煤氣港、北岸山脈以及 Brockton Point 著名圖騰柱。" },
-      { stop: "景點 2", title: "Prospect Point 與獅門大橋", body: "停留史丹利公園最具代表性的觀景點之一，俯瞰獅門大橋與布勒內灣。" },
-      { stop: "景點 3", title: "卡皮拉諾吊橋公園", body: "走上跨越 Capilano 河、長達 137 公尺的著名吊橋，置身於高聳的海岸雨林之中。門票自費自選。" },
-      { stop: "景點 4", title: "煤氣鎮與蒸汽鐘", body: "走訪溫哥華最古老的街區，欣賞鵝卵石街道、維多利亞式建築、特色咖啡館與世界知名的蒸汽鐘。" },
-      { stop: "景點 5", title: "加拿大廣場與溫哥華港", body: "沿著海濱步道散步，欣賞如船帆般的標誌性屋頂、水上飛機與停泊於溫哥華港的郵輪。" },
-      { stop: "景點 6", title: "格蘭維爾島公共市場", body: "造訪溫哥華最具人氣的美食目的地之一，麵包坊、新鮮蔬果、海鮮攤位與在地手作職人，搭配 False Creek 海濱風光。" },
-      { stop: "景點 7", title: "伊麗莎白女王公園", body: "在溫哥華最高點結束一天，欣賞城市天際線全景、花園造景與季節性花卉。" },
-    ],
-    included: ["舒適專車", "中英 / 中韓雙語專業導遊", "行程內景點停車費"],
-    notIncluded: ["5% 稅金", "餐食", "景點門票", "建議導遊小費"],
-    optional: ["卡皮拉諾吊橋公園門票", "加拿大廣場 FlyOver Canada 體驗"],
-    notes: [
-      "溫哥華天氣多變，建議洋蔥式穿搭、輕便防雨外套與舒適步行鞋。",
-      "格蘭維爾島攤商與公共市場營業時間依季節而異。",
-    ],
-    bookingCta: "預訂溫哥華市區一日遊",
   },
 ];
 

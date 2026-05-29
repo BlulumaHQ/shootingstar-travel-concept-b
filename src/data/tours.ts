@@ -9,7 +9,6 @@ import { westernUsaHero, westernUsaGallery } from "./western-usa-gallery";
 import { vegasCanyonHero, vegasCanyonGallery } from "./vegas-canyon-gallery";
 import { la3Hero, la3Gallery } from "./la3-gallery";
 import { oregonHero, oregonGallery } from "./oregon-gallery";
-import { vancouverCityHero, vancouverCityGallery } from "./vancouver-city-gallery";
 
 import tourIcefield from "@/assets/tour-icefield.webp";
 import tourToronto from "@/assets/tour-toronto.jpg";
@@ -69,8 +68,8 @@ export const tours: Tour[] = [
     intro:
       "Discover the best of Seattle in one thoughtfully planned day trip. From postcard-perfect skyline views and the historic Pike Place Market to the city's modern tech landmarks and the beautiful University of Washington campus, this tour is designed for travelers who want to experience Seattle without the stress of driving, parking, or planning every stop. A comfortable guided city escape for guests who want a smooth, efficient, and memorable introduction to the Emerald City.",
     duration: "1 day",
-    language: "English / Mandarin / Korean",
-    price: "From $140 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $140 CAD / person",
     gratuity: "$20 USD / person",
     itinerary: [
       { stop: "Stop 1", title: "Kerry Park", body: "Enjoy one of Seattle's most iconic viewpoints, where the Space Needle, downtown skyline, Puget Sound, and Mount Rainier can be seen together on clear days." },
@@ -110,8 +109,8 @@ export const tours: Tour[] = [
     intro:
       "Enjoy a relaxed overnight Seattle getaway with iconic landmarks, local food, aviation history, and premium outlet shopping. This two-day tour is ideal for guests who want more time in Seattle without the fatigue of cross-border driving, hotel planning, parking, and carrying shopping bags from place to place. With hotel accommodation, transportation, and a professional guide included, this tour offers a smoother and more comfortable way to experience Seattle.",
     duration: "2 days, 1 night",
-    language: "English / Mandarin / Korean",
-    price: "From $370 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $370 CAD / person",
     gratuity: "$40 USD / person for 2 days",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park", body: "Start with Seattle's classic skyline viewpoint featuring the Space Needle, downtown Seattle, Puget Sound, and Mount Rainier on clear days." },
@@ -126,9 +125,9 @@ export const tours: Tour[] = [
       { stop: "Day 2", title: "Seattle Premium Outlets", body: "End the trip with dedicated shopping time at Seattle Premium Outlets, featuring a wide selection of international and designer brands." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $370 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $400 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $430 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $370 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $400 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $430 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -162,9 +161,9 @@ export const tours: Tour[] = [
     intro:
       "Experience the elegance of Victoria in one seamless day trip. This tour includes round-trip BC Ferries transportation and takes guests through the scenic Gulf Islands to British Columbia's charming capital — known for its historic architecture, beautiful harbour, colourful floating homes, and world-famous gardens. A comfortable and well-organized island escape designed to remove the stress of ferry planning, vehicle boarding, and island driving.",
     duration: "1 day",
-    language: "English / Mandarin / Korean",
-    price: "From $170 USD / person",
-    gratuity: "$20 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $170 CAD / person",
+    gratuity: "$20 CAD / person",
     itinerary: [
       { stop: "Stop 1", title: "BC Ferries Scenic Cruise", body: "Travel across the beautiful Georgia Strait and Gulf Islands by ferry. Enjoy ocean views, fresh air, and the relaxed pace of the journey." },
       { stop: "Stop 2", title: "The Butchart Gardens", body: "Visit one of Victoria's most famous attractions and one of the world's most celebrated floral gardens. Admission is optional and self-paid." },
@@ -200,9 +199,9 @@ export const tours: Tour[] = [
     intro:
       "Travel along the spectacular Sea-to-Sky Highway and experience some of British Columbia's most beautiful coastal and mountain scenery. This one-day tour combines ocean viewpoints, waterfalls, forest trails, alpine landscapes, and the world-famous Whistler Village. Designed for guests who want to enjoy the mountains without the stress of driving winding roads, finding parking, or planning every stop.",
     duration: "1 day",
-    language: "English / Mandarin / Korean",
-    price: "From $130 USD / person",
-    gratuity: "$20 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $130 CAD / person",
+    gratuity: "$20 CAD / person",
     itinerary: [
       { stop: "Stop 1", title: "Porteau Cove", body: "A scenic stop along the Sea-to-Sky Highway with views of Howe Sound, coastal mountains, and the ocean." },
       { stop: "Stop 2", title: "Shannon Falls", body: "Visit one of British Columbia's tallest waterfalls and enjoy a short walk through the forest to the viewing area." },
@@ -236,9 +235,9 @@ export const tours: Tour[] = [
     intro:
       "Discover the Canadian Rockies with a comfortable 3-day guided journey from Calgary. This itinerary includes Banff, Lake Louise, Moraine Lake, Bow Lake, Peyto Lake, Emerald Lake, Columbia Icefield, and other iconic mountain viewpoints. Designed for guests who want to experience the beauty of the Rockies without the stress of long-distance mountain driving, parking, route planning, and attraction logistics.",
     duration: "3 days, 2 nights",
-    language: "English / Mandarin / Korean",
-    price: "From $830 USD / person",
-    gratuity: "$60 USD / person for 3 days (calculated as $20 USD per day)",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $830 CAD / person",
+    gratuity: "$60 CAD / person for 3 days (calculated as $20 CAD per day)",
     pickup: "Pickup: Calgary Airport at approximately 11:20 AM on Day 1. Drop-Off: Calgary Airport at approximately 5:00 PM on Day 3.",
     itinerary: [
       { stop: "Day 1", title: "Calgary Airport Pickup", body: "Meet your guide at Calgary Airport and begin the journey toward Banff National Park." },
@@ -258,9 +257,9 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "Calgary Airport Drop-Off", body: "Return to Calgary Airport at approximately 5:00 PM." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $830 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $890 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $1050 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $830 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $890 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $1050 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -279,9 +278,9 @@ export const tours: Tour[] = [
       "Suggested Guide Gratuity",
     ],
     optional: [
-      "Banff Gondola Experience: $90 USD adult / $60 USD child age 6–15",
-      "Columbia Icefield Adventure: $100 USD adult / $60 USD child age 6–15",
-      "Moraine Lake Shuttle / Access Pass: $16 USD",
+      "Banff Gondola Experience: $90 CAD adult / $60 CAD child age 6–15",
+      "Columbia Icefield Adventure: $100 CAD adult / $60 CAD child age 6–15",
+      "Moraine Lake Shuttle / Access Pass: $16 CAD",
     ],
     notes: [
       "Mountain weather can change quickly. Guests should bring layered clothing, comfortable walking shoes, and a warm jacket.",
@@ -298,9 +297,9 @@ export const tours: Tour[] = [
     intro:
       "Experience a relaxing Okanagan getaway featuring lake views, seasonal fruit picking, winery visits, and family-friendly attractions. This short escape combines nature, local food culture, and scenic summer experiences without the stress of long-distance driving and trip planning. A comfortable, well-paced two-day journey designed for guests who want to enjoy the Okanagan at its most beautiful.",
     duration: "2 days, 1 night",
-    language: "English / Mandarin / Korean",
-    price: "From $999 USD / person",
-    gratuity: "$40 USD / person for 2 days",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $999 CAD / person",
+    gratuity: "$40 CAD / person for 2 days",
     itinerary: [
       { stop: "Day 1", title: "Bridal Falls", body: "Stop at the beautiful Bridal Falls Provincial Park and enjoy one of British Columbia's most iconic waterfalls." },
       { stop: "Day 1", title: "Merritt", body: "Relax during a scenic stop through the interior highways of British Columbia surrounded by mountain landscapes." },
@@ -311,9 +310,9 @@ export const tours: Tour[] = [
       { stop: "Day 2", title: "Winery Tour", body: "Experience Okanagan wine culture with scenic vineyard views and optional wine tasting experiences." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $999 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $999 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -349,8 +348,8 @@ export const tours: Tour[] = [
     intro:
       "Experience the ultimate Western USA adventure across California, Nevada, and Arizona. This multi-city journey combines iconic landmarks, desert landscapes, national parks, entertainment, shopping, and world-famous attractions. Designed for guests who want to see the very best of the American West without the stress of long-distance driving, hotel logistics, and attraction planning.",
     duration: "8 days, 7 nights",
-    language: "English / Mandarin / Korean",
-    price: "From $999 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $999 CAD / person",
     gratuity: "$160 USD / person for 8 days",
     pickup: "Pickup: San Francisco International Airport at 10:30 AM on Day 1. Drop-Off: Los Angeles International Airport at 3:00 PM on Day 8.",
     itinerary: [
@@ -378,9 +377,9 @@ export const tours: Tour[] = [
       { stop: "Day 8", title: "LAX Airport Drop Off", body: "Drop off at Los Angeles International Airport at 3:00 PM." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $999 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $999 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -416,8 +415,8 @@ export const tours: Tour[] = [
     intro:
       "Explore the natural wonders of the American Southwest combined with the excitement of Las Vegas. This adventure tour features iconic canyon landscapes, desert scenery, and unforgettable road trip experiences — designed for guests who want to see the West's most photographed landmarks in one smooth, well-paced journey.",
     duration: "4 days, 3 nights",
-    language: "English / Mandarin / Korean",
-    price: "From $999 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $999 CAD / person",
     gratuity: "$80 USD / person for 4 days",
     pickup: "Pickup: Paris Hotel Las Vegas at 4:00 PM on Day 1. Drop-Off: Los Angeles International Airport at 3:00 PM on Day 4.",
     itinerary: [
@@ -434,9 +433,9 @@ export const tours: Tour[] = [
       { stop: "Day 4", title: "LAX Airport Drop Off", body: "Drop off at Los Angeles International Airport at 3:00 PM." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $999 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $999 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -470,8 +469,8 @@ export const tours: Tour[] = [
     intro:
       "Discover the best of Los Angeles with iconic attractions, Hollywood landmarks, shopping districts, and world-famous theme parks. This tour combines entertainment, sightseeing, and California lifestyle experiences — designed for guests who want to enjoy LA without the stress of freeway driving, parking, or planning multi-park days.",
     duration: "3 days, 2 nights",
-    language: "English / Mandarin / Korean",
-    price: "From $999 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $999 CAD / person",
     gratuity: "$60 USD / person for 3 days",
     pickup: "Pickup: Los Angeles International Airport at 11:50 AM on Day 1. Drop-Off: Los Angeles International Airport at 5:00 PM on Day 3.",
     itinerary: [
@@ -486,9 +485,9 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "LAX Airport Drop Off", body: "Drop off at Los Angeles International Airport at 5:00 PM." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $999 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $999 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -522,8 +521,8 @@ export const tours: Tour[] = [
     intro:
       "Discover Oregon's coastal beauty, scenic waterfalls, outlet shopping, and famous food culture. This relaxed road trip combines nature, shopping, and local experiences across Washington and Oregon — designed for guests who want a soulful Pacific Northwest escape without the planning fatigue.",
     duration: "3 days, 2 nights",
-    language: "English / Mandarin / Korean",
-    price: "From $999 USD / person",
+    language: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, including English, Chinese, or Korean, but a single-language tour cannot be guaranteed.",
+    price: "From $999 CAD / person",
     gratuity: "$60 USD / person for 3 days",
     itinerary: [
       { stop: "Day 1", title: "Pike Place Market", body: "Explore Seattle's iconic public market." },
@@ -540,9 +539,9 @@ export const tours: Tour[] = [
       { stop: "Day 3", title: "Trader Joe's", body: "Shopping stop before returning." },
     ],
     roomOptions: [
-      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 USD / person" },
-      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 USD / person" },
-      { label: "Private Double Room", guests: "2 Guests", price: "From $999 USD / person" },
+      { label: "Family / Group Quad Room", guests: "4 Guests", price: "From $999 CAD / person" },
+      { label: "Triple Shared Room", guests: "3 Guests", price: "From $999 CAD / person" },
+      { label: "Private Double Room", guests: "2 Guests", price: "From $999 CAD / person" },
     ],
     roomNote: "Room rates become more cost-efficient when shared with additional guests due to hotel room allocation.",
     included: [
@@ -566,48 +565,6 @@ export const tours: Tour[] = [
       "Outlet shopping schedules may vary depending on store hours.",
     ],
     bookingCta: "Book Your Oregon Coast 3-Day Tour",
-  },
-  {
-    slug: "vancouver-city-1-day",
-    img: vancouverCityHero,
-    gallery: vancouverCityGallery,
-    title: "Vancouver City 1-Day Tour | Stanley Park, Granville Island & Capilano Suspension Bridge",
-    desc: "A relaxed one-day city escape through Vancouver's most iconic landmarks — Stanley Park, Granville Island, Gastown, and the Capilano Suspension Bridge.",
-    intro:
-      "Discover the very best of Vancouver in one thoughtfully planned day trip. From the seawall views of Stanley Park and the historic charm of Gastown to the vibrant Granville Island Public Market and the breathtaking rainforest of the Capilano Suspension Bridge, this tour is designed for guests who want to feel the soul of Vancouver without the stress of driving, parking, or planning every stop. A comfortable, well-paced city escape that blends nature, culture, and coastal scenery in a single day.",
-    duration: "1 day",
-    language: "English / Mandarin / Korean",
-    price: "From $130 USD / person",
-    gratuity: "$20 USD / person",
-    itinerary: [
-      { stop: "Stop 1", title: "Stanley Park & Seawall", body: "Begin the day at Vancouver's most beloved urban park. Enjoy ocean views of Coal Harbour, the North Shore mountains, and the famous totem poles at Brockton Point." },
-      { stop: "Stop 2", title: "Prospect Point & Lions Gate Bridge", body: "Stop at one of Stanley Park's most scenic viewpoints overlooking the Lions Gate Bridge and Burrard Inlet." },
-      { stop: "Stop 3", title: "Capilano Suspension Bridge Park", body: "Walk across the iconic 137-metre suspension bridge above the Capilano River, surrounded by towering coastal rainforest. Admission is optional and self-paid." },
-      { stop: "Stop 4", title: "Gastown & Steam Clock", body: "Explore Vancouver's oldest neighbourhood with its cobblestone streets, Victorian buildings, boutique cafés, and the world-famous steam clock." },
-      { stop: "Stop 5", title: "Canada Place & Vancouver Harbour", body: "Walk along the waterfront promenade, take in views of the iconic sail-shaped roof, seaplanes, and cruise ships at the Vancouver Harbour." },
-      { stop: "Stop 6", title: "Granville Island Public Market", body: "Discover one of Vancouver's most beloved foodie destinations — artisan bakeries, fresh produce, seafood stalls, local crafts, and waterfront views of False Creek." },
-      { stop: "Stop 7", title: "Queen Elizabeth Park", body: "End the day at Vancouver's highest point with panoramic city skyline views, manicured gardens, and seasonal flower displays." },
-    ],
-    included: [
-      "Comfortable transportation",
-      "Professional bilingual guide",
-      "Parking fees for scheduled tour stops",
-    ],
-    notIncluded: [
-      "5% tax",
-      "Meals",
-      "Attraction admission tickets",
-      "Suggested Guide Gratuity",
-    ],
-    optional: [
-      "Capilano Suspension Bridge Park admission",
-      "FlyOver Canada experience at Canada Place",
-    ],
-    notes: [
-      "Vancouver weather can change quickly. Layered clothing, a light rain jacket, and comfortable walking shoes are recommended.",
-      "Granville Island vendors and Public Market hours may vary by season.",
-    ],
-    bookingCta: "Book Your Vancouver City 1-Day Tour",
   },
 ];
 
