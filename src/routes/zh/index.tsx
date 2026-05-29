@@ -7,8 +7,8 @@ export const Route = createFileRoute("/zh/")({
     ...seoHead({
       path: "/",
       locale: "zh",
-      title: "Shootingstar Travel｜加拿大洛磯山脈精品旅遊・溫哥華深度遊・極光追尋",
-      description: "加拿大在地精品小團旅遊。洛磯山脈、班夫、溫哥華、維多利亞與黃刀鎮極光，提供中文、韓文、英文貼心嚮導，為您客製安心、有溫度的加拿大旅程。",
+      title: "Shootingstar Travel｜加拿大與美西精品旅遊・洛磯山脈・西雅圖・拉斯維加斯",
+      description: "加拿大與美國西部精品小團旅遊。洛磯山脈、班夫、溫哥華、維多利亞、西雅圖、拉斯維加斯與大峽谷，提供中文、韓文、英文貼心嚮導，為您客製安心、有溫度的旅程。",
     }),
     scripts: [
       {
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/zh/")({
           "@type": "TravelAgency",
           name: "Shootingstar Travel",
           url: "https://shootingstar-travel-concept-b.lovable.app/zh",
-          areaServed: ["Canada"],
+          areaServed: ["Canada", "United States"],
           knowsLanguage: ["zh", "en", "ko"],
         }),
       },
