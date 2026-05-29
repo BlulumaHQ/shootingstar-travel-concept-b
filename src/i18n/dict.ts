@@ -16,9 +16,9 @@ export const dict: Dict = {
 
   // Footer
   "footer.tagline": {
-    en: "Boutique small-group journeys across Canada — crafted with care for every traveller.",
-    zh: "加拿大小團精緻旅遊，用心為每位旅人寫下獨一無二的旅行篇章。",
-    ko: "캐나다 부티크 소그룹 여행 — 모든 여행자를 위해 정성껏 준비합니다.",
+    en: "Travel is more than movement. Discover journeys that shine like shooting stars.",
+    zh: "旅行不只是移動。發現如流星般閃耀的旅程。",
+    ko: "여행은 단순한 이동이 아닙니다. 유성처럼 빛나는 여정을 발견하세요.",
   },
   "footer.bonVoyage": { en: "— bon voyage", zh: "— bon voyage", ko: "— bon voyage" },
   "footer.closing": {
