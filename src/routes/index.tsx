@@ -145,7 +145,7 @@ const PACKS: Record<Locale, Pack> = {
     heroL1: "旅行不只是",
     heroL2: "抵達一個地方,",
     heroL3: "而是被光照亮的時刻",
-    heroBody: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調,收集加拿大山與海之間的每一道光。",
+    heroBody: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調,走過加拿大與美國西部,收集山與海之間的每一道光。",
     ctaExplore: "探索行程",
     ctaStories: "Travellers' Stories →",
     featuresEyebrow: "為什麼選擇我們",
