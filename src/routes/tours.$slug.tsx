@@ -246,9 +246,14 @@ export function TourDetailPage() {
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
-                {tour.language && <div><span className="text-ink/50">{T.language} </span><span className="text-ink">{tour.language}</span></div>}
                 <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{tour.price}</span></div>
               </div>
+              {tour.language && (
+                <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
+                  <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.language}</p>
+                  <p className="text-[13px] text-ink/75 leading-[1.85]">{tour.language}</p>
+                </div>
+              )}
               {tour.pickup && (
                 <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
               )}
