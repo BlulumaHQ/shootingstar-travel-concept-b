@@ -1,4 +1,5 @@
 import tourBanff from "@/assets/tour-banff.webp";
+import bgLake from "@/assets/bg-lake-louise.webp";
 import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
