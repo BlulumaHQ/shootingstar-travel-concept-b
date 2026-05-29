@@ -184,7 +184,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       </div>
 
       <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Choose a group</label>
+        <div className="flex items-center gap-1.5 mb-2">
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55">{langCopy.label}</label>
+          <TooltipProvider delayDuration={150}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  aria-label={langCopy.label}
+                  className="inline-flex items-center justify-center text-ink/45 hover:text-primary transition"
+                >
+                  <Info size={13} strokeWidth={2} />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[260px] text-[11.5px] leading-[1.55] text-left">
+                {langCopy.tooltip}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
         <div className="flex flex-wrap gap-1.5">
           {packages.map((p) => (
             <button
@@ -196,6 +214,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             >{p}</button>
           ))}
         </div>
+        <p className="mt-2 text-[11px] text-ink/55 leading-[1.6]">{langCopy.note}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
