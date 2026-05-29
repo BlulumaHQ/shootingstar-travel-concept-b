@@ -7,8 +7,8 @@ export const Route = createFileRoute("/ko/")({
     ...seoHead({
       path: "/",
       locale: "ko",
-      title: "Shootingstar Travel｜프리미엄 캐나다 록키·밴프·밴쿠버·오로라 부티크 투어",
-      description: "캐나다 현지 프리미엄 소그룹 투어. 캐나디안 록키, 밴프, 밴쿠버, 빅토리아, 옐로나이프 오로라까지 — 한국어·영어·중국어 가이드와 함께하는 편안하고 품격 있는 캐나다 여행.",
+      title: "Shootingstar Travel｜캐나다·미국 서부 프리미엄 부티크 투어",
+      description: "캐나다와 미국 서부 프리미엄 소그룹 투어. 캐나디안 록키, 밴프, 밴쿠버, 빅토리아, 시애틀, 라스베이거스, 그랜드 캐니언까지 — 한국어·영어·중국어 가이드와 함께하는 편안하고 품격 있는 여행.",
     }),
     scripts: [
       {
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/ko/")({
           "@type": "TravelAgency",
           name: "Shootingstar Travel",
           url: "https://shootingstar-travel-concept-b.lovable.app/ko",
-          areaServed: ["Canada"],
+          areaServed: ["Canada", "United States"],
           knowsLanguage: ["ko", "en", "zh"],
         }),
       },
