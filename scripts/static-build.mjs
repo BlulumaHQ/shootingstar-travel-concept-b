@@ -68,11 +68,7 @@ async function main() {
   // Delete dist/server
   await fs.rm(serverDir, { recursive: true, force: true });
 
-  // Ensure _redirects
-  const redirectsDest = path.join(dist, "_redirects");
-  if (!(await exists(redirectsDest))) {
-    await fs.copyFile(path.join(root, "public", "_redirects"), redirectsDest);
-  }
+  // _redirects removed — handled by Cloudflare Workers routing
 
   // Count files
   let count = 0;
