@@ -16,9 +16,9 @@ export const dict: Dict = {
 
   // Footer
   "footer.tagline": {
-    en: "Boutique small-group journeys across Canada — crafted with care for every traveller.",
-    zh: "加拿大小團精緻旅遊，用心為每位旅人寫下獨一無二的旅行篇章。",
-    ko: "캐나다 부티크 소그룹 여행 — 모든 여행자를 위해 정성껏 준비합니다.",
+    en: "Travel is more than movement. Discover journeys that shine like shooting stars.",
+    zh: "旅行不只是移動。發現如流星般閃耀的旅程。",
+    ko: "여행은 단순한 이동이 아닙니다. 유성처럼 빛나는 여정을 발견하세요.",
   },
   "footer.bonVoyage": { en: "— bon voyage", zh: "— bon voyage", ko: "— bon voyage" },
   "footer.closing": {
@@ -49,9 +49,9 @@ export const dict: Dict = {
   "hero.title.l2": { en: "arriving somewhere —", zh: "抵達一個地方，", ko: "어딘가에 도착하는 것이 아니라 —" },
   "hero.title.l3": { en: "it is the moment light finds you.", zh: "而是被光照亮的時刻", ko: "빛이 당신을 비추는 순간입니다." },
   "hero.body": {
-    en: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada at the lightest pace, gathering every glimmer between mountain and sea.",
-    zh: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，收集加拿大山與海之間的每一道光。",
-    ko: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다의 산과 바다 사이의 빛을 모으세요.",
+    en: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada and the Western United States at the lightest pace, gathering every glimmer between mountain and sea.",
+    zh: "小團・慢走・用心。Shootingstar Travel 帶你以最輕盈的步調，走過加拿大與美國西部，收集山與海之間的每一道光。",
+    ko: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다와 미국 서부의 산과 바다 사이의 빛을 모으세요.",
   },
   "hero.exploreTours": { en: "Explore Tours", zh: "探索行程", ko: "투어 둘러보기" },
   "hero.travellerStories": { en: "Travellers' Stories →", zh: "Travellers' Stories →", ko: "Travellers' Stories →" },
@@ -74,9 +74,9 @@ export const dict: Dict = {
     ko: "모든 여행은 도착 그 이상의 의미가 되도록 정성껏 설계됩니다 — 간직할 가치가 있는 추억으로.",
   },
   "section.aboutP2": {
-    en: "We focus on Canadian local experiences, designing safe, comfortable, warm-hearted journeys for travellers from many languages and backgrounds. Small groups, attentive planning, room to breathe.",
-    zh: "我們專注於加拿大在地旅遊體驗，為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排，讓每位旅人都能放心、自在地走進每一段風景。",
-    ko: "캐나다 현지 체험에 집중하여 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다.",
+    en: "We focus on small-group journeys across Canada and the Western United States, designing safe, comfortable, warm-hearted itineraries for travellers from many languages and backgrounds. Small groups, attentive planning, room to breathe.",
+    zh: "我們專注於加拿大與美國西部的小團旅遊體驗，為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排，讓每位旅人都能放心、自在地走進每一段風景。",
+    ko: "캐나다와 미국 서부 전역의 소그룹 여행에 집중하여, 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다. 소그룹 출발, 세심한 기획, 숨 쉴 여유가 있는 일정.",
   },
   "section.meetUs": { en: "Meet the team →", zh: "認識我們 →", ko: "팀 소개 →" },
   "section.viewAll": { en: "View all →", zh: "View all →", ko: "전체 보기 →" },
