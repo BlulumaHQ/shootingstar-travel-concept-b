@@ -39,16 +39,17 @@ type Pack = {
 
 const PACKS: Record<Locale, Pack> = {
   en: {
-    slogan: "Travel is more than movement — it is a journey that shines like a shooting star.",
+    slogan: "Travel is not just about reaching a destination — it is about discovering a journey that shines like a shooting star.",
     eyebrow: "About the Studio",
     titleA: "About ", titleB: "Shooting Star Travel",
-    intro: "We craft each journey with care so travel becomes more than arriving — it becomes a memory worth keeping.",
+    intro: "At Shooting Star Travel, we believe travel is more than simply moving from one destination to another. Every journey should feel like a shooting star — rare, memorable, and filled with moments that stay with you long after the trip has ended.",
     storyEyebrow: "Our Story",
-    storyHeading: "Quiet hours worth keeping",
+    storyHeading: "Once-in-a-lifetime journeys, one memory at a time",
     storyBody: [
-      "Shooting Star Travel is devoted to small-group travel across Canada — calm, considered itineraries for travellers from many languages and backgrounds.",
-      "We believe a journey is not just about visiting places. It's about meeting landscape, culture and people, one slow day at a time.",
-      "From sunrise in Calgary to starlight over the Yukon, we hope to write Canada into your travel diary, one chapter at a time.",
+      "The name Shooting Star Travel was inspired by the idea that some experiences only happen once in a lifetime. Whether it is watching the sunrise over the Rocky Mountains, standing before the Grand Canyon, exploring the coastline of the Pacific Northwest, or discovering hidden gems along the way, these are the moments that turn an ordinary vacation into an unforgettable story.",
+      "We specialize in thoughtfully designed small-group tours across Canada and the Western United States. Our itineraries are carefully planned to balance iconic destinations, local experiences, comfort, flexibility, and genuine human connection.",
+      "We welcome travellers from different cultures, backgrounds, and languages. Whether you are travelling with family, friends, or on your own, our goal is to create journeys that feel personal, effortless, and meaningful.",
+      "Travel is not just about reaching a destination. It is about discovering a journey that shines like a shooting star — one unforgettable memory at a time.",
     ],
     stat1: "10+", stat1L: "Years on the ground",
     stat2: "2,400+", stat2L: "Travellers hosted",
