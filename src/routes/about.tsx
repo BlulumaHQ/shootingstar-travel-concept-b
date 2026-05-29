@@ -10,9 +10,9 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Shooting Star Travel" },
-      { name: "description", content: "Shooting Star Travel is a Canada-based boutique small-group travel studio crafting calm, considered journeys for English, Mandarin and Korean travellers." },
+      { name: "description", content: "Shooting Star Travel crafts thoughtfully designed small-group tours across Canada and the Western United States — rare, memorable journeys for travellers of every language and background." },
       { property: "og:title", content: "About — Shooting Star Travel" },
-      { property: "og:description", content: "Small groups, slow travel, considered detail — our promise to every traveller." },
+      { property: "og:description", content: "Small-group journeys across Canada and the Western United States — rare, memorable, and made to be kept." },
       { property: "og:image", content: journal },
     ],
     links: [
