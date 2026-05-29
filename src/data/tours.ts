@@ -534,6 +534,24 @@ export const tours: Tour[] = [
     ],
     bookingCta: "Book Your Oregon Coast 3-Day Tour",
   },
+  {
+    slug: "banff-two-lake-1-day",
+    href: "/rocky-mountain-lake-tours",
+    img: bgLake,
+    title: "Banff Two-Lake Tour 1-Day | Lake Louise & Moraine Lake",
+    desc: "A single, unhurried day at the Canadian Rockies' two most iconic lakes — Lake Louise's mirror waters and Moraine Lake's Valley of the Ten Peaks.",
+    intro: "A focused one-day journey to the Rockies' most photographed lakes, designed for slow looking and great light.",
+    duration: "1 day",
+    language: LANGUAGE_NOTE,
+    price: "From $180 CAD / person",
+    itinerary: [
+      { stop: "Day 1", title: "Lake Louise", body: "Morning at the emerald mirror of Lake Louise, framed by Victoria Glacier." },
+      { stop: "Day 1", title: "Moraine Lake", body: "Afternoon at Moraine Lake and the Valley of the Ten Peaks." },
+    ],
+    included: ["Comfortable private vehicle transportation", "Professional driver/guide", "National park entry"],
+    notes: ["Lake access varies by season — itinerary may adapt to road and weather conditions."],
+    bookingCta: "Book Your Banff Two-Lake 1-Day Tour",
+  },
 ];
 
 export function getTour(slug: string) {
