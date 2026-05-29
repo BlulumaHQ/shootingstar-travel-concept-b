@@ -18,7 +18,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 const channels = [
-  { l: "WhatsApp", v: "+1 (604) 000-0000", h: "https://wa.me/" },
+  { l: "WhatsApp", v: "1-604-765-7765", h: "https://wa.me/16047657765" },
   { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
   { l: "WeChat", v: "shootingstar_ca", h: "#" },
   { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
