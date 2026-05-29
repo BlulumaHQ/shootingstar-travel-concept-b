@@ -62,20 +62,24 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         <img
           src={HERO_IMAGE}
           alt="Moraine Lake / 모레인 호수 / 夢蓮湖"
-          className="absolute inset-0 h-full w-full object-cover opacity-80"
+          className="absolute inset-0 h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/60" />
+        {/* Strong scrim for legibility */}
+        <div className="absolute inset-0 bg-ink/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-transparent to-ink/70" />
+
         <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-20 md:py-32 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 text-cream">
-            <p className="font-marker text-cream/85 text-[13px] tracking-[0.3em] uppercase">
+          <div className="lg:col-span-7 text-cream [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
+            <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
               {c.hero.eyebrow}
             </p>
-            <h1 className="mt-4 font-serif text-[40px] md:text-[58px] leading-[1.05] font-semibold">
+            <h1 className="mt-4 font-serif text-[40px] md:text-[58px] leading-[1.05] font-semibold text-cream">
               {c.hero.h1Line1}
               <br /> {c.hero.h1Line2}
             </h1>
-            <p className="mt-5 max-w-xl text-cream/85 text-[15.5px] leading-[1.95]">
+            <p className="mt-5 max-w-xl text-cream/95 text-[15.5px] leading-[1.95]">
               {c.hero.sub}
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -87,15 +91,15 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
               </button>
               <button
                 onClick={() => scrollTo("compare")}
-                className="rounded-full border border-cream/60 text-cream px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/10 transition"
+                className="rounded-full border border-cream/70 text-cream px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/15 transition backdrop-blur-sm"
               >
                 {c.hero.ctaCompare}
               </button>
             </div>
-            <div className="mt-9 flex flex-wrap gap-x-5 gap-y-2 text-[12px] text-cream/80 tracking-[0.15em] uppercase">
+            <div className="mt-9 flex flex-wrap gap-x-5 gap-y-2 text-[12px] text-cream/90 tracking-[0.15em] uppercase">
               {c.hero.badges.map((b) => (
                 <span key={b} className="inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-cream/70" /> {b}
+                  <span className="h-1 w-1 rounded-full bg-cream/80" /> {b}
                 </span>
               ))}
             </div>
