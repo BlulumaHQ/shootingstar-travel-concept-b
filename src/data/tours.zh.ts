@@ -1,5 +1,6 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
+import banffTwoLakeFeature from "@/assets/banff-two-lake-feature.jpg";
 import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
@@ -493,7 +494,7 @@ export const tours: Tour[] = [
   {
     slug: "banff-two-lake-1-day",
     href: "/rocky-mountain-lake-tours",
-    img: bgLake,
+    img: banffTwoLakeFeature,
     title: "Banff 雙湖一日遊｜露易絲湖 × 夢蓮湖",
     desc: "一天悠閒走訪洛磯山最具代表性的兩座湖泊 —— 鏡面般的露易絲湖與十峰山下的夢蓮湖。",
     intro: "專為慢遊規劃的一日行程，前往洛磯山最受攝影師喜愛的兩座湖。",

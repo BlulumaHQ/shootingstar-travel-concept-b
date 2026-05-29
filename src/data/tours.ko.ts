@@ -1,5 +1,6 @@
 import tourBanff from "@/assets/tour-banff.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
+import banffTwoLakeFeature from "@/assets/banff-two-lake-feature.jpg";
 import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
@@ -494,7 +495,7 @@ export const tours: Tour[] = [
   {
     slug: "banff-two-lake-1-day",
     href: "/rocky-mountain-lake-tours",
-    img: bgLake,
+    img: banffTwoLakeFeature,
     title: "밴프 투 레이크 1일 투어｜레이크 루이스 & 모레인 레이크",
     desc: "캐나디안 로키의 가장 상징적인 두 호수, 레이크 루이스와 모레인 레이크를 하루에 천천히 둘러봅니다.",
     intro: "로키에서 가장 사랑받는 두 호수를 여유롭게 즐기는 1일 일정.",
