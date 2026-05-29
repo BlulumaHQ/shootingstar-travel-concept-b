@@ -2,6 +2,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocale, withLocale, locales, localeLabels, type Locale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 
