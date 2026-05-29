@@ -97,7 +97,7 @@ const PACKS: Record<Locale, Pack> = {
     ],
     whoEyebrow: "Who We Travel With",
     whoHeading: "為這些旅人而設計",
-    whoBody: "無論是第一次來加拿大、慢步調的家庭旅行,或是想用母語旅行的你 — 我們都用同樣的用心為你規劃每一段旅程。",
+    whoBody: "無論是第一次來北美旅遊、慢步調的家庭旅行，或是想用母語旅行的你——我們都用同樣的用心為你規劃每一段旅程。",
     whoTags: ["中文家庭", "韓文長期 / 假期", "情侶與蜜月", "國際小團"],
   },
   ko: {
