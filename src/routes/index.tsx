@@ -169,7 +169,7 @@ const PACKS: Record<Locale, Pack> = {
     aboutEyebrow: "About the Studio",
     aboutHeading: "關於 Shooting Star Travel",
     aboutP1: "用心規劃每一段旅程,讓旅行不只是到達目的地,而是留下值得收藏的回憶。",
-    aboutP2: "我們專注於加拿大在地旅遊體驗,為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排,讓每位旅人都能放心、自在地走進每一段風景。",
+    aboutP2: "我們專注於加拿大與美國西部的小團旅遊體驗,為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排,讓每位旅人都能放心、自在地走進每一段風景。",
     meetUs: "認識我們 →",
     beliefsEyebrow: "我們的旅行哲學",
     beliefsHeading: "五個我們在乎的事",
