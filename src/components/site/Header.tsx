@@ -135,10 +135,24 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="lg:hidden fixed inset-0 top-[72px] z-40 bg-cream overflow-y-auto">
-          <nav className="px-8 pt-10 pb-16 flex flex-col">
+      {/* Mobile menu — rendered via portal so it escapes the transformed header */}
+      {open && typeof document !== "undefined" && createPortal(
+        <div className="lg:hidden fixed inset-0 z-[100] bg-cream overflow-y-auto">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10 bg-cream">
+            <Link to={localized("/") as never} onClick={() => setOpen(false)} className="flex items-center">
+              <img src={logo} alt="Shootingstar Travel" className="h-[72px] w-auto" />
+            </Link>
+            <button
+              className="p-2 -mr-2 text-ink"
+              aria-label="Close menu"
+              onClick={() => setOpen(false)}
+            >
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </div>
+          <nav className="px-8 pt-8 pb-16 flex flex-col bg-cream">
             {nav.map((n, i) => (
               <Link
                 key={n.to + n.label}
@@ -163,7 +177,8 @@ export function Header() {
               Shootingstar Travel · Vancouver
             </div>
           </nav>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
