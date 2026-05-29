@@ -204,7 +204,7 @@ const PACKS: Record<Locale, Pack> = {
     heroL1: "여행은 단지",
     heroL2: "어딘가에 도착하는 것이 아니라 —",
     heroL3: "빛이 당신을 비추는 순간입니다.",
-    heroBody: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다의 산과 바다 사이의 모든 빛을 모으세요.",
+    heroBody: "소그룹 · 천천히 · 정성껏. Shootingstar Travel과 함께 가벼운 발걸음으로 캐나다와 미국 서부의 산과 바다 사이의 모든 빛을 모으세요.",
     ctaExplore: "투어 둘러보기",
     ctaStories: "여행자 이야기 →",
     featuresEyebrow: "함께 떠나야 할 이유",
