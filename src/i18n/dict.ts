@@ -7,7 +7,7 @@ export const dict: Dict = {
   "nav.home": { en: "Home", zh: "首頁", ko: "홈" },
   "nav.tours": { en: "Tours", zh: "行程介紹", ko: "투어" },
   "nav.about": { en: "About", zh: "關於我們", ko: "소개" },
-  "nav.reviews": { en: "Stories", zh: "旅客分享", ko: "후기" },
+  "nav.reviews": { en: "Journey Stories", zh: "旅程分享", ko: "여행 이야기" },
   "nav.blog": { en: "Journal", zh: "部落格", ko: "저널" },
   "nav.faq": { en: "FAQ", zh: "常見問題", ko: "자주묻는질문" },
   "nav.contact": { en: "Contact", zh: "聯絡我們", ko: "문의" },
