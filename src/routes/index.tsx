@@ -433,7 +433,7 @@ export function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {featured.map((t) => (
               <Link
-                to={link(`/tours/${t.slug}`) as never}
+                to={link(t.href ?? `/tours/${t.slug}`) as never}
                 key={t.slug}
                 className="group relative bg-card rounded-[6px] p-3 pb-6 shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] hover:-translate-y-1.5 hover:shadow-[0_4px_10px_-2px_rgba(70,80,75,0.08),0_48px_80px_-32px_rgba(70,80,75,0.4)] transition-all duration-500 block"
               >
