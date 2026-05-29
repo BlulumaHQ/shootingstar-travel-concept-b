@@ -5,6 +5,8 @@ import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useState } from "react";
+import { Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const LABELS: Record<Locale, {
   allTours: string; duration: string; language: string; price: string;
