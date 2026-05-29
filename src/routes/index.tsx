@@ -86,7 +86,7 @@ const PACKS: Record<Locale, Pack> = {
     heroL1: "Travel is not just",
     heroL2: "arriving somewhere —",
     heroL3: "it is the moment light finds you.",
-    heroBody: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada at the lightest pace, gathering every glimmer between mountain and sea.",
+    heroBody: "Small groups. Slow days. Carefully written. Shootingstar Travel takes you across Canada and the Western United States at the lightest pace, gathering every glimmer between mountain and sea.",
     ctaExplore: "Explore Tours",
     ctaStories: "Travellers' Stories →",
     featuresEyebrow: "Why Travel With Us",
