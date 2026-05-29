@@ -523,15 +523,16 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
       {/* FINAL CTA */}
       <section className="relative overflow-hidden py-24 md:py-32 bg-ink text-cream">
-        <img src={FINAL_CTA_BG} alt="" className="absolute inset-0 h-full w-full object-cover opacity-30" />
-        <div className="relative mx-auto max-w-[900px] px-5 md:px-10 text-center">
-          <p className="font-marker text-cream/80 text-[13px] tracking-[0.3em] uppercase">
+        <img src={FINAL_CTA_BG} alt="" className="absolute inset-0 h-full w-full object-cover opacity-55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/55 to-ink/75" />
+        <div className="relative mx-auto max-w-[900px] px-5 md:px-10 text-center [text-shadow:0_2px_18px_rgba(0,0,0,0.6)]">
+          <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
             {c.finalCta.eyebrow}
           </p>
-          <h2 className="mt-4 font-serif text-3xl md:text-[44px] font-semibold leading-[1.15]">
+          <h2 className="mt-4 font-serif text-3xl md:text-[44px] font-semibold leading-[1.15] text-cream">
             {c.finalCta.h2}
           </h2>
-          <p className="mt-5 text-cream/80 text-[15.5px] leading-[1.95] max-w-2xl mx-auto">
+          <p className="mt-5 text-cream/95 text-[15.5px] leading-[1.95] max-w-2xl mx-auto">
             {c.finalCta.p}
           </p>
           <div className="mt-8 flex flex-wrap gap-3 justify-center">
