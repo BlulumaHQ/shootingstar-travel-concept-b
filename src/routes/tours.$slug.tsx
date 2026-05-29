@@ -5,6 +5,8 @@ import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useState } from "react";
+import { Info } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const LABELS: Record<Locale, {
   allTours: string; duration: string; language: string; price: string;
@@ -78,13 +80,35 @@ export const Route = createFileRoute("/tours/$slug")({
 });
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
+  const locale = useLocale();
+  const langCopy = {
+    en: {
+      label: "Preferred Language",
+      tooltip: "Language preference only. Guide language depends on group composition and guide availability. We will do our best to accommodate your preferred language, but a single-language tour cannot be guaranteed.",
+      note: "Selecting a language indicates your preference only — it does not guarantee a dedicated single-language tour.",
+      options: ["English Preferred", "Mandarin Preferred", "Korean Preferred"],
+    },
+    zh: {
+      label: "偏好語言",
+      tooltip: "僅為語言偏好。導遊語言將依當團旅客組成與導遊安排而定。我們會盡力安排您的偏好語言，但無法保證提供單一語言團。",
+      note: "選擇語言僅代表您的偏好——並不保證會安排單一語言導覽團。",
+      options: ["偏好英文", "偏好中文", "偏好韓文"],
+    },
+    ko: {
+      label: "선호 언어",
+      tooltip: "언어 선호일 뿐입니다. 가이드 언어는 투어 구성과 가이드 가능 여부에 따라 결정됩니다. 선호하시는 언어를 최대한 반영하도록 노력하지만, 단일 언어 투어를 보장할 수는 없습니다.",
+      note: "언어 선택은 선호 사항일 뿐이며, 단일 언어 투어를 보장하지는 않습니다.",
+      options: ["영어 선호", "중국어 선호", "한국어 선호"],
+    },
+  }[locale];
+
   const departures = tour?.departures ?? [
     { date: "Jul 12", seats: 8 },
     { date: "Jul 18", seats: 4 },
     { date: "Jul 26", seats: 12 },
     { date: "Aug 09", seats: 6 },
   ];
-  const packages = tour?.packages ?? ["English", "Mandarin", "Korean"];
+  const packages = tour?.packages ?? langCopy.options;
 
   const [dateIdx, setDateIdx] = useState(0);
   const [pkg, setPkg] = useState(packages[0]);
@@ -160,7 +184,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       </div>
 
       <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Choose a group</label>
+        <div className="flex items-center gap-1.5 mb-2">
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55">{langCopy.label}</label>
+          <TooltipProvider delayDuration={150}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  type="button"
+                  aria-label={langCopy.label}
+                  className="inline-flex items-center justify-center text-ink/45 hover:text-primary transition"
+                >
+                  <Info size={13} strokeWidth={2} />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="max-w-[260px] text-[11.5px] leading-[1.55] text-left">
+                {langCopy.tooltip}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
         <div className="flex flex-wrap gap-1.5">
           {packages.map((p) => (
             <button
@@ -172,6 +214,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             >{p}</button>
           ))}
         </div>
+        <p className="mt-2 text-[11px] text-ink/55 leading-[1.6]">{langCopy.note}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3">

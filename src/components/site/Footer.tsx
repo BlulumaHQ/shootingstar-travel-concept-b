@@ -36,25 +36,25 @@ export function Footer() {
 
   const popularToursByLocale = {
     en: [
-      { l: "Seattle 1-Day Tour", to: lp("/tours/seattle-1-day") },
-      { l: "Seattle 2-Day Tour", to: lp("/tours/seattle-2-day") },
-      { l: "Victoria 1-Day Tour", to: lp("/tours/victoria-1-day") },
-      { l: "Whistler 1-Day Tour", to: lp("/tours/whistler-1-day") },
+      { l: "Western US 8-Day Tour", to: lp("/tours/western-usa-8-day") },
       { l: "Rocky Mountains 3-Day Tour", to: lp("/tours/rockies-3-day") },
+      { l: "Las Vegas & Canyons 4-Day Tour", to: lp("/tours/vegas-canyon-4-day") },
+      { l: "Victoria 1-Day Tour", to: lp("/tours/victoria-1-day") },
+      { l: "Seattle 2-Day Tour", to: lp("/tours/seattle-2-day") },
     ],
     zh: [
-      { l: "西雅圖一日遊", to: lp("/tours/seattle-1-day") },
-      { l: "西雅圖兩日遊", to: lp("/tours/seattle-2-day") },
-      { l: "維多利亞一日遊", to: lp("/tours/victoria-1-day") },
-      { l: "惠斯勒一日遊", to: lp("/tours/whistler-1-day") },
+      { l: "美西八日遊", to: lp("/tours/western-usa-8-day") },
       { l: "加拿大洛磯山三日遊", to: lp("/tours/rockies-3-day") },
+      { l: "拉斯維加斯與大峽谷四日遊", to: lp("/tours/vegas-canyon-4-day") },
+      { l: "維多利亞一日遊", to: lp("/tours/victoria-1-day") },
+      { l: "西雅圖兩日遊", to: lp("/tours/seattle-2-day") },
     ],
     ko: [
-      { l: "시애틀 1일 투어", to: lp("/tours/seattle-1-day") },
-      { l: "시애틀 2일 투어", to: lp("/tours/seattle-2-day") },
-      { l: "빅토리아 1일 투어", to: lp("/tours/victoria-1-day") },
-      { l: "휘슬러 1일 투어", to: lp("/tours/whistler-1-day") },
+      { l: "미국 서부 8일 투어", to: lp("/tours/western-usa-8-day") },
       { l: "캐나다 록키 3일 투어", to: lp("/tours/rockies-3-day") },
+      { l: "라스베이거스 & 캐니언 4일 투어", to: lp("/tours/vegas-canyon-4-day") },
+      { l: "빅토리아 1일 투어", to: lp("/tours/victoria-1-day") },
+      { l: "시애틀 2일 투어", to: lp("/tours/seattle-2-day") },
     ],
   } as const;
   const popularTours = popularToursByLocale[locale];
