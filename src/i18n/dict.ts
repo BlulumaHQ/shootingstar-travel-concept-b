@@ -74,9 +74,9 @@ export const dict: Dict = {
     ko: "모든 여행은 도착 그 이상의 의미가 되도록 정성껏 설계됩니다 — 간직할 가치가 있는 추억으로.",
   },
   "section.aboutP2": {
-    en: "We focus on Canadian local experiences, designing safe, comfortable, warm-hearted journeys for travellers from many languages and backgrounds. Small groups, attentive planning, room to breathe.",
-    zh: "我們專注於加拿大在地旅遊體驗，為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排，讓每位旅人都能放心、自在地走進每一段風景。",
-    ko: "캐나다 현지 체험에 집중하여 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다.",
+    en: "We focus on small-group journeys across Canada and the Western United States, designing safe, comfortable, warm-hearted itineraries for travellers from many languages and backgrounds. Small groups, attentive planning, room to breathe.",
+    zh: "我們專注於加拿大與美國西部的小團旅遊體驗，為不同語言與背景的旅客規劃安心、舒適、有溫度的行程。小團出發、用心安排，讓每位旅人都能放心、自在地走進每一段風景。",
+    ko: "캐나다와 미국 서부 전역의 소그룹 여행에 집중하여, 다양한 언어와 배경의 여행자에게 편안하고 따뜻한 여정을 디자인합니다. 소그룹 출발, 세심한 기획, 숨 쉴 여유가 있는 일정.",
   },
   "section.meetUs": { en: "Meet the team →", zh: "認識我們 →", ko: "팀 소개 →" },
   "section.viewAll": { en: "View all →", zh: "View all →", ko: "전체 보기 →" },
