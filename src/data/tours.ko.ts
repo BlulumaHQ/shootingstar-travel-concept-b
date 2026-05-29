@@ -501,7 +501,7 @@ export const tours: Tour[] = [
     intro: "로키에서 가장 사랑받는 두 호수를 여유롭게 즐기는 1일 일정.",
     duration: "1일",
     language: LANGUAGE_NOTE,
-    price: "From $180 CAD / 인",
+    price: "From $155 CAD / 인",
     itinerary: [
       { stop: "Day 1", title: "레이크 루이스", body: "빅토리아 빙하 아래 에메랄드 빛 호수를 만나는 오전." },
       { stop: "Day 1", title: "모레인 레이크", body: "텐 픽스 계곡 아래 모레인 레이크에서의 오후." },

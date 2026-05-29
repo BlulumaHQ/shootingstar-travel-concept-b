@@ -500,7 +500,7 @@ export const tours: Tour[] = [
     intro: "專為慢遊規劃的一日行程，前往洛磯山最受攝影師喜愛的兩座湖。",
     duration: "1 天",
     language: LANGUAGE_NOTE,
-    price: "From $180 CAD / 人",
+    price: "From $155 CAD / 人",
     itinerary: [
       { stop: "Day 1", title: "露易絲湖", body: "上午來到露易絲湖，欣賞維多利亞冰川下的翡翠湖水。" },
       { stop: "Day 1", title: "夢蓮湖", body: "下午前往夢蓮湖與十峰山經典景觀。" },
