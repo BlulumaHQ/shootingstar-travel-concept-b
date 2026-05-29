@@ -1,4 +1,5 @@
 import tourBanff from "@/assets/tour-banff.webp";
+import bgLake from "@/assets/bg-lake-louise.webp";
 import { banff3Hero, banff3Gallery } from "./banff3-gallery";
 import tourRockies from "@/assets/tour-rockies.webp";
 import tourVancouver from "@/assets/tour-vancouver.webp";
@@ -489,6 +490,24 @@ export const tours: Tour[] = [
       "오리건 해안은 날씨 변화가 많으니 레이어드 의류와 방풍 자켓을 권장합니다.",
     ],
     bookingCta: "오리건 3일 투어 예약하기",
+  },
+  {
+    slug: "banff-two-lake-1-day",
+    href: "/rocky-mountain-lake-tours",
+    img: bgLake,
+    title: "밴프 투 레이크 1일 투어｜레이크 루이스 & 모레인 레이크",
+    desc: "캐나디안 로키의 가장 상징적인 두 호수, 레이크 루이스와 모레인 레이크를 하루에 천천히 둘러봅니다.",
+    intro: "로키에서 가장 사랑받는 두 호수를 여유롭게 즐기는 1일 일정.",
+    duration: "1일",
+    language: LANGUAGE_NOTE,
+    price: "From $180 CAD / 인",
+    itinerary: [
+      { stop: "Day 1", title: "레이크 루이스", body: "빅토리아 빙하 아래 에메랄드 빛 호수를 만나는 오전." },
+      { stop: "Day 1", title: "모레인 레이크", body: "텐 픽스 계곡 아래 모레인 레이크에서의 오후." },
+    ],
+    included: ["편안한 전용 차량", "전문 가이드 겸 드라이버", "국립공원 입장료"],
+    notes: ["호수 개방은 계절에 따라 달라지며, 일정은 도로 및 날씨 상황에 따라 조정될 수 있습니다."],
+    bookingCta: "밴프 투 레이크 1일 투어 예약",
   },
 ];
 

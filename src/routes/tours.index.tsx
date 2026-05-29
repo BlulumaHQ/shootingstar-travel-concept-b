@@ -90,7 +90,7 @@ export function ToursIndexPage() {
 
   const renderCard = (t: (typeof tours)[number]) => (
     <Link
-      to={withLocale(`/tours/${t.slug}`, locale) as never}
+      to={withLocale(t.href ?? `/tours/${t.slug}`, locale) as never}
       key={t.slug}
       className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
     >
