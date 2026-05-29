@@ -24,6 +24,8 @@ export type RoomOption = {
 
 export type Tour = {
   slug: string;
+  /** Optional override link target. When set, tour cards link here instead of `/tours/{slug}`. */
+  href?: string;
   img: string;
   gallery?: string[];
   title: string;
