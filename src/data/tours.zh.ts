@@ -490,6 +490,24 @@ export const tours: Tour[] = [
     ],
     bookingCta: "預訂俄勒岡三日遊",
   },
+  {
+    slug: "banff-two-lake-1-day",
+    href: "/rocky-mountain-lake-tours",
+    img: bgLake,
+    title: "Banff 雙湖一日遊｜露易絲湖 × 夢蓮湖",
+    desc: "一天悠閒走訪洛磯山最具代表性的兩座湖泊 —— 鏡面般的露易絲湖與十峰山下的夢蓮湖。",
+    intro: "專為慢遊規劃的一日行程，前往洛磯山最受攝影師喜愛的兩座湖。",
+    duration: "1 天",
+    language: LANGUAGE_NOTE,
+    price: "From $180 CAD / 人",
+    itinerary: [
+      { stop: "Day 1", title: "露易絲湖", body: "上午來到露易絲湖，欣賞維多利亞冰川下的翡翠湖水。" },
+      { stop: "Day 1", title: "夢蓮湖", body: "下午前往夢蓮湖與十峰山經典景觀。" },
+    ],
+    included: ["舒適專車交通", "專業司導", "國家公園門票"],
+    notes: ["湖區開放時間依季節調整，行程將視路況與天氣彈性安排。"],
+    bookingCta: "預訂 Banff 雙湖一日遊",
+  },
 ];
 
 export function getTour(slug: string) {
