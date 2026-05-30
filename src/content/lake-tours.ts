@@ -108,7 +108,7 @@ export type LakeToursContent = {
     includedTitle: string;
     includedItems: string[];
     notIncludedTitle: string;
-    notIncludedItems: string[];
+    notIncludedItems: (string | { text: string; href?: string })[];
   };
   faq: {
     eyebrow: string;
