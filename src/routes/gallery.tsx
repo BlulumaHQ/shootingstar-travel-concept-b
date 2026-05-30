@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useState, useMemo } from "react";
-import { Play, MapPin, Calendar, X } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { Play, MapPin, Calendar, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import logo from "@/assets/logo.png";
@@ -22,6 +22,15 @@ import v1 from "@/assets/victoria/v1.webp";
 import v2 from "@/assets/victoria/v2.webp";
 import v5 from "@/assets/victoria/v5.webp";
 import v7 from "@/assets/victoria/v7.webp";
+import w1 from "@/assets/whistler/w1.webp";
+import w2 from "@/assets/whistler/w2.webp";
+import w3 from "@/assets/whistler/w3.webp";
+import w5 from "@/assets/whistler/w5.webp";
+import w7 from "@/assets/whistler/w7.webp";
+import vc1 from "@/assets/vancouver-city/v1.webp";
+import vc2 from "@/assets/vancouver-city/v2.webp";
+import vc3 from "@/assets/vancouver-city/v3.webp";
+import vc4 from "@/assets/vancouver-city/v4.webp";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -39,8 +48,8 @@ export const Route = createFileRoute("/gallery")({
 
 // ── i18n ──────────────────────────────────────────────────────────────
 const T = {
-  heroEyebrow: { en: "Studio Gallery", zh: "Studio Gallery", ko: "Studio Gallery" },
-  heroTitle: { en: "Gallery", zh: "Gallery", ko: "Gallery" },
+  heroEyebrow: { en: "Studio Gallery", zh: "旅程相簿", ko: "스튜디오 갤러리" },
+  heroTitle: { en: "Gallery", zh: "旅程相簿", ko: "갤러리" },
   heroSub: {
     en: "Latest travel moments, photos, and videos from Shooting Star Travel.",
     zh: "持續更新最新旅遊照片、影片與行程紀錄，讓你看到我們真實的旅程現場。",
@@ -149,6 +158,54 @@ const items: GalleryItem[] = [
     photos: [v1, v2, v5, v7],
     hasVideo: false,
   },
+  {
+    id: "whistler-summer",
+    dateISO: "2026-08-22",
+    date: { en: "August 22, 2026", zh: "2026 年 8 月 22 日", ko: "2026년 8월 22일" },
+    title: {
+      en: "Whistler Summer Escape",
+      zh: "Whistler 夏日山林輕旅",
+      ko: "휘슬러 여름 산악 여행",
+    },
+    description: {
+      en: "Alpine lakes, gondola rides, and quiet forest trails in Whistler village.",
+      zh: "高山湖泊、纜車風景，還有 Whistler 村裡靜謐的森林步道。",
+      ko: "고산 호수와 곤돌라, 그리고 휘슬러 빌리지의 조용한 숲길.",
+    },
+    location: {
+      en: "Whistler, BC",
+      zh: "Whistler，BC 省",
+      ko: "휘슬러, BC",
+    },
+    category: "destination",
+    cover: w1,
+    photos: [w1, w2, w3, w5, w7],
+    hasVideo: false,
+  },
+  {
+    id: "vancouver-city-walk",
+    dateISO: "2026-09-05",
+    date: { en: "September 5, 2026", zh: "2026 年 9 月 5 日", ko: "2026년 9월 5일" },
+    title: {
+      en: "Vancouver City Walk Recap",
+      zh: "溫哥華城市漫步回顧",
+      ko: "밴쿠버 시티 워크 후기",
+    },
+    description: {
+      en: "A short film from our small-group walk through Gastown, the seawall, and Stanley Park.",
+      zh: "小團漫步 Gastown、海堤與史丹利公園的短片紀錄。",
+      ko: "개스타운, 시월, 스탠리 파크를 함께 걸은 소그룹의 짧은 영상.",
+    },
+    location: {
+      en: "Downtown Vancouver",
+      zh: "溫哥華市中心",
+      ko: "다운타운 밴쿠버",
+    },
+    category: "group",
+    cover: vc1,
+    photos: [vc1, vc2, vc3, vc4],
+    hasVideo: true,
+  },
 ];
 
 // ── Subtle watermark (small padding) ──────────────────────────────────
@@ -220,35 +277,128 @@ function Detail({ item, onClose }: { item: GalleryItem; onClose: () => void }) {
   );
 }
 
-// ── Card ──────────────────────────────────────────────────────────────
-function Card({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
-  const l = useLocale();
+// ── Lightbox ──────────────────────────────────────────────────────────
+function Lightbox({
+  photos,
+  startIndex,
+  onClose,
+}: { photos: string[]; startIndex: number; onClose: () => void }) {
+  const [idx, setIdx] = useState(startIndex);
+  const go = (n: number) => setIdx((n + photos.length) % photos.length);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % photos.length);
+      if (e.key === "ArrowLeft") setIdx((i) => (i - 1 + photos.length) % photos.length);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [photos.length, onClose]);
   return (
-    <article
-      className="bg-card rounded-[12px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full cursor-pointer group"
-      onClick={onOpen}
-    >
-      <div className="relative">
+    <div className="fixed inset-0 z-[80] bg-ink/90 backdrop-blur-sm flex flex-col" onClick={onClose}>
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 text-cream/85 hover:text-cream p-2"
+        aria-label="Close"
+      >
+        <X size={28} />
+      </button>
+      <div className="flex-1 flex items-center justify-center p-4 md:p-12" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={() => go(idx - 1)}
+          aria-label="Previous"
+          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition mr-4"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <div className="relative max-h-[80vh] max-w-[90vw]">
+          <img src={photos[idx]} alt="" className="max-h-[80vh] max-w-[90vw] object-contain rounded-md" />
+          <Watermark />
+        </div>
+        <button
+          onClick={() => go(idx + 1)}
+          aria-label="Next"
+          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition ml-4"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+      <div className="pb-6 px-4 flex items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => go(idx - 1)} className="md:hidden text-cream/80 p-2"><ChevronLeft size={20} /></button>
+        <span className="text-cream/70 text-[12px] tracking-[0.2em]">{idx + 1} / {photos.length}</span>
+        <button onClick={() => go(idx + 1)} className="md:hidden text-cream/80 p-2"><ChevronRight size={20} /></button>
+      </div>
+    </div>
+  );
+}
+
+// ── Card ──────────────────────────────────────────────────────────────
+function Card({
+  item,
+  onOpen,
+  onOpenLightbox,
+}: {
+  item: GalleryItem;
+  onOpen: () => void;
+  onOpenLightbox: (startIndex: number) => void;
+}) {
+  const l = useLocale();
+  const thumbs = item.photos.slice(0, 4);
+  return (
+    <article className="bg-card rounded-[12px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
+      <button type="button" onClick={onOpen} className="relative text-left">
         <ImgWithMark src={item.cover} className="aspect-[5/4]" />
         {item.hasVideo && (
           <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-ink/75 text-cream px-2.5 py-1 text-[10.5px] tracking-[0.18em] uppercase">
             <Play size={11} fill="currentColor" /> {t("videoBadge", l)}
           </div>
         )}
-      </div>
+      </button>
       <div className="p-6 flex-1 flex flex-col">
         <div className="inline-flex items-center gap-1.5 self-start rounded-full bg-sage-soft/40 text-ink/75 px-2.5 py-1 text-[11px] font-medium">
           <Calendar size={11} /> {item.date[l]}
         </div>
-        <h3 className="font-serif text-[20px] text-ink font-semibold mt-3 leading-tight group-hover:text-primary transition-colors">
+        <h3
+          className="font-serif text-[20px] text-ink font-semibold mt-3 leading-tight hover:text-primary transition-colors cursor-pointer"
+          onClick={onOpen}
+        >
           {item.title[l]}
         </h3>
         <p className="text-ink/60 text-[12.5px] mt-1 flex items-center gap-1.5"><MapPin size={12} />{item.location[l]}</p>
         <p className="mt-3 text-[13.5px] text-ink/80 leading-[1.85] font-serif flex-1">{item.description[l]}</p>
+
+        {/* Equal-height media strip: thumbnails for photos, play CTA for video */}
+        <div className="mt-5 h-[68px]">
+          {item.hasVideo ? (
+            <button
+              type="button"
+              onClick={onOpen}
+              className="h-full w-full rounded-md bg-ink/90 text-cream/90 flex items-center justify-center gap-2 hover:bg-ink transition"
+            >
+              <Play size={16} fill="currentColor" />
+              <span className="text-[12px] tracking-[0.2em] uppercase">{t("videoBadge", l)}</span>
+            </button>
+          ) : (
+            <div className="grid grid-cols-4 gap-2 h-full">
+              {thumbs.map((p, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => onOpenLightbox(i)}
+                  className="relative overflow-hidden rounded-md ring-1 ring-border/40 hover:ring-primary transition"
+                  aria-label={`Photo ${i + 1}`}
+                >
+                  <img src={p} alt="" loading="lazy" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );
 }
+
 
 // ── Page ──────────────────────────────────────────────────────────────
 type Filter = "all" | "photos" | "videos" | "group" | "destination";
@@ -257,6 +407,7 @@ export function GalleryPage() {
   const l = useLocale();
   const [filter, setFilter] = useState<Filter>("all");
   const [detail, setDetail] = useState<GalleryItem | null>(null);
+  const [lightbox, setLightbox] = useState<{ photos: string[]; index: number } | null>(null);
 
   const sorted = useMemo(() => [...items].sort((a, b) => b.dateISO.localeCompare(a.dateISO)), []);
   const featured = sorted.find((i) => i.featured) ?? sorted[0];
@@ -361,7 +512,12 @@ export function GalleryPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
               {filtered.map((it) => (
-                <Card key={it.id} item={it} onOpen={() => setDetail(it)} />
+                <Card
+                  key={it.id}
+                  item={it}
+                  onOpen={() => setDetail(it)}
+                  onOpenLightbox={(index) => setLightbox({ photos: it.photos, index })}
+                />
               ))}
             </div>
           )}
@@ -369,6 +525,13 @@ export function GalleryPage() {
       </section>
 
       {detail && <Detail item={detail} onClose={() => setDetail(null)} />}
+      {lightbox && (
+        <Lightbox
+          photos={lightbox.photos}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </SiteLayout>
   );
 }
