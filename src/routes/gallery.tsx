@@ -512,7 +512,12 @@ export function GalleryPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
               {filtered.map((it) => (
-                <Card key={it.id} item={it} onOpen={() => setDetail(it)} />
+                <Card
+                  key={it.id}
+                  item={it}
+                  onOpen={() => setDetail(it)}
+                  onOpenLightbox={(index) => setLightbox({ photos: it.photos, index })}
+                />
               ))}
             </div>
           )}
@@ -520,6 +525,13 @@ export function GalleryPage() {
       </section>
 
       {detail && <Detail item={detail} onClose={() => setDetail(null)} />}
+      {lightbox && (
+        <Lightbox
+          photos={lightbox.photos}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </SiteLayout>
   );
 }
