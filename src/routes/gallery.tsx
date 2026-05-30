@@ -22,6 +22,15 @@ import v1 from "@/assets/victoria/v1.webp";
 import v2 from "@/assets/victoria/v2.webp";
 import v5 from "@/assets/victoria/v5.webp";
 import v7 from "@/assets/victoria/v7.webp";
+import w1 from "@/assets/whistler/w1.webp";
+import w2 from "@/assets/whistler/w2.webp";
+import w3 from "@/assets/whistler/w3.webp";
+import w5 from "@/assets/whistler/w5.webp";
+import w7 from "@/assets/whistler/w7.webp";
+import vc1 from "@/assets/vancouver-city/v1.webp";
+import vc2 from "@/assets/vancouver-city/v2.webp";
+import vc3 from "@/assets/vancouver-city/v3.webp";
+import vc4 from "@/assets/vancouver-city/v4.webp";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
