@@ -208,21 +208,23 @@ const items: GalleryItem[] = [
   },
 ];
 
-// ── Subtle watermark (small padding) ──────────────────────────────────
+// ── Sticker-style watermark (logo with white outline, no padding box) ──
 function Watermark() {
   return (
-    <div
-      className="pointer-events-none absolute bottom-2 right-2 z-10 rounded-md"
-      style={{ background: "rgba(255,255,255,0.72)", padding: "5px" }}
-    >
-      <img
-        src={logo}
-        alt=""
-        draggable={false}
-        className="block opacity-80 select-none"
-        style={{ height: 22, width: "auto", maxWidth: 80 }}
-      />
-    </div>
+    <img
+      src={logo}
+      alt=""
+      draggable={false}
+      aria-hidden
+      className="pointer-events-none absolute bottom-2 right-2 z-10 block select-none"
+      style={{
+        height: 56,
+        width: "auto",
+        // Sticker effect: white outline tracing the logo shape + soft shadow
+        filter:
+          "drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
+      }}
+    />
   );
 }
 
