@@ -398,9 +398,18 @@ export function TourDetailPage() {
                 <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.notesEyebrow}</p>
                 <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.notes}</h2>
                 <ul className="mt-5 space-y-3 text-[14px] text-ink/70 leading-[1.95]">
-                  {tour.notes.map((n) => (
-                    <li key={n} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{n}</li>
-                  ))}
+                  {tour.notes.map((n, i) => {
+                    const content = typeof n === "string" ? n : (
+                      <>
+                        {n.text}
+                        {n.href && (
+                          <> <a href={n.href} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">{n.href}</a></>
+                        )}
+                      </>
+                    );
+                    const key = typeof n === "string" ? n : `${n.text}-${i}`;
+                    return <li key={key} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{content}</li>;
+                  })}
                 </ul>
               </section>
             )}
