@@ -507,8 +507,18 @@ export const tours: Tour[] = [
       { stop: "Day 1", title: "레이크 루이스", body: "빅토리아 빙하 아래 에메랄드 빛 호수를 만나는 오전." },
       { stop: "Day 1", title: "모레인 레이크", body: "텐 픽스 계곡 아래 모레인 레이크에서의 오후." },
     ],
-    included: ["편안한 전용 차량", "전문 가이드 겸 드라이버", "국립공원 입장료"],
-    notes: ["호수 개방은 계절에 따라 달라지며, 일정은 도로 및 날씨 상황에 따라 조정될 수 있습니다."],
+    included: ["편안한 전용 차량", "전문 가이드 겸 드라이버"],
+    notIncluded: [
+      "5% 세금",
+      "식사 및 개인 비용",
+      "가이드 팁(권장)",
+      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "밴프 국립공원 입장에는 Parks Canada Discovery Pass가 필요합니다. 각 게스트가 parkscanadashop.ca에서 본인 명의로 사전에 구매하시고 투어 당일 지참해 주세요.",
+      "호수 개방은 계절에 따라 달라지며, 일정은 도로 및 날씨 상황에 따라 조정될 수 있습니다.",
+      "로키 산맥 고지대는 날씨 변화가 빠르므로 레이어드 의류와 방풍·보온 자켓을 준비해 주세요.",
+    ],
     bookingCta: "밴프 투 레이크 1일 투어 예약",
   },
 ];
