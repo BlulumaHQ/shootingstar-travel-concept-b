@@ -48,7 +48,7 @@ export type Tour = {
   /** Suggested guide gratuity, displayed under pricing. */
   gratuity?: string;
   included: string[];
-  notIncluded?: string[];
+  notIncluded?: (string | { text: string; href?: string })[];
   /** Optional self-paid experiences guests can add. */
   optional?: string[];
   /** Travel notes / good-to-know paragraph or list. */
@@ -285,6 +285,7 @@ export const tours: Tour[] = [
       "Meals & personal allowance",
       "Optional attraction tickets",
       "Suggested guide gratuity",
+      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
     optional: [
       "Banff Gondola: $90 CAD (ages 6–15 $60 CAD)",

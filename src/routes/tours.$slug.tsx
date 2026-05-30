@@ -376,7 +376,18 @@ export function TourDetailPage() {
                   <h3 className="font-serif text-lg text-ink font-semibold">{b.t}</h3>
                   <div className="mt-3 h-px w-8 bg-primary/40" />
                   <ul className="mt-4 space-y-2.5 text-[13.5px] text-ink/70 leading-[1.85]">
-                    {b.items.map((x) => <li key={x} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{x}</li>)}
+                    {b.items.map((x, i) => {
+                      const content = typeof x === "string" ? x : (
+                        <>
+                          {x.text}{" "}
+                          {x.href && (
+                            <a href={x.href} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">{x.href}</a>
+                          )}
+                        </>
+                      );
+                      const key = typeof x === "string" ? x : `${x.text}-${i}`;
+                      return <li key={key} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{content}</li>;
+                    })}
                   </ul>
                 </div>
               ))}
