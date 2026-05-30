@@ -242,6 +242,7 @@ export const tours: Tour[] = [
       "식사 및 개인 경비",
       "옵션 입장권",
       "권장 가이드 팁",
+      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
     optional: [
       "밴프 곤돌라 (Banff Gondola): $90 CAD (6–15세 $60 CAD)",

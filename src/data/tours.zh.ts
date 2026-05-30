@@ -241,6 +241,7 @@ export const tours: Tour[] = [
       "行程餐飲與個人開銷 (Meals & personal allowance)",
       "自費選項門票 (Optional attraction tickets)",
       "建議導遊小費 (Suggested Guide Gratuity)",
+      { text: "加拿大國家公園 Discovery Pass（須由旅客本人提前購買）", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
     optional: [
       "班夫硫磺山纜車 (Banff Gondola)：$90 CAD（6-15 歲 $60 CAD）",
