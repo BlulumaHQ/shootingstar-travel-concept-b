@@ -233,7 +233,6 @@ export const tours: Tour[] = [
       "호텔 숙박",
       "편안한 전용 차량",
       "전문 운전기사·가이드",
-      "국립공원 입장권",
       "일정 내 주차비",
     ],
     notIncluded: [
@@ -250,6 +249,7 @@ export const tours: Tour[] = [
       "모레인 호수 셔틀 / 입장 패스: $16 CAD",
     ],
     notes: [
+      { text: "Parks Canada Discovery Pass는 각 게스트가 본인 이름으로 사전에 직접 구매해야 하며, 투어 당일 반드시 지참해 주세요.", href: "https://parkscanadashop.ca/pages/discovery-pass" },
       "록키 고지대는 날씨 변화가 빠릅니다. 레이어드 의류와 방풍·보온 자켓을 준비해 주세요.",
       "옵션 활동(아이스필드 어드벤처, 곤돌라 등)을 원하시면 예약 시 알려 주시기 바랍니다.",
     ],
