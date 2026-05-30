@@ -246,7 +246,7 @@ export const tours: Tour[] = [
     title: "Rocky Mountains 3-Day Tour | Calgary Round-Trip — Glaciers & Lakes",
     desc: "Skip the long drive and parking headaches inside national parks — depart from Calgary and head deep into the heart of the Canadian Rockies.",
     intro:
-      "A 3-day, 2-night highlight journey through century-old Banff town, the dreamlike Lake Louise and Moraine Lake, and the awe-inspiring Columbia Icefield. With comfortable accommodation, private vehicle transport, and national park admission included, you can devote every minute to nature's masterpiece — and enjoy a truly relaxing alpine holiday.",
+      "A 3-day, 2-night highlight journey through century-old Banff town, the dreamlike Lake Louise and Moraine Lake, and the awe-inspiring Columbia Icefield. With comfortable accommodation and private vehicle transport included, you can devote every minute to nature's masterpiece — and enjoy a truly relaxing alpine holiday.",
     duration: "3 days, 2 nights",
     language: LANGUAGE_NOTE,
     price: "From $830 CAD / person",
