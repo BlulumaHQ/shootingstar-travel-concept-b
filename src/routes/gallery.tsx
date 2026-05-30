@@ -48,8 +48,8 @@ export const Route = createFileRoute("/gallery")({
 
 // ── i18n ──────────────────────────────────────────────────────────────
 const T = {
-  heroEyebrow: { en: "Studio Gallery", zh: "Studio Gallery", ko: "Studio Gallery" },
-  heroTitle: { en: "Gallery", zh: "Gallery", ko: "Gallery" },
+  heroEyebrow: { en: "Studio Gallery", zh: "旅程相簿", ko: "스튜디오 갤러리" },
+  heroTitle: { en: "Gallery", zh: "旅程相簿", ko: "갤러리" },
   heroSub: {
     en: "Latest travel moments, photos, and videos from Shooting Star Travel.",
     zh: "持續更新最新旅遊照片、影片與行程紀錄，讓你看到我們真實的旅程現場。",
