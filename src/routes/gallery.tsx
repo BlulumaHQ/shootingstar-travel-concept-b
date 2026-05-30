@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useState, useMemo } from "react";
-import { Play, MapPin, Calendar, X } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { Play, MapPin, Calendar, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import logo from "@/assets/logo.png";
