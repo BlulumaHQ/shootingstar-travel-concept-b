@@ -40,6 +40,7 @@ import { Route as KoTermsRouteImport } from './routes/ko/terms'
 import { Route as KoRockyMountainLakeToursRouteImport } from './routes/ko/rocky-mountain-lake-tours'
 import { Route as KoReviewsRouteImport } from './routes/ko/reviews'
 import { Route as KoPrivacyRouteImport } from './routes/ko/privacy'
+import { Route as KoGalleryRouteImport } from './routes/ko/gallery'
 import { Route as KoFaqRouteImport } from './routes/ko/faq'
 import { Route as KoDestinationsRouteImport } from './routes/ko/destinations'
 import { Route as KoContactRouteImport } from './routes/ko/contact'
@@ -207,6 +208,11 @@ const KoPrivacyRoute = KoPrivacyRouteImport.update({
   path: '/ko/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KoGalleryRoute = KoGalleryRouteImport.update({
+  id: '/ko/gallery',
+  path: '/ko/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KoFaqRoute = KoFaqRouteImport.update({
   id: '/ko/faq',
   path: '/ko/faq',
@@ -272,6 +278,7 @@ export interface FileRoutesByFullPath {
   '/ko/contact': typeof KoContactRoute
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
+  '/ko/gallery': typeof KoGalleryRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -313,6 +320,7 @@ export interface FileRoutesByTo {
   '/ko/contact': typeof KoContactRoute
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
+  '/ko/gallery': typeof KoGalleryRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/ko/contact': typeof KoContactRoute
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
+  '/ko/gallery': typeof KoGalleryRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -400,6 +409,7 @@ export interface FileRouteTypes {
     | '/ko/contact'
     | '/ko/destinations'
     | '/ko/faq'
+    | '/ko/gallery'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -441,6 +451,7 @@ export interface FileRouteTypes {
     | '/ko/contact'
     | '/ko/destinations'
     | '/ko/faq'
+    | '/ko/gallery'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -483,6 +494,7 @@ export interface FileRouteTypes {
     | '/ko/contact'
     | '/ko/destinations'
     | '/ko/faq'
+    | '/ko/gallery'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -526,6 +538,7 @@ export interface RootRouteChildren {
   KoContactRoute: typeof KoContactRoute
   KoDestinationsRoute: typeof KoDestinationsRoute
   KoFaqRoute: typeof KoFaqRoute
+  KoGalleryRoute: typeof KoGalleryRoute
   KoPrivacyRoute: typeof KoPrivacyRoute
   KoReviewsRoute: typeof KoReviewsRoute
   KoRockyMountainLakeToursRoute: typeof KoRockyMountainLakeToursRoute
@@ -767,6 +780,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KoPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ko/gallery': {
+      id: '/ko/gallery'
+      path: '/ko/gallery'
+      fullPath: '/ko/gallery'
+      preLoaderRoute: typeof KoGalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ko/faq': {
       id: '/ko/faq'
       path: '/ko/faq'
@@ -864,6 +884,7 @@ const rootRouteChildren: RootRouteChildren = {
   KoContactRoute: KoContactRoute,
   KoDestinationsRoute: KoDestinationsRoute,
   KoFaqRoute: KoFaqRoute,
+  KoGalleryRoute: KoGalleryRoute,
   KoPrivacyRoute: KoPrivacyRoute,
   KoReviewsRoute: KoReviewsRoute,
   KoRockyMountainLakeToursRoute: KoRockyMountainLakeToursRoute,
@@ -888,3 +909,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
