@@ -407,6 +407,7 @@ export function GalleryPage() {
   const l = useLocale();
   const [filter, setFilter] = useState<Filter>("all");
   const [detail, setDetail] = useState<GalleryItem | null>(null);
+  const [lightbox, setLightbox] = useState<{ photos: string[]; index: number } | null>(null);
 
   const sorted = useMemo(() => [...items].sort((a, b) => b.dateISO.localeCompare(a.dateISO)), []);
   const featured = sorted.find((i) => i.featured) ?? sorted[0];
