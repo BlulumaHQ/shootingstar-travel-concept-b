@@ -158,6 +158,54 @@ const items: GalleryItem[] = [
     photos: [v1, v2, v5, v7],
     hasVideo: false,
   },
+  {
+    id: "whistler-summer",
+    dateISO: "2026-08-22",
+    date: { en: "August 22, 2026", zh: "2026 年 8 月 22 日", ko: "2026년 8월 22일" },
+    title: {
+      en: "Whistler Summer Escape",
+      zh: "Whistler 夏日山林輕旅",
+      ko: "휘슬러 여름 산악 여행",
+    },
+    description: {
+      en: "Alpine lakes, gondola rides, and quiet forest trails in Whistler village.",
+      zh: "高山湖泊、纜車風景，還有 Whistler 村裡靜謐的森林步道。",
+      ko: "고산 호수와 곤돌라, 그리고 휘슬러 빌리지의 조용한 숲길.",
+    },
+    location: {
+      en: "Whistler, BC",
+      zh: "Whistler，BC 省",
+      ko: "휘슬러, BC",
+    },
+    category: "destination",
+    cover: w1,
+    photos: [w1, w2, w3, w5, w7],
+    hasVideo: false,
+  },
+  {
+    id: "vancouver-city-walk",
+    dateISO: "2026-09-05",
+    date: { en: "September 5, 2026", zh: "2026 年 9 月 5 日", ko: "2026년 9월 5일" },
+    title: {
+      en: "Vancouver City Walk Recap",
+      zh: "溫哥華城市漫步回顧",
+      ko: "밴쿠버 시티 워크 후기",
+    },
+    description: {
+      en: "A short film from our small-group walk through Gastown, the seawall, and Stanley Park.",
+      zh: "小團漫步 Gastown、海堤與史丹利公園的短片紀錄。",
+      ko: "개스타운, 시월, 스탠리 파크를 함께 걸은 소그룹의 짧은 영상.",
+    },
+    location: {
+      en: "Downtown Vancouver",
+      zh: "溫哥華市中心",
+      ko: "다운타운 밴쿠버",
+    },
+    category: "group",
+    cover: vc1,
+    photos: [vc1, vc2, vc3, vc4],
+    hasVideo: true,
+  },
 ];
 
 // ── Subtle watermark (small padding) ──────────────────────────────────
