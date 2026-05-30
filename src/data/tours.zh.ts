@@ -248,7 +248,8 @@ export const tours: Tour[] = [
       "夢蓮湖專屬接駁通行費 (Moraine Lake Pass)：$16 CAD",
     ],
     notes: [
-      { text: "加拿大國家公園 Discovery Pass 須由每位旅客本人以自己的姓名提前購買，並於出團當日攜帶。", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+      { text: "重要提醒：本行程費用不包含加拿大國家公園 Discovery Pass。每位旅客必須於出發前，以旅客本人姓名自行購買 Discovery Pass，並於出團當日攜帶通行證。購買連結：", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+      "Discovery Pass 需由旅客本人自行完成購買，旅行社無法代替旅客以他人姓名購買或共用通行證；若未提前購買，可能會影響當日進入加拿大國家公園及行程安排。",
       "洛磯山脈高海拔地區天氣變化較快，建議採用「洋蔥式穿法」並攜帶防風保暖外套。",
       "若欲參加自費行程（如冰原雪車或纜車），強烈建議於預訂時一併告知，以便我們為您提前預訂熱門時段門票。",
     ],
