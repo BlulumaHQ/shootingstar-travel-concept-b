@@ -53,9 +53,10 @@ export function Header() {
 
   const nav: { to: string; label: string }[] = [
     { to: localized("/"), label: t("nav.home") },
-    { to: localized("/tours"), label: t("nav.tours") },
     { to: localized("/about"), label: t("nav.about") },
+    { to: localized("/tours"), label: t("nav.tours") },
     { to: localized("/reviews"), label: t("nav.reviews") },
+    { to: localized("/gallery"), label: t("nav.gallery") },
     { to: localized("/faq"), label: t("nav.faq") },
     { to: localized("/contact"), label: t("nav.contact") },
   ];
