@@ -292,7 +292,8 @@ export const tours: Tour[] = [
       "Moraine Lake Shuttle / Access Pass: $16 CAD",
     ],
     notes: [
-      { text: "Parks Canada Discovery Pass must be purchased individually by each guest in advance under their own name. Please bring the pass on the tour day.", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+      { text: "Important: the Parks Canada Discovery Pass is not included in this tour price. Each guest must purchase their own Discovery Pass in advance under their own name and bring it on the tour day. Purchase link: ", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+      "The Discovery Pass must be purchased by each guest individually; the travel agency cannot purchase or share a pass on a guest's behalf. Not purchasing it in advance may affect entry into Canada's national parks and the tour schedule.",
       "Rocky Mountain weather changes quickly at high altitudes — dress in layers and bring a windproof, warm jacket.",
       "If you'd like to add optional activities (Icefield Adventure, Gondola, etc.), please tell us at booking so we can secure popular time slots in advance.",
     ],
