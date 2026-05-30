@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { GalleryPage } from "../zh-gallery-shared";
+import { GalleryPage } from "../gallery";
 import { hreflangLinks } from "@/i18n/locale";
 
 export const Route = createFileRoute("/zh/gallery")({
