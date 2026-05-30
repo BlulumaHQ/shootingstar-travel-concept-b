@@ -277,35 +277,128 @@ function Detail({ item, onClose }: { item: GalleryItem; onClose: () => void }) {
   );
 }
 
-// ── Card ──────────────────────────────────────────────────────────────
-function Card({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
-  const l = useLocale();
+// ── Lightbox ──────────────────────────────────────────────────────────
+function Lightbox({
+  photos,
+  startIndex,
+  onClose,
+}: { photos: string[]; startIndex: number; onClose: () => void }) {
+  const [idx, setIdx] = useState(startIndex);
+  const go = (n: number) => setIdx((n + photos.length) % photos.length);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % photos.length);
+      if (e.key === "ArrowLeft") setIdx((i) => (i - 1 + photos.length) % photos.length);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [photos.length, onClose]);
   return (
-    <article
-      className="bg-card rounded-[12px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full cursor-pointer group"
-      onClick={onOpen}
-    >
-      <div className="relative">
+    <div className="fixed inset-0 z-[80] bg-ink/90 backdrop-blur-sm flex flex-col" onClick={onClose}>
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 text-cream/85 hover:text-cream p-2"
+        aria-label="Close"
+      >
+        <X size={28} />
+      </button>
+      <div className="flex-1 flex items-center justify-center p-4 md:p-12" onClick={(e) => e.stopPropagation()}>
+        <button
+          onClick={() => go(idx - 1)}
+          aria-label="Previous"
+          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition mr-4"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <div className="relative max-h-[80vh] max-w-[90vw]">
+          <img src={photos[idx]} alt="" className="max-h-[80vh] max-w-[90vw] object-contain rounded-md" />
+          <Watermark />
+        </div>
+        <button
+          onClick={() => go(idx + 1)}
+          aria-label="Next"
+          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition ml-4"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+      <div className="pb-6 px-4 flex items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
+        <button onClick={() => go(idx - 1)} className="md:hidden text-cream/80 p-2"><ChevronLeft size={20} /></button>
+        <span className="text-cream/70 text-[12px] tracking-[0.2em]">{idx + 1} / {photos.length}</span>
+        <button onClick={() => go(idx + 1)} className="md:hidden text-cream/80 p-2"><ChevronRight size={20} /></button>
+      </div>
+    </div>
+  );
+}
+
+// ── Card ──────────────────────────────────────────────────────────────
+function Card({
+  item,
+  onOpen,
+  onOpenLightbox,
+}: {
+  item: GalleryItem;
+  onOpen: () => void;
+  onOpenLightbox: (startIndex: number) => void;
+}) {
+  const l = useLocale();
+  const thumbs = item.photos.slice(0, 4);
+  return (
+    <article className="bg-card rounded-[12px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
+      <button type="button" onClick={onOpen} className="relative text-left">
         <ImgWithMark src={item.cover} className="aspect-[5/4]" />
         {item.hasVideo && (
           <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-ink/75 text-cream px-2.5 py-1 text-[10.5px] tracking-[0.18em] uppercase">
             <Play size={11} fill="currentColor" /> {t("videoBadge", l)}
           </div>
         )}
-      </div>
+      </button>
       <div className="p-6 flex-1 flex flex-col">
         <div className="inline-flex items-center gap-1.5 self-start rounded-full bg-sage-soft/40 text-ink/75 px-2.5 py-1 text-[11px] font-medium">
           <Calendar size={11} /> {item.date[l]}
         </div>
-        <h3 className="font-serif text-[20px] text-ink font-semibold mt-3 leading-tight group-hover:text-primary transition-colors">
+        <h3
+          className="font-serif text-[20px] text-ink font-semibold mt-3 leading-tight hover:text-primary transition-colors cursor-pointer"
+          onClick={onOpen}
+        >
           {item.title[l]}
         </h3>
         <p className="text-ink/60 text-[12.5px] mt-1 flex items-center gap-1.5"><MapPin size={12} />{item.location[l]}</p>
         <p className="mt-3 text-[13.5px] text-ink/80 leading-[1.85] font-serif flex-1">{item.description[l]}</p>
+
+        {/* Equal-height media strip: thumbnails for photos, play CTA for video */}
+        <div className="mt-5 h-[68px]">
+          {item.hasVideo ? (
+            <button
+              type="button"
+              onClick={onOpen}
+              className="h-full w-full rounded-md bg-ink/90 text-cream/90 flex items-center justify-center gap-2 hover:bg-ink transition"
+            >
+              <Play size={16} fill="currentColor" />
+              <span className="text-[12px] tracking-[0.2em] uppercase">{t("videoBadge", l)}</span>
+            </button>
+          ) : (
+            <div className="grid grid-cols-4 gap-2 h-full">
+              {thumbs.map((p, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => onOpenLightbox(i)}
+                  className="relative overflow-hidden rounded-md ring-1 ring-border/40 hover:ring-primary transition"
+                  aria-label={`Photo ${i + 1}`}
+                >
+                  <img src={p} alt="" loading="lazy" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );
 }
+
 
 // ── Page ──────────────────────────────────────────────────────────────
 type Filter = "all" | "photos" | "videos" | "group" | "destination";
