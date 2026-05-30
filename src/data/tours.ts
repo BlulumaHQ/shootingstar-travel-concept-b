@@ -52,7 +52,7 @@ export type Tour = {
   /** Optional self-paid experiences guests can add. */
   optional?: string[];
   /** Travel notes / good-to-know paragraph or list. */
-  notes: string[];
+  notes: (string | { text: string; href?: string })[];
   /** Booking call-to-action label for this tour. */
   bookingCta?: string;
   /** Legacy fields kept optional for compatibility with existing UI. */
@@ -276,7 +276,6 @@ export const tours: Tour[] = [
       "Hotel accommodation",
       "Comfortable private vehicle transportation",
       "Professional driver/guide",
-      "National Park pass",
       "Parking fees for scheduled stops",
     ],
     notIncluded: [
@@ -293,6 +292,7 @@ export const tours: Tour[] = [
       "Moraine Lake Shuttle / Access Pass: $16 CAD",
     ],
     notes: [
+      { text: "Parks Canada Discovery Pass must be purchased individually by each guest in advance under their own name. Please bring the pass on the tour day.", href: "https://parkscanadashop.ca/pages/discovery-pass" },
       "Rocky Mountain weather changes quickly at high altitudes — dress in layers and bring a windproof, warm jacket.",
       "If you'd like to add optional activities (Icefield Adventure, Gondola, etc.), please tell us at booking so we can secure popular time slots in advance.",
     ],
