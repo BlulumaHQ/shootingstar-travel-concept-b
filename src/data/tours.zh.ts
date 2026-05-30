@@ -202,7 +202,7 @@ export const tours: Tour[] = [
     title: "Rocky Mountains 3-Day Tour｜卡加立進出．洛磯山脈冰川與湖泊秘境",
     desc: "拋開長途自駕的疲勞與國家公園內尋找車位的煩惱，從卡加立輕鬆出發，深入洛磯山脈的核心。",
     intro:
-      "三天兩夜的精華行程，帶您一次看遍班夫小鎮的百年風華、夢幻的露易絲湖與夢蓮湖，以及震撼人心的哥倫比亞冰原。包含舒適住宿、專車接送與國家公園門票，讓您將每一分鐘都留給大自然的鬼斧神工，享受一趟真正放鬆的高山假期。",
+      "三天兩夜的精華行程，帶您一次看遍班夫小鎮的百年風華、夢幻的露易絲湖與夢蓮湖，以及震撼人心的哥倫比亞冰原。包含舒適住宿與專車接送，讓您將每一分鐘都留給大自然的鬼斧神工，享受一趟真正放鬆的高山假期。",
     duration: "3 日 2 夜",
     language: LANGUAGE_NOTE,
     price: "$830 CAD 起 / 每位",
@@ -232,7 +232,6 @@ export const tours: Tour[] = [
       "住宿 (Hotel accommodation)",
       "舒適專車接駁 (Comfortable transportation)",
       "專業導遊服務 (Professional driver/guide)",
-      "國家公園通行證 (National Park pass)",
       "行程景點停車費 (Parking fees)",
     ],
     notIncluded: [
@@ -249,6 +248,7 @@ export const tours: Tour[] = [
       "夢蓮湖專屬接駁通行費 (Moraine Lake Pass)：$16 CAD",
     ],
     notes: [
+      { text: "加拿大國家公園 Discovery Pass 須由每位旅客本人以自己的姓名提前購買，並於出團當日攜帶。", href: "https://parkscanadashop.ca/pages/discovery-pass" },
       "洛磯山脈高海拔地區天氣變化較快，建議採用「洋蔥式穿法」並攜帶防風保暖外套。",
       "若欲參加自費行程（如冰原雪車或纜車），強烈建議於預訂時一併告知，以便我們為您提前預訂熱門時段門票。",
     ],

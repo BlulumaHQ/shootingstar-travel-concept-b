@@ -52,7 +52,7 @@ export type Tour = {
   /** Optional self-paid experiences guests can add. */
   optional?: string[];
   /** Travel notes / good-to-know paragraph or list. */
-  notes: string[];
+  notes: (string | { text: string; href?: string })[];
   /** Booking call-to-action label for this tour. */
   bookingCta?: string;
   /** Legacy fields kept optional for compatibility with existing UI. */
@@ -246,7 +246,7 @@ export const tours: Tour[] = [
     title: "Rocky Mountains 3-Day Tour | Calgary Round-Trip — Glaciers & Lakes",
     desc: "Skip the long drive and parking headaches inside national parks — depart from Calgary and head deep into the heart of the Canadian Rockies.",
     intro:
-      "A 3-day, 2-night highlight journey through century-old Banff town, the dreamlike Lake Louise and Moraine Lake, and the awe-inspiring Columbia Icefield. With comfortable accommodation, private vehicle transport, and national park admission included, you can devote every minute to nature's masterpiece — and enjoy a truly relaxing alpine holiday.",
+      "A 3-day, 2-night highlight journey through century-old Banff town, the dreamlike Lake Louise and Moraine Lake, and the awe-inspiring Columbia Icefield. With comfortable accommodation and private vehicle transport included, you can devote every minute to nature's masterpiece — and enjoy a truly relaxing alpine holiday.",
     duration: "3 days, 2 nights",
     language: LANGUAGE_NOTE,
     price: "From $830 CAD / person",
@@ -276,7 +276,6 @@ export const tours: Tour[] = [
       "Hotel accommodation",
       "Comfortable private vehicle transportation",
       "Professional driver/guide",
-      "National Park pass",
       "Parking fees for scheduled stops",
     ],
     notIncluded: [
@@ -293,6 +292,7 @@ export const tours: Tour[] = [
       "Moraine Lake Shuttle / Access Pass: $16 CAD",
     ],
     notes: [
+      { text: "Parks Canada Discovery Pass must be purchased individually by each guest in advance under their own name. Please bring the pass on the tour day.", href: "https://parkscanadashop.ca/pages/discovery-pass" },
       "Rocky Mountain weather changes quickly at high altitudes — dress in layers and bring a windproof, warm jacket.",
       "If you'd like to add optional activities (Icefield Adventure, Gondola, etc.), please tell us at booking so we can secure popular time slots in advance.",
     ],
