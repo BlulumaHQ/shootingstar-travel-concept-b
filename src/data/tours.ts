@@ -48,7 +48,7 @@ export type Tour = {
   /** Suggested guide gratuity, displayed under pricing. */
   gratuity?: string;
   included: string[];
-  notIncluded?: string[];
+  notIncluded?: (string | { text: string; href?: string })[];
   /** Optional self-paid experiences guests can add. */
   optional?: string[];
   /** Travel notes / good-to-know paragraph or list. */
