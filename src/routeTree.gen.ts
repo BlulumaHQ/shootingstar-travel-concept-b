@@ -29,6 +29,7 @@ import { Route as ZhTermsRouteImport } from './routes/zh/terms'
 import { Route as ZhRockyMountainLakeToursRouteImport } from './routes/zh/rocky-mountain-lake-tours'
 import { Route as ZhReviewsRouteImport } from './routes/zh/reviews'
 import { Route as ZhPrivacyRouteImport } from './routes/zh/privacy'
+import { Route as ZhGalleryRouteImport } from './routes/zh/gallery'
 import { Route as ZhFaqRouteImport } from './routes/zh/faq'
 import { Route as ZhDestinationsRouteImport } from './routes/zh/destinations'
 import { Route as ZhContactRouteImport } from './routes/zh/contact'
@@ -148,6 +149,11 @@ const ZhReviewsRoute = ZhReviewsRouteImport.update({
 const ZhPrivacyRoute = ZhPrivacyRouteImport.update({
   id: '/zh/privacy',
   path: '/zh/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZhGalleryRoute = ZhGalleryRouteImport.update({
+  id: '/zh/gallery',
+  path: '/zh/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ZhFaqRoute = ZhFaqRouteImport.update({
@@ -276,6 +282,7 @@ export interface FileRoutesByFullPath {
   '/zh/contact': typeof ZhContactRoute
   '/zh/destinations': typeof ZhDestinationsRoute
   '/zh/faq': typeof ZhFaqRoute
+  '/zh/gallery': typeof ZhGalleryRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
@@ -316,6 +323,7 @@ export interface FileRoutesByTo {
   '/zh/contact': typeof ZhContactRoute
   '/zh/destinations': typeof ZhDestinationsRoute
   '/zh/faq': typeof ZhFaqRoute
+  '/zh/gallery': typeof ZhGalleryRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
@@ -358,6 +366,7 @@ export interface FileRoutesById {
   '/zh/contact': typeof ZhContactRoute
   '/zh/destinations': typeof ZhDestinationsRoute
   '/zh/faq': typeof ZhFaqRoute
+  '/zh/gallery': typeof ZhGalleryRoute
   '/zh/privacy': typeof ZhPrivacyRoute
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
@@ -401,6 +410,7 @@ export interface FileRouteTypes {
     | '/zh/contact'
     | '/zh/destinations'
     | '/zh/faq'
+    | '/zh/gallery'
     | '/zh/privacy'
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
@@ -441,6 +451,7 @@ export interface FileRouteTypes {
     | '/zh/contact'
     | '/zh/destinations'
     | '/zh/faq'
+    | '/zh/gallery'
     | '/zh/privacy'
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
@@ -482,6 +493,7 @@ export interface FileRouteTypes {
     | '/zh/contact'
     | '/zh/destinations'
     | '/zh/faq'
+    | '/zh/gallery'
     | '/zh/privacy'
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
@@ -523,6 +535,7 @@ export interface RootRouteChildren {
   ZhContactRoute: typeof ZhContactRoute
   ZhDestinationsRoute: typeof ZhDestinationsRoute
   ZhFaqRoute: typeof ZhFaqRoute
+  ZhGalleryRoute: typeof ZhGalleryRoute
   ZhPrivacyRoute: typeof ZhPrivacyRoute
   ZhReviewsRoute: typeof ZhReviewsRoute
   ZhRockyMountainLakeToursRoute: typeof ZhRockyMountainLakeToursRoute
@@ -675,6 +688,13 @@ declare module '@tanstack/react-router' {
       path: '/zh/privacy'
       fullPath: '/zh/privacy'
       preLoaderRoute: typeof ZhPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zh/gallery': {
+      id: '/zh/gallery'
+      path: '/zh/gallery'
+      fullPath: '/zh/gallery'
+      preLoaderRoute: typeof ZhGalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/zh/faq': {
@@ -853,6 +873,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZhContactRoute: ZhContactRoute,
   ZhDestinationsRoute: ZhDestinationsRoute,
   ZhFaqRoute: ZhFaqRoute,
+  ZhGalleryRoute: ZhGalleryRoute,
   ZhPrivacyRoute: ZhPrivacyRoute,
   ZhReviewsRoute: ZhReviewsRoute,
   ZhRockyMountainLakeToursRoute: ZhRockyMountainLakeToursRoute,
