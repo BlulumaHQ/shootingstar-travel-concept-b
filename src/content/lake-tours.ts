@@ -251,6 +251,7 @@ export const LAKE_TOURS_EN: LakeToursContent = {
       "Canoe rental",
       "Optional self-guided hikes",
       "Suggested guide gratuity of $15 CAD / person",
+      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
