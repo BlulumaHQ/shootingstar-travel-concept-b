@@ -483,12 +483,17 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
       "獨木舟租借",
       "選擇性自由健行",
       "建議司導小費（每人 $15 CAD）",
+      { text: "加拿大國家公園 Discovery Pass（須由旅客本人提前購買）", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
     eyebrow: "— 出發前必看",
     h2: "出發前重要提醒",
     items: [
+      {
+        q: "需要購買加拿大國家公園 Discovery Pass 嗎？",
+        a: "需要。本行程會進入 Banff 國家公園，但園區門票不包含在團費中。請每位旅客提前於 parkscanadashop.ca 以本人名字購買 Parks Canada Discovery Pass，並於行程當日攜帶（紙本或電子皆可）。",
+      },
       {
         q: "夢蓮湖一定能進得去嗎？",
         a: "夢蓮湖每年的入園規定會依季節、國家公園規範、天氣與現場狀況有所不同。我們會盡可能依當下開放規則安排，讓你最大化進入機會。",
