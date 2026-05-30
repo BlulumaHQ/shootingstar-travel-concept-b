@@ -675,7 +675,7 @@ function IncludeBlock({
   tone,
 }: {
   title: string;
-  items: string[];
+  items: (string | { text: string; href?: string })[];
   tone: "primary" | "muted";
 }) {
   return (
@@ -683,22 +683,42 @@ function IncludeBlock({
       <h3 className="font-serif text-[20px] text-ink font-semibold">{title}</h3>
       <div className={`mt-3 h-px w-10 ${tone === "primary" ? "bg-primary/60" : "bg-ink/30"}`} />
       <ul className="mt-5 space-y-2.5 text-[14px] text-ink/75 leading-[1.9]">
-        {items.map((it) => (
-          <li
-            key={it}
-            className={`pl-5 relative ${
-              tone === "primary"
-                ? "before:content-['✓'] before:absolute before:left-0 before:text-primary"
-                : "before:content-['×'] before:absolute before:left-0 before:text-ink/40"
-            }`}
-          >
-            {it}
-          </li>
-        ))}
+        {items.map((it, idx) => {
+          const isObj = typeof it === "object";
+          const text = isObj ? it.text : it;
+          const href = isObj ? it.href : undefined;
+          return (
+            <li
+              key={typeof it === "string" ? it : `${it.text}-${idx}`}
+              className={`pl-5 relative ${
+                tone === "primary"
+                  ? "before:content-['✓'] before:absolute before:left-0 before:text-primary"
+                  : "before:content-['×'] before:absolute before:left-0 before:text-ink/40"
+              }`}
+            >
+              {href ? (
+                <>
+                  {text}{" "}
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline underline-offset-2 hover:text-primary/80"
+                  >
+                    parkscanadashop.ca
+                  </a>
+                </>
+              ) : (
+                text
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
 }
+
 
 function FaqItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);

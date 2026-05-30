@@ -108,7 +108,7 @@ export type LakeToursContent = {
     includedTitle: string;
     includedItems: string[];
     notIncludedTitle: string;
-    notIncludedItems: string[];
+    notIncludedItems: (string | { text: string; href?: string })[];
   };
   faq: {
     eyebrow: string;
@@ -251,12 +251,17 @@ export const LAKE_TOURS_EN: LakeToursContent = {
       "Canoe rental",
       "Optional self-guided hikes",
       "Suggested guide gratuity of $15 CAD / person",
+      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
     eyebrow: "— travel notes",
     h2: "Important Travel Notes",
     items: [
+      {
+        q: "Do I need a Parks Canada Discovery Pass?",
+        a: "Yes. Banff National Park entry is required for this tour and is NOT included in the tour price. Each guest must purchase their own Parks Canada Discovery Pass in advance under their own name at parkscanadashop.ca and bring it (printed or digital) on tour day.",
+      },
       {
         q: "Is Moraine Lake access guaranteed?",
         a: "Moraine Lake access is subject to seasonal road rules, park regulations, weather, and operational conditions. The tour is designed to follow the available access schedule as closely as possible.",
@@ -478,12 +483,17 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
       "獨木舟租借",
       "選擇性自由健行",
       "建議司導小費（每人 $15 CAD）",
+      { text: "加拿大國家公園 Discovery Pass（須由旅客本人提前購買）", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
     eyebrow: "— 出發前必看",
     h2: "出發前重要提醒",
     items: [
+      {
+        q: "需要購買加拿大國家公園 Discovery Pass 嗎？",
+        a: "需要。本行程會進入 Banff 國家公園，但園區門票不包含在團費中。請每位旅客提前於 parkscanadashop.ca 以本人名字購買 Parks Canada Discovery Pass，並於行程當日攜帶（紙本或電子皆可）。",
+      },
       {
         q: "夢蓮湖一定能進得去嗎？",
         a: "夢蓮湖每年的入園規定會依季節、國家公園規範、天氣與現場狀況有所不同。我們會盡可能依當下開放規則安排，讓你最大化進入機會。",
@@ -711,12 +721,17 @@ export const LAKE_TOURS_KO: LakeToursContent = {
       "카누 대여",
       "선택 사항인 자율 트레킹",
       "권장 가이드 팁 (1인당 $15 CAD)",
+      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
     eyebrow: "— 여행 안내",
     h2: "출발 전 꼭 확인해 주세요",
     items: [
+      {
+        q: "Parks Canada Discovery Pass가 필요한가요?",
+        a: "네, 필요합니다. 본 투어는 밴프 국립공원에 입장하며, 국립공원 입장료는 투어 요금에 포함되어 있지 않습니다. 각 게스트가 parkscanadashop.ca에서 본인 명의로 사전에 Discovery Pass를 구매하시고, 투어 당일 지참(인쇄본 또는 모바일)해 주세요.",
+      },
       {
         q: "모레인 호수 입장이 항상 보장되나요?",
         a: "모레인 호수는 시즌별 도로 운영 규정, 국립공원 규제, 날씨, 현장 상황에 따라 입장 조건이 달라질 수 있습니다. 투어는 그 시점에 가능한 입장 일정에 최대한 맞추어 운영됩니다.",
