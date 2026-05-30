@@ -506,8 +506,18 @@ export const tours: Tour[] = [
       { stop: "Day 1", title: "露易絲湖", body: "上午來到露易絲湖，欣賞維多利亞冰川下的翡翠湖水。" },
       { stop: "Day 1", title: "夢蓮湖", body: "下午前往夢蓮湖與十峰山經典景觀。" },
     ],
-    included: ["舒適專車交通", "專業司導", "國家公園門票"],
-    notes: ["湖區開放時間依季節調整，行程將視路況與天氣彈性安排。"],
+    included: ["舒適專車交通", "專業司導"],
+    notIncluded: [
+      "5% 稅金",
+      "餐食與個人消費",
+      "建議司導小費",
+      { text: "加拿大國家公園 Discovery Pass（須由旅客本人提前購買）", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "進入 Banff 國家公園需持有 Parks Canada Discovery Pass。請每位旅客提前於 parkscanadashop.ca 以本人名字購買，並於行程當日攜帶。",
+      "湖區開放時間依季節調整，行程將視路況與天氣彈性安排。",
+      "洛磯山高海拔天氣變化快速，建議洋蔥式穿搭並備防風保暖外套。",
+    ],
     bookingCta: "預訂 Banff 雙湖一日遊",
   },
 ];

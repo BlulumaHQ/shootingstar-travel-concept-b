@@ -550,8 +550,18 @@ export const tours: Tour[] = [
       { stop: "Day 1", title: "Lake Louise", body: "Morning at the emerald mirror of Lake Louise, framed by Victoria Glacier." },
       { stop: "Day 1", title: "Moraine Lake", body: "Afternoon at Moraine Lake and the Valley of the Ten Peaks." },
     ],
-    included: ["Comfortable private vehicle transportation", "Professional driver/guide", "National park entry"],
-    notes: ["Lake access varies by season — itinerary may adapt to road and weather conditions."],
+    included: ["Comfortable private vehicle transportation", "Professional driver/guide"],
+    notIncluded: [
+      "5% tax",
+      "Meals & personal allowance",
+      "Suggested guide gratuity",
+      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "A Parks Canada Discovery Pass is required to enter Banff National Park. Each guest must purchase their own pass in advance under their own name at parkscanadashop.ca — please bring it on tour day.",
+      "Lake access varies by season — itinerary may adapt to road and weather conditions.",
+      "Rocky Mountain weather changes quickly at high altitudes — dress in layers and bring a windproof, warm jacket.",
+    ],
     bookingCta: "Book Your Banff Two-Lake 1-Day Tour",
   },
 ];
