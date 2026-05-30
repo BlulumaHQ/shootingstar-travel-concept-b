@@ -721,12 +721,17 @@ export const LAKE_TOURS_KO: LakeToursContent = {
       "카누 대여",
       "선택 사항인 자율 트레킹",
       "권장 가이드 팁 (1인당 $15 CAD)",
+      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
     ],
   },
   faq: {
     eyebrow: "— 여행 안내",
     h2: "출발 전 꼭 확인해 주세요",
     items: [
+      {
+        q: "Parks Canada Discovery Pass가 필요한가요?",
+        a: "네, 필요합니다. 본 투어는 밴프 국립공원에 입장하며, 국립공원 입장료는 투어 요금에 포함되어 있지 않습니다. 각 게스트가 parkscanadashop.ca에서 본인 명의로 사전에 Discovery Pass를 구매하시고, 투어 당일 지참(인쇄본 또는 모바일)해 주세요.",
+      },
       {
         q: "모레인 호수 입장이 항상 보장되나요?",
         a: "모레인 호수는 시즌별 도로 운영 규정, 국립공원 규제, 날씨, 현장 상황에 따라 입장 조건이 달라질 수 있습니다. 투어는 그 시점에 가능한 입장 일정에 최대한 맞추어 운영됩니다.",
