@@ -259,6 +259,10 @@ export const LAKE_TOURS_EN: LakeToursContent = {
     h2: "Important Travel Notes",
     items: [
       {
+        q: "Do I need a Parks Canada Discovery Pass?",
+        a: "Yes. Banff National Park entry is required for this tour and is NOT included in the tour price. Each guest must purchase their own Parks Canada Discovery Pass in advance under their own name at parkscanadashop.ca and bring it (printed or digital) on tour day.",
+      },
+      {
         q: "Is Moraine Lake access guaranteed?",
         a: "Moraine Lake access is subject to seasonal road rules, park regulations, weather, and operational conditions. The tour is designed to follow the available access schedule as closely as possible.",
       },
