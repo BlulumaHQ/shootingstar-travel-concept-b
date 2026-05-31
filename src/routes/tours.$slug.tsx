@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
+type TermsSection = { title: string; intro?: string; items: { label?: string; text: string }[] };
+
 const LABELS: Record<Locale, {
   allTours: string; duration: string; language: string; price: string;
   itineraryEyebrow: string; itinerary: string;
@@ -15,6 +17,8 @@ const LABELS: Record<Locale, {
   galleryEyebrow: string; gallery: string;
   included: string; notIncluded: string; optional: string;
   notesEyebrow: string; notes: string; faq: string;
+  termsEyebrow: string; terms: string;
+  termsSections: TermsSection[];
 }> = {
   en: {
     allTours: "← All tours", duration: "Duration", language: "Language", price: "Price",
@@ -23,6 +27,34 @@ const LABELS: Record<Locale, {
     galleryEyebrow: "gallery", gallery: "Trip gallery",
     included: "Included", notIncluded: "Not Included", optional: "Optional Experiences",
     notesEyebrow: "travel notes", notes: "Travel Notes", faq: "Frequently asked",
+    termsEyebrow: "terms & conditions", terms: "Shooting Star Travel Booking Terms & Conditions",
+    termsSections: [
+      {
+        title: "1. Booking & Payment",
+        items: [
+          { label: "Contract formation:", text: "Full payment for the tour is required no later than 30 days before the departure date. The booking contract is formally established once payment has been confirmed. If payment is not received by the deadline, we are unable to hold your reservation." },
+          { label: "Transaction fees:", text: "If payment is made by credit card and the booking is later cancelled or refunded due to personal reasons, a 4% credit card processing fee will be deducted from the refund." },
+        ],
+      },
+      {
+        title: "2. Cancellation & Refund Policy",
+        intro: "To protect both parties, cancellation or change requests must be submitted during our business hours (Monday to Friday, excluding public holidays). Requests received on weekends or public holidays will be processed on the next business day. Refunds are calculated based on the number of days before the departure date as follows:",
+        items: [
+          { label: "30 days or more before departure:", text: "50% of the total tour fee will be refunded." },
+          { label: "14 days or more before departure:", text: "30% of the total tour fee will be refunded." },
+          { label: "Within 13 days of departure (including the departure day):", text: "No refund will be issued." },
+        ],
+      },
+      {
+        title: "3. Liability Statement & Traveller Information",
+        items: [
+          { label: "Itinerary adjustments:", text: "We reserve the right to adjust the itinerary content or order due to local traffic, weather, or unforeseen circumstances, without prior notice." },
+          { label: "Force majeure:", text: "In the event of natural disasters, flight delays or cancellations, or other force majeure events that prevent participation or shorten the itinerary, the original tour fee will still apply per the contract." },
+          { label: "Safety & insurance:", text: "Travellers are responsible for safeguarding their own valuables and cash during the tour; we are not liable for loss or damage to personal belongings. Travel activities carry inherent risks — please assess your health condition and consider purchasing personal travel insurance." },
+          { label: "Transport guidelines:", text: "Vehicles will be arranged based on the number of participants on the day. When boarding the tour vehicle, please queue in order of arrival to keep the itinerary running smoothly." },
+        ],
+      },
+    ],
   },
   zh: {
     allTours: "← 所有行程", duration: "天數", language: "語言", price: "費用",
@@ -31,6 +63,34 @@ const LABELS: Record<Locale, {
     galleryEyebrow: "相簿", gallery: "旅程相簿",
     included: "費用包含", notIncluded: "費用不含", optional: "選購體驗",
     notesEyebrow: "旅行須知", notes: "旅行須知", faq: "常見問題",
+    termsEyebrow: "預訂條款", terms: "Shooting Star Travel 旅遊預訂條款與細則",
+    termsSections: [
+      {
+        title: "1. 預訂與付款規定",
+        items: [
+          { label: "合約成立：", text: "本公司旅遊行程費用原則上需於出發日前 30 天付清。待款項確認入帳後，旅遊合約即正式成立。若未於期限內完成繳費，本公司恕無法保留旅遊名額。" },
+          { label: "交易手續費：", text: "若使用信用卡支付旅遊費用，因個人因素申請取消或辦理退款時，將扣除 4% 之信用卡刷卡手續費後進行退款。" },
+        ],
+      },
+      {
+        title: "2. 取消與退款政策",
+        intro: "為確保雙方權益，申請取消或變更行程時，請務必於本公司上班時間（週一至週五，國定假日除外）提出申請。若於週末或國定假日提出，將以隔天第一個工作日作為受理申請日期。退款比例依據距離出發日之天數計算如下：",
+        items: [
+          { label: "出發日前 30 天（含）：", text: "退還旅遊費用總額之 50%。" },
+          { label: "出發日前 14 天（含）：", text: "退還旅遊費用總額之 30%。" },
+          { label: "出發日前 13 天內（含當日）：", text: "恕不接受退款。" },
+        ],
+      },
+      {
+        title: "3. 旅遊責任聲明與權益須知",
+        items: [
+          { label: "行程調整權：", text: "本公司保有依當地交通、氣候或臨時突發狀況，調整行程內容或順序之權利，恕不另行通知。" },
+          { label: "不可抗力因素：", text: "若遇天災、航空器延誤或取消等不可抗力因素，導致無法參加行程或行程縮減，相關旅遊費用仍需按原訂契約收取。" },
+          { label: "安全與保險：", text: "旅行期間，請旅客務必自行妥善保管貴重物品與現金，本公司對於個人財物遺失或損壞概不負責。旅遊活動具備一定風險，建議旅客自行評估健康狀況並自行加購個人旅遊平安保險。" },
+          { label: "搭乘規範：", text: "行程車輛將依當日參加人數安排；若搭乘旅遊車，請依現場抵達順序排隊，以維持行程順暢。" },
+        ],
+      },
+    ],
   },
   ko: {
     allTours: "← 전체 투어", duration: "기간", language: "언어", price: "요금",
@@ -39,6 +99,34 @@ const LABELS: Record<Locale, {
     galleryEyebrow: "갤러리", gallery: "투어 갤러리",
     included: "포함 사항", notIncluded: "불포함 사항", optional: "선택 옵션",
     notesEyebrow: "여행 안내", notes: "여행 안내", faq: "자주 묻는 질문",
+    termsEyebrow: "예약 약관", terms: "Shooting Star Travel 여행 예약 약관 및 세부 규정",
+    termsSections: [
+      {
+        title: "1. 예약 및 결제 규정",
+        items: [
+          { label: "계약 체결:", text: "본사 투어 요금은 원칙적으로 출발일 30일 전까지 완납해야 하며, 입금이 확인되면 여행 계약이 정식으로 체결됩니다. 기한 내에 결제가 완료되지 않을 경우 예약을 보장해 드릴 수 없습니다." },
+          { label: "거래 수수료:", text: "신용카드로 결제한 경우, 개인 사유로 취소 또는 환불을 신청하시면 신용카드 결제 수수료 4%를 차감한 후 환불됩니다." },
+        ],
+      },
+      {
+        title: "2. 취소 및 환불 정책",
+        intro: "양측의 권익 보호를 위해 취소 또는 일정 변경 신청은 반드시 본사 업무 시간(월~금, 공휴일 제외) 내에 제출해 주시기 바랍니다. 주말 또는 공휴일에 접수된 신청은 다음 첫 영업일을 접수일로 처리합니다. 환불 비율은 출발일까지의 일수에 따라 다음과 같이 계산됩니다:",
+        items: [
+          { label: "출발일 30일 전(포함):", text: "총 여행 요금의 50% 환불." },
+          { label: "출발일 14일 전(포함):", text: "총 여행 요금의 30% 환불." },
+          { label: "출발일 13일 이내(당일 포함):", text: "환불이 불가합니다." },
+        ],
+      },
+      {
+        title: "3. 여행 책임 안내 및 고객 권익",
+        items: [
+          { label: "일정 조정 권한:", text: "본사는 현지 교통, 기후 또는 돌발 상황에 따라 사전 통지 없이 일정 내용 또는 순서를 조정할 권리를 보유합니다." },
+          { label: "불가항력적 요인:", text: "천재지변, 항공기 지연 또는 결항 등 불가항력적 사유로 인해 투어에 참여하지 못하거나 일정이 단축되는 경우에도 원 계약에 따른 요금이 청구됩니다." },
+          { label: "안전 및 보험:", text: "여행 중 귀중품과 현금은 반드시 본인이 직접 보관해 주시기 바라며, 개인 물품의 분실 또는 손상에 대해 본사는 책임지지 않습니다. 여행 활동에는 일정한 위험이 따르므로 본인의 건강 상태를 확인하시고 개인 여행자 보험에 가입하실 것을 권장합니다." },
+          { label: "탑승 안내:", text: "당일 참가 인원에 따라 차량이 배정되며, 투어 차량 탑승 시 도착 순서대로 줄을 서서 원활한 일정 진행에 협조해 주시기 바랍니다." },
+        ],
+      },
+    ],
   },
 };
 
