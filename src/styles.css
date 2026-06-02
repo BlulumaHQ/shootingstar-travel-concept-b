@@ -133,6 +133,68 @@
   .font-marker { font-family: var(--font-marker); }
   .font-serif { font-family: var(--font-serif); }
 
+  .locale-zh,
+  [data-locale^="zh"],
+  [lang^="zh"] {
+    --font-serif: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-hand: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-journal: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-marker: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
+  }
+
+  .locale-ko,
+  [data-locale^="ko"],
+  [lang^="ko"] {
+    --font-serif: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
+    --font-hand: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
+    --font-journal: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
+    --font-marker: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
+  }
+
+  .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
+  [data-locale^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
+  [lang^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
+    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-ko :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
+  [data-locale^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
+  [lang^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
+    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    font-weight: 400 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-zh main > section:first-child p,
+  [data-locale^="zh"] main > section:first-child p,
+  [lang^="zh"] main > section:first-child p {
+    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-zh :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [data-locale^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [lang^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
+    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-ko main > section:first-child p,
+  [data-locale^="ko"] main > section:first-child p,
+  [lang^="ko"] main > section:first-child p {
+    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-ko :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [data-locale^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [lang^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
+    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
   /* Torn paper edge using mask */
   .torn-bottom {
     -webkit-mask-image: radial-gradient(circle at 6px 100%, transparent 5px, #000 6px);
