@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Kalam:wght@300;400;700&family=Gloria+Hallelujah&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Klee+One:wght@400;600&family=Zen+Kurenaido&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Kalam:wght@300;400;700&family=Gloria+Hallelujah&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&family=Klee+One:wght@400;600&family=Zen+Kurenaido&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
@@ -136,158 +136,49 @@
   .locale-zh,
   [data-locale^="zh"],
   [lang^="zh"] {
-    --font-serif: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-hand: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-journal: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-marker: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-serif: "Noto Serif TC", "Noto Sans TC", serif;
+    --font-hand: "Noto Sans TC", system-ui, sans-serif;
+    --font-journal: "Noto Sans TC", system-ui, sans-serif;
+    --font-marker: "Noto Sans TC", system-ui, sans-serif;
   }
 
   .locale-ko,
   [data-locale^="ko"],
   [lang^="ko"] {
-    --font-serif: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
-    --font-hand: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
-    --font-journal: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
-    --font-marker: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
+    --font-serif: "Noto Serif KR", "Noto Sans KR", system-ui, sans-serif;
+    --font-hand: "Noto Sans KR", system-ui, sans-serif;
+    --font-journal: "Noto Sans KR", system-ui, sans-serif;
+    --font-marker: "Noto Sans KR", system-ui, sans-serif;
   }
 
-  .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
-  [data-locale^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
-  [lang^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
-    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
-    font-weight: 400 !important;
-    letter-spacing: 0 !important;
+  .locale-zh :is(.font-hand, .font-journal, .font-marker),
+  [data-locale^="zh"] :is(.font-hand, .font-journal, .font-marker),
+  [lang^="zh"] :is(.font-hand, .font-journal, .font-marker) {
+    font-family: "Noto Sans TC", system-ui, sans-serif !important;
   }
 
-  .locale-ko :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
-  [data-locale^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
-  [lang^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
-    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    font-weight: 400 !important;
-    letter-spacing: 0 !important;
+  .locale-ko :is(.font-hand, .font-journal, .font-marker),
+  [data-locale^="ko"] :is(.font-hand, .font-journal, .font-marker),
+  [lang^="ko"] :is(.font-hand, .font-journal, .font-marker) {
+    font-family: "Noto Sans KR", system-ui, sans-serif !important;
   }
 
-  .locale-zh main > section:first-child p,
-  [data-locale^="zh"] main > section:first-child p,
-  [lang^="zh"] main > section:first-child p {
-    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
-    letter-spacing: 0 !important;
-  }
-
-  .locale-zh :is(a, button, [role="button"], section > div p[class*="text-"]),
-  [data-locale^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]),
-  [lang^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
-    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
-    letter-spacing: 0 !important;
-  }
-
-  .locale-ko main > section:first-child p,
-  [data-locale^="ko"] main > section:first-child p,
-  [lang^="ko"] main > section:first-child p {
-    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    letter-spacing: 0 !important;
-  }
-
-  .locale-ko :is(a, button, [role="button"], section > div p[class*="text-"]),
-  [data-locale^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]),
-  [lang^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
-    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    letter-spacing: 0 !important;
-  }
-
-  /* The custom CJK handwriting fonts (ChenYuluoyan / JeonhwaSeon) render
-     visually much smaller than Latin fonts at the same pt. Scale them up so
-     they read at the same visual size as English. */
-  .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
-  [data-locale^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
-  [lang^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
-  .locale-ko :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
-  [data-locale^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
-  [lang^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker) {
-    font-size: 1.7em !important;
-    line-height: 1.2 !important;
-  }
-
-  .locale-zh :is(a, button, [role="button"]),
-  [data-locale^="zh"] :is(a, button, [role="button"]),
-  [lang^="zh"] :is(a, button, [role="button"]),
-  .locale-ko :is(a, button, [role="button"]),
-  [data-locale^="ko"] :is(a, button, [role="button"]),
-  [lang^="ko"] :is(a, button, [role="button"]) {
-    font-size: 1.4em !important;
-  }
-
-  .locale-zh main > section:first-child p,
-  [data-locale^="zh"] main > section:first-child p,
-  [lang^="zh"] main > section:first-child p,
-  .locale-ko main > section:first-child p,
-  [data-locale^="ko"] main > section:first-child p,
-  [lang^="ko"] main > section:first-child p {
-    font-size: 1.5em !important;
-    line-height: 1.45 !important;
-  }
-
-  /* Hero slideshow / large display text needs extra boost for CJK handwriting */
-  .locale-zh :is(h1, .font-hand, .font-journal, .font-marker).text-4xl,
-  .locale-zh :is(h1, .font-hand, .font-journal, .font-marker).text-5xl,
-  .locale-zh :is(h1, .font-hand, .font-journal, .font-marker).text-6xl,
-  .locale-zh :is(h1, .font-hand, .font-journal, .font-marker).text-7xl,
-  .locale-zh :is(h1, .font-hand, .font-journal, .font-marker).text-8xl,
-  .locale-ko :is(h1, .font-hand, .font-journal, .font-marker).text-4xl,
-  .locale-ko :is(h1, .font-hand, .font-journal, .font-marker).text-5xl,
-  .locale-ko :is(h1, .font-hand, .font-journal, .font-marker).text-6xl,
-  .locale-ko :is(h1, .font-hand, .font-journal, .font-marker).text-7xl,
-  .locale-ko :is(h1, .font-hand, .font-journal, .font-marker).text-8xl,
-  [data-locale^="zh"] [class*="text-6xl"],
-  [data-locale^="zh"] [class*="text-7xl"],
-  [data-locale^="zh"] [class*="text-8xl"],
-  [data-locale^="ko"] [class*="text-6xl"],
-  [data-locale^="ko"] [class*="text-7xl"],
-  [data-locale^="ko"] [class*="text-8xl"] {
-    font-size: 2em !important;
-    line-height: 1.1 !important;
-  }
-
-  .locale-ko .hero-slide-heading,
-  [data-locale^="ko"] .hero-slide-heading,
-  [lang^="ko"] .hero-slide-heading {
-    font-size: 52px !important;
-    line-height: 1.08 !important;
-    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    letter-spacing: 0 !important;
-  }
-
-  .locale-ko .hero-slide-heading .italic,
-  [data-locale^="ko"] .hero-slide-heading .italic,
-  [lang^="ko"] .hero-slide-heading .italic {
-    font-size: 1.08em !important;
-    font-style: normal !important;
-  }
-
-  @media (min-width: 768px) {
-    .locale-ko .hero-slide-heading,
-    [data-locale^="ko"] .hero-slide-heading,
-    [lang^="ko"] .hero-slide-heading {
-      font-size: 88px !important;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .locale-ko .hero-slide-heading,
-    [data-locale^="ko"] .hero-slide-heading,
-    [lang^="ko"] .hero-slide-heading {
-      font-size: 100px !important;
-    }
-  }
-
+  .hero-slide-heading-zh,
   .hero-slide-heading-ko {
     font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    font-size: 52px !important;
-    line-height: 1.08 !important;
+    font-size: 48px !important;
+    line-height: 1.12 !important;
     letter-spacing: 0 !important;
     font-weight: 400 !important;
   }
 
+  .hero-slide-heading-zh {
+    font-family: "ChenYuluoyan", "Noto Sans TC", cursive !important;
+    font-size: 42px !important;
+    line-height: 1.16 !important;
+  }
+
+  .hero-slide-heading-zh .italic,
   .hero-slide-heading-ko .italic {
     font-size: 1.08em !important;
     font-style: normal !important;
@@ -298,11 +189,19 @@
     .hero-slide-heading-ko {
       font-size: 88px !important;
     }
+
+    .hero-slide-heading-zh {
+      font-size: 58px !important;
+    }
   }
 
   @media (min-width: 1024px) {
     .hero-slide-heading-ko {
       font-size: 100px !important;
+    }
+
+    .hero-slide-heading-zh {
+      font-size: 62px !important;
     }
   }
 
