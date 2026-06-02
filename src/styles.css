@@ -55,9 +55,9 @@
   --color-tape: var(--tape);
   --font-serif: "Klee One", "Noto Serif TC", Georgia, serif;
   --font-sans: "Noto Sans TC", "Inter", system-ui, sans-serif;
-  --font-hand: "Caveat", "Patrick Hand", "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Noto Sans TC", cursive;
-  --font-journal: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
-  --font-marker: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
+  --font-hand: "Caveat", "Patrick Hand", "JeonhwaSeon", "ChenYuluoyan", "Klee One", "Noto Sans TC", cursive;
+  --font-journal: "JeonhwaSeon", "ChenYuluoyan", "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
+  --font-marker: "JeonhwaSeon", "ChenYuluoyan", "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
 }
 
 :root {
@@ -136,25 +136,25 @@
   .locale-zh,
   [data-locale^="zh"],
   [lang^="zh"] {
-    --font-serif: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-hand: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-journal: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
-    --font-marker: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-serif: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-hand: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-journal: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
+    --font-marker: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive;
   }
 
   .locale-ko,
   [data-locale^="ko"],
   [lang^="ko"] {
-    --font-serif: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
-    --font-hand: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
-    --font-journal: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
-    --font-marker: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive;
+    --font-serif: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
+    --font-hand: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
+    --font-journal: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
+    --font-marker: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive;
   }
 
   .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
   [data-locale^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
   [lang^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
-    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
     font-weight: 400 !important;
     letter-spacing: 0 !important;
   }
@@ -162,7 +162,7 @@
   .locale-ko :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
   [data-locale^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]),
   [lang^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker, a[class*="text-"], button[class*="text-"]) {
-    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
     font-weight: 400 !important;
     letter-spacing: 0 !important;
   }
@@ -170,32 +170,32 @@
   .locale-zh main > section:first-child p,
   [data-locale^="zh"] main > section:first-child p,
   [lang^="zh"] main > section:first-child p {
-    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
     letter-spacing: 0 !important;
   }
 
   .locale-zh :is(a, button, [role="button"], section > div p[class*="text-"]),
   [data-locale^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]),
   [lang^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
-    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    font-family: "ChenYuluoyan", "JeonhwaSeon", "Noto Sans TC", cursive !important;
     letter-spacing: 0 !important;
   }
 
   .locale-ko main > section:first-child p,
   [data-locale^="ko"] main > section:first-child p,
   [lang^="ko"] main > section:first-child p {
-    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
     letter-spacing: 0 !important;
   }
 
   .locale-ko :is(a, button, [role="button"], section > div p[class*="text-"]),
   [data-locale^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]),
   [lang^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
-    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
     letter-spacing: 0 !important;
   }
 
-  /* The custom CJK handwriting fonts (MengQuNaiYou / JeonhwaSeon) render
+  /* The custom CJK handwriting fonts (ChenYuluoyan / JeonhwaSeon) render
      visually much smaller than Latin fonts at the same pt. Scale them up so
      they read at the same visual size as English. */
   .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
