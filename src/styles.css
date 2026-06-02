@@ -195,6 +195,38 @@
     letter-spacing: 0 !important;
   }
 
+  /* The custom CJK handwriting fonts (MengQuNaiYou / JeonhwaSeon) render
+     visually much smaller than Latin fonts at the same pt. Scale them up so
+     they read at the same visual size as English. */
+  .locale-zh :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
+  [data-locale^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
+  [lang^="zh"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
+  .locale-ko :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
+  [data-locale^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker),
+  [lang^="ko"] :is(h1, h2, h3, h4, .font-serif, .font-hand, .font-journal, .font-marker) {
+    font-size: 1.35em !important;
+    line-height: 1.25 !important;
+  }
+
+  .locale-zh :is(a, button, [role="button"]),
+  [data-locale^="zh"] :is(a, button, [role="button"]),
+  [lang^="zh"] :is(a, button, [role="button"]),
+  .locale-ko :is(a, button, [role="button"]),
+  [data-locale^="ko"] :is(a, button, [role="button"]),
+  [lang^="ko"] :is(a, button, [role="button"]) {
+    font-size: 1.2em !important;
+  }
+
+  .locale-zh main > section:first-child p,
+  [data-locale^="zh"] main > section:first-child p,
+  [lang^="zh"] main > section:first-child p,
+  .locale-ko main > section:first-child p,
+  [data-locale^="ko"] main > section:first-child p,
+  [lang^="ko"] main > section:first-child p {
+    font-size: 1.25em !important;
+    line-height: 1.5 !important;
+  }
+
   /* Torn paper edge using mask */
   .torn-bottom {
     -webkit-mask-image: radial-gradient(circle at 6px 100%, transparent 5px, #000 6px);
