@@ -444,7 +444,7 @@ export function HomePage() {
                   </button>
                 </div>
                 <div className="px-2 pt-5">
-                  <h3 className="font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
+                  <h3 className="tour-title font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
                   <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
                   <div className="mt-4 flex items-center justify-between">
                     <p className="font-serif text-[14px] text-primary font-semibold">{t.price}</p>
