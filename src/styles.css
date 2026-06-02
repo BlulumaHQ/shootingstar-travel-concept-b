@@ -170,8 +170,8 @@
   .hero-slide-heading-zh,
   .hero-slide-heading-ko {
     font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
-    font-size: 52px !important;
-    line-height: 1.08 !important;
+    font-size: 48px !important;
+    line-height: 1.12 !important;
     letter-spacing: 0 !important;
     font-weight: 400 !important;
   }
@@ -188,16 +188,22 @@
   }
 
   @media (min-width: 768px) {
-    .hero-slide-heading-zh,
     .hero-slide-heading-ko {
       font-size: 88px !important;
+    }
+
+    .hero-slide-heading-zh {
+      font-size: 72px !important;
     }
   }
 
   @media (min-width: 1024px) {
-    .hero-slide-heading-zh,
     .hero-slide-heading-ko {
       font-size: 100px !important;
+    }
+
+    .hero-slide-heading-zh {
+      font-size: 78px !important;
     }
   }
 
