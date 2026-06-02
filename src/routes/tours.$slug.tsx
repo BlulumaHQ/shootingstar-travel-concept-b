@@ -373,7 +373,7 @@ export function TourDetailPage() {
             {/* Title block */}
             <header className="bg-cream rounded-[8px] p-7 md:p-9 border border-border/60 shadow-[0_30px_60px_-30px_rgba(60,80,70,0.35)]">
               <Link to={toursHref as never} className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">{T.allTours}</Link>
-              <h1 className="font-serif text-3xl md:text-[42px] text-ink mt-3 font-semibold leading-[1.2]">{tour.title}</h1>
+              <h1 className="tour-title font-serif text-3xl md:text-[42px] text-ink mt-3 font-semibold leading-[1.2]">{tour.title}</h1>
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
