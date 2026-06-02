@@ -178,6 +178,20 @@
     font-weight: 400 !important;
   }
 
+  /* Tour names must remain readable — opt out of handwriting font in ZH/KO */
+  .locale-zh .tour-title,
+  [data-locale^="zh"] .tour-title,
+  [lang^="zh"] .tour-title {
+    font-family: "Noto Serif TC", serif !important;
+    font-weight: 600 !important;
+  }
+  .locale-ko .tour-title,
+  [data-locale^="ko"] .tour-title,
+  [lang^="ko"] .tour-title {
+    font-family: "Noto Serif KR", serif !important;
+    font-weight: 600 !important;
+  }
+
   .hero-slide-heading-zh,
   .hero-slide-heading-ko {
     font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
