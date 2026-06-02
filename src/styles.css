@@ -163,6 +163,21 @@
     font-family: "Noto Sans KR", system-ui, sans-serif !important;
   }
 
+  /* Section heading titles use the custom handwriting font in ZH/KO */
+  .locale-zh :is(h1, h2, h3),
+  [data-locale^="zh"] :is(h1, h2, h3),
+  [lang^="zh"] :is(h1, h2, h3) {
+    font-family: "ChenYuluoyan", "Noto Serif TC", serif !important;
+    font-weight: 400 !important;
+  }
+
+  .locale-ko :is(h1, h2, h3),
+  [data-locale^="ko"] :is(h1, h2, h3),
+  [lang^="ko"] :is(h1, h2, h3) {
+    font-family: "JeonhwaSeon", "Noto Serif KR", serif !important;
+    font-weight: 400 !important;
+  }
+
   .hero-slide-heading-zh,
   .hero-slide-heading-ko {
     font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
