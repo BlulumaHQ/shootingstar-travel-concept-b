@@ -102,7 +102,7 @@ export function ToursIndexPage() {
       </div>
       <div className="px-1 pt-4">
         <p className="text-[11px] tracking-[0.2em] uppercase text-ink/50">{t.duration}</p>
-        <h3 className="font-serif text-[16px] text-ink leading-snug font-semibold mt-1.5">{t.title}</h3>
+        <h3 className="tour-title font-serif text-[16px] text-ink leading-snug font-semibold mt-1.5">{t.title}</h3>
         <p className="mt-1.5 text-[12px] text-ink/55 leading-relaxed">{t.desc}</p>
         <div className="mt-3 flex items-center justify-between">
           <p className="font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
