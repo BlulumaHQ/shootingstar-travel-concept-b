@@ -174,9 +174,23 @@
     letter-spacing: 0 !important;
   }
 
+  .locale-zh :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [data-locale^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [lang^="zh"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
+    font-family: "MengQuNaiYou", "JeonhwaSeon", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
   .locale-ko main > section:first-child p,
   [data-locale^="ko"] main > section:first-child p,
   [lang^="ko"] main > section:first-child p {
+    font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
+    letter-spacing: 0 !important;
+  }
+
+  .locale-ko :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [data-locale^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]),
+  [lang^="ko"] :is(a, button, [role="button"], section > div p[class*="text-"]) {
     font-family: "JeonhwaSeon", "MengQuNaiYou", "Noto Sans TC", cursive !important;
     letter-spacing: 0 !important;
   }
