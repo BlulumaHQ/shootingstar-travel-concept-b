@@ -3,17 +3,24 @@
 @source "../src";
 @import "tw-animate-css";
 
-/* Custom handwritten fonts — Chinese (ChenYuluoyan) + Korean (JeonhwaSeon) */
+/* Custom handwritten fonts — served from public/fonts so they ship with the production build */
+@font-face {
+  font-family: "MengQuNaiYou";
+  src: url("/fonts/ZiHun79Hao-MengQuNaiYouTi-2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: "ChenYuluoyan";
-  src: url("/__l5e/assets-v1/4cf9f565-00c5-4dca-aef6-88262222bcfe/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
+  src: url("/fonts/ZiHun79Hao-MengQuNaiYouTi-2.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "JeonhwaSeon";
-  src: url("/__l5e/assets-v1/9a0d940d-8b2b-409f-a15e-98ff9bb7fb77/TalkFile-JeonhwaSeon.ttf") format("truetype");
+  src: url("/fonts/ZiHun79Hao-MengQuNaiYouTi-2.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
