@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
+  useLocation,
   createRootRouteWithContext,
   useRouter,
   HeadContent,
@@ -9,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { localeFromPath } from "@/i18n/locale";
 
 function NotFoundComponent() {
   return (
@@ -114,10 +116,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { pathname } = useLocation();
+  const locale = localeFromPath(pathname);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div className={`locale-${locale}`} data-locale={locale}>
+        <Outlet />
+      </div>
     </QueryClientProvider>
   );
 }
