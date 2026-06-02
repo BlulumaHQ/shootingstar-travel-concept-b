@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
+import { useLocale } from "@/i18n/locale";
 
 export type HeroSlide = {
   id: string;
@@ -169,6 +170,7 @@ export function HeroSlideshow({
 
 function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; hidden: boolean }) {
   const s = slide;
+  const locale = useLocale();
   return (
     <div
       aria-hidden={hidden}
@@ -190,7 +192,7 @@ function Slide({ slide, active, hidden }: { slide: HeroSlide; active: boolean; h
             </span>
           </div>
 
-          <h1 className="font-serif text-[34px] sm:text-[44px] md:text-[64px] leading-[1.08] tracking-[-0.018em] text-ink mt-6 md:mt-8 font-semibold">
+          <h1 className={`${locale === "ko" ? "hero-slide-heading-ko " : ""}hero-slide-heading font-serif text-[34px] sm:text-[44px] md:text-[64px] leading-[1.08] tracking-[-0.018em] text-ink mt-6 md:mt-8 font-semibold`}>
             {s.headingLines.map((ln, i) => {
               const last = i === s.headingLines.length - 1;
               return (
