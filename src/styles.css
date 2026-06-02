@@ -55,9 +55,9 @@
   --color-tape: var(--tape);
   --font-serif: "Klee One", "Noto Serif TC", Georgia, serif;
   --font-sans: "Noto Sans TC", "Inter", system-ui, sans-serif;
-  --font-hand: "Caveat", "Patrick Hand", "Klee One", "Noto Sans TC", cursive;
-  --font-journal: "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
-  --font-marker: "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
+  --font-hand: "Caveat", "Patrick Hand", "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Noto Sans TC", cursive;
+  --font-journal: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
+  --font-marker: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
 }
 
 :root {
