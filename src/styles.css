@@ -3,10 +3,10 @@
 @source "../src";
 @import "tw-animate-css";
 
-/* Custom handwritten fonts — Chinese (MengQuNaiYou) + Korean (JeonhwaSeon) */
+/* Custom handwritten fonts — Chinese (ChenYuluoyan) + Korean (JeonhwaSeon) */
 @font-face {
-  font-family: "MengQuNaiYou";
-  src: url("/__l5e/assets-v1/82dbaa35-8063-46f9-a184-a9c578d43491/ZiHun79Hao-MengQuNaiYou.ttf") format("truetype");
+  font-family: "ChenYuluoyan";
+  src: url("/__l5e/assets-v1/4cf9f565-00c5-4dca-aef6-88262222bcfe/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
