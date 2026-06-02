@@ -3,6 +3,23 @@
 @source "../src";
 @import "tw-animate-css";
 
+/* Custom handwritten fonts — Chinese (MengQuNaiYou) + Korean (JeonhwaSeon) */
+@font-face {
+  font-family: "MengQuNaiYou";
+  src: url("/__l5e/assets-v1/82dbaa35-8063-46f9-a184-a9c578d43491/ZiHun79Hao-MengQuNaiYou.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "JeonhwaSeon";
+  src: url("/__l5e/assets-v1/9a0d940d-8b2b-409f-a15e-98ff9bb7fb77/TalkFile-JeonhwaSeon.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -38,9 +55,9 @@
   --color-tape: var(--tape);
   --font-serif: "Klee One", "Noto Serif TC", Georgia, serif;
   --font-sans: "Noto Sans TC", "Inter", system-ui, sans-serif;
-  --font-hand: "Caveat", "Patrick Hand", "Klee One", "Noto Sans TC", cursive;
-  --font-journal: "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
-  --font-marker: "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
+  --font-hand: "Caveat", "Patrick Hand", "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Noto Sans TC", cursive;
+  --font-journal: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", system-ui, sans-serif;
+  --font-marker: "JeonhwaSeon", "MengQuNaiYou", "Klee One", "Zen Kurenaido", "Noto Sans TC", cursive;
 }
 
 :root {
