@@ -103,8 +103,7 @@ export function CredentialsSection() {
             <img
               src={citapLogo}
               alt="CITAP+ — Canadian Independent Tour Advisor Partners"
-              className="h-14 md:h-16 w-auto object-contain"
-              style={{ filter: "grayscale(1) contrast(1.1) brightness(0.35)" }}
+              className="h-14 md:h-16 w-auto object-contain opacity-80"
               loading="lazy"
             />
             <PursuitLogo className="h-7 md:h-8 w-auto text-ink/55" />
