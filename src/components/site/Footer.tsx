@@ -236,11 +236,14 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="grid h-10 w-10 place-items-center rounded-full border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition"
                 >
                   <Icon size={15} strokeWidth={1.5} />
                 </a>
+
               ))}
             </div>
           </div>
