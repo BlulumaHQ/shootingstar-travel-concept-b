@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
+import { useLocale } from "@/i18n/locale";
 import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake010 from "@/assets/lake-tours/lake-010.webp";
 import lake011 from "@/assets/lake-tours/lake-011.webp";
@@ -23,6 +24,7 @@ const TOUR_IMAGES: Record<TourKey, [string, string]> = {
 
 
 export function LakeToursLanding({ content }: { content: LakeToursContent }) {
+  const locale = useLocale();
   const TOURS = content.tours;
   const TOUR_LIST = [TOURS.halfday, TOURS.sunrise, TOURS.extended];
 
@@ -520,6 +522,11 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           </div>
         </div>
       </section>
+
+      {/* TRAVEL NOTES & BOOKING TERMS */}
+      <TravelTermsSection locale={locale} />
+
+
 
       {/* FINAL CTA */}
       <section className="relative overflow-hidden py-24 md:py-32 bg-ink text-cream">
