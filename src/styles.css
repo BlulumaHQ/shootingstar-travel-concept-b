@@ -119,9 +119,28 @@
   * { border-color: var(--color-border); }
   html, body { overflow-x: hidden; max-width: 100%; }
   html { scroll-behavior: smooth; }
-  /* Slightly larger base font size across the site (cards, sections, paragraphs).
-     Header and Hero use fixed px values, so they are unaffected. */
+  /* Larger base font size across the site (cards, sections, paragraphs).
+     Header and Hero use fixed px values, so they are unaffected.
+     Mobile stays smaller; desktop (md+) gets a bump, with extra boost for zh/ko. */
   html { font-size: 17px; }
+  @media (min-width: 768px) {
+    html { font-size: 18.5px; }
+    html.locale-zh,
+    html[data-locale^="zh"],
+    html[lang^="zh"],
+    html.locale-ko,
+    html[data-locale^="ko"],
+    html[lang^="ko"] { font-size: 19.5px; }
+  }
+  @media (min-width: 1024px) {
+    html { font-size: 19px; }
+    html.locale-zh,
+    html[data-locale^="zh"],
+    html[lang^="zh"],
+    html.locale-ko,
+    html[data-locale^="ko"],
+    html[lang^="ko"] { font-size: 20.5px; }
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
