@@ -96,6 +96,13 @@ export function Header() {
         </div>
       </div>
 
+      {/* Mobile top bar: language switcher */}
+      <div className="lg:hidden bg-cream border-b border-ink/8">
+        <div className="mx-auto max-w-[1400px] px-5 flex justify-end py-1.5">
+          <LangSwitcher compact onNavigate={() => setOpen(false)} />
+        </div>
+      </div>
+
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
           <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
@@ -130,9 +137,8 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile: language switcher + hamburger */}
-          <div className="lg:hidden flex items-center gap-3">
-            <LangSwitcher compact onNavigate={() => setOpen(false)} />
+          {/* Mobile: hamburger only */}
+          <div className="lg:hidden flex items-center">
             <button
               className="p-2 -mr-2 text-ink relative z-10"
               aria-label="Menu"
