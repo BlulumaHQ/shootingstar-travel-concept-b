@@ -407,8 +407,8 @@ export function HomePage() {
               return (
                 <div key={f.t} className="flex flex-col items-start">
                   <span className="text-primary"><Icon size={48} /></span>
-                  <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
-                  <p className="mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
+                  <p className="feat-title mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
+                  <p className="feat-tagline mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
                 </div>
               );
             })}
@@ -573,9 +573,9 @@ export function HomePage() {
             {p.beliefs.map((b, i) => (
               <div key={b.num}>
                 <p className="font-marker text-primary text-sm tracking-[0.2em]">{b.num ?? `0${i + 1}`}</p>
-                <h3 className="font-serif text-[17px] text-ink mt-3 font-semibold leading-snug">{b.title}</h3>
+                <h3 className="belief-title font-serif text-[17px] text-ink mt-3 font-semibold leading-snug">{b.title}</h3>
                 <div className="mt-3 h-px w-8 bg-primary/40" />
-                <p className="mt-4 text-[13px] text-ink/65 leading-[1.95]">{b.desc}</p>
+                <p className="belief-desc mt-4 text-[13px] text-ink/65 leading-[1.95]">{b.desc}</p>
               </div>
             ))}
           </div>

@@ -220,6 +220,71 @@
     font-weight: 600 !important;
   }
 
+  /* ZH/KO bumps: title bigger than tagline for feat + beliefs sections */
+  .locale-zh .feat-title,
+  [data-locale^="zh"] .feat-title,
+  [lang^="zh"] .feat-title,
+  .locale-ko .feat-title,
+  [data-locale^="ko"] .feat-title,
+  [lang^="ko"] .feat-title,
+  .locale-zh .belief-title,
+  [data-locale^="zh"] .belief-title,
+  [lang^="zh"] .belief-title,
+  .locale-ko .belief-title,
+  [data-locale^="ko"] .belief-title,
+  [lang^="ko"] .belief-title {
+    font-size: 22px !important;
+    line-height: 1.4 !important;
+  }
+  @media (min-width: 768px) {
+    .locale-zh .feat-title,
+    [data-locale^="zh"] .feat-title,
+    [lang^="zh"] .feat-title,
+    .locale-ko .feat-title,
+    [data-locale^="ko"] .feat-title,
+    [lang^="ko"] .feat-title,
+    .locale-zh .belief-title,
+    [data-locale^="zh"] .belief-title,
+    [lang^="zh"] .belief-title,
+    .locale-ko .belief-title,
+    [data-locale^="ko"] .belief-title,
+    [lang^="ko"] .belief-title {
+      font-size: 26px !important;
+    }
+  }
+
+  .locale-zh .feat-tagline,
+  [data-locale^="zh"] .feat-tagline,
+  [lang^="zh"] .feat-tagline,
+  .locale-ko .feat-tagline,
+  [data-locale^="ko"] .feat-tagline,
+  [lang^="ko"] .feat-tagline,
+  .locale-zh .belief-desc,
+  [data-locale^="zh"] .belief-desc,
+  [lang^="zh"] .belief-desc,
+  .locale-ko .belief-desc,
+  [data-locale^="ko"] .belief-desc,
+  [lang^="ko"] .belief-desc {
+    font-size: 16px !important;
+    line-height: 1.9 !important;
+  }
+  @media (min-width: 768px) {
+    .locale-zh .feat-tagline,
+    [data-locale^="zh"] .feat-tagline,
+    [lang^="zh"] .feat-tagline,
+    .locale-ko .feat-tagline,
+    [data-locale^="ko"] .feat-tagline,
+    [lang^="ko"] .feat-tagline,
+    .locale-zh .belief-desc,
+    [data-locale^="zh"] .belief-desc,
+    [lang^="zh"] .belief-desc,
+    .locale-ko .belief-desc,
+    [data-locale^="ko"] .belief-desc,
+    [lang^="ko"] .belief-desc {
+      font-size: 17px !important;
+    }
+  }
+
   .hero-slide-heading-zh,
   .hero-slide-heading-ko {
     font-family: "JeonhwaSeon", "ChenYuluoyan", "Noto Sans TC", cursive !important;
