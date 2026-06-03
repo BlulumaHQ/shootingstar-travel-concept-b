@@ -137,9 +137,8 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile: language switcher + hamburger */}
-          <div className="lg:hidden flex items-center gap-3">
-            <LangSwitcher compact onNavigate={() => setOpen(false)} />
+          {/* Mobile: hamburger only */}
+          <div className="lg:hidden flex items-center">
             <button
               className="p-2 -mr-2 text-ink relative z-10"
               aria-label="Menu"
