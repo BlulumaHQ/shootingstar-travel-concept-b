@@ -552,6 +552,8 @@ export function TourDetailPage() {
         </div>
       </div>
 
+      {isRockies(slug) && <CredentialsSection />}
+
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
         <div>

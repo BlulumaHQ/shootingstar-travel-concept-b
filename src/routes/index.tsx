@@ -24,6 +24,7 @@ import {
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
 import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
+import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroBanff2 from "@/assets/hero-banff-2.jpg";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
@@ -612,6 +613,9 @@ export function HomePage() {
 
         </div>
       </section>
+
+      {/* CREDENTIALS — Licensed, Certified & Authorized */}
+      <CredentialsSection />
 
       {/* CONTACT CTA */}
       <section className="relative overflow-hidden">
