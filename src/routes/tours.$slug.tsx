@@ -7,6 +7,13 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { useState } from "react";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { CredentialsSection } from "@/components/site/CredentialsSection";
+
+const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
+const isRockies = (slug: string) => {
+  const s = slug.toLowerCase();
+  return ROCKIES_KEYWORDS.some((k) => s.includes(k));
+};
 
 type TermsSection = { title: string; intro?: string; items: { label?: string; text: string }[] };
 
@@ -551,6 +558,8 @@ export function TourDetailPage() {
           </aside>
         </div>
       </div>
+
+      {isRockies(slug) && <CredentialsSection />}
 
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
