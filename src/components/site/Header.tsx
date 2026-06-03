@@ -89,6 +89,13 @@ export function Header() {
       className="sticky top-0 z-50"
       style={{ transform: "translateZ(0)", willChange: "transform", backfaceVisibility: "hidden" }}
     >
+      {/* Desktop top bar: language switcher only */}
+      <div className="hidden lg:block bg-cream border-b border-ink/8">
+        <div className="mx-auto max-w-[1400px] px-5 md:px-10 flex justify-end py-1.5">
+          <LangSwitcher />
+        </div>
+      </div>
+
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
           <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
@@ -110,9 +117,8 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Desktop right: language switcher centered between contact + book */}
-          <div className="hidden lg:flex items-center gap-6">
-            <LangSwitcher />
+          {/* Desktop right: book button only */}
+          <div className="hidden lg:flex items-center">
             <Link
               to={localized("/contact") as never}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-[13px] tracking-wide text-primary-foreground hover:bg-primary/90 transition shadow-[0_6px_18px_-8px_oklch(0.585_0.04_155/0.6)]"
