@@ -1,6 +1,5 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { Chatbot } from "./Chatbot";
 import { useLocale } from "@/i18n/locale";
 
 export function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -11,7 +10,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <Chatbot />
     </div>
   );
 }
+

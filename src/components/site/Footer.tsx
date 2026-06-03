@@ -1,17 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
-import { Instagram, Facebook, MessageCircle, Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Facebook, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 
 
 const socials = [
-  { Icon: Instagram, href: "#", label: "Instagram" },
-  { Icon: Facebook, href: "#", label: "Facebook" },
-  { Icon: MessageCircle, href: "#", label: "LINE" },
+  {
+    Icon: Facebook,
+    href: "https://www.facebook.com/people/Shooting-Star-Travel-%E6%B5%81%E6%98%9F%E9%9B%A8%E5%81%87%E6%9C%9F/61590391288968/",
+    label: "Facebook",
+  },
 ];
+
 
 function ColTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -167,11 +170,14 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="grid h-11 w-11 place-items-center rounded-full border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition"
                 >
                   <Icon size={16} strokeWidth={1.5} />
                 </a>
+
               ))}
             </div>
           </div>
@@ -230,11 +236,14 @@ export function Footer() {
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="grid h-10 w-10 place-items-center rounded-full border border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition"
                 >
                   <Icon size={15} strokeWidth={1.5} />
                 </a>
+
               ))}
             </div>
           </div>
