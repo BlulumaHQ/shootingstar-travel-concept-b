@@ -64,7 +64,7 @@ const pack: Record<Locale, {
       {
         title: "Languages & Groups",
         items: [
-          { q: "Which language groups are offered?", a: "We currently run English, Mandarin (Traditional & Simplified) and Korean groups. Private tours can be tailored to other languages." },
+          { q: "Which language groups are offered?", a: "We currently run English, Chinese and Korean groups. Private tours can be tailored to other languages." },
           { q: "Will the guide speak my language?", a: "Mandarin and Korean departures are led by native-speaking guides — communication is seamless." },
           { q: "Can different language groups travel together?", a: "Usually no, to preserve experience quality. Private tours can be arranged with mixed languages." },
         ],
@@ -118,7 +118,7 @@ const pack: Record<Locale, {
       {
         title: "語言與團體",
         items: [
-          { q: "提供哪些語言團？", a: "目前提供英語、中文（繁體與簡體）與韓語團。私人包團可依需求安排其他語言。" },
+          { q: "提供哪些語言團？", a: "目前提供英語、中文與韓語團。私人包團可依需求安排其他語言。" },
           { q: "導遊會說我的語言嗎？", a: "中文與韓語團由母語導遊帶領，溝通順暢無礙。" },
           { q: "不同語言的旅客會合併同團嗎？", a: "原則上不會，以維持旅遊品質。包團行程可彈性安排混合語言。" },
         ],
@@ -172,7 +172,7 @@ const pack: Record<Locale, {
       {
         title: "언어 및 그룹",
         items: [
-          { q: "어떤 언어 그룹이 있나요?", a: "현재 영어, 중국어(번체/간체), 한국어 그룹을 운영하고 있습니다. 프라이빗 투어는 다른 언어로도 맞춤 운영이 가능합니다." },
+          { q: "어떤 언어 그룹이 있나요?", a: "현재 영어, 중국어, 한국어 그룹을 운영하고 있습니다. 프라이빗 투어는 다른 언어로도 맞춤 운영이 가능합니다." },
           { q: "가이드가 제 언어를 구사하나요?", a: "한국어 및 중국어 출발 그룹은 원어민 가이드가 함께해 원활한 의사소통이 가능합니다." },
           { q: "다른 언어 그룹과 함께 여행할 수 있나요?", a: "여행의 질을 위해 보통은 합치지 않습니다. 프라이빗 투어는 혼합 언어로도 진행 가능합니다." },
         ],
