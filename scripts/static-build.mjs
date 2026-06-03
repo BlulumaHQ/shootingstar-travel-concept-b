@@ -68,7 +68,9 @@ async function main() {
   // Delete dist/server
   await fs.rm(serverDir, { recursive: true, force: true });
 
-  // _redirects removed — handled by Cloudflare Workers routing
+  // Write _redirects for Cloudflare Pages SPA routing
+  await fs.writeFile(path.join(dist, "_redirects"), "/* /index.html 200\n", "utf8");
+  console.log("Wrote dist/_redirects");
 
   // Count files
   let count = 0;
