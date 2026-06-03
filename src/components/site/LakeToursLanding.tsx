@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
+import { useLocale } from "@/i18n/locale";
 import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake010 from "@/assets/lake-tours/lake-010.webp";
 import lake011 from "@/assets/lake-tours/lake-011.webp";
@@ -23,6 +24,7 @@ const TOUR_IMAGES: Record<TourKey, [string, string]> = {
 
 
 export function LakeToursLanding({ content }: { content: LakeToursContent }) {
+  const locale = useLocale();
   const TOURS = content.tours;
   const TOUR_LIST = [TOURS.halfday, TOURS.sunrise, TOURS.extended];
 
@@ -521,6 +523,11 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
+      {/* TRAVEL NOTES & BOOKING TERMS */}
+      <TravelTermsSection locale={locale} />
+
+
+
       {/* FINAL CTA */}
       <section className="relative overflow-hidden py-24 md:py-32 bg-ink text-cream">
         <img src={FINAL_CTA_BG} alt="" className="absolute inset-0 h-full w-full object-cover opacity-55" />
@@ -770,4 +777,219 @@ function TourSlides({ images, alt }: { images: [string, string]; alt: string }) 
     </div>
   );
 }
+
+/* ============================================================
+ * Travel Notes & Booking Terms — locale-aware, identical content
+ * across all 2-lake (Moraine + Lake Louise) landing pages.
+ * Sourced from the official Shooting Star Travel terms.
+ * ============================================================ */
+type Locale = "en" | "zh" | "ko";
+type TermsPack = {
+  eyebrow: string;
+  notesTitle: string;
+  notesHighlightLabel: string;
+  passLinkLabel: string;
+  passLinkUrl: string;
+  notes: string[];
+  termsTitle: string;
+  groups: { title: string; items: { label?: string; text: string }[] }[];
+};
+
+const TERMS_PACK: Record<Locale, TermsPack> = {
+  zh: {
+    eyebrow: "— 旅行須知 & 預訂條款",
+    notesTitle: "旅行須知",
+    notesHighlightLabel: "重要提醒",
+    passLinkLabel: "前往購買 Discovery Pass",
+    passLinkUrl: "https://parkscanadashop.ca/pages/discovery-pass",
+    notes: [
+      "本行程費用不包含加拿大國家公園 Discovery Pass。每位旅客必須於出發前，以旅客本人姓名自行購買 Discovery Pass，並於出團當日攜帶通行證。",
+      "Discovery Pass 需由旅客本人自行完成購買，旅行社無法代替旅客以他人姓名購買或共用通行證；若未提前購買，可能會影響當日進入加拿大國家公園及行程安排。",
+      "洛磯山脈高海拔地區天氣變化較快，建議採用「洋蔥式穿法」並攜帶防風保暖外套。",
+      "若欲參加自費行程（如冰原雪車或纜車），強烈建議於預訂時一併告知，以便我們為您提前預訂熱門時段門票。",
+    ],
+    termsTitle: "Shooting Star Travel 旅遊預訂條款與細則",
+    groups: [
+      {
+        title: "1. 預訂與付款規定",
+        items: [
+          { label: "合約成立", text: "本公司旅遊行程費用原則上需於出發日前 30 天付清。待款項確認入帳後，旅遊合約即正式成立。若未於期限內完成繳費，本公司恕無法保留旅遊名額。" },
+          { label: "交易手續費", text: "若使用信用卡支付旅遊費用，因個人因素申請取消或辦理退款時，將扣除 4% 之信用卡刷卡手續費後進行退款。" },
+        ],
+      },
+      {
+        title: "2. 取消與退款政策",
+        items: [
+          { text: "為確保雙方權益，申請取消或變更行程時，請務必於本公司上班時間（週一至週五，國定假日除外）提出申請。若於週末或國定假日提出，將以隔天第一個工作日作為受理申請日期。退款比例依據距離出發日之天數計算如下：" },
+          { label: "出發日前 30 天（含）", text: "退還旅遊費用總額之 50%。" },
+          { label: "出發日前 14 天（含）", text: "退還旅遊費用總額之 30%。" },
+          { label: "出發日前 13 天內（含當日）", text: "恕不接受退款。" },
+        ],
+      },
+      {
+        title: "3. 旅遊責任聲明與權益須知",
+        items: [
+          { label: "行程調整權", text: "本公司保有依當地交通、氣候或臨時突發狀況，調整行程內容或順序之權利，恕不另行通知。" },
+          { label: "不可抗力因素", text: "若遇天災、航空器延誤或取消等不可抗力因素，導致無法參加行程或行程縮減，相關旅遊費用仍需按原訂契約收取。" },
+          { label: "安全與保險", text: "旅行期間，請旅客務必自行妥善保管貴重物品與現金，本公司對於個人財物遺失或損壞概不負責。旅遊活動具備一定風險，建議旅客自行評估健康狀況並自行加購個人旅遊平安保險。" },
+          { label: "搭乘規範", text: "行程車輛將依當日參加人數安排；若搭乘旅遊車，請依現場抵達順序排隊，以維持行程順暢。" },
+        ],
+      },
+    ],
+  },
+  en: {
+    eyebrow: "— travel notes & booking terms",
+    notesTitle: "Travel Notes",
+    notesHighlightLabel: "Important",
+    passLinkLabel: "Purchase Discovery Pass",
+    passLinkUrl: "https://parkscanadashop.ca/pages/discovery-pass",
+    notes: [
+      "The Parks Canada Discovery Pass is NOT included in the tour fee. Each guest must purchase their own Discovery Pass in advance under their own name and bring it (printed or digital) on tour day.",
+      "The Discovery Pass must be purchased individually by each guest. We cannot purchase passes under another person's name or share passes. Without a valid pass, national park entry and your day's itinerary may be affected.",
+      "Weather in the high-elevation Rockies changes quickly. We recommend dressing in layers and bringing a wind-resistant warm jacket.",
+      "If you would like to add optional activities (e.g. the Ice Explorer or the Banff Gondola), please let us know at the time of booking so we can secure popular time slots in advance.",
+    ],
+    termsTitle: "Shooting Star Travel — Booking Terms & Conditions",
+    groups: [
+      {
+        title: "1. Booking & Payment",
+        items: [
+          { label: "Contract Formation", text: "Full payment is generally required at least 30 days before departure. The booking contract becomes effective once we confirm receipt of payment. If payment is not received by the deadline, we cannot hold your seat." },
+          { label: "Processing Fee", text: "If you paid by credit card and request a cancellation or refund for personal reasons, a 4% credit card processing fee will be deducted from the refund amount." },
+        ],
+      },
+      {
+        title: "2. Cancellation & Refund Policy",
+        items: [
+          { text: "To protect both parties, cancellation or change requests must be submitted during our regular business hours (Monday to Friday, excluding statutory holidays). Requests received on weekends or holidays are processed on the next business day. Refunds are calculated based on the number of days before departure:" },
+          { label: "30+ days before departure", text: "50% refund of the total tour fee." },
+          { label: "14–29 days before departure", text: "30% refund of the total tour fee." },
+          { label: "Within 13 days of departure (including departure day)", text: "No refund." },
+        ],
+      },
+      {
+        title: "3. Liability & Traveller Notice",
+        items: [
+          { label: "Itinerary Adjustments", text: "We reserve the right to adjust the itinerary or its order due to local traffic, weather or unforeseen events, without prior notice." },
+          { label: "Force Majeure", text: "If you cannot participate or the itinerary is shortened due to force majeure events such as natural disasters, flight delays or cancellations, tour fees remain payable under the original contract." },
+          { label: "Safety & Insurance", text: "Please safeguard your valuables and cash during the trip. We are not responsible for loss or damage to personal property. Travel involves a certain level of risk; we recommend purchasing personal travel insurance based on your health condition." },
+          { label: "Vehicle & Boarding", text: "Vehicles are arranged according to the daily group size. When using tour buses, please queue in order of arrival to keep the day running smoothly." },
+        ],
+      },
+    ],
+  },
+  ko: {
+    eyebrow: "— 여행 안내 및 예약 약관",
+    notesTitle: "여행 안내",
+    notesHighlightLabel: "중요 안내",
+    passLinkLabel: "Discovery Pass 구매하기",
+    passLinkUrl: "https://parkscanadashop.ca/pages/discovery-pass",
+    notes: [
+      "캐나다 국립공원 Discovery Pass는 투어 요금에 포함되지 않습니다. 모든 여행자는 출발 전 본인 명의로 Discovery Pass를 직접 구매하시고, 투어 당일 지참하셔야 합니다.",
+      "Discovery Pass는 여행자 본인이 직접 구매해야 하며, 여행사가 타인 명의로 대신 구매하거나 패스를 공유해 드릴 수 없습니다. 미리 구매하지 않을 경우 당일 국립공원 입장과 일정 진행에 영향이 있을 수 있습니다.",
+      "록키 산맥 고지대는 날씨 변화가 빠르므로, 레이어드 룩(겹쳐 입기)을 권장하며 방풍 보온 자켓을 챙겨주세요.",
+      "선택 관광(컬럼비아 아이스필드 설상차, 곤돌라 등)을 원하시면 예약 시 함께 알려주세요. 인기 시간대 티켓을 미리 확보해 드립니다.",
+    ],
+    termsTitle: "Shooting Star Travel 예약 약관 및 세부 규정",
+    groups: [
+      {
+        title: "1. 예약 및 결제 규정",
+        items: [
+          { label: "계약 성립", text: "투어 요금은 원칙적으로 출발일 30일 전까지 전액 결제가 완료되어야 하며, 결제 확인 후 여행 계약이 정식으로 성립됩니다. 기한 내에 결제가 완료되지 않으면 좌석을 보장해 드릴 수 없습니다." },
+          { label: "수수료", text: "신용카드로 결제 후 개인 사정으로 취소 또는 환불을 신청하시는 경우, 4%의 신용카드 처리 수수료를 차감한 후 환불해 드립니다." },
+        ],
+      },
+      {
+        title: "2. 취소 및 환불 정책",
+        items: [
+          { text: "양측의 권익 보호를 위해 취소 또는 변경 신청은 반드시 영업시간(월–금, 공휴일 제외) 내에 접수해 주십시오. 주말 또는 공휴일에 접수된 신청은 다음 영업일을 정식 접수일로 합니다. 환불 비율은 출발일까지 남은 일수에 따라 다음과 같이 계산됩니다:" },
+          { label: "출발일 30일 이전", text: "총 여행비의 50% 환불." },
+          { label: "출발일 14–29일 전", text: "총 여행비의 30% 환불." },
+          { label: "출발일 13일 이내 (당일 포함)", text: "환불 불가." },
+        ],
+      },
+      {
+        title: "3. 여행 책임 및 권익 안내",
+        items: [
+          { label: "일정 조정 권한", text: "당사는 현지 교통, 기상 상황 또는 돌발 상황에 따라 일정 내용이나 순서를 사전 통보 없이 조정할 권리를 보유합니다." },
+          { label: "불가항력", text: "천재지변, 항공편 지연 또는 취소 등 불가항력 사유로 인해 일정에 참여하지 못하거나 일정이 축소되는 경우, 관련 여행 요금은 원 계약에 따라 청구됩니다." },
+          { label: "안전 및 보험", text: "여행 중 귀중품과 현금은 반드시 본인이 직접 보관해 주십시오. 개인 물품의 분실 또는 파손에 대해 당사는 책임지지 않습니다. 여행에는 일정한 위험이 따르므로, 건강 상태에 따라 개인 여행자 보험 가입을 권장드립니다." },
+          { label: "차량 탑승 안내", text: "차량은 당일 참가 인원에 따라 배정되며, 투어 버스 탑승 시에는 도착 순서대로 줄을 서 주시기 바랍니다." },
+        ],
+      },
+    ],
+  },
+};
+
+function TravelTermsSection({ locale }: { locale: Locale }) {
+  const p = TERMS_PACK[locale] ?? TERMS_PACK.en;
+  return (
+    <section className="py-20 md:py-28 bg-cream">
+      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {p.eyebrow}
+        </p>
+
+        {/* Travel Notes */}
+        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+          {p.notesTitle}
+        </h2>
+
+        <div className="mt-8 rounded-2xl border border-primary/25 bg-primary/[0.04] p-6 md:p-8">
+          <p className="font-marker text-primary text-[12px] tracking-[0.25em] uppercase">
+            {p.notesHighlightLabel}
+          </p>
+          <ul className="mt-4 space-y-3.5 text-[14.5px] text-ink/80 leading-[1.95]">
+            {p.notes.map((n, idx) => (
+              <li
+                key={idx}
+                className="pl-5 relative before:content-['·'] before:absolute before:left-0 before:text-primary before:text-xl before:leading-[1.2]"
+              >
+                {n}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={p.passLinkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
+          >
+            {p.passLinkLabel} →
+          </a>
+        </div>
+
+        {/* Booking Terms */}
+        <h3 className="mt-16 font-serif text-2xl md:text-[28px] text-ink font-semibold">
+          {p.termsTitle}
+        </h3>
+        <div className="mt-3 h-px w-12 bg-primary/60" />
+
+        <div className="mt-8 space-y-10">
+          {p.groups.map((g) => (
+            <div key={g.title}>
+              <h4 className="font-serif text-[18px] md:text-[20px] text-ink font-semibold">
+                {g.title}
+              </h4>
+              <ul className="mt-4 space-y-3 text-[14.5px] text-ink/75 leading-[1.95]">
+                {g.items.map((it, idx) => (
+                  <li
+                    key={idx}
+                    className="pl-5 relative before:content-['·'] before:absolute before:left-0 before:text-primary before:text-xl before:leading-[1.2]"
+                  >
+                    {it.label && (
+                      <span className="text-ink font-medium">{it.label}：</span>
+                    )}
+                    {it.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
