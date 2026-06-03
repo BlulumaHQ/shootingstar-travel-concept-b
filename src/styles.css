@@ -119,6 +119,9 @@
   * { border-color: var(--color-border); }
   html, body { overflow-x: hidden; max-width: 100%; }
   html { scroll-behavior: smooth; }
+  /* Slightly larger base font size across the site (cards, sections, paragraphs).
+     Header and Hero use fixed px values, so they are unaffected. */
+  html { font-size: 17px; }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
