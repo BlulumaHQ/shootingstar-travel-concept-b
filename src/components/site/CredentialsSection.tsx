@@ -1,8 +1,8 @@
 import { ShieldCheck, Mountain } from "lucide-react";
 import { useLocale, type Locale } from "@/i18n/locale";
 import { DottedLine } from "./BrandMarks";
+import { PursuitLogo } from "./PursuitLogo";
 import citapLogo from "@/assets/citap-logo.png.asset.json";
-import pursuitLogo from "@/assets/pursuit-logo.svg.asset.json";
 
 type Pack = {
   eyebrow: string;
@@ -107,13 +107,7 @@ export function CredentialsSection() {
               style={{ filter: "grayscale(1) contrast(0.95) brightness(0.55)" }}
               loading="lazy"
             />
-            <img
-              src={pursuitLogo.url}
-              alt="Pursuit Collection — Official Partner"
-              className="h-7 md:h-8 w-auto object-contain"
-              style={{ filter: "invert(0.85) grayscale(1) contrast(0.85)" }}
-              loading="lazy"
-            />
+            <PursuitLogo className="h-7 md:h-8 w-auto text-ink/55" />
           </div>
         </div>
 
