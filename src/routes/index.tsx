@@ -128,7 +128,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "View all FAQs →",
     faqs: [
       { q: "How do I book?", a: "Use the form on our Contact page, or reach us on WhatsApp, KakaoTalk or WeChat. A team member will reply within 24 hours." },
-      { q: "Are guides available in my language?", a: "Yes — we host departures in English, Mandarin (Traditional & Simplified) and Korean." },
+      { q: "Are guides available in my language?", a: "Yes — we host departures in English, Chinese and Korean." },
       { q: "When is full payment due?", a: "Full payment is generally required at least 30 days before departure. The booking is confirmed once we receive payment." },
       { q: "What is the cancellation & refund policy?", a: "30+ days before departure: 50% refund. 14–29 days before: 30% refund. Within 13 days (including departure day): no refund. Specific tour pages may set their own terms." },
       { q: "Is there a credit card refund fee?", a: "If you paid by credit card and request a refund, a 4% credit card processing fee is deducted from the refund amount." },
@@ -188,7 +188,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "查看所有常見問題 →",
     faqs: [
       { q: "如何報名？", a: "您可以透過聯絡我們頁面填寫表單，或直接以 WhatsApp、KakaoTalk、WeChat 與我們聯繫，將會有專人於 24 小時內回覆。" },
-      { q: "是否提供中文導遊？", a: "是的，我們提供繁體中文、簡體中文、韓文與英文導遊服務。" },
+      { q: "是否提供中文導遊？", a: "是的，我們提供中文、韓文與英文導遊服務。" },
       { q: "何時須完成付款？", a: "旅遊費用原則上須於出發日前 30 天完成全額付款，款項入帳後旅遊契約正式成立。" },
       { q: "取消與退款規定為何？", a: "出發前 30 天（含）以上可退 50%；14–29 天可退 30%；13 天內（含出發當日）恕不退款。各行程頁面若另有規定則以該頁公告為準。" },
       { q: "信用卡退款是否收手續費？", a: "以信用卡付款後申請退款者，將扣除實際產生之信用卡手續費 4% 後辦理退款。" },
@@ -248,7 +248,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "모든 FAQ 보기 →",
     faqs: [
       { q: "어떻게 예약하나요?", a: "문의 페이지의 양식을 작성하시거나 WhatsApp, 카카오톡, WeChat으로 연락 주세요. 24시간 이내에 답변드립니다." },
-      { q: "한국어 가이드가 있나요?", a: "네 — 영어, 중국어(번체/간체), 한국어 출발이 가능합니다." },
+      { q: "한국어 가이드가 있나요?", a: "네 — 영어, 중국어, 한국어 출발이 가능합니다." },
       { q: "전액 결제는 언제까지 해야 하나요?", a: "원칙적으로 출발일 30일 전까지 전액 결제가 완료되어야 하며, 결제 확인 후 여행 계약이 정식으로 성립됩니다." },
       { q: "취소 및 환불 규정은 어떻게 되나요?", a: "출발 30일 이전: 50% 환불, 14–29일 전: 30% 환불, 13일 이내(출발 당일 포함): 환불 불가. 각 투어 페이지에 별도 규정이 있는 경우 해당 내용이 우선합니다." },
       { q: "신용카드 환불 수수료가 있나요?", a: "신용카드로 결제 후 환불을 요청하시는 경우, 실제 발생한 신용카드 수수료 4%를 환불 금액에서 공제합니다." },
