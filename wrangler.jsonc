@@ -1,10 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "shootingstar-travel-concept-b",
-  "main": "./dist/server/server.js",
+  "name": "tanstack-start-app",
   "compatibility_date": "2025-09-24",
-  "compatibility_flags": ["nodejs_compat"],
-  "assets": {
-    "directory": "./dist/client"
-  }
+  "compatibility_flags": ["nodejs_compat"]
 }
