@@ -2,7 +2,7 @@ import { ShieldCheck, Mountain } from "lucide-react";
 import { useLocale, type Locale } from "@/i18n/locale";
 import { DottedLine } from "./BrandMarks";
 import { PursuitLogo } from "./PursuitLogo";
-import citapLogo from "@/assets/citap-logo.png.asset.json";
+import citapLogo from "@/assets/citap-logo.png";
 
 type Pack = {
   eyebrow: string;
@@ -101,10 +101,10 @@ export function CredentialsSection() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20 py-6 border-y border-primary/10">
             <img
-              src={citapLogo.url}
+              src={citapLogo}
               alt="CITAP+ — Canadian Independent Tour Advisor Partners"
               className="h-14 md:h-16 w-auto object-contain"
-              style={{ filter: "grayscale(1) contrast(0.95) brightness(0.55)" }}
+              style={{ filter: "grayscale(1) contrast(1.1) brightness(0.35)" }}
               loading="lazy"
             />
             <PursuitLogo className="h-7 md:h-8 w-auto text-ink/55" />
