@@ -13,18 +13,17 @@
 }
 @font-face {
   font-family: "ChenYuluoyan";
-  src: url("/fonts/ZiHun79Hao-MengQuNaiYouTi-2.ttf") format("truetype");
+  src: url("/fonts/ChenYuluoyan-2.0-Thin.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "JeonhwaSeon";
-  src: url("/fonts/ZiHun79Hao-MengQuNaiYouTi-2.ttf") format("truetype");
+  src: url("/fonts/TalkFile-JeonhwaSeon.ttf") format("truetype");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
-  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7AF, U+D7B0-D7FF;
 }
 
 @custom-variant dark (&:is(.dark *));
