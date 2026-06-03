@@ -45,6 +45,24 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
   );
 }
 
+const brandByLocale: Record<Locale, { text: string; fontFamily: string; size: string }> = {
+  en: { text: "Shootingstar Travel", fontFamily: '"ChenYuluoyan", "Caveat", cursive', size: "text-[22px] md:text-[30px]" },
+  zh: { text: "流星与假期", fontFamily: '"MengQuNaiYou", "ChenYuluoyan", cursive', size: "text-[24px] md:text-[34px]" },
+  ko: { text: "별찌아리 투어", fontFamily: '"JeonhwaSeon", cursive', size: "text-[24px] md:text-[32px]" },
+};
+
+function BrandWordmark({ locale, className = "" }: { locale: Locale; className?: string }) {
+  const b = brandByLocale[locale];
+  return (
+    <span
+      className={`leading-[1] text-ink ${b.size} ${className}`}
+      style={{ fontFamily: b.fontFamily }}
+    >
+      {b.text}
+    </span>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const t = useT();
@@ -73,8 +91,9 @@ export function Header() {
     >
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/") as never} className="flex items-center -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
+          <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
             <img src={logo} alt="Shootingstar Travel" className="h-[92px] md:h-[140px] w-auto" />
+            <BrandWordmark locale={locale} />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
@@ -140,8 +159,9 @@ export function Header() {
       {open && typeof document !== "undefined" && createPortal(
         <div className="lg:hidden fixed inset-0 z-[100] bg-cream overflow-y-auto">
           <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10 bg-cream">
-            <Link to={localized("/") as never} onClick={() => setOpen(false)} className="flex items-center">
+            <Link to={localized("/") as never} onClick={() => setOpen(false)} className="flex items-center gap-2.5">
               <img src={logo} alt="Shootingstar Travel" className="h-[72px] w-auto" />
+              <BrandWordmark locale={locale} className="!text-[20px]" />
             </Link>
             <button
               className="p-2 -mr-2 text-ink"
