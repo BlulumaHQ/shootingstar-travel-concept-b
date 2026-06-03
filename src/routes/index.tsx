@@ -407,8 +407,8 @@ export function HomePage() {
               return (
                 <div key={f.t} className="flex flex-col items-start">
                   <span className="text-primary"><Icon size={48} /></span>
-                  <p className="mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
-                  <p className="mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
+                  <p className="feat-title mt-5 font-serif text-[17px] text-ink font-semibold">{f.t}</p>
+                  <p className="feat-tagline mt-3 text-[13px] text-ink/75 leading-[1.9] whitespace-pre-line">{f.d}</p>
                 </div>
               );
             })}
