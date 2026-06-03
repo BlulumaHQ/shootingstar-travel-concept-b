@@ -124,13 +124,14 @@ export function CredentialsSection() {
                 <div className="w-12 h-12 rounded-full border border-primary/30 grid place-items-center text-primary mb-4 transition group-hover:bg-primary group-hover:text-primary-foreground">
                   <ShieldCheck size={20} strokeWidth={1.5} />
                 </div>
-                <h3 className="font-serif text-[15px] text-ink font-semibold leading-snug">
+                <h3 className="font-serif text-[17px] md:text-[18px] text-ink font-semibold leading-snug">
                   {c.label}
                 </h3>
                 <div className="mt-3 h-px w-8 bg-primary/30" />
-                <p className="mt-3 font-marker text-[12px] tracking-[0.18em] uppercase text-primary/85">
+                <p className="mt-3 font-marker text-[14px] md:text-[15px] tracking-[0.12em] uppercase text-primary/85">
                   {c.number}
                 </p>
+
               </div>
             ))}
           </div>
