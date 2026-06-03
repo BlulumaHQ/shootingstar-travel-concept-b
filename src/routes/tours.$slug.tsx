@@ -7,6 +7,13 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { useState } from "react";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { CredentialsSection } from "@/components/site/CredentialsSection";
+
+const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
+const isRockies = (slug: string) => {
+  const s = slug.toLowerCase();
+  return ROCKIES_KEYWORDS.some((k) => s.includes(k));
+};
 
 type TermsSection = { title: string; intro?: string; items: { label?: string; text: string }[] };
 
