@@ -15,6 +15,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RockyMountainLakeToursRouteImport } from './routes/rocky-mountain-lake-tours'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as IcefieldsParkwayJasperBanffShuttleToursRouteImport } from './routes/icefields-parkway-jasper-banff-shuttle-tours'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as DestinationsRouteImport } from './routes/destinations'
@@ -81,6 +82,12 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IcefieldsParkwayJasperBanffShuttleToursRoute =
+  IcefieldsParkwayJasperBanffShuttleToursRouteImport.update({
+    id: '/icefields-parkway-jasper-banff-shuttle-tours',
+    path: '/icefields-parkway-jasper-banff-shuttle-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GalleryRoute = GalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -267,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/icefields-parkway-jasper-banff-shuttle-tours': typeof IcefieldsParkwayJasperBanffShuttleToursRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
@@ -310,6 +318,7 @@ export interface FileRoutesByTo {
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/icefields-parkway-jasper-banff-shuttle-tours': typeof IcefieldsParkwayJasperBanffShuttleToursRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
@@ -353,6 +362,7 @@ export interface FileRoutesById {
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
+  '/icefields-parkway-jasper-banff-shuttle-tours': typeof IcefieldsParkwayJasperBanffShuttleToursRoute
   '/privacy': typeof PrivacyRoute
   '/reviews': typeof ReviewsRoute
   '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
@@ -398,6 +408,7 @@ export interface FileRouteTypes {
     | '/destinations'
     | '/faq'
     | '/gallery'
+    | '/icefields-parkway-jasper-banff-shuttle-tours'
     | '/privacy'
     | '/reviews'
     | '/rocky-mountain-lake-tours'
@@ -441,6 +452,7 @@ export interface FileRouteTypes {
     | '/destinations'
     | '/faq'
     | '/gallery'
+    | '/icefields-parkway-jasper-banff-shuttle-tours'
     | '/privacy'
     | '/reviews'
     | '/rocky-mountain-lake-tours'
@@ -483,6 +495,7 @@ export interface FileRouteTypes {
     | '/destinations'
     | '/faq'
     | '/gallery'
+    | '/icefields-parkway-jasper-banff-shuttle-tours'
     | '/privacy'
     | '/reviews'
     | '/rocky-mountain-lake-tours'
@@ -527,6 +540,7 @@ export interface RootRouteChildren {
   DestinationsRoute: typeof DestinationsRoute
   FaqRoute: typeof FaqRoute
   GalleryRoute: typeof GalleryRoute
+  IcefieldsParkwayJasperBanffShuttleToursRoute: typeof IcefieldsParkwayJasperBanffShuttleToursRoute
   PrivacyRoute: typeof PrivacyRoute
   ReviewsRoute: typeof ReviewsRoute
   RockyMountainLakeToursRoute: typeof RockyMountainLakeToursRoute
@@ -603,6 +617,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/icefields-parkway-jasper-banff-shuttle-tours': {
+      id: '/icefields-parkway-jasper-banff-shuttle-tours'
+      path: '/icefields-parkway-jasper-banff-shuttle-tours'
+      fullPath: '/icefields-parkway-jasper-banff-shuttle-tours'
+      preLoaderRoute: typeof IcefieldsParkwayJasperBanffShuttleToursRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -873,6 +894,8 @@ const rootRouteChildren: RootRouteChildren = {
   DestinationsRoute: DestinationsRoute,
   FaqRoute: FaqRoute,
   GalleryRoute: GalleryRoute,
+  IcefieldsParkwayJasperBanffShuttleToursRoute:
+    IcefieldsParkwayJasperBanffShuttleToursRoute,
   PrivacyRoute: PrivacyRoute,
   ReviewsRoute: ReviewsRoute,
   RockyMountainLakeToursRoute: RockyMountainLakeToursRoute,
@@ -909,13 +932,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
