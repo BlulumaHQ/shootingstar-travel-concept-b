@@ -23,15 +23,11 @@ import {
 } from "@/components/site/DoodleIcons";
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
-import { HeroSlideshow, type HeroSlide } from "@/components/site/HeroSlideshow";
+import { HeroDarkSlideshow, type HeroDarkSlide } from "@/components/site/HeroDarkSlideshow";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
-import heroBanff from "@/assets/hero-banff.jpg";
-import heroBanff2 from "@/assets/hero-banff-2.jpg";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
-import heroPolaroids from "@/assets/hero-polaroids.png";
-import vegasV1 from "@/assets/vegas-canyon/v1.webp";
-import vegasV2 from "@/assets/vegas-canyon/v2.webp";
-import vegasV3 from "@/assets/vegas-canyon/v3.webp";
+import heroIcefield from "@/assets/tour-icefield.webp";
+import lakeHero from "@/assets/lake-tours/lake-009.webp";
 
 
 export const Route = createFileRoute("/")({
