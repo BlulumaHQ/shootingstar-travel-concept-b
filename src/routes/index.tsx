@@ -423,7 +423,7 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroSlideshow slides={buildHeroSlides(locale, link)} backgroundImage={heroBgMoraine} />
+      <HeroDarkSlideshow slides={buildHeroSlides(locale, link)} />
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
       <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
