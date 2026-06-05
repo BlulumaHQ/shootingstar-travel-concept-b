@@ -74,7 +74,7 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 5000 }: Props) {
               <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
                 {s.eyebrow}
               </p>
-              <h1 className="mt-4 font-serif text-[36px] md:text-[58px] leading-[1.05] font-semibold">
+              <h1 className="mt-4 font-serif text-cream text-[36px] md:text-[58px] leading-[1.05] font-semibold">
                 {s.h1Line1}
                 {s.h1Line2 && (
                   <>
