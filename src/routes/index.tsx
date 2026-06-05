@@ -263,122 +263,153 @@ const FEATURE_ICONS = [CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHea
 
 const DEST_IMAGES = [tourBanff, tourVancouver, destWhistler, tourVictoria, tourAurora, destYukon];
 
+type HeroSlideCopy = {
+  eyebrow: string;
+  h1Line1: string;
+  h1Line2?: string;
+  sub: string;
+  primary: string;
+  secondary?: string;
+  badges?: string[];
+};
 type HeroCopy = {
-  banff: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
-  vegas: { eyebrow: string; badge: string; lines: string[]; body: string; tags: string[]; primary: string; secondary: string; cap1: string; cap2: string };
+  intro: HeroSlideCopy;
+  lakes: HeroSlideCopy;
+  icefields: HeroSlideCopy;
 };
 
 const HERO_COPY: Record<Locale, HeroCopy> = {
   en: {
-    banff: {
-      eyebrow: "Featured Journey · Spring 2026",
-      badge: "Limited Departure",
-      lines: ["Banff & the", "Canadian Rockies", "— a turquoise hush."],
-      body: "Turquoise lakes, alpine air and slow mornings on Bow Valley Parkway. A handcrafted boutique itinerary through the heart of the Canadian Rockies.",
-      tags: ["Small Group Tour", "Premium Experience", "Korean Friendly", "Vancouver Departure"],
-      primary: "View Tour",
-      secondary: "See Itinerary →",
-      cap1: "Moraine Lake · 06:42",
-      cap2: "Lake Louise",
+    intro: {
+      eyebrow: "— Shooting Star Travel",
+      h1Line1: "Travel that shines",
+      h1Line2: "like a shooting star.",
+      sub: "Boutique small-group journeys across the Canadian Rockies and the Western United States — paced for slow mornings, mountain light, and stories worth keeping.",
+      primary: "Explore Tours",
+      secondary: "Our Story",
+      badges: ["Small Groups", "Korean Friendly", "Vancouver Departure"],
     },
-    vegas: {
-      eyebrow: "Adventure Journey · Southwest USA",
-      badge: "4-Day Adventure",
-      lines: ["Las Vegas &", "the Canyons —", "neon to red rock."],
-      body: "From the neon strip of Las Vegas to Bryce, Antelope and the Grand Canyon — a four-day road trip across the American Southwest, paced for slow-shutter mornings and quiet desert evenings.",
-      tags: ["4 Days · 3 Nights", "Small Group", "Korean Friendly", "Las Vegas Departure"],
-      primary: "View Tour",
-      secondary: "See Itinerary →",
-      cap1: "Antelope Canyon · 11:24",
-      cap2: "Las Vegas · 21:08",
+    lakes: {
+      eyebrow: "— Featured · Canadian Rockies",
+      h1Line1: "Rocky Mountain",
+      h1Line2: "Lake Tours",
+      sub: "Moraine Lake, Lake Louise, Emerald Lake — turquoise water and alpine air on a single, considered day across the Bow Valley.",
+      primary: "View Lake Tours",
+      secondary: "See Itinerary",
+      badges: ["1 Day · Banff", "Korean Friendly", "Hotel Pickup"],
+    },
+    icefields: {
+      eyebrow: "— New · Banff ⇄ Jasper",
+      h1Line1: "Icefields Parkway",
+      h1Line2: "Shuttle & Sightseeing",
+      sub: "Flexible weekday-based shuttles between Banff, Jasper, the Columbia Icefield, and Maligne Lake — with optional attractions and clear pickup points.",
+      primary: "View Shuttle Tours",
+      secondary: "Compare Routes",
+      badges: ["Banff ⇄ Jasper", "Columbia Icefield", "Maligne Lake"],
     },
   },
   zh: {
-    banff: {
-      eyebrow: "精選企劃 · 2026 春季",
-      badge: "限量出發",
-      lines: ["班夫與加拿大洛磯山脈", "——湖水靜靜的", "綠松石色。"],
-      body: "綠松石色的湖泊、清冷的高山空氣，與弓河谷大道上緩慢的早晨。一段手作精品行程，深入加拿大洛磯山脈的心臟。",
-      tags: ["小團出發", "精緻體驗", "韓語友善", "溫哥華出發"],
-      primary: "查看行程",
-      secondary: "詳細安排 →",
-      cap1: "Moraine Lake · 06:42",
-      cap2: "Lake Louise",
+    intro: {
+      eyebrow: "— Shooting Star Travel",
+      h1Line1: "旅行,",
+      h1Line2: "如流星般閃耀。",
+      sub: "加拿大洛磯山脈與美國西部的精品小團旅行 —— 緩慢的清晨、山林的光,以及值得收藏的故事。",
+      primary: "探索行程",
+      secondary: "關於我們",
+      badges: ["小團出發", "韓語友善", "溫哥華出發"],
     },
-    vegas: {
-      eyebrow: "探險之旅 · 美國西南",
-      badge: "四日探險",
-      lines: ["拉斯維加斯與", "峽谷之間 ——", "霓虹通往紅岩。"],
-      body: "從拉斯維加斯的霓虹大道，到布萊斯、羚羊與大峽谷——四天三夜橫越美國西南的公路旅程，留給清晨的長曝光與沙漠的安靜夜晚。",
-      tags: ["四日三夜", "小團出發", "韓語友善", "拉斯維加斯出發"],
-      primary: "查看行程",
-      secondary: "詳細安排 →",
-      cap1: "Antelope Canyon · 11:24",
-      cap2: "Las Vegas · 21:08",
+    lakes: {
+      eyebrow: "— 精選 · 加拿大洛磯",
+      h1Line1: "洛磯山脈",
+      h1Line2: "湖泊一日遊",
+      sub: "夢蓮湖、露易絲湖、翡翠湖 —— 一天之內,走過 Bow Valley 的綠松石湖水與高山空氣。",
+      primary: "查看湖泊行程",
+      secondary: "詳細安排",
+      badges: ["一日 · 班夫", "韓語友善", "飯店接送"],
+    },
+    icefields: {
+      eyebrow: "— 全新 · 班夫 ⇄ 賈斯珀",
+      h1Line1: "冰原大道",
+      h1Line2: "接駁與觀光行程",
+      sub: "班夫、賈斯珀、哥倫比亞冰原與瑪琳湖之間的彈性接駁,依星期安排路線,可加購景點門票,接送地點清楚。",
+      primary: "查看接駁行程",
+      secondary: "比較路線",
+      badges: ["班夫 ⇄ 賈斯珀", "哥倫比亞冰原", "瑪琳湖"],
     },
   },
   ko: {
-    banff: {
-      eyebrow: "추천 여정 · 2026 봄",
-      badge: "한정 출발",
-      lines: ["밴프와", "캐나디안 록키 — ", "터쿠아즈빛 고요."],
-      body: "터쿠아즈 호수, 알파인의 맑은 공기, 보우 밸리 파크웨이의 느린 아침. 캐나디안 록키의 심장으로 떠나는 핸드크래프트 부티크 여정.",
-      tags: ["소그룹 투어", "프리미엄 경험", "한국어 안내", "밴쿠버 출발"],
-      primary: "투어 보기",
-      secondary: "일정 보기 →",
-      cap1: "Moraine Lake · 06:42",
-      cap2: "Lake Louise",
+    intro: {
+      eyebrow: "— Shooting Star Travel",
+      h1Line1: "별똥별처럼",
+      h1Line2: "빛나는 여행.",
+      sub: "캐나디안 록키와 미국 서부를 가로지르는 부티크 소그룹 여정 — 느린 아침, 산의 빛, 그리고 간직할 만한 이야기.",
+      primary: "투어 둘러보기",
+      secondary: "브랜드 이야기",
+      badges: ["소그룹", "한국어 안내", "밴쿠버 출발"],
     },
-    vegas: {
-      eyebrow: "어드벤처 여정 · 미국 남서부",
-      badge: "4일 어드벤처",
-      lines: ["라스베이거스와", "캐니언 사이 ——", "네온에서 붉은 바위로."],
-      body: "라스베이거스의 네온 거리에서 브라이스, 앤텔로프, 그랜드 캐니언까지 — 미국 남서부를 가로지르는 3박 4일의 로드트립. 느린 셔터의 아침과 사막의 고요한 저녁을 위한 페이스.",
-      tags: ["3박 4일", "소그룹", "한국어 안내", "라스베이거스 출발"],
-      primary: "투어 보기",
-      secondary: "일정 보기 →",
-      cap1: "Antelope Canyon · 11:24",
-      cap2: "Las Vegas · 21:08",
+    lakes: {
+      eyebrow: "— 추천 · 캐나디안 록키",
+      h1Line1: "로키 마운틴",
+      h1Line2: "레이크 투어",
+      sub: "모레인 호수, 루이스 호수, 에메랄드 호수 — 보우 밸리의 터쿠아즈 빛 호수와 알파인의 공기를 하루에.",
+      primary: "레이크 투어 보기",
+      secondary: "일정 보기",
+      badges: ["1일 · 밴프", "한국어 안내", "호텔 픽업"],
+    },
+    icefields: {
+      eyebrow: "— 신상품 · 밴프 ⇄ 재스퍼",
+      h1Line1: "아이스필드 파크웨이",
+      h1Line2: "셔틀 & 사이트싱",
+      sub: "밴프, 재스퍼, 컬럼비아 아이스필드, 멀린 호수 사이의 요일별 셔틀 — 선택형 어트랙션 티켓과 명확한 픽업 지점.",
+      primary: "셔틀 투어 보기",
+      secondary: "노선 비교",
+      badges: ["밴프 ⇄ 재스퍼", "컬럼비아 아이스필드", "멀린 호수"],
     },
   },
 };
 
-function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroSlide[] {
+function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
   return [
     {
-      id: "banff",
-      eyebrow: c.banff.eyebrow,
-      badge: c.banff.badge,
-      headingLines: c.banff.lines,
-      body: c.banff.body,
-      tags: c.banff.tags,
-      primary: { label: c.banff.primary, to: link("/rocky-mountain-lake-tours") },
-
-      image: heroBanff,
-      imageCaption: c.banff.cap1,
-      accentImage: heroBanff2,
-      accentCaption: c.banff.cap2,
-      polaroidImage: heroPolaroids,
-      backgroundImage: heroBgMoraine,
+      id: "intro",
+      image: heroBgMoraine,
+      eyebrow: c.intro.eyebrow,
+      h1Line1: c.intro.h1Line1,
+      h1Line2: c.intro.h1Line2,
+      sub: c.intro.sub,
+      badges: c.intro.badges,
+      primary: { label: c.intro.primary, to: link("/tours") },
+      secondary: c.intro.secondary ? { label: c.intro.secondary, to: link("/about") } : undefined,
+      durationMs: 2000,
     },
     {
-      id: "vegas",
-      eyebrow: c.vegas.eyebrow,
-      badge: c.vegas.badge,
-      headingLines: c.vegas.lines,
-      body: c.vegas.body,
-      tags: c.vegas.tags,
-      primary: { label: c.vegas.primary, to: link("/tours/vegas-canyon-4-day") },
-      secondary: { label: c.vegas.secondary, to: link("/tours/vegas-canyon-4-day") },
-      image: vegasV1,
-      imageCaption: c.vegas.cap1,
-      accentImage: vegasV3,
-      accentCaption: c.vegas.cap2,
-      backgroundImage: vegasV2,
+      id: "lakes",
+      image: lakeHero,
+      eyebrow: c.lakes.eyebrow,
+      h1Line1: c.lakes.h1Line1,
+      h1Line2: c.lakes.h1Line2,
+      sub: c.lakes.sub,
+      badges: c.lakes.badges,
+      primary: { label: c.lakes.primary, to: link("/rocky-mountain-lake-tours") },
+      secondary: c.lakes.secondary ? { label: c.lakes.secondary, to: link("/rocky-mountain-lake-tours") } : undefined,
+      durationMs: 5000,
+    },
+    {
+      id: "icefields",
+      image: heroIcefield,
+      eyebrow: c.icefields.eyebrow,
+      h1Line1: c.icefields.h1Line1,
+      h1Line2: c.icefields.h1Line2,
+      sub: c.icefields.sub,
+      badges: c.icefields.badges,
+      primary: { label: c.icefields.primary, to: link("/icefields-parkway-jasper-banff-shuttle-tours") },
+      secondary: c.icefields.secondary ? { label: c.icefields.secondary, to: link("/icefields-parkway-jasper-banff-shuttle-tours") } : undefined,
+      durationMs: 5000,
     },
   ];
 }
+
 
 
 export function HomePage() {
