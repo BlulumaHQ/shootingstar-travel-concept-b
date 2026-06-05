@@ -518,6 +518,41 @@ export const tours: Tour[] = [
     ],
     bookingCta: "밴프 투 레이크 1일 투어 예약",
   },
+  {
+    slug: "icefields-parkway-jasper-banff-shuttle",
+    href: "/icefields-parkway-jasper-banff-shuttle-tours",
+    img: tourIcefield,
+    title: "아이스필드 파크웨이・재스퍼・밴프・말린 레이크 셔틀 투어",
+    desc: "요일별로 운영되는 로키 셔틀 & 관광 투어로 밴프, 재스퍼, 힌튼, 컬럼비아 아이스필드, 메디슨 레이크, 말린 레이크를 연결합니다. 선택형 입장권 추가도 가능합니다.",
+    intro: "요일별로 다른 셔틀 및 관광 루트를 운영하며, 일부 상품은 단일 구간 또는 풀데이 조합으로 예약할 수 있습니다.",
+    duration: "5 – 10시간",
+    language: LANGUAGE_NOTE,
+    price: "From $130 CAD / 인",
+    itinerary: [
+      { stop: "월 / 금", title: "밴프 → 재스퍼 관광 셔틀", body: "아이스필드 파크웨이를 따라 북쪽으로 향하는 풀데이 관광. 컬럼비아 아이스필드 옵션 추가 가능." },
+      { stop: "화 / 토", title: "재스퍼 & 말린 레이크 분할 구간 상품", body: "밴프, 재스퍼, 메디슨 레이크, 말린 레이크를 잇는 5시간 단위 자유 조합 구간." },
+      { stop: "수 / 일", title: "재스퍼 → 밴프 남행 관광 셔틀", body: "아타바스카 폭포, 컬럼비아 아이스필드, 페이토 레이크, 보우 레이크를 경유하는 풀데이 남행." },
+    ],
+    included: [
+      "편안한 셔틀 차량",
+      "선택한 루트의 지정 픽업·드롭오프",
+      "관광 루트의 예정된 정차 지점",
+      "Shooting Star Travel 예약 지원",
+    ],
+    notIncluded: [
+      "5% GST",
+      "식사 및 음료",
+      "가이드 팁(권장)",
+      "옵션으로 선택하지 않은 명소 입장권",
+      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "요일별로 다른 루트가 운영됩니다 — 월/금, 화/토, 수/일 각각 다른 상품이 운행됩니다.",
+      "금·토·일 출발 시 기본 요금에 1인당 $20 주말 추가 요금이 자동 적용됩니다.",
+      "시간은 예상 일정이며 산악 날씨와 도로 상황에 따라 변경될 수 있습니다.",
+    ],
+    bookingCta: "루트 예약하기",
+  },
 ];
 
 export function getTour(slug: string) {

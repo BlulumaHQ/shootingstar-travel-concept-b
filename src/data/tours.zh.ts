@@ -521,6 +521,41 @@ export const tours: Tour[] = [
     ],
     bookingCta: "預訂 Banff 雙湖一日遊",
   },
+  {
+    slug: "icefields-parkway-jasper-banff-shuttle",
+    href: "/icefields-parkway-jasper-banff-shuttle-tours",
+    img: tourIcefield,
+    title: "Icefields Parkway・Jasper・Banff・Maligne Lake 接駁觀光行程",
+    desc: "依星期靈活安排的洛磯山接駁與觀光行程，串連 Banff、Jasper、Hinton、哥倫比亞冰原、Medicine Lake 與 Maligne Lake，並可加購景點門票。",
+    intro: "依星期分流的接駁與觀光行程，部分行程可單段或合併預訂，並可加購哥倫比亞冰原與 Maligne Lake 遊船。",
+    duration: "5 – 10 小時",
+    language: LANGUAGE_NOTE,
+    price: "From $130 CAD / 人",
+    itinerary: [
+      { stop: "週一 / 週五", title: "Banff → Jasper 觀光接駁", body: "沿 Icefields Parkway 北上的全日觀光行程,可加購哥倫比亞冰原體驗。" },
+      { stop: "週二 / 週六", title: "分段式 Jasper 與 Maligne Lake 行程", body: "可自由組合的 5 小時分段行程,串連 Banff、Jasper、Medicine Lake 與 Maligne Lake。" },
+      { stop: "週三 / 週日", title: "Jasper → Banff 南下觀光接駁", body: "全日南下接駁,沿途停留 Athabasca Falls、哥倫比亞冰原、Peyto Lake 與 Bow Lake。" },
+    ],
+    included: [
+      "舒適接駁交通",
+      "依所選路線之指定接送點",
+      "觀光行程之既定停留點",
+      "Shooting Star Travel 預訂協助",
+    ],
+    notIncluded: [
+      "5% GST",
+      "餐食與飲品",
+      "建議司導小費",
+      "未加購之選配景點門票",
+      { text: "加拿大國家公園 Discovery Pass(須由旅客本人提前購買)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "不同星期運行不同路線:週一/週五、週二/週六、週三/週日各有對應產品。",
+      "週五、週六、週日基本票價自動加收每人 $20 週末附加費。",
+      "時間為預估安排,實際以山區天氣與路況為準。",
+    ],
+    bookingCta: "立即預訂路線",
+  },
 ];
 
 export function getTour(slug: string) {

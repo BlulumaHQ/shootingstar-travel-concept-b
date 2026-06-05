@@ -565,6 +565,41 @@ export const tours: Tour[] = [
     ],
     bookingCta: "Book Your Banff Two-Lake 1-Day Tour",
   },
+  {
+    slug: "icefields-parkway-jasper-banff-shuttle",
+    href: "/icefields-parkway-jasper-banff-shuttle-tours",
+    img: tourIcefield,
+    title: "Icefields Parkway, Jasper, Banff & Maligne Lake Shuttle Tours",
+    desc: "Flexible weekday-based shuttles between Banff, Jasper, Hinton, the Columbia Icefield, Medicine Lake, and Maligne Lake — with optional attraction tickets and clear pickup options.",
+    intro: "Weekday-based sightseeing shuttles and split-segment routes across the Icefields Parkway, with optional Columbia Icefield and Maligne Lake Cruise add-ons.",
+    duration: "5 – 10 hours",
+    language: LANGUAGE_NOTE,
+    price: "From $130 CAD / person",
+    itinerary: [
+      { stop: "Mon / Fri", title: "Banff → Jasper Sightseeing Shuttle", body: "Northbound full-day sightseeing along the Icefields Parkway with optional Columbia Icefield stop." },
+      { stop: "Tue / Sat", title: "Split-Segment Jasper & Maligne Lake Routes", body: "Mix-and-match 5-hour segments between Banff, Jasper, Medicine Lake, and Maligne Lake." },
+      { stop: "Wed / Sun", title: "Jasper → Banff Southbound Sightseeing", body: "Full-day southbound transfer with stops at Athabasca Falls, Columbia Icefield, Peyto Lake, and Bow Lake." },
+    ],
+    included: [
+      "Comfortable transportation",
+      "Scheduled pickup and drop-off based on selected route",
+      "Planned sightseeing stops for sightseeing routes",
+      "Booking support from Shooting Star Travel",
+    ],
+    notIncluded: [
+      "5% GST",
+      "Meals and drinks",
+      "Guide gratuity",
+      "Optional attraction tickets unless selected as add-ons",
+      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
+    ],
+    notes: [
+      "Routes operate on different days — Mon/Fri, Tue/Sat, and Wed/Sun each run a different product set.",
+      "A $20 per person weekend surcharge is automatically added to base fares on Friday, Saturday, and Sunday.",
+      "Times are planned estimates; mountain weather and road conditions may affect schedule.",
+    ],
+    bookingCta: "Reserve Your Route",
+  },
 ];
 
 export function getTour(slug: string) {
