@@ -194,6 +194,10 @@ export type IcefieldsContent = {
     tueSatSummaryTitle: string;
     tueSatSummaryDesc: string;
     selectedTimelineHeading: string;
+    showingPrefix: string;
+    routeSuffix: string;
+    placeholderTitle: string;
+    placeholderBody: string;
   };
 };
 
