@@ -47,7 +47,7 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
 
 const brandByLocale: Record<Locale, { text: string; fontFamily: string; size: string }> = {
   en: { text: "Shootingstar Travel", fontFamily: '"ChenYuluoyan", "Caveat", cursive', size: "text-[22px] md:text-[30px]" },
-  zh: { text: "流星与假期", fontFamily: '"MengQuNaiYou", "ChenYuluoyan", cursive', size: "text-[24px] md:text-[34px]" },
+  zh: { text: "流星雨假期", fontFamily: '"MengQuNaiYou", "ChenYuluoyan", cursive', size: "text-[24px] md:text-[34px]" },
   ko: { text: "별찌아리 투어", fontFamily: '"JeonhwaSeon", cursive', size: "text-[24px] md:text-[32px]" },
 };
 
