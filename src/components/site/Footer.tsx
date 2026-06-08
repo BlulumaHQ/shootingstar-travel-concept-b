@@ -35,8 +35,16 @@ export function Footer() {
     { l: t("nav.tours"), to: lp("/tours") },
     { l: t("nav.about"), to: lp("/about") },
     { l: t("nav.gallery"), to: lp("/gallery") },
+    { l: t("nav.reviews"), to: lp("/reviews") },
     { l: t("nav.faq"), to: lp("/faq") },
   ];
+
+  const currencyNote =
+    locale === "zh"
+      ? "除非特別標示，所有價格均以加拿大元（CAD）計算。"
+      : locale === "ko"
+        ? "별도 표기가 없는 경우 모든 요금은 캐나다 달러(CAD) 기준입니다."
+        : "Unless otherwise specified, all prices are in Canadian Dollars (CAD).";
 
   const popularToursByLocale = {
     en: [
