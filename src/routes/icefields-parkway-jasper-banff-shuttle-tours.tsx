@@ -337,7 +337,7 @@ function RouteCardGrid({
 }: {
   c: IcefieldsContent;
   productIds: ProductId[];
-  selectedProduct: ProductId;
+  selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
   const f = c.finderV2;
