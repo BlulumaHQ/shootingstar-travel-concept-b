@@ -4,6 +4,7 @@ import { useState } from "react";
 import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import { getPhone } from "@/i18n/contact";
+import { ChatSupportSection } from "@/components/site/ChatSupport";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -22,10 +23,7 @@ function getChannels(locale: Locale) {
   const phone = getPhone(locale);
   return [
     { l: "Phone", v: phone.display, h: phone.tel },
-    { l: "WhatsApp", v: phone.display, h: phone.wa },
-    { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
-    { l: "WeChat", v: "shootingstar_ca", h: "#" },
-    { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
+    { l: "Email", v: "info@shootingstartravel.com", h: "mailto:info@shootingstartravel.com" },
   ];
 }
 
