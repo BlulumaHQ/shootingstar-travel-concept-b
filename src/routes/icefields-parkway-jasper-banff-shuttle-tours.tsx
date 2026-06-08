@@ -541,12 +541,38 @@ function DetailedRoutes({
   ];
 
   return (
-    <TourRouteSection
-      id="detailed-route"
-      copy={copy}
-      days={days}
-      highlights={c.routeSection.highlights}
-    />
+    <>
+      <TourRouteSection
+        id="detailed-route"
+        copy={copy}
+        days={days}
+        highlights={c.routeSection.highlights}
+      />
+      <section className="pb-16 md:pb-20">
+        <div className="mx-auto max-w-[1100px] px-5 md:px-10 grid md:grid-cols-2 gap-5">
+          <div className="rounded-2xl border border-border/70 bg-cream p-6">
+            <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
+              {c.reserve.pickupLoc}
+            </p>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-ink/75 leading-[1.8]">
+              {c.pickups.map((pu) => (
+                <li key={pu}>• {pu}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border/70 bg-cream p-6">
+            <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
+              {c.reserve.dropoffLoc}
+            </p>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-ink/75 leading-[1.8]">
+              {c.dropoffs.map((dr) => (
+                <li key={dr}>• {dr}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
