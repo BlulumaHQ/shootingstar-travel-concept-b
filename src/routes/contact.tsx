@@ -78,6 +78,7 @@ export function ContactPage() {
   const [sent, setSent] = useState(false);
   const locale = useLocale();
   const p = PACKS[locale];
+  const channels = getChannels(locale);
   return (
     <SiteLayout>
       <section className="relative bg-cream pt-24 md:pt-32 pb-14 overflow-hidden">
