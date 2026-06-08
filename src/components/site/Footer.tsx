@@ -299,6 +299,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 md:mt-24 pt-7 border-t border-ink/15 flex flex-col gap-3 text-[12px] tracking-wide text-ink/55">
+          <p className="text-center md:text-left text-ink/60">{currencyNote}</p>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-center md:text-left">
             <p>{t("footer.copyright")}</p>
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
