@@ -892,6 +892,21 @@ const KO: IcefieldsContent = {
       { name: "메디슨 호수", desc: "계절에 따라 물이 차고 빠지는 지질학적 경이, 고요한 재스퍼 산봉우리에 둘러싸여 있습니다." },
     ],
   },
+  finderV2: {
+    eyebrow: "— 노선 찾기",
+    heading: "여행 요일별 운행 노선 확인",
+    intro: "여행 요일을 선택하면 해당 요일에 운행되는 노선이나 구간이 표시됩니다. 일부 요일은 하나의 전일 노선만 운행되고, 화요일과 토요일에는 별도 예약하거나 조합할 수 있는 여러 유연한 구간이 운행됩니다.",
+    groupLabels: { monFri: "월요일 / 금요일", tueSat: "화요일 / 토요일", wedSun: "수요일 / 일요일" },
+    ctaSelect: "이 노선 선택",
+    ctaSelected: "선택됨 — 아래 일정 확인",
+    bestForLabel: "추천 대상",
+    durationLabel: "소요시간",
+    addOnsLabel: "옵션",
+    segmentTitles: { morning: "오전 구간", midday: "낮 / 오후 구간", evening: "저녁 구간" },
+    tueSatSummaryTitle: "화요일 / 토요일: 유연한 구간 운행일",
+    tueSatSummaryDesc: "한 구간만 예약하거나 일정에 따라 오전, 오후, 저녁 구간을 조합해 예약할 수 있습니다.",
+    selectedTimelineHeading: "선택한 노선 — 정차별 일정",
+  },
 };
 
 
