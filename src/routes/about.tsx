@@ -138,8 +138,15 @@ export function AboutPage() {
   const p = PACKS[useLocale()];
   return (
     <SiteLayout>
-      <section className="relative bg-cream">
-        <div className="mx-auto max-w-[1200px] px-6 md:px-12 pt-24 md:pt-36 pb-16 md:pb-20">
+      <section className="relative bg-cream overflow-hidden">
+        <img
+          src={purpleLogo.url}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="pointer-events-none select-none absolute -right-24 -top-16 md:-right-40 md:-top-24 w-[420px] md:w-[640px] opacity-[0.12] md:opacity-[0.18] z-0"
+        />
+        <div className="relative z-10 mx-auto max-w-[1200px] px-6 md:px-12 pt-24 md:pt-36 pb-16 md:pb-20">
           <div className="flex items-center gap-3 text-primary/75">
             <CompassMark size={20} className="text-primary/65" />
             <DottedLine length={36} className="text-primary/45" />
