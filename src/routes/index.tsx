@@ -495,50 +495,7 @@ export function HomePage() {
       </section>
 
 
-      {/* GUEST STORIES */}
-      <section className="relative bg-[var(--sand)] py-24 md:py-28 overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-end justify-between gap-4 mb-14">
-            <div>
-              <div className="flex items-center gap-3 text-primary/75">
-                <StarMark size={18} className="text-primary/65" />
-                <DottedLine length={32} className="text-primary/45" />
-                <span className="text-[11px] tracking-[0.4em] uppercase">{p.storiesEyebrow}</span>
-              </div>
-              <h2 className="font-serif text-3xl md:text-[44px] text-ink tracking-[-0.015em] font-semibold mt-5">{p.storiesHeading}</h2>
-              <p className="mt-5 text-ink/75 text-[14.5px] leading-[2]">{p.storiesBody}</p>
-            </div>
-            <Link to={link("/reviews") as never} className="hidden md:inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2.5 text-primary text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition">
-              {p.moreStories}
-            </Link>
-          </div>
-        </div>
 
-        <div className="hidden md:block marquee-pause relative">
-          <div className="overflow-hidden">
-            <div className="animate-marquee flex gap-6 w-max px-6">
-              {[...reviews, ...reviews].map((r, i) => (
-                <div key={i} className="w-[340px] shrink-0">
-                  <ReviewCard r={r} compact />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="md:hidden mt-2">
-          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-4">
-            {reviews.map((r, i) => (
-              <div key={i} className="snap-center shrink-0 w-[82vw] max-w-[340px]">
-                <ReviewCard r={r} compact />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-6 px-6">
-            <Link to={link("/reviews") as never} className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-[13px]">{p.moreStoriesMobile}</Link>
-          </div>
-        </div>
-      </section>
 
       {/* ABOUT US */}
       <section className="bg-cream py-24 md:py-28">
