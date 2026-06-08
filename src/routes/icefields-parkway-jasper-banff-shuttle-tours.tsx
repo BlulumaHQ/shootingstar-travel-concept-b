@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
+import { TourRouteSection } from "@/components/site/TourRouteSection";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import bgMoraine from "@/assets/hero-bg-moraine.webp";
 import destJasper from "@/assets/dest-jasper.jpg";
