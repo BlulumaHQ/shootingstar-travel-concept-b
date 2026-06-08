@@ -63,8 +63,9 @@ export function Footer() {
   } as const;
   const popularTours = popularToursByLocale[locale];
 
+  const phone = getPhone(locale);
   const contact: { Icon: typeof Phone; t: string; href?: string }[] = [
-    { Icon: Phone, t: "1-604-765-7765", href: "tel:+16047657765" },
+    { Icon: Phone, t: phone.display, href: phone.tel },
     { Icon: Mail, t: "info@shootingstartravel.com", href: "mailto:info@shootingstartravel.com" },
     { Icon: MapPin, t: "Vancouver, BC, Canada" },
     { Icon: Clock, t: t("footer.hours") },
