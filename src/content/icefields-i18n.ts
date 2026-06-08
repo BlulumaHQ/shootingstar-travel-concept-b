@@ -432,6 +432,21 @@ const EN: IcefieldsContent = {
       { name: "Medicine Lake", desc: "A geological wonder that drains and refills with the seasons, framed by quiet Jasper peaks." },
     ],
   },
+  finderV2: {
+    eyebrow: "— Route Finder",
+    heading: "Find Available Routes by Travel Day",
+    intro: "Select your travel day to see which route or segment is available. Some days offer one full-day route, while Tuesday and Saturday offer multiple flexible segments that can be booked separately or combined.",
+    groupLabels: { monFri: "Monday / Friday", tueSat: "Tuesday / Saturday", wedSun: "Wednesday / Sunday" },
+    ctaSelect: "Select This Route",
+    ctaSelected: "Selected — see timeline below",
+    bestForLabel: "Best for",
+    durationLabel: "Duration",
+    addOnsLabel: "Add-ons",
+    segmentTitles: { morning: "Morning Segment", midday: "Midday / Afternoon Segment", evening: "Evening Segment" },
+    tueSatSummaryTitle: "Tuesday / Saturday: Flexible Segment Day",
+    tueSatSummaryDesc: "Book one segment only, or combine morning, afternoon, and evening segments depending on your travel plan.",
+    selectedTimelineHeading: "Your selected route — stop by stop",
+  },
 };
 
 
