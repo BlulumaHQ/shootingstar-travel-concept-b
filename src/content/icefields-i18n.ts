@@ -450,6 +450,10 @@ const EN: IcefieldsContent = {
     tueSatSummaryTitle: "Tuesday / Saturday: Flexible Segment Day",
     tueSatSummaryDesc: "Book one segment only, or combine morning, afternoon, and evening segments depending on your travel plan.",
     selectedTimelineHeading: "Your selected route — stop by stop",
+    showingPrefix: "Showing:",
+    routeSuffix: " Route",
+    placeholderTitle: "No route selected yet",
+    placeholderBody: "Select a travel day above to view the route map and detailed itinerary.",
   },
 };
 
