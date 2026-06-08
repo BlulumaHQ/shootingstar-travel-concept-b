@@ -9,6 +9,7 @@ import heroBanff from "@/assets/hero-banff.jpg";
 import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
 import { useLocale } from "@/i18n/locale";
+import { ChatSupportNote } from "@/components/site/ChatSupport";
 import {
   getIcefieldsContent,
   type IcefieldsContent,
@@ -89,6 +90,11 @@ export function IcefieldsShuttlePage() {
       />
       <DetailedRoutes c={c} selectedProduct={selectedProduct} />
       <BookingEstimator c={c} />
+      <section className="bg-paper/50 pb-16 md:pb-20">
+        <div className="mx-auto max-w-[1240px] px-5 md:px-10">
+          <ChatSupportNote />
+        </div>
+      </section>
       <ComparisonTable c={c} />
       <AddOnsSection c={c} />
       <PickupNotes c={c} />
