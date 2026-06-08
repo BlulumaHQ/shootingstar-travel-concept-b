@@ -18,12 +18,16 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const channels = [
-  { l: "WhatsApp", v: "1-604-765-7765", h: "https://wa.me/16047657765" },
-  { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
-  { l: "WeChat", v: "shootingstar_ca", h: "#" },
-  { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
-];
+function getChannels(locale: Locale) {
+  const phone = getPhone(locale);
+  return [
+    { l: "Phone", v: phone.display, h: phone.tel },
+    { l: "WhatsApp", v: phone.display, h: phone.wa },
+    { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
+    { l: "WeChat", v: "shootingstar_ca", h: "#" },
+    { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
+  ];
+}
 
 type Pack = {
   eyebrow: string; titleA: string; titleB: string; intro: string;
