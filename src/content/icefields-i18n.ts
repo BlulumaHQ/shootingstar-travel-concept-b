@@ -662,6 +662,21 @@ const ZH: IcefieldsContent = {
       { name: "藥湖", desc: "隨季節漲退的地質奇觀,被寧靜的賈斯珀群山環抱。" },
     ],
   },
+  finderV2: {
+    eyebrow: "— 路線搜尋",
+    heading: "依出遊日查看可預訂路線",
+    intro: "選擇你的出遊日,即可看到當天可預訂的路線或分段。部分日期提供一條全日路線,週二與週六則提供多個彈性分段,可單獨預訂或組合搭配。",
+    groupLabels: { monFri: "週一 / 週五", tueSat: "週二 / 週六", wedSun: "週三 / 週日" },
+    ctaSelect: "選擇此路線",
+    ctaSelected: "已選擇 — 請見下方行程",
+    bestForLabel: "最適合",
+    durationLabel: "時長",
+    addOnsLabel: "加購",
+    segmentTitles: { morning: "上午分段", midday: "中午 / 下午分段", evening: "傍晚分段" },
+    tueSatSummaryTitle: "週二 / 週六:彈性分段日",
+    tueSatSummaryDesc: "可只預訂一段,也可依行程組合上午、下午與傍晚分段。",
+    selectedTimelineHeading: "你選擇的路線 — 逐站行程",
+  },
 };
 
 
