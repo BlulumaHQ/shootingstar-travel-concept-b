@@ -172,8 +172,8 @@ export function Header() {
         <div className="lg:hidden fixed inset-0 z-[100] bg-cream overflow-y-auto">
           <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10 bg-cream">
             <Link to={localized("/") as never} onClick={() => setOpen(false)} className="flex items-center gap-2.5">
-              <img src={logo} alt="Shootingstar Travel" className="h-[72px] w-auto" />
-              <BrandWordmark locale={locale} className="!text-[20px]" />
+              <img src={logo} alt="Shootingstar Travel" className="h-[62px] w-auto" />
+              <BrandWordmark locale={locale} className="!text-[18px]" />
             </Link>
             <button
               className="p-2 -mr-2 text-ink"
