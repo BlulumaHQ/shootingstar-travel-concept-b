@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
+import { getPhone } from "@/i18n/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
