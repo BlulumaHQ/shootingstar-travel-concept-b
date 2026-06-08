@@ -67,28 +67,34 @@ const fmt = (n: number) => `$${n.toFixed(2)}`;
 export function IcefieldsShuttlePage() {
   const locale = useLocale();
   const c = getIcefieldsContent(locale);
-  const [selectedProduct, setSelectedProduct] = useState<ProductId>("P1");
+  const [date, setDate] = useState<string>("");
+  const [selectedProduct, setSelectedProduct] = useState<ProductId | null>(null);
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const selectAndScroll = (pid: ProductId) => {
     setSelectedProduct(pid);
-    // Defer to next frame so the timeline re-renders before we scroll.
     requestAnimationFrame(() => scrollTo("detailed-route"));
+  };
+
+  const handleDateChange = (d: string) => {
+    setDate(d);
+    setSelectedProduct(null);
   };
 
   return (
     <SiteLayout>
       <Hero c={c} scrollTo={scrollTo} />
-      <QuickRouteFinder
+      <WhyDifferent c={c} />
+      <FindByDate
         c={c}
+        date={date}
+        setDate={handleDateChange}
         selectedProduct={selectedProduct}
         onSelect={selectAndScroll}
       />
-      <WhyDifferent c={c} />
-      <RouteOverview c={c} />
-      <DetailedRoutes c={c} selectedProduct={selectedProduct} />
+      {selectedProduct && <DetailedRoutes c={c} selectedProduct={selectedProduct} />}
       <BookingEstimator c={c} />
       <ComparisonTable c={c} />
       <AddOnsSection c={c} />
