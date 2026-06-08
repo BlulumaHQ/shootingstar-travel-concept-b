@@ -67,7 +67,7 @@ const fmt = (n: number) => `$${n.toFixed(2)}`;
 export function IcefieldsShuttlePage() {
   const locale = useLocale();
   const c = getIcefieldsContent(locale);
-  const [selectedProduct, setSelectedProduct] = useState<ProductId>("P1");
+  const [selectedProduct, setSelectedProduct] = useState<ProductId | null>(null);
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
