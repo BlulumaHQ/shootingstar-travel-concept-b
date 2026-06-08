@@ -167,6 +167,19 @@ export type IcefieldsContent = {
     ctaReserve: string;
     ctaCompare: string;
   };
+  routeSection: {
+    mapEyebrow: string;
+    mapTitle: string;
+    mapComingSoon: string;
+    mapCaption: string;
+    timelineEyebrow: string;
+    timelineHeading: string;
+    stopLabel: string;
+    highlightsEyebrow: string;
+    highlightsHeading: string;
+    highlightImageSoon: string;
+    highlights: { name: string; desc: string }[];
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
