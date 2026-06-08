@@ -194,6 +194,10 @@ export type IcefieldsContent = {
     tueSatSummaryTitle: string;
     tueSatSummaryDesc: string;
     selectedTimelineHeading: string;
+    showingPrefix: string;
+    routeSuffix: string;
+    placeholderTitle: string;
+    placeholderBody: string;
   };
 };
 
@@ -446,6 +450,10 @@ const EN: IcefieldsContent = {
     tueSatSummaryTitle: "Tuesday / Saturday: Flexible Segment Day",
     tueSatSummaryDesc: "Book one segment only, or combine morning, afternoon, and evening segments depending on your travel plan.",
     selectedTimelineHeading: "Your selected route — stop by stop",
+    showingPrefix: "Showing:",
+    routeSuffix: " Route",
+    placeholderTitle: "No route selected yet",
+    placeholderBody: "Select a travel day above to view the route map and detailed itinerary.",
   },
 };
 
@@ -676,6 +684,10 @@ const ZH: IcefieldsContent = {
     tueSatSummaryTitle: "週二 / 週六:彈性分段日",
     tueSatSummaryDesc: "可只預訂一段,也可依行程組合上午、下午與傍晚分段。",
     selectedTimelineHeading: "你選擇的路線 — 逐站行程",
+    showingPrefix: "目前顯示:",
+    routeSuffix: " 路線",
+    placeholderTitle: "尚未選擇路線",
+    placeholderBody: "請在上方選擇出遊日,即可查看路線地圖與詳細行程。",
   },
 };
 
@@ -906,6 +918,10 @@ const KO: IcefieldsContent = {
     tueSatSummaryTitle: "화요일 / 토요일: 유연한 구간 운행일",
     tueSatSummaryDesc: "한 구간만 예약하거나 일정에 따라 오전, 오후, 저녁 구간을 조합해 예약할 수 있습니다.",
     selectedTimelineHeading: "선택한 노선 — 정차별 일정",
+    showingPrefix: "현재 표시:",
+    routeSuffix: " 노선",
+    placeholderTitle: "선택된 노선이 없습니다",
+    placeholderBody: "위에서 여행 요일을 선택하면 노선 지도와 상세 일정을 확인할 수 있습니다.",
   },
 };
 
