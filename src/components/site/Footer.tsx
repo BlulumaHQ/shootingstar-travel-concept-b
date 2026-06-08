@@ -34,7 +34,6 @@ export function Footer() {
     { l: t("nav.home"), to: lp("/") },
     { l: t("nav.tours"), to: lp("/tours") },
     { l: t("nav.about"), to: lp("/about") },
-    { l: t("nav.reviews"), to: lp("/reviews") },
     { l: t("nav.gallery"), to: lp("/gallery") },
     { l: t("nav.faq"), to: lp("/faq") },
   ];
