@@ -116,8 +116,13 @@
 
 /* Editorial baseline grid — extremely subtle */
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body { overflow-x: hidden; max-width: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+  * { border-color: var(--color-border); min-width: 0; }
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
   html { scroll-behavior: smooth; }
   /* Larger base font size across the site (cards, sections, paragraphs).
      Header and Hero use fixed px values, so they are unaffected.
@@ -151,9 +156,19 @@
     background-attachment: fixed;
   }
   img, video { max-width: 100%; height: auto; }
-  h1, h2, h3, h4 { font-family: var(--font-serif); letter-spacing: -0.012em; font-weight: 600; color: var(--ink); }
-  p { color: var(--ink-soft); }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.012em;
+    font-weight: 600;
+    color: var(--ink);
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  p { color: var(--ink-soft); overflow-wrap: break-word; }
+  /* Long unbroken titles (slug/route names) should never push the page wider */
+  .tour-title { overflow-wrap: break-word; word-break: normal; white-space: normal; }
 }
+
 
 @layer utilities {
   .font-hand { font-family: var(--font-hand); }
