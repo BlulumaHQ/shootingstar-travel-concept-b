@@ -67,17 +67,28 @@ const fmt = (n: number) => `$${n.toFixed(2)}`;
 export function IcefieldsShuttlePage() {
   const locale = useLocale();
   const c = getIcefieldsContent(locale);
+  const [selectedProduct, setSelectedProduct] = useState<ProductId>("P1");
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
+  const selectAndScroll = (pid: ProductId) => {
+    setSelectedProduct(pid);
+    // Defer to next frame so the timeline re-renders before we scroll.
+    requestAnimationFrame(() => scrollTo("detailed-route"));
+  };
+
   return (
     <SiteLayout>
       <Hero c={c} scrollTo={scrollTo} />
-      <QuickRouteFinder c={c} />
+      <QuickRouteFinder
+        c={c}
+        selectedProduct={selectedProduct}
+        onSelect={selectAndScroll}
+      />
       <WhyDifferent c={c} />
       <RouteOverview c={c} />
-      <DetailedRoutes c={c} />
+      <DetailedRoutes c={c} selectedProduct={selectedProduct} />
       <BookingEstimator c={c} />
       <ComparisonTable c={c} />
       <AddOnsSection c={c} />
@@ -200,93 +211,193 @@ function AccentBadge({ accent, children }: { accent: "north" | "split" | "south"
  * Quick Route Finder
  * ------------------------------------------------------------------ */
 
-function QuickRouteFinder({ c }: { c: IcefieldsContent }) {
-  const [day, setDay] = useState<Weekday>("Mon");
-  const productIds = PRODUCTS_BY_DAY[day];
+type FinderGroupId = "mon-fri" | "tue-sat" | "wed-sun";
+
+type FinderGroup =
+  | { id: FinderGroupId; labelKey: "monFri" | "wedSun"; type: "single"; productIds: ProductId[] }
+  | {
+      id: FinderGroupId;
+      labelKey: "tueSat";
+      type: "segmented";
+      segments: { titleKey: "morning" | "midday" | "evening"; productIds: ProductId[] }[];
+    };
+
+const FINDER_GROUPS: FinderGroup[] = [
+  { id: "mon-fri", labelKey: "monFri", type: "single", productIds: ["P1"] },
+  {
+    id: "tue-sat",
+    labelKey: "tueSat",
+    type: "segmented",
+    segments: [
+      { titleKey: "morning", productIds: ["P3A"] },
+      { titleKey: "midday", productIds: ["P2A", "P3B"] },
+      { titleKey: "evening", productIds: ["P2B"] },
+    ],
+  },
+  { id: "wed-sun", labelKey: "wedSun", type: "single", productIds: ["P4"] },
+];
+
+const PRODUCT_TO_GROUP: Record<ProductId, FinderGroupId> = {
+  P1: "mon-fri",
+  P2A: "tue-sat",
+  P2B: "tue-sat",
+  P3A: "tue-sat",
+  P3B: "tue-sat",
+  P4: "wed-sun",
+};
+
+function QuickRouteFinder({
+  c,
+  selectedProduct,
+  onSelect,
+}: {
+  c: IcefieldsContent;
+  selectedProduct: ProductId;
+  onSelect: (pid: ProductId) => void;
+}) {
+  const [groupId, setGroupId] = useState<FinderGroupId>(PRODUCT_TO_GROUP[selectedProduct]);
+  const group = FINDER_GROUPS.find((g) => g.id === groupId)!;
+  const f = c.finderV2;
 
   return (
     <section id="finder" className="py-20 md:py-24 bg-paper/50">
       <div className="mx-auto max-w-[1200px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.finder.eyebrow}</p>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{f.eyebrow}</p>
         <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
-          {c.finder.heading}
+          {f.heading}
         </h2>
+        <p className="mt-4 max-w-3xl text-[15px] text-ink/70 leading-[1.9]">{f.intro}</p>
 
         <div className="mt-8 flex flex-wrap gap-2">
-          {SELECTABLE_DAYS.map((d) => (
-            <button
-              key={d}
-              onClick={() => setDay(d)}
-              className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
-                day === d
-                  ? "bg-ink text-cream border-ink"
-                  : "bg-cream text-ink/70 border-border hover:border-primary/40"
-              }`}
-            >
-              {c.weekdayLabel[d]}
-            </button>
-          ))}
-          <button
-            onClick={() => setDay("Thu")}
-            className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
-              day === "Thu"
-                ? "bg-ink text-cream border-ink"
-                : "bg-cream text-ink/45 border-dashed border-border hover:border-primary/30"
-            }`}
-          >
-            {c.weekdayLabel.Thu}
-          </button>
+          {FINDER_GROUPS.map((g) => {
+            const active = g.id === groupId;
+            return (
+              <button
+                key={g.id}
+                onClick={() => setGroupId(g.id)}
+                className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
+                  active
+                    ? "bg-ink text-cream border-ink"
+                    : "bg-cream text-ink/70 border-border hover:border-primary/40"
+                }`}
+              >
+                {f.groupLabels[g.labelKey]}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="mt-8">
-          {productIds.length === 0 ? (
-            <div className="rounded-2xl border border-border/70 bg-cream p-6 text-ink/70 text-[14.5px] leading-[1.9]">
-              {c.finder.thursdayEmpty}
-            </div>
+        <div className="mt-8 space-y-8">
+          {group.type === "single" ? (
+            <RouteCardGrid
+              c={c}
+              productIds={group.productIds}
+              selectedProduct={selectedProduct}
+              onSelect={onSelect}
+            />
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {productIds.map((pid) => {
-                const p = c.products[pid];
-                return (
-                  <article key={pid} className="rounded-2xl border border-border/70 bg-cream p-6 flex flex-col">
-                    <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
-                    <h3 className="mt-3 font-serif text-[19px] text-ink font-semibold leading-snug">
-                      {p.name}
-                    </h3>
-                    <p className="mt-2 text-[13.5px] text-ink/65 leading-[1.85]">{p.short}</p>
+            <div className="space-y-8">
+              <div className="rounded-2xl border border-amber-300/60 bg-amber-50/60 p-5 md:p-6">
+                <p className="font-serif text-[18px] md:text-[20px] text-ink font-semibold">
+                  {f.tueSatSummaryTitle}
+                </p>
+                <p className="mt-2 text-[14px] text-ink/75 leading-[1.85]">{f.tueSatSummaryDesc}</p>
+              </div>
 
-                    <dl className="mt-4 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
-                      <Row k={c.detailed.direction} v={p.direction} />
-                      <Row k={c.detailed.time} v={p.time} />
-                      <Row k={c.detailed.duration} v={p.durationHrs} />
-                      <Row
-                        k={c.detailed.baseFare}
-                        v={p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.compare.pp}`}
-                      />
-                    </dl>
-
-                    {p.addOns.length > 0 && (
-                      <div className="mt-4 text-[12px] text-ink/55 tracking-[0.15em] uppercase">
-                        {c.finder.optional}&nbsp;
-                        <span className="text-ink/70 normal-case tracking-normal">
-                          {Array.from(
-                            new Set(
-                              p.addOns.map((a) =>
-                                a === "HINTON_ONE" || a === "HINTON_ROUND" ? c.finder.hintonExt : c.addOns[a].name,
-                              ),
-                            ),
-                          ).join(" · ")}
-                        </span>
-                      </div>
-                    )}
-                  </article>
-                );
-              })}
+              {group.segments.map((seg) => (
+                <div key={seg.titleKey}>
+                  <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
+                    {f.segmentTitles[seg.titleKey]}
+                  </p>
+                  <div className="mt-3">
+                    <RouteCardGrid
+                      c={c}
+                      productIds={seg.productIds}
+                      selectedProduct={selectedProduct}
+                      onSelect={onSelect}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
       </div>
     </section>
+  );
+}
+
+function RouteCardGrid({
+  c,
+  productIds,
+  selectedProduct,
+  onSelect,
+}: {
+  c: IcefieldsContent;
+  productIds: ProductId[];
+  selectedProduct: ProductId;
+  onSelect: (pid: ProductId) => void;
+}) {
+  const f = c.finderV2;
+  return (
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {productIds.map((pid) => {
+        const p = c.products[pid];
+        const isSelected = selectedProduct === pid;
+        const addOnsText =
+          p.addOns.length > 0
+            ? Array.from(
+                new Set(
+                  p.addOns.map((a) =>
+                    a === "HINTON_ONE" || a === "HINTON_ROUND" ? c.finder.hintonExt : c.addOns[a].name,
+                  ),
+                ),
+              ).join(" · ")
+            : "—";
+        return (
+          <article
+            key={pid}
+            className={`rounded-2xl border bg-cream p-6 flex flex-col transition ${
+              isSelected ? "border-primary ring-2 ring-primary/30" : "border-border/70"
+            }`}
+          >
+            <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
+            <h3 className="mt-3 font-serif text-[19px] text-ink font-semibold leading-snug break-words">
+              {p.name}
+            </h3>
+
+            <dl className="mt-4 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
+              <Row k={c.detailed.direction} v={p.direction} />
+              <Row k={c.detailed.time} v={p.time} />
+              <Row k={f.durationLabel} v={p.durationHrs} />
+              <Row
+                k={c.detailed.baseFare}
+                v={p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.compare.pp}`}
+              />
+              <Row k={f.addOnsLabel} v={addOnsText} />
+            </dl>
+
+            <div className="mt-4 text-[13px] text-ink/75 leading-[1.7]">
+              <span className="text-ink/55">{f.bestForLabel}: </span>
+              <span>{p.bestFor}</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => onSelect(pid)}
+              disabled={isSelected}
+              className={`mt-5 w-full rounded-full px-5 py-3 text-[13.5px] tracking-wide transition ${
+                isSelected
+                  ? "bg-primary/10 text-primary border border-primary/40 cursor-default"
+                  : "bg-ink text-cream hover:bg-ink/85"
+              }`}
+            >
+              {isSelected ? f.ctaSelected : f.ctaSelect}
+            </button>
+          </article>
+        );
+      })}
+    </div>
   );
 }
 
@@ -362,16 +473,18 @@ function RouteOverview({ c }: { c: IcefieldsContent }) {
   );
 }
 
-function DetailedRoutes({ c }: { c: IcefieldsContent }) {
-  const ids: ProductId[] = ["P1", "P2A", "P2B", "P3A", "P3B", "P4"];
-
+function DetailedRoutes({
+  c,
+  selectedProduct,
+}: {
+  c: IcefieldsContent;
+  selectedProduct: ProductId;
+}) {
   const parseStop = (line: string) => {
-    // Split on common dash separators used across EN/ZH/KO content.
     const m = line.match(/^\s*([^—\-–]+?)\s*[—\-–]\s*(.+)$/);
     if (m) {
       const left = m[1].trim();
       const right = m[2].trim();
-      // Treat left as time if it contains digits or a colon/dash range.
       const looksLikeTime = /\d/.test(left);
       return looksLikeTime
         ? { time: left, name: right }
@@ -380,28 +493,28 @@ function DetailedRoutes({ c }: { c: IcefieldsContent }) {
     return { time: undefined, name: line.trim() };
   };
 
-  const days = ids.map((pid) => {
-    const p = c.products[pid];
-    return {
+  const p = c.products[selectedProduct];
+  const copy = {
+    ...c.routeSection,
+    timelineHeading: c.finderV2.selectedTimelineHeading,
+  };
+  const days = [
+    {
       dayLabel: p.daysLabel,
       title: p.name,
       description: p.bestFor,
       accent: p.accent,
       stops: p.schedule.map((s, i) => {
         const { time, name } = parseStop(s);
-        return {
-          sequence: String(i + 1),
-          time,
-          name,
-        };
+        return { sequence: String(i + 1), time, name };
       }),
-    };
-  });
+    },
+  ];
 
   return (
     <TourRouteSection
       id="detailed-route"
-      copy={c.routeSection}
+      copy={copy}
       days={days}
       highlights={c.routeSection.highlights}
     />

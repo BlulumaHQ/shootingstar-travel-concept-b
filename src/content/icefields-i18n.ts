@@ -180,6 +180,21 @@ export type IcefieldsContent = {
     highlightImageSoon: string;
     highlights: { name: string; desc: string }[];
   };
+  finderV2: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    groupLabels: { monFri: string; tueSat: string; wedSun: string };
+    ctaSelect: string;
+    ctaSelected: string;
+    bestForLabel: string;
+    durationLabel: string;
+    addOnsLabel: string;
+    segmentTitles: { morning: string; midday: string; evening: string };
+    tueSatSummaryTitle: string;
+    tueSatSummaryDesc: string;
+    selectedTimelineHeading: string;
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
@@ -417,6 +432,21 @@ const EN: IcefieldsContent = {
       { name: "Medicine Lake", desc: "A geological wonder that drains and refills with the seasons, framed by quiet Jasper peaks." },
     ],
   },
+  finderV2: {
+    eyebrow: "— Route Finder",
+    heading: "Find Available Routes by Travel Day",
+    intro: "Select your travel day to see which route or segment is available. Some days offer one full-day route, while Tuesday and Saturday offer multiple flexible segments that can be booked separately or combined.",
+    groupLabels: { monFri: "Monday / Friday", tueSat: "Tuesday / Saturday", wedSun: "Wednesday / Sunday" },
+    ctaSelect: "Select This Route",
+    ctaSelected: "Selected — see timeline below",
+    bestForLabel: "Best for",
+    durationLabel: "Duration",
+    addOnsLabel: "Add-ons",
+    segmentTitles: { morning: "Morning Segment", midday: "Midday / Afternoon Segment", evening: "Evening Segment" },
+    tueSatSummaryTitle: "Tuesday / Saturday: Flexible Segment Day",
+    tueSatSummaryDesc: "Book one segment only, or combine morning, afternoon, and evening segments depending on your travel plan.",
+    selectedTimelineHeading: "Your selected route — stop by stop",
+  },
 };
 
 
@@ -632,6 +662,21 @@ const ZH: IcefieldsContent = {
       { name: "藥湖", desc: "隨季節漲退的地質奇觀,被寧靜的賈斯珀群山環抱。" },
     ],
   },
+  finderV2: {
+    eyebrow: "— 路線搜尋",
+    heading: "依出遊日查看可預訂路線",
+    intro: "選擇你的出遊日,即可看到當天可預訂的路線或分段。部分日期提供一條全日路線,週二與週六則提供多個彈性分段,可單獨預訂或組合搭配。",
+    groupLabels: { monFri: "週一 / 週五", tueSat: "週二 / 週六", wedSun: "週三 / 週日" },
+    ctaSelect: "選擇此路線",
+    ctaSelected: "已選擇 — 請見下方行程",
+    bestForLabel: "最適合",
+    durationLabel: "時長",
+    addOnsLabel: "加購",
+    segmentTitles: { morning: "上午分段", midday: "中午 / 下午分段", evening: "傍晚分段" },
+    tueSatSummaryTitle: "週二 / 週六:彈性分段日",
+    tueSatSummaryDesc: "可只預訂一段,也可依行程組合上午、下午與傍晚分段。",
+    selectedTimelineHeading: "你選擇的路線 — 逐站行程",
+  },
 };
 
 
@@ -846,6 +891,21 @@ const KO: IcefieldsContent = {
       { name: "보우 호수", desc: "크로풋 빙하 아래의 잔잔한 반영 호수, 인기 있는 드라이브 정차 지점." },
       { name: "메디슨 호수", desc: "계절에 따라 물이 차고 빠지는 지질학적 경이, 고요한 재스퍼 산봉우리에 둘러싸여 있습니다." },
     ],
+  },
+  finderV2: {
+    eyebrow: "— 노선 찾기",
+    heading: "여행 요일별 운행 노선 확인",
+    intro: "여행 요일을 선택하면 해당 요일에 운행되는 노선이나 구간이 표시됩니다. 일부 요일은 하나의 전일 노선만 운행되고, 화요일과 토요일에는 별도 예약하거나 조합할 수 있는 여러 유연한 구간이 운행됩니다.",
+    groupLabels: { monFri: "월요일 / 금요일", tueSat: "화요일 / 토요일", wedSun: "수요일 / 일요일" },
+    ctaSelect: "이 노선 선택",
+    ctaSelected: "선택됨 — 아래 일정 확인",
+    bestForLabel: "추천 대상",
+    durationLabel: "소요시간",
+    addOnsLabel: "옵션",
+    segmentTitles: { morning: "오전 구간", midday: "낮 / 오후 구간", evening: "저녁 구간" },
+    tueSatSummaryTitle: "화요일 / 토요일: 유연한 구간 운행일",
+    tueSatSummaryDesc: "한 구간만 예약하거나 일정에 따라 오전, 오후, 저녁 구간을 조합해 예약할 수 있습니다.",
+    selectedTimelineHeading: "선택한 노선 — 정차별 일정",
   },
 };
 
