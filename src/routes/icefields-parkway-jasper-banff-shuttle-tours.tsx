@@ -362,7 +362,6 @@ function RouteOverview({ c }: { c: IcefieldsContent }) {
 }
 
 function DetailedRoutes({ c }: { c: IcefieldsContent }) {
-  const [open, setOpen] = useState<ProductId>("P1");
   const ids: ProductId[] = ["P1", "P2A", "P2B", "P3A", "P3B", "P4"];
 
   return (
@@ -371,63 +370,85 @@ function DetailedRoutes({ c }: { c: IcefieldsContent }) {
         <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.detailed.eyebrow}</p>
         <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.detailed.heading}</h2>
 
-        <div className="mt-10 space-y-3">
+        <div className="mt-10 space-y-6">
           {ids.map((pid) => {
             const p = c.products[pid];
-            const isOpen = open === pid;
             return (
-              <div key={pid} className="rounded-2xl border border-border/70 bg-cream overflow-hidden">
-                <button
-                  onClick={() => setOpen(isOpen ? ("" as ProductId) : pid)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
-                >
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
-                    <span className="font-serif text-[17px] text-ink font-semibold">{p.name}</span>
-                  </div>
-                  <span className="text-ink/50 text-xl shrink-0">{isOpen ? "−" : "+"}</span>
-                </button>
-                {isOpen && (
-                  <div className="px-6 pb-6 pt-0 grid md:grid-cols-2 gap-6 border-t border-border/60">
-                    <div>
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{c.detailed.schedule}</p>
-                      <ul className="mt-2 space-y-1.5 text-[13.5px] text-ink/75 leading-[1.85]">
-                        {p.schedule.map((s) => (
-                          <li key={s} className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-primary">
+              <article
+                key={pid}
+                className="rounded-2xl border border-border/70 bg-cream overflow-hidden"
+              >
+                <header className="px-5 md:px-7 py-5 border-b border-border/60 flex flex-wrap items-center gap-3">
+                  <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
+                  <h3 className="font-serif text-[17px] md:text-[19px] text-ink font-semibold leading-snug min-w-0 break-words">
+                    {p.name}
+                  </h3>
+                </header>
+
+                <div className="px-5 md:px-7 py-6 grid md:grid-cols-2 gap-8">
+                  {/* Timeline */}
+                  <div className="min-w-0">
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-4">
+                      {c.detailed.schedule}
+                    </p>
+                    <ol className="relative border-l-2 border-primary/25 pl-5 space-y-4">
+                      {p.schedule.map((s, i) => (
+                        <li key={i} className="relative">
+                          <span
+                            className="absolute -left-[27px] top-1.5 grid h-3.5 w-3.5 place-items-center rounded-full bg-primary ring-4 ring-cream"
+                            aria-hidden
+                          />
+                          <p className="text-[13.5px] text-ink/80 leading-[1.7] break-words">
                             {s}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{c.detailed.pricing}</p>
-                      <ul className="mt-2 space-y-1.5 text-[13.5px] text-ink/75 leading-[1.85]">
-                        <li>{c.detailed.direction}: {p.direction}</li>
-                        <li>{c.detailed.time}: {p.time}</li>
-                        <li>{c.detailed.duration}: {p.durationHrs}</li>
-                        <li>
-                          {c.detailed.baseFare}:&nbsp;
-                          {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.reserve.perPerson}`}
+                          </p>
                         </li>
-                        {p.addOns.length > 0 && (
-                          <li>
-                            {c.detailed.addOnsLabel}:&nbsp;
-                            {Array.from(
-                              new Set(
-                                p.addOns.map((a) =>
-                                  a === "HINTON_ONE" || a === "HINTON_ROUND"
-                                    ? c.detailed.hintonExtFull
-                                    : `${c.addOns[a].name} (${c.addOns[a].label})`,
-                                ),
-                              ),
-                            ).join(" · ")}
-                          </li>
-                        )}
-                      </ul>
-                    </div>
+                      ))}
+                    </ol>
                   </div>
-                )}
-              </div>
+
+                  {/* Facts */}
+                  <div className="min-w-0">
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-4">
+                      {c.detailed.pricing}
+                    </p>
+                    <dl className="space-y-2.5 text-[13.5px] text-ink/80">
+                      <Row k={c.detailed.direction} v={p.direction} />
+                      <Row k={c.detailed.time} v={p.time} />
+                      <Row k={c.detailed.duration} v={p.durationHrs} />
+                      <Row
+                        k={c.detailed.baseFare}
+                        v={p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult}`}
+                      />
+                    </dl>
+
+                    {p.addOns.length > 0 && (
+                      <div className="mt-5">
+                        <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
+                          {c.detailed.addOnsLabel}
+                        </p>
+                        <ul className="space-y-1.5 text-[13px] text-ink/75 leading-[1.7]">
+                          {Array.from(
+                            new Set(
+                              p.addOns.map((a) =>
+                                a === "HINTON_ONE" || a === "HINTON_ROUND"
+                                  ? c.detailed.hintonExtFull
+                                  : `${c.addOns[a].name} — ${c.addOns[a].label}`,
+                              ),
+                            ),
+                          ).map((label) => (
+                            <li
+                              key={label}
+                              className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-primary break-words"
+                            >
+                              {label}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </article>
             );
           })}
         </div>

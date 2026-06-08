@@ -4,6 +4,7 @@ import tornEdge from "@/assets/header-torn-edge.png";
 import { Facebook, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
+import { getPhone } from "@/i18n/contact";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 
 
@@ -33,7 +34,6 @@ export function Footer() {
     { l: t("nav.home"), to: lp("/") },
     { l: t("nav.tours"), to: lp("/tours") },
     { l: t("nav.about"), to: lp("/about") },
-    { l: t("nav.reviews"), to: lp("/reviews") },
     { l: t("nav.gallery"), to: lp("/gallery") },
     { l: t("nav.faq"), to: lp("/faq") },
   ];
@@ -63,8 +63,9 @@ export function Footer() {
   } as const;
   const popularTours = popularToursByLocale[locale];
 
+  const phone = getPhone(locale);
   const contact: { Icon: typeof Phone; t: string; href?: string }[] = [
-    { Icon: Phone, t: "1-604-765-7765", href: "tel:+16047657765" },
+    { Icon: Phone, t: phone.display, href: phone.tel },
     { Icon: Mail, t: "info@shootingstartravel.com", href: "mailto:info@shootingstartravel.com" },
     { Icon: MapPin, t: "Vancouver, BC, Canada" },
     { Icon: Clock, t: t("footer.hours") },

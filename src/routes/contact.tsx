@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
+import { getPhone } from "@/i18n/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -17,12 +18,16 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const channels = [
-  { l: "WhatsApp", v: "1-604-765-7765", h: "https://wa.me/16047657765" },
-  { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
-  { l: "WeChat", v: "shootingstar_ca", h: "#" },
-  { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
-];
+function getChannels(locale: Locale) {
+  const phone = getPhone(locale);
+  return [
+    { l: "Phone", v: phone.display, h: phone.tel },
+    { l: "WhatsApp", v: phone.display, h: phone.wa },
+    { l: "KakaoTalk", v: "@shootingstartravel", h: "#" },
+    { l: "WeChat", v: "shootingstar_ca", h: "#" },
+    { l: "Email", v: "hello@shootingstartravel.ca", h: "mailto:hello@shootingstartravel.ca" },
+  ];
+}
 
 type Pack = {
   eyebrow: string; titleA: string; titleB: string; intro: string;
@@ -73,6 +78,7 @@ export function ContactPage() {
   const [sent, setSent] = useState(false);
   const locale = useLocale();
   const p = PACKS[locale];
+  const channels = getChannels(locale);
   return (
     <SiteLayout>
       <section className="relative bg-cream pt-24 md:pt-32 pb-14 overflow-hidden">
