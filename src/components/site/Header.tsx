@@ -105,8 +105,8 @@ export function Header() {
 
       <div className="relative bg-cream">
         <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-4 md:-mb-7" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Shootingstar Travel" className="h-[92px] md:h-[140px] w-auto" />
+          <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-3 md:-mb-5" onClick={() => setOpen(false)}>
+            <img src={logo} alt="Shootingstar Travel" className="h-[78px] md:h-[120px] w-auto" />
             <BrandWordmark locale={locale} />
           </Link>
 
@@ -172,8 +172,8 @@ export function Header() {
         <div className="lg:hidden fixed inset-0 z-[100] bg-cream overflow-y-auto">
           <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10 bg-cream">
             <Link to={localized("/") as never} onClick={() => setOpen(false)} className="flex items-center gap-2.5">
-              <img src={logo} alt="Shootingstar Travel" className="h-[72px] w-auto" />
-              <BrandWordmark locale={locale} className="!text-[20px]" />
+              <img src={logo} alt="Shootingstar Travel" className="h-[62px] w-auto" />
+              <BrandWordmark locale={locale} className="!text-[18px]" />
             </Link>
             <button
               className="p-2 -mr-2 text-ink"
