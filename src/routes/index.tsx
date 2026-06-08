@@ -113,7 +113,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "Small Groups", desc: "8–14 people per group — unhurried, uncrowded, every traveller is looked after." },
       { num: "02", title: "Thoughtful Detail", desc: "From airport pickups to corner cafés, every touchpoint is carefully chosen." },
-      { num: "03", title: "Tours in your language", desc: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in a single language — please choose the one that matches yours." },
+      { num: "03", title: "Mandarin / English / Korean Tours", desc: "We run separate English + Mandarin and English + Korean departures. Please choose the itinerary that matches your language." },
       { num: "04", title: "Safety & Clear Communication", desc: "Full travel insurance and a 24-hour hotline — so family can rest easy." },
       { num: "05", title: "Journeys with Stories", desc: "We believe travel is not about arriving, but about memories worth keeping." },
     ],
@@ -173,7 +173,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "小團更舒適", desc: "每團 8–14 人 — 不趕、不擠,每位旅人都被照顧到。" },
       { num: "02", title: "細節都用心", desc: "從機場接送到街角咖啡,每個接觸點都精挑細選。" },
-      { num: "03", title: "中文 / 英文 / 韓文團", desc: "我們分別提供中文、英文、韓文出發團，每一團皆以單一語言進行。請依您的語言選擇對應行程。" },
+      { num: "03", title: "中文 / 英文 / 韓文團", desc: "我們分別提供 英文／中文、英文／韓文 出發團，請依您的語言選擇對應行程。" },
       { num: "04", title: "安全與清晰溝通", desc: "完整旅遊保險與 24 小時聯絡專線,讓家人安心。" },
       { num: "05", title: "有故事的旅程", desc: "我們相信旅行不在抵達,而在值得收藏的回憶。" },
     ],
@@ -233,7 +233,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "소그룹의 편안함", desc: "그룹당 8–14명 — 서두르지 않고, 붐비지 않게, 모든 여행자가 돌봄받는 여정." },
       { num: "02", title: "디테일까지 정성껏", desc: "공항 픽업부터 골목 카페까지, 모든 접점은 정성껏 고릅니다." },
-      { num: "03", title: "한국어 · 영어 · 중국어 투어", desc: "한국어, 영어, 중국어 출발 투어를 각각 운영합니다. 각 투어는 한 가지 언어로만 진행되니, 사용 언어에 맞는 투어를 선택해 주세요." },
+      { num: "03", title: "한국어 · 영어 · 중국어 투어", desc: "영어＋중국어, 영어＋한국어 출발 투어를 각각 운영합니다. 사용 언어에 맞는 일정으로 선택해 주세요." },
       { num: "04", title: "안전과 명확한 소통", desc: "포괄적인 여행 보험과 24시간 연락 라인 — 가족도 안심할 수 있습니다." },
       { num: "05", title: "이야기가 있는 여정", desc: "우리는 여행이 도착이 아니라, 간직할 가치가 있는 추억이라고 믿습니다." },
     ],
