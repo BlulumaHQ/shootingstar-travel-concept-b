@@ -827,7 +827,28 @@ const KO: IcefieldsContent = {
     ctaReserve: "노선 예약하기 →",
     ctaCompare: "노선 비교",
   },
+  routeSection: {
+    mapEyebrow: "— 노선 지도",
+    mapTitle: "재스퍼 일러스트 노선 지도",
+    mapComingSoon: "재스퍼 일러스트 노선 지도 곧 공개",
+    mapCaption: "아이스필드 파크웨이의 모든 정차 지점을 담은 맞춤 일러스트 지도를 준비 중입니다.",
+    timelineEyebrow: "— 일별 일정",
+    timelineHeading: "정차 지점별로 노선을 따라가 보세요",
+    stopLabel: "정차",
+    highlightsEyebrow: "— 노선의 하이라이트",
+    highlightsHeading: "이 노선의 주요 관광지",
+    highlightImageSoon: "사진 준비 중",
+    highlights: [
+      { name: "컬럼비아 아이스필드", desc: "북행과 남행 관광일에 아이스 익스플로러를 타고 아타바스카 빙하에 발을 디뎌 보세요." },
+      { name: "말린 호수 & 스피릿 아일랜드", desc: "상징적인 청록색 호수와 숨겨진 작은 섬, 옵션 크루즈로 만날 수 있습니다." },
+      { name: "아타바스카 폭포", desc: "재스퍼 남쪽에서 짧은 산책으로 만날 수 있는 박력 있는 협곡 폭포." },
+      { name: "페이토 호수", desc: "아이스필드 파크웨이에서 빙하 푸른빛 호수를 내려다보는 늑대 모양의 명소." },
+      { name: "보우 호수", desc: "크로풋 빙하 아래의 잔잔한 반영 호수, 인기 있는 드라이브 정차 지점." },
+      { name: "메디슨 호수", desc: "계절에 따라 물이 차고 빠지는 지질학적 경이, 고요한 재스퍼 산봉우리에 둘러싸여 있습니다." },
+    ],
+  },
 };
+
 
 const ALL: Record<Locale, IcefieldsContent> = { en: EN, zh: ZH, ko: KO };
 
