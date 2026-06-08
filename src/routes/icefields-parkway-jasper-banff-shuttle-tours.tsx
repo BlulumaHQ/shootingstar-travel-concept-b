@@ -473,16 +473,18 @@ function RouteOverview({ c }: { c: IcefieldsContent }) {
   );
 }
 
-function DetailedRoutes({ c }: { c: IcefieldsContent }) {
-  const ids: ProductId[] = ["P1", "P2A", "P2B", "P3A", "P3B", "P4"];
-
+function DetailedRoutes({
+  c,
+  selectedProduct,
+}: {
+  c: IcefieldsContent;
+  selectedProduct: ProductId;
+}) {
   const parseStop = (line: string) => {
-    // Split on common dash separators used across EN/ZH/KO content.
     const m = line.match(/^\s*([^—\-–]+?)\s*[—\-–]\s*(.+)$/);
     if (m) {
       const left = m[1].trim();
       const right = m[2].trim();
-      // Treat left as time if it contains digits or a colon/dash range.
       const looksLikeTime = /\d/.test(left);
       return looksLikeTime
         ? { time: left, name: right }
@@ -491,28 +493,28 @@ function DetailedRoutes({ c }: { c: IcefieldsContent }) {
     return { time: undefined, name: line.trim() };
   };
 
-  const days = ids.map((pid) => {
-    const p = c.products[pid];
-    return {
+  const p = c.products[selectedProduct];
+  const copy = {
+    ...c.routeSection,
+    timelineHeading: c.finderV2.selectedTimelineHeading,
+  };
+  const days = [
+    {
       dayLabel: p.daysLabel,
       title: p.name,
       description: p.bestFor,
       accent: p.accent,
       stops: p.schedule.map((s, i) => {
         const { time, name } = parseStop(s);
-        return {
-          sequence: String(i + 1),
-          time,
-          name,
-        };
+        return { sequence: String(i + 1), time, name };
       }),
-    };
-  });
+    },
+  ];
 
   return (
     <TourRouteSection
       id="detailed-route"
-      copy={c.routeSection}
+      copy={copy}
       days={days}
       highlights={c.routeSection.highlights}
     />
