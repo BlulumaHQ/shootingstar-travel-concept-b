@@ -612,7 +612,28 @@ const ZH: IcefieldsContent = {
     ctaReserve: "預約路線 →",
     ctaCompare: "比較路線選項",
   },
+  routeSection: {
+    mapEyebrow: "— 路線地圖",
+    mapTitle: "賈斯珀路線手繪地圖",
+    mapComingSoon: "賈斯珀路線手繪地圖即將上線",
+    mapCaption: "我們正在製作一張涵蓋冰原大道沿線每個停點的客製化插畫地圖。",
+    timelineEyebrow: "— 每日行程",
+    timelineHeading: "依序了解整條路線的每個停點",
+    stopLabel: "停點",
+    highlightsEyebrow: "— 沿途亮點",
+    highlightsHeading: "本路線的主要景點",
+    highlightImageSoon: "照片即將上線",
+    highlights: [
+      { name: "哥倫比亞冰川", desc: "在北上與南下觀光日,搭乘冰原雪車踏上阿薩巴斯卡冰川。" },
+      { name: "瑪琳湖 & 精靈島", desc: "標誌性的綠松石湖泊與隱藏的小島,可加購遊船前往。" },
+      { name: "阿薩巴斯卡瀑布", desc: "賈斯珀以南短程步行即可抵達的氣勢峽谷瀑布。" },
+      { name: "佩托湖", desc: "冰原大道上經典的狼形觀景點,俯瞰冰川藍的湖泊。" },
+      { name: "弓湖", desc: "Crowfoot 冰川腳下寧靜的倒影湖,是最受歡迎的路邊停點之一。" },
+      { name: "藥湖", desc: "隨季節漲退的地質奇觀,被寧靜的賈斯珀群山環抱。" },
+    ],
+  },
 };
+
 
 const KO: IcefieldsContent = {
   weekdayLabel: WEEKDAY_KO,
