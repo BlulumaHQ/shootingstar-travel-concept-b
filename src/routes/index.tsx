@@ -122,7 +122,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "View all FAQs →",
     faqs: [
       { q: "How do I book?", a: "Use the form on our Contact page, or reach us on WhatsApp, KakaoTalk or WeChat. A team member will reply within 24 hours." },
-      { q: "Are guides available in my language?", a: "Yes — we host departures in English, Chinese and Korean." },
+      { q: "Are guides available in my language?", a: "Yes — but each tour runs in a single language. We host separate English, Mandarin, and Korean departures; please select the one that matches your preferred language when booking." },
       { q: "When is full payment due?", a: "Full payment is generally required at least 30 days before departure. The booking is confirmed once we receive payment." },
       { q: "What is the cancellation & refund policy?", a: "30+ days before departure: 50% refund. 14–29 days before: 30% refund. Within 13 days (including departure day): no refund. Specific tour pages may set their own terms." },
       { q: "Is there a credit card refund fee?", a: "If you paid by credit card and request a refund, a 4% credit card processing fee is deducted from the refund amount." },
