@@ -113,7 +113,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "Small Groups", desc: "8–14 people per group — unhurried, uncrowded, every traveller is looked after." },
       { num: "02", title: "Thoughtful Detail", desc: "From airport pickups to corner cafés, every touchpoint is carefully chosen." },
-      { num: "03", title: "Tours in your language", desc: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in a single language — please choose the one that matches yours." },
+      { num: "03", title: "Mandarin / English / Korean Tours", desc: "We run separate English + Mandarin and English + Korean departures. Please choose the itinerary that matches your language." },
       { num: "04", title: "Safety & Clear Communication", desc: "Full travel insurance and a 24-hour hotline — so family can rest easy." },
       { num: "05", title: "Journeys with Stories", desc: "We believe travel is not about arriving, but about memories worth keeping." },
     ],
