@@ -256,11 +256,11 @@ const EN: IcefieldsContent = {
     heading: "Route Overview by Departure Day",
     groups: [
       { day: "Mon / Fri", title: "Banff → Jasper Sightseeing Shuttle", dur: "Approx. 9 hours", bestFor: "Travelers moving from Banff to Jasper who want scenic sightseeing stops and an optional Columbia Icefield experience.", accent: "north",
-        lines: [["Base Fare","Adult $200 / Child $140"],["CBI Ice Explorer","Adult +$90 / Child +$60"],["Hinton Extension","One-way +$20 / Round-trip +$35"],["Pickup","08:00 Moxy Banff · 08:03 Best Western · 08:10 Mountain Royal"],["Drop-off","17:10 Jasper Station · 18:30 Hinton (with extension)"]] },
+        lines: [["Base Fare","Adult $200 / Child $140"],["Columbia Icefield Ice Explorer","Adult +$90 / Child +$60"],["Hinton Extension","One-way +$20 / Round-trip +$35"],["Pickup","08:00 Moxy Banff · 08:03 Best Western · 08:10 Mountain Royal"],["Drop-off","17:10 Jasper Station · 18:30 Hinton (with extension)"]] },
       { day: "Tue / Sat", title: "Split-Segment Products", dur: "Flexible 5-hour segments", bestFor: "Travelers who need flexible Jasper, Banff, Hinton, and Maligne Lake combinations across the day.", accent: "split",
         lines: [["2A — Jasper / Maligne Lake Day Tour","09:20 – 16:40 · $160 / person · Cruise +$100/$70"],["2B — Jasper → Banff Express","17:00 – 22:00 · $130 / person"],["3A — Banff → Jasper Express","08:00 – 13:00 · $130 / person · Hinton +$20/$35"],["3B — Medicine Lake & Maligne Half-Day","13:00 – 18:00 · $160 / person · Cruise +$100/$70"]] },
       { day: "Wed / Sun", title: "Jasper → Banff Southbound Sightseeing", dur: "Approx. 10 hours", bestFor: "Travelers moving from Jasper to Banff with the major Icefields Parkway sightseeing stops.", accent: "south",
-        lines: [["Base Fare","Adult $220 / Child $160"],["CBI Ice Explorer","Adult +$90 / Child +$60"],["Hinton Pickup","One-way +$20 / Round-trip +$35"],["Pickup","07:50 Hinton (add-on) · 09:00 Jasper Station"],["Drop-off","18:50 Mountain Royal or selected Banff town hotel"]] },
+        lines: [["Base Fare","Adult $220 / Child $160"],["Columbia Icefield Ice Explorer","Adult +$90 / Child +$60"],["Hinton Pickup","One-way +$20 / Round-trip +$35"],["Pickup","07:50 Hinton (add-on) · 09:00 Jasper Station"],["Drop-off","18:50 Mountain Royal or selected Banff town hotel"]] },
     ],
   },
   detailed: {
@@ -317,12 +317,12 @@ const EN: IcefieldsContent = {
     heading: "Side-by-Side Comparison",
     headers: ["Product","Days","Direction","Time","Base Fare","Add-ons","Best For"],
     rows: [
-      { id: "P1", addons: "CBI · Hinton" },
+      { id: "P1", addons: "Columbia Icefield · Hinton" },
       { id: "P2A", addons: "Maligne Lake Cruise" },
       { id: "P2B", addons: "None" },
       { id: "P3A", addons: "Hinton extension" },
       { id: "P3B", addons: "Cruise · Hinton" },
-      { id: "P4", addons: "CBI · Hinton pickup" },
+      { id: "P4", addons: "Columbia Icefield · Hinton pickup" },
     ],
     pp: "pp",
   },
