@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
+import { TourRouteSection } from "@/components/site/TourRouteSection";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import bgMoraine from "@/assets/hero-bg-moraine.webp";
 import destJasper from "@/assets/dest-jasper.jpg";
@@ -364,98 +365,49 @@ function RouteOverview({ c }: { c: IcefieldsContent }) {
 function DetailedRoutes({ c }: { c: IcefieldsContent }) {
   const ids: ProductId[] = ["P1", "P2A", "P2B", "P3A", "P3B", "P4"];
 
+  const parseStop = (line: string) => {
+    // Split on common dash separators used across EN/ZH/KO content.
+    const m = line.match(/^\s*([^—\-–]+?)\s*[—\-–]\s*(.+)$/);
+    if (m) {
+      const left = m[1].trim();
+      const right = m[2].trim();
+      // Treat left as time if it contains digits or a colon/dash range.
+      const looksLikeTime = /\d/.test(left);
+      return looksLikeTime
+        ? { time: left, name: right }
+        : { time: undefined, name: line.trim() };
+    }
+    return { time: undefined, name: line.trim() };
+  };
+
+  const days = ids.map((pid) => {
+    const p = c.products[pid];
+    return {
+      dayLabel: p.daysLabel,
+      title: p.name,
+      description: p.bestFor,
+      accent: p.accent,
+      stops: p.schedule.map((s, i) => {
+        const { time, name } = parseStop(s);
+        return {
+          sequence: String(i + 1),
+          time,
+          name,
+        };
+      }),
+    };
+  });
+
   return (
-    <section className="py-20 md:py-24">
-      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.detailed.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.detailed.heading}</h2>
-
-        <div className="mt-10 space-y-6">
-          {ids.map((pid) => {
-            const p = c.products[pid];
-            return (
-              <article
-                key={pid}
-                className="rounded-2xl border border-border/70 bg-cream overflow-hidden"
-              >
-                <header className="px-5 md:px-7 py-5 border-b border-border/60 flex flex-wrap items-center gap-3">
-                  <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
-                  <h3 className="font-serif text-[17px] md:text-[19px] text-ink font-semibold leading-snug min-w-0 break-words">
-                    {p.name}
-                  </h3>
-                </header>
-
-                <div className="px-5 md:px-7 py-6 grid md:grid-cols-2 gap-8">
-                  {/* Timeline */}
-                  <div className="min-w-0">
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-4">
-                      {c.detailed.schedule}
-                    </p>
-                    <ol className="relative border-l-2 border-primary/25 pl-5 space-y-4">
-                      {p.schedule.map((s, i) => (
-                        <li key={i} className="relative">
-                          <span
-                            className="absolute -left-[27px] top-1.5 grid h-3.5 w-3.5 place-items-center rounded-full bg-primary ring-4 ring-cream"
-                            aria-hidden
-                          />
-                          <p className="text-[13.5px] text-ink/80 leading-[1.7] break-words">
-                            {s}
-                          </p>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-
-                  {/* Facts */}
-                  <div className="min-w-0">
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-4">
-                      {c.detailed.pricing}
-                    </p>
-                    <dl className="space-y-2.5 text-[13.5px] text-ink/80">
-                      <Row k={c.detailed.direction} v={p.direction} />
-                      <Row k={c.detailed.time} v={p.time} />
-                      <Row k={c.detailed.duration} v={p.durationHrs} />
-                      <Row
-                        k={c.detailed.baseFare}
-                        v={p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult}`}
-                      />
-                    </dl>
-
-                    {p.addOns.length > 0 && (
-                      <div className="mt-5">
-                        <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
-                          {c.detailed.addOnsLabel}
-                        </p>
-                        <ul className="space-y-1.5 text-[13px] text-ink/75 leading-[1.7]">
-                          {Array.from(
-                            new Set(
-                              p.addOns.map((a) =>
-                                a === "HINTON_ONE" || a === "HINTON_ROUND"
-                                  ? c.detailed.hintonExtFull
-                                  : `${c.addOns[a].name} — ${c.addOns[a].label}`,
-                              ),
-                            ),
-                          ).map((label) => (
-                            <li
-                              key={label}
-                              className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-primary break-words"
-                            >
-                              {label}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+    <TourRouteSection
+      id="detailed-route"
+      copy={c.routeSection}
+      days={days}
+      highlights={c.routeSection.highlights}
+    />
   );
 }
+
 
 /* ------------------------------------------------------------------
  * Booking Estimator

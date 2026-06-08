@@ -167,6 +167,19 @@ export type IcefieldsContent = {
     ctaReserve: string;
     ctaCompare: string;
   };
+  routeSection: {
+    mapEyebrow: string;
+    mapTitle: string;
+    mapComingSoon: string;
+    mapCaption: string;
+    timelineEyebrow: string;
+    timelineHeading: string;
+    stopLabel: string;
+    highlightsEyebrow: string;
+    highlightsHeading: string;
+    highlightImageSoon: string;
+    highlights: { name: string; desc: string }[];
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
@@ -384,7 +397,28 @@ const EN: IcefieldsContent = {
     ctaReserve: "Reserve Your Route →",
     ctaCompare: "Compare Route Options",
   },
+  routeSection: {
+    mapEyebrow: "— Route map",
+    mapTitle: "Illustrated Jasper Route Map",
+    mapComingSoon: "Illustrated Jasper Route Map Coming Soon",
+    mapCaption: "A custom illustrated map of every stop along the Icefields Parkway is on the way.",
+    timelineEyebrow: "— Day-by-day itinerary",
+    timelineHeading: "Follow the Route, Stop by Stop",
+    stopLabel: "Stop",
+    highlightsEyebrow: "— Highlights along the way",
+    highlightsHeading: "Key Attractions on This Route",
+    highlightImageSoon: "Photo coming soon",
+    highlights: [
+      { name: "Columbia Icefield", desc: "Step onto the Athabasca Glacier with the Ice Explorer experience on northbound and southbound sightseeing days." },
+      { name: "Maligne Lake & Spirit Island", desc: "The iconic turquoise lake and its hidden island, reached by an optional scenic cruise." },
+      { name: "Athabasca Falls", desc: "A short walk leads to a powerful canyon waterfall just south of Jasper townsite." },
+      { name: "Peyto Lake", desc: "The classic wolf-shaped viewpoint over a brilliant glacial-blue lake along the Icefields Parkway." },
+      { name: "Bow Lake", desc: "A serene reflective lake at the foot of the Crowfoot Glacier — a favorite roadside stop." },
+      { name: "Medicine Lake", desc: "A geological wonder that drains and refills with the seasons, framed by quiet Jasper peaks." },
+    ],
+  },
 };
+
 
 const ZH: IcefieldsContent = {
   weekdayLabel: WEEKDAY_ZH,
@@ -578,7 +612,28 @@ const ZH: IcefieldsContent = {
     ctaReserve: "預約路線 →",
     ctaCompare: "比較路線選項",
   },
+  routeSection: {
+    mapEyebrow: "— 路線地圖",
+    mapTitle: "賈斯珀路線手繪地圖",
+    mapComingSoon: "賈斯珀路線手繪地圖即將上線",
+    mapCaption: "我們正在製作一張涵蓋冰原大道沿線每個停點的客製化插畫地圖。",
+    timelineEyebrow: "— 每日行程",
+    timelineHeading: "依序了解整條路線的每個停點",
+    stopLabel: "停點",
+    highlightsEyebrow: "— 沿途亮點",
+    highlightsHeading: "本路線的主要景點",
+    highlightImageSoon: "照片即將上線",
+    highlights: [
+      { name: "哥倫比亞冰川", desc: "在北上與南下觀光日,搭乘冰原雪車踏上阿薩巴斯卡冰川。" },
+      { name: "瑪琳湖 & 精靈島", desc: "標誌性的綠松石湖泊與隱藏的小島,可加購遊船前往。" },
+      { name: "阿薩巴斯卡瀑布", desc: "賈斯珀以南短程步行即可抵達的氣勢峽谷瀑布。" },
+      { name: "佩托湖", desc: "冰原大道上經典的狼形觀景點,俯瞰冰川藍的湖泊。" },
+      { name: "弓湖", desc: "Crowfoot 冰川腳下寧靜的倒影湖,是最受歡迎的路邊停點之一。" },
+      { name: "藥湖", desc: "隨季節漲退的地質奇觀,被寧靜的賈斯珀群山環抱。" },
+    ],
+  },
 };
+
 
 const KO: IcefieldsContent = {
   weekdayLabel: WEEKDAY_KO,
@@ -772,7 +827,28 @@ const KO: IcefieldsContent = {
     ctaReserve: "노선 예약하기 →",
     ctaCompare: "노선 비교",
   },
+  routeSection: {
+    mapEyebrow: "— 노선 지도",
+    mapTitle: "재스퍼 일러스트 노선 지도",
+    mapComingSoon: "재스퍼 일러스트 노선 지도 곧 공개",
+    mapCaption: "아이스필드 파크웨이의 모든 정차 지점을 담은 맞춤 일러스트 지도를 준비 중입니다.",
+    timelineEyebrow: "— 일별 일정",
+    timelineHeading: "정차 지점별로 노선을 따라가 보세요",
+    stopLabel: "정차",
+    highlightsEyebrow: "— 노선의 하이라이트",
+    highlightsHeading: "이 노선의 주요 관광지",
+    highlightImageSoon: "사진 준비 중",
+    highlights: [
+      { name: "컬럼비아 아이스필드", desc: "북행과 남행 관광일에 아이스 익스플로러를 타고 아타바스카 빙하에 발을 디뎌 보세요." },
+      { name: "말린 호수 & 스피릿 아일랜드", desc: "상징적인 청록색 호수와 숨겨진 작은 섬, 옵션 크루즈로 만날 수 있습니다." },
+      { name: "아타바스카 폭포", desc: "재스퍼 남쪽에서 짧은 산책으로 만날 수 있는 박력 있는 협곡 폭포." },
+      { name: "페이토 호수", desc: "아이스필드 파크웨이에서 빙하 푸른빛 호수를 내려다보는 늑대 모양의 명소." },
+      { name: "보우 호수", desc: "크로풋 빙하 아래의 잔잔한 반영 호수, 인기 있는 드라이브 정차 지점." },
+      { name: "메디슨 호수", desc: "계절에 따라 물이 차고 빠지는 지질학적 경이, 고요한 재스퍼 산봉우리에 둘러싸여 있습니다." },
+    ],
+  },
 };
+
 
 const ALL: Record<Locale, IcefieldsContent> = { en: EN, zh: ZH, ko: KO };
 
