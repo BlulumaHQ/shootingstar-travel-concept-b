@@ -9,6 +9,7 @@ import heroBanff from "@/assets/hero-banff.jpg";
 import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
 import { useLocale } from "@/i18n/locale";
+import { ChatSupportNote } from "@/components/site/ChatSupport";
 import {
   getIcefieldsContent,
   type IcefieldsContent,
