@@ -64,8 +64,8 @@ const pack: Record<Locale, {
       {
         title: "Languages & Groups",
         items: [
-          { q: "Which language groups are offered?", a: "We currently run English, Chinese and Korean groups. Private tours can be tailored to other languages." },
-          { q: "Will the guide speak my language?", a: "Mandarin and Korean departures are led by native-speaking guides — communication is seamless." },
+          { q: "Which language groups are offered?", a: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in one language only — please book the one that matches your preferred language. Private tours can be tailored to other languages." },
+          { q: "Will the guide speak my language?", a: "Each tour is hosted in a single language (English, Mandarin, or Korean), led by a guide who speaks that language. Guides are not necessarily trilingual, so please choose the language tour that suits you." },
           { q: "Can different language groups travel together?", a: "Usually no, to preserve experience quality. Private tours can be arranged with mixed languages." },
         ],
       },
