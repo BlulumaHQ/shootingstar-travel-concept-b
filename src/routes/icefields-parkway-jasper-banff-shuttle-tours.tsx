@@ -266,7 +266,7 @@ const fmt = (n: number) => `$${n.toFixed(2)}`;
  * Page
  * ------------------------------------------------------------------ */
 
-function IcefieldsShuttlePage() {
+export function IcefieldsShuttlePage() {
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
