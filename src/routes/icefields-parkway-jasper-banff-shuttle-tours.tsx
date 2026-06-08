@@ -81,13 +81,12 @@ export function IcefieldsShuttlePage() {
   return (
     <SiteLayout>
       <Hero c={c} scrollTo={scrollTo} />
+      <RouteOverview c={c} />
       <QuickRouteFinder
         c={c}
         selectedProduct={selectedProduct}
         onSelect={selectAndScroll}
       />
-      <WhyDifferent c={c} />
-      <RouteOverview c={c} />
       <DetailedRoutes c={c} selectedProduct={selectedProduct} />
       <BookingEstimator c={c} />
       <ComparisonTable c={c} />
@@ -96,6 +95,7 @@ export function IcefieldsShuttlePage() {
       <IncludedSection c={c} />
       <TravelNotes c={c} />
       <BookingTerms c={c} />
+      <WhyDifferent c={c} />
       <FinalCTA c={c} scrollTo={scrollTo} />
     </SiteLayout>
   );
