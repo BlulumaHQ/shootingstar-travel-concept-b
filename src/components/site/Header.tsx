@@ -104,9 +104,9 @@ export function Header() {
       </div>
 
       <div className="relative bg-cream">
-        <div className="relative mx-auto flex max-w-[1400px] items-center justify-between px-5 md:px-10">
-          <Link to={localized("/") as never} className="flex items-center gap-3 md:gap-4 -mb-3 md:-mb-5" onClick={() => setOpen(false)}>
-            <img src={logo} alt="Shootingstar Travel" className="h-[78px] md:h-[120px] w-auto" />
+        <div className="relative z-10 mx-auto flex min-h-[112px] max-w-[1400px] items-center justify-between px-5 py-3 pb-5 md:min-h-[164px] md:px-10 md:py-4 md:pb-7">
+          <Link to={localized("/") as never} className="relative z-10 flex items-center gap-3 md:gap-4" onClick={() => setOpen(false)}>
+            <img src={logo} alt="Shootingstar Travel" className="h-[82px] md:h-[128px] w-auto shrink-0" />
             <BrandWordmark locale={locale} />
           </Link>
 
@@ -154,7 +154,7 @@ export function Header() {
 
         <div
           aria-hidden
-          className="pointer-events-none absolute left-0 right-0 top-full h-[14px] md:h-[20px] overflow-hidden"
+          className="pointer-events-none absolute left-0 right-0 top-full z-0 h-[14px] md:h-[20px] overflow-hidden"
           style={{ transform: "translateZ(0)" }}
         >
           <img
