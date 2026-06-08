@@ -180,6 +180,21 @@ export type IcefieldsContent = {
     highlightImageSoon: string;
     highlights: { name: string; desc: string }[];
   };
+  finderV2: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    groupLabels: { monFri: string; tueSat: string; wedSun: string };
+    ctaSelect: string;
+    ctaSelected: string;
+    bestForLabel: string;
+    durationLabel: string;
+    addOnsLabel: string;
+    segmentTitles: { morning: string; midday: string; evening: string };
+    tueSatSummaryTitle: string;
+    tueSatSummaryDesc: string;
+    selectedTimelineHeading: string;
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
