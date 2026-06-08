@@ -918,6 +918,10 @@ const KO: IcefieldsContent = {
     tueSatSummaryTitle: "화요일 / 토요일: 유연한 구간 운행일",
     tueSatSummaryDesc: "한 구간만 예약하거나 일정에 따라 오전, 오후, 저녁 구간을 조합해 예약할 수 있습니다.",
     selectedTimelineHeading: "선택한 노선 — 정차별 일정",
+    showingPrefix: "현재 표시:",
+    routeSuffix: " 노선",
+    placeholderTitle: "선택된 노선이 없습니다",
+    placeholderBody: "위에서 여행 요일을 선택하면 노선 지도와 상세 일정을 확인할 수 있습니다.",
   },
 };
 
