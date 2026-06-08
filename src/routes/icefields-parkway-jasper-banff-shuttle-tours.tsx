@@ -480,8 +480,30 @@ function DetailedRoutes({
   selectedProduct,
 }: {
   c: IcefieldsContent;
-  selectedProduct: ProductId;
+  selectedProduct: ProductId | null;
 }) {
+  const f = c.finderV2;
+
+  if (!selectedProduct) {
+    return (
+      <section id="detailed-route" className="py-20 md:py-24">
+        <div className="mx-auto max-w-[1100px] px-5 md:px-10">
+          <div className="rounded-2xl border border-dashed border-border bg-cream/60 px-6 py-16 md:py-20 text-center">
+            <p className="font-marker text-primary/70 text-[12px] tracking-[0.25em] uppercase">
+              {f.eyebrow}
+            </p>
+            <h3 className="mt-3 font-serif text-2xl md:text-[28px] text-ink font-semibold">
+              {f.placeholderTitle}
+            </h3>
+            <p className="mt-3 max-w-xl mx-auto text-[14.5px] text-ink/65 leading-[1.85]">
+              {f.placeholderBody}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const parseStop = (line: string) => {
     const m = line.match(/^\s*([^—\-–]+?)\s*[—\-–]\s*(.+)$/);
     if (m) {
@@ -498,7 +520,7 @@ function DetailedRoutes({
   const p = c.products[selectedProduct];
   const copy = {
     ...c.routeSection,
-    timelineHeading: c.finderV2.selectedTimelineHeading,
+    timelineHeading: f.selectedTimelineHeading,
   };
   const days = [
     {
@@ -514,12 +536,23 @@ function DetailedRoutes({
   ];
 
   return (
-    <TourRouteSection
-      id="detailed-route"
-      copy={copy}
-      days={days}
-      highlights={c.routeSection.highlights}
-    />
+    <div id="detailed-route">
+      <div className="mx-auto max-w-[1100px] px-5 md:px-10 pt-16 md:pt-20">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <p className="text-[11px] tracking-[0.25em] uppercase text-ink/55">{f.showingPrefix}</p>
+          <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold">
+            {p.daysLabel}
+            {f.routeSuffix}
+          </h2>
+        </div>
+        <p className="mt-2 text-[14px] text-ink/65 leading-[1.8]">{p.name}</p>
+      </div>
+      <TourRouteSection
+        copy={copy}
+        days={days}
+        highlights={c.routeSection.highlights}
+      />
+    </div>
   );
 }
 
