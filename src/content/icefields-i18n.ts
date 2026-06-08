@@ -684,6 +684,10 @@ const ZH: IcefieldsContent = {
     tueSatSummaryTitle: "週二 / 週六:彈性分段日",
     tueSatSummaryDesc: "可只預訂一段,也可依行程組合上午、下午與傍晚分段。",
     selectedTimelineHeading: "你選擇的路線 — 逐站行程",
+    showingPrefix: "目前顯示:",
+    routeSuffix: " 路線",
+    placeholderTitle: "尚未選擇路線",
+    placeholderBody: "請在上方選擇出遊日,即可查看路線地圖與詳細行程。",
   },
 };
 
