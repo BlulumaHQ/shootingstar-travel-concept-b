@@ -299,6 +299,14 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+            <Link
+              to={lp("/contact")}
+              className="mt-5 inline-flex items-center gap-2 text-[12px] text-ink/70 hover:text-primary transition"
+            >
+              <span className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80">{chatSupportLabel}</span>
+              <span className="text-ink/40">·</span>
+              <span>KakaoTalk · WhatsApp · WeChat</span>
+            </Link>
           </div>
         </div>
 
