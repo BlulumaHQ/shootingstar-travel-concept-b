@@ -42,6 +42,7 @@ import { Route as KoTermsRouteImport } from './routes/ko/terms'
 import { Route as KoRockyMountainLakeToursRouteImport } from './routes/ko/rocky-mountain-lake-tours'
 import { Route as KoReviewsRouteImport } from './routes/ko/reviews'
 import { Route as KoPrivacyRouteImport } from './routes/ko/privacy'
+import { Route as KoIcefieldsParkwayJasperBanffShuttleToursRouteImport } from './routes/ko/icefields-parkway-jasper-banff-shuttle-tours'
 import { Route as KoGalleryRouteImport } from './routes/ko/gallery'
 import { Route as KoFaqRouteImport } from './routes/ko/faq'
 import { Route as KoDestinationsRouteImport } from './routes/ko/destinations'
@@ -222,6 +223,12 @@ const KoPrivacyRoute = KoPrivacyRouteImport.update({
   path: '/ko/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KoIcefieldsParkwayJasperBanffShuttleToursRoute =
+  KoIcefieldsParkwayJasperBanffShuttleToursRouteImport.update({
+    id: '/ko/icefields-parkway-jasper-banff-shuttle-tours',
+    path: '/ko/icefields-parkway-jasper-banff-shuttle-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const KoGalleryRoute = KoGalleryRouteImport.update({
   id: '/ko/gallery',
   path: '/ko/gallery',
@@ -294,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
   '/ko/gallery': typeof KoGalleryRoute
+  '/ko/icefields-parkway-jasper-banff-shuttle-tours': typeof KoIcefieldsParkwayJasperBanffShuttleToursRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -338,6 +346,7 @@ export interface FileRoutesByTo {
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
   '/ko/gallery': typeof KoGalleryRoute
+  '/ko/icefields-parkway-jasper-banff-shuttle-tours': typeof KoIcefieldsParkwayJasperBanffShuttleToursRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -384,6 +393,7 @@ export interface FileRoutesById {
   '/ko/destinations': typeof KoDestinationsRoute
   '/ko/faq': typeof KoFaqRoute
   '/ko/gallery': typeof KoGalleryRoute
+  '/ko/icefields-parkway-jasper-banff-shuttle-tours': typeof KoIcefieldsParkwayJasperBanffShuttleToursRoute
   '/ko/privacy': typeof KoPrivacyRoute
   '/ko/reviews': typeof KoReviewsRoute
   '/ko/rocky-mountain-lake-tours': typeof KoRockyMountainLakeToursRoute
@@ -431,6 +441,7 @@ export interface FileRouteTypes {
     | '/ko/destinations'
     | '/ko/faq'
     | '/ko/gallery'
+    | '/ko/icefields-parkway-jasper-banff-shuttle-tours'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -475,6 +486,7 @@ export interface FileRouteTypes {
     | '/ko/destinations'
     | '/ko/faq'
     | '/ko/gallery'
+    | '/ko/icefields-parkway-jasper-banff-shuttle-tours'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -520,6 +532,7 @@ export interface FileRouteTypes {
     | '/ko/destinations'
     | '/ko/faq'
     | '/ko/gallery'
+    | '/ko/icefields-parkway-jasper-banff-shuttle-tours'
     | '/ko/privacy'
     | '/ko/reviews'
     | '/ko/rocky-mountain-lake-tours'
@@ -566,6 +579,7 @@ export interface RootRouteChildren {
   KoDestinationsRoute: typeof KoDestinationsRoute
   KoFaqRoute: typeof KoFaqRoute
   KoGalleryRoute: typeof KoGalleryRoute
+  KoIcefieldsParkwayJasperBanffShuttleToursRoute: typeof KoIcefieldsParkwayJasperBanffShuttleToursRoute
   KoPrivacyRoute: typeof KoPrivacyRoute
   KoReviewsRoute: typeof KoReviewsRoute
   KoRockyMountainLakeToursRoute: typeof KoRockyMountainLakeToursRoute
@@ -822,6 +836,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KoPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ko/icefields-parkway-jasper-banff-shuttle-tours': {
+      id: '/ko/icefields-parkway-jasper-banff-shuttle-tours'
+      path: '/ko/icefields-parkway-jasper-banff-shuttle-tours'
+      fullPath: '/ko/icefields-parkway-jasper-banff-shuttle-tours'
+      preLoaderRoute: typeof KoIcefieldsParkwayJasperBanffShuttleToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ko/gallery': {
       id: '/ko/gallery'
       path: '/ko/gallery'
@@ -929,6 +950,8 @@ const rootRouteChildren: RootRouteChildren = {
   KoDestinationsRoute: KoDestinationsRoute,
   KoFaqRoute: KoFaqRoute,
   KoGalleryRoute: KoGalleryRoute,
+  KoIcefieldsParkwayJasperBanffShuttleToursRoute:
+    KoIcefieldsParkwayJasperBanffShuttleToursRoute,
   KoPrivacyRoute: KoPrivacyRoute,
   KoReviewsRoute: KoReviewsRoute,
   KoRockyMountainLakeToursRoute: KoRockyMountainLakeToursRoute,
