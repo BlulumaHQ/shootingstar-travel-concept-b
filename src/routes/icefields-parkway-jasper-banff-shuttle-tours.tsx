@@ -67,28 +67,34 @@ const fmt = (n: number) => `$${n.toFixed(2)}`;
 export function IcefieldsShuttlePage() {
   const locale = useLocale();
   const c = getIcefieldsContent(locale);
-  const [selectedProduct, setSelectedProduct] = useState<ProductId>("P1");
+  const [date, setDate] = useState<string>("");
+  const [selectedProduct, setSelectedProduct] = useState<ProductId | null>(null);
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const selectAndScroll = (pid: ProductId) => {
     setSelectedProduct(pid);
-    // Defer to next frame so the timeline re-renders before we scroll.
     requestAnimationFrame(() => scrollTo("detailed-route"));
+  };
+
+  const handleDateChange = (d: string) => {
+    setDate(d);
+    setSelectedProduct(null);
   };
 
   return (
     <SiteLayout>
       <Hero c={c} scrollTo={scrollTo} />
-      <QuickRouteFinder
+      <WhyDifferent c={c} />
+      <FindByDate
         c={c}
+        date={date}
+        setDate={handleDateChange}
         selectedProduct={selectedProduct}
         onSelect={selectAndScroll}
       />
-      <WhyDifferent c={c} />
-      <RouteOverview c={c} />
-      <DetailedRoutes c={c} selectedProduct={selectedProduct} />
+      {selectedProduct && <DetailedRoutes c={c} selectedProduct={selectedProduct} />}
       <BookingEstimator c={c} />
       <ComparisonTable c={c} />
       <AddOnsSection c={c} />
@@ -246,18 +252,30 @@ const PRODUCT_TO_GROUP: Record<ProductId, FinderGroupId> = {
   P4: "wed-sun",
 };
 
-function QuickRouteFinder({
+function FindByDate({
   c,
+  date,
+  setDate,
   selectedProduct,
   onSelect,
 }: {
   c: IcefieldsContent;
-  selectedProduct: ProductId;
+  date: string;
+  setDate: (d: string) => void;
+  selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
-  const [groupId, setGroupId] = useState<FinderGroupId>(PRODUCT_TO_GROUP[selectedProduct]);
-  const group = FINDER_GROUPS.find((g) => g.id === groupId)!;
   const f = c.finderV2;
+  const weekday = weekdayFromISO(date);
+  const isWeekend = weekday ? WEEKEND.includes(weekday) : false;
+  const availableIds = weekday ? PRODUCTS_BY_DAY[weekday] : [];
+  const isTueSat = weekday === "Tue" || weekday === "Sat";
+
+  const segments: { titleKey: "morning" | "midday" | "evening"; productIds: ProductId[] }[] = [
+    { titleKey: "morning", productIds: ["P3A"] },
+    { titleKey: "midday", productIds: ["P2A", "P3B"] },
+    { titleKey: "evening", productIds: ["P2B"] },
+  ];
 
   return (
     <section id="finder" className="py-20 md:py-24 bg-paper/50">
@@ -268,34 +286,46 @@ function QuickRouteFinder({
         </h2>
         <p className="mt-4 max-w-3xl text-[15px] text-ink/70 leading-[1.9]">{f.intro}</p>
 
-        <div className="mt-8 flex flex-wrap gap-2">
-          {FINDER_GROUPS.map((g) => {
-            const active = g.id === groupId;
-            return (
-              <button
-                key={g.id}
-                onClick={() => setGroupId(g.id)}
-                className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
-                  active
-                    ? "bg-ink text-cream border-ink"
-                    : "bg-cream text-ink/70 border-border hover:border-primary/40"
-                }`}
-              >
-                {f.groupLabels[g.labelKey]}
-              </button>
-            );
-          })}
+        <div className="mt-8 max-w-md">
+          <label className="block">
+            <span className="text-[11px] tracking-[0.2em] uppercase text-ink/55">
+              {c.reserve.departureDate}
+            </span>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="mt-1.5 w-full rounded-md border border-border bg-cream px-3 py-2.5 text-[14px] text-ink"
+            />
+            {weekday && (
+              <p className="mt-1.5 text-[12px] text-ink/55">
+                {c.reserve.detected} {c.weekdayLabel[weekday]}
+                {isWeekend ? c.reserve.weekendApplies : ""}
+              </p>
+            )}
+          </label>
         </div>
 
-        <div className="mt-8 space-y-8">
-          {group.type === "single" ? (
+        <div className="mt-10">
+          {!date && (
+            <div className="rounded-xl border border-dashed border-border bg-paper/40 p-6 text-[14px] text-ink/60">
+              {c.reserve.pickDate}
+            </div>
+          )}
+          {date && weekday === "Thu" && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-[14px] text-amber-900 leading-[1.8]">
+              {c.reserve.thursdayWarn}
+            </div>
+          )}
+          {date && !isTueSat && availableIds.length > 0 && (
             <RouteCardGrid
               c={c}
-              productIds={group.productIds}
+              productIds={availableIds}
               selectedProduct={selectedProduct}
               onSelect={onSelect}
             />
-          ) : (
+          )}
+          {date && isTueSat && (
             <div className="space-y-8">
               <div className="rounded-2xl border border-amber-300/60 bg-amber-50/60 p-5 md:p-6">
                 <p className="font-serif text-[18px] md:text-[20px] text-ink font-semibold">
@@ -303,8 +333,7 @@ function QuickRouteFinder({
                 </p>
                 <p className="mt-2 text-[14px] text-ink/75 leading-[1.85]">{f.tueSatSummaryDesc}</p>
               </div>
-
-              {group.segments.map((seg) => (
+              {segments.map((seg) => (
                 <div key={seg.titleKey}>
                   <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
                     {f.segmentTitles[seg.titleKey]}
@@ -335,7 +364,7 @@ function RouteCardGrid({
 }: {
   c: IcefieldsContent;
   productIds: ProductId[];
-  selectedProduct: ProductId;
+  selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
   const f = c.finderV2;
@@ -512,12 +541,38 @@ function DetailedRoutes({
   ];
 
   return (
-    <TourRouteSection
-      id="detailed-route"
-      copy={copy}
-      days={days}
-      highlights={c.routeSection.highlights}
-    />
+    <>
+      <TourRouteSection
+        id="detailed-route"
+        copy={copy}
+        days={days}
+        highlights={c.routeSection.highlights}
+      />
+      <section className="pb-16 md:pb-20">
+        <div className="mx-auto max-w-[1100px] px-5 md:px-10 grid md:grid-cols-2 gap-5">
+          <div className="rounded-2xl border border-border/70 bg-cream p-6">
+            <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
+              {c.reserve.pickupLoc}
+            </p>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-ink/75 leading-[1.8]">
+              {c.pickups.map((pu) => (
+                <li key={pu}>• {pu}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border/70 bg-cream p-6">
+            <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
+              {c.reserve.dropoffLoc}
+            </p>
+            <ul className="mt-3 space-y-1.5 text-[14px] text-ink/75 leading-[1.8]">
+              {c.dropoffs.map((dr) => (
+                <li key={dr}>• {dr}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
