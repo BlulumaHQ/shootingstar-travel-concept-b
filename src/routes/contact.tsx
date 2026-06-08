@@ -175,6 +175,9 @@ export function ContactPage() {
                   </a>
                 ))}
               </div>
+              <div className="mt-12">
+                <ChatSupportSection />
+              </div>
               <div className="mt-12 space-y-3 text-[13.5px] text-ink/60 leading-[2]">
                 <p className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80">{p.studio}</p>
                 <p>{p.location}</p>
