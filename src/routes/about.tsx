@@ -60,7 +60,7 @@ const PACKS: Record<Locale, Pack> = {
     values: [
       { t: "Small groups, more comfort", d: "8–14 travellers per departure — no rushing, no crowds, every guest is looked after." },
       { t: "Considered in every detail", d: "From airport pickups to the corner café, every touchpoint is hand-picked." },
-      { t: "English, Mandarin & Korean guides", d: "Conversation and storytelling designed for travellers in their own language." },
+      { t: "Tours in your language", d: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in one language — please choose the one that suits you." },
       { t: "Safety and clear communication", d: "Full travel insurance and a 24-hour contact line so loved ones rest easy." },
       { t: "Journeys with story", d: "We believe travel is not about arriving but about memories worth keeping." },
     ],
