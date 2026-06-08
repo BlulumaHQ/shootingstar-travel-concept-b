@@ -252,10 +252,12 @@ function QuickRouteFinder({
   onSelect,
 }: {
   c: IcefieldsContent;
-  selectedProduct: ProductId;
+  selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
-  const [groupId, setGroupId] = useState<FinderGroupId>(PRODUCT_TO_GROUP[selectedProduct]);
+  const [groupId, setGroupId] = useState<FinderGroupId>(
+    selectedProduct ? PRODUCT_TO_GROUP[selectedProduct] : "mon-fri",
+  );
   const group = FINDER_GROUPS.find((g) => g.id === groupId)!;
   const f = c.finderV2;
 
