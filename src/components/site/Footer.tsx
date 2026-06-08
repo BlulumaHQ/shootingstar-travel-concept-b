@@ -4,6 +4,7 @@ import tornEdge from "@/assets/header-torn-edge.png";
 import { Facebook, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
+import { getPhone } from "@/i18n/contact";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 
 
