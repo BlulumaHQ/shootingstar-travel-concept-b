@@ -104,7 +104,7 @@ export function Header() {
       </div>
 
       <div className="relative bg-cream">
-        <div className="relative z-10 mx-auto flex min-h-[112px] max-w-[1400px] items-center justify-between px-5 py-3 pb-5 md:min-h-[164px] md:px-10 md:py-4 md:pb-7">
+        <div className="relative z-10 mx-auto flex min-h-[108px] max-w-[1400px] items-center justify-between px-5 py-3 pb-2 md:min-h-[148px] md:px-10 md:py-4 md:pb-3">
           <Link to={localized("/") as never} className="relative z-10 flex items-center gap-3 md:gap-4" onClick={() => setOpen(false)}>
             <img src={logo} alt="Shootingstar Travel" className="h-[82px] md:h-[128px] w-auto shrink-0" />
             <BrandWordmark locale={locale} />
