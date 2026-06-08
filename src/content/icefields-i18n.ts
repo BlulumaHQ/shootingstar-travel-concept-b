@@ -397,7 +397,28 @@ const EN: IcefieldsContent = {
     ctaReserve: "Reserve Your Route →",
     ctaCompare: "Compare Route Options",
   },
+  routeSection: {
+    mapEyebrow: "— Route map",
+    mapTitle: "Illustrated Jasper Route Map",
+    mapComingSoon: "Illustrated Jasper Route Map Coming Soon",
+    mapCaption: "A custom illustrated map of every stop along the Icefields Parkway is on the way.",
+    timelineEyebrow: "— Day-by-day itinerary",
+    timelineHeading: "Follow the Route, Stop by Stop",
+    stopLabel: "Stop",
+    highlightsEyebrow: "— Highlights along the way",
+    highlightsHeading: "Key Attractions on This Route",
+    highlightImageSoon: "Photo coming soon",
+    highlights: [
+      { name: "Columbia Icefield", desc: "Step onto the Athabasca Glacier with the Ice Explorer experience on northbound and southbound sightseeing days." },
+      { name: "Maligne Lake & Spirit Island", desc: "The iconic turquoise lake and its hidden island, reached by an optional scenic cruise." },
+      { name: "Athabasca Falls", desc: "A short walk leads to a powerful canyon waterfall just south of Jasper townsite." },
+      { name: "Peyto Lake", desc: "The classic wolf-shaped viewpoint over a brilliant glacial-blue lake along the Icefields Parkway." },
+      { name: "Bow Lake", desc: "A serene reflective lake at the foot of the Crowfoot Glacier — a favorite roadside stop." },
+      { name: "Medicine Lake", desc: "A geological wonder that drains and refills with the seasons, framed by quiet Jasper peaks." },
+    ],
+  },
 };
+
 
 const ZH: IcefieldsContent = {
   weekdayLabel: WEEKDAY_ZH,
