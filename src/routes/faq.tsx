@@ -64,8 +64,8 @@ const pack: Record<Locale, {
       {
         title: "Languages & Groups",
         items: [
-          { q: "Which language groups are offered?", a: "We currently run English, Chinese and Korean groups. Private tours can be tailored to other languages." },
-          { q: "Will the guide speak my language?", a: "Mandarin and Korean departures are led by native-speaking guides — communication is seamless." },
+          { q: "Which language groups are offered?", a: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in one language only — please book the one that matches your preferred language. Private tours can be tailored to other languages." },
+          { q: "Will the guide speak my language?", a: "Each tour is hosted in a single language (English, Mandarin, or Korean), led by a guide who speaks that language. Guides are not necessarily trilingual, so please choose the language tour that suits you." },
           { q: "Can different language groups travel together?", a: "Usually no, to preserve experience quality. Private tours can be arranged with mixed languages." },
         ],
       },
@@ -118,8 +118,8 @@ const pack: Record<Locale, {
       {
         title: "語言與團體",
         items: [
-          { q: "提供哪些語言團？", a: "目前提供英語、中文與韓語團。私人包團可依需求安排其他語言。" },
-          { q: "導遊會說我的語言嗎？", a: "中文與韓語團由母語導遊帶領，溝通順暢無礙。" },
+          { q: "提供哪些語言團？", a: "我們分別提供中文、英文與韓文出發團，每一團僅以單一語言進行。請依您的語言選擇對應行程；私人包團可依需求安排其他語言。" },
+          { q: "導遊會說我的語言嗎？", a: "每團由使用該語言（中文、英文或韓文）之導遊帶領。我們的導遊並非每位都通三種語言，請務必選擇對應語言的行程。" },
           { q: "不同語言的旅客會合併同團嗎？", a: "原則上不會，以維持旅遊品質。包團行程可彈性安排混合語言。" },
         ],
       },
@@ -172,8 +172,8 @@ const pack: Record<Locale, {
       {
         title: "언어 및 그룹",
         items: [
-          { q: "어떤 언어 그룹이 있나요?", a: "현재 영어, 중국어, 한국어 그룹을 운영하고 있습니다. 프라이빗 투어는 다른 언어로도 맞춤 운영이 가능합니다." },
-          { q: "가이드가 제 언어를 구사하나요?", a: "한국어 및 중국어 출발 그룹은 원어민 가이드가 함께해 원활한 의사소통이 가능합니다." },
+          { q: "어떤 언어 그룹이 있나요?", a: "한국어, 영어, 중국어 출발 그룹을 각각 운영합니다. 각 투어는 한 가지 언어로만 진행되니, 예약 시 사용 언어에 맞는 투어를 선택해 주세요. 프라이빗 투어는 다른 언어로도 맞춤 운영이 가능합니다." },
+          { q: "가이드가 제 언어를 구사하나요?", a: "각 투어는 한 언어(한국어·영어·중국어 중 하나)로 진행되며, 해당 언어 가이드가 동행합니다. 모든 가이드가 3개 국어를 구사하는 것은 아니므로, 사용 언어에 맞는 투어를 선택해 주세요." },
           { q: "다른 언어 그룹과 함께 여행할 수 있나요?", a: "여행의 질을 위해 보통은 합치지 않습니다. 프라이빗 투어는 혼합 언어로도 진행 가능합니다." },
         ],
       },

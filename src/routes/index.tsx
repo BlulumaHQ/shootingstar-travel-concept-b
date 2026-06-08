@@ -113,7 +113,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "Small Groups", desc: "8–14 people per group — unhurried, uncrowded, every traveller is looked after." },
       { num: "02", title: "Thoughtful Detail", desc: "From airport pickups to corner cafés, every touchpoint is carefully chosen." },
-      { num: "03", title: "Trilingual Guides", desc: "Conversations and storytelling in the traveller's mother tongue." },
+      { num: "03", title: "Tours in your language", desc: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in a single language — please choose the one that matches yours." },
       { num: "04", title: "Safety & Clear Communication", desc: "Full travel insurance and a 24-hour hotline — so family can rest easy." },
       { num: "05", title: "Journeys with Stories", desc: "We believe travel is not about arriving, but about memories worth keeping." },
     ],
@@ -122,7 +122,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "View all FAQs →",
     faqs: [
       { q: "How do I book?", a: "Use the form on our Contact page, or reach us on WhatsApp, KakaoTalk or WeChat. A team member will reply within 24 hours." },
-      { q: "Are guides available in my language?", a: "Yes — we host departures in English, Chinese and Korean." },
+      { q: "Are guides available in my language?", a: "Yes — but each tour runs in a single language. We host separate English, Mandarin, and Korean departures; please select the one that matches your preferred language when booking." },
       { q: "When is full payment due?", a: "Full payment is generally required at least 30 days before departure. The booking is confirmed once we receive payment." },
       { q: "What is the cancellation & refund policy?", a: "30+ days before departure: 50% refund. 14–29 days before: 30% refund. Within 13 days (including departure day): no refund. Specific tour pages may set their own terms." },
       { q: "Is there a credit card refund fee?", a: "If you paid by credit card and request a refund, a 4% credit card processing fee is deducted from the refund amount." },
@@ -173,7 +173,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "小團更舒適", desc: "每團 8–14 人 — 不趕、不擠,每位旅人都被照顧到。" },
       { num: "02", title: "細節都用心", desc: "從機場接送到街角咖啡,每個接觸點都精挑細選。" },
-      { num: "03", title: "中英韓三語導遊", desc: "用旅人母語對話與述說的旅程。" },
+      { num: "03", title: "中文 / 英文 / 韓文團", desc: "我們分別提供中文、英文、韓文出發團，每一團皆以單一語言進行。請依您的語言選擇對應行程。" },
       { num: "04", title: "安全與清晰溝通", desc: "完整旅遊保險與 24 小時聯絡專線,讓家人安心。" },
       { num: "05", title: "有故事的旅程", desc: "我們相信旅行不在抵達,而在值得收藏的回憶。" },
     ],
@@ -182,7 +182,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "查看所有常見問題 →",
     faqs: [
       { q: "如何報名？", a: "您可以透過聯絡我們頁面填寫表單，或直接以 WhatsApp、KakaoTalk、WeChat 與我們聯繫，將會有專人於 24 小時內回覆。" },
-      { q: "是否提供中文導遊？", a: "是的，我們提供中文、韓文與英文導遊服務。" },
+      { q: "是否提供中文導遊？", a: "是的，但每一團僅以單一語言進行。我們分別提供中文、英文、韓文出發團，訂位時請選擇符合您語言的對應行程。" },
       { q: "何時須完成付款？", a: "旅遊費用原則上須於出發日前 30 天完成全額付款，款項入帳後旅遊契約正式成立。" },
       { q: "取消與退款規定為何？", a: "出發前 30 天（含）以上可退 50%；14–29 天可退 30%；13 天內（含出發當日）恕不退款。各行程頁面若另有規定則以該頁公告為準。" },
       { q: "信用卡退款是否收手續費？", a: "以信用卡付款後申請退款者，將扣除實際產生之信用卡手續費 4% 後辦理退款。" },
@@ -233,7 +233,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefs: [
       { num: "01", title: "소그룹의 편안함", desc: "그룹당 8–14명 — 서두르지 않고, 붐비지 않게, 모든 여행자가 돌봄받는 여정." },
       { num: "02", title: "디테일까지 정성껏", desc: "공항 픽업부터 골목 카페까지, 모든 접점은 정성껏 고릅니다." },
-      { num: "03", title: "한·중·영 3개국어 가이드", desc: "여행자의 모국어로 대화하고 이야기를 전하는 여정." },
+      { num: "03", title: "한국어 · 영어 · 중국어 투어", desc: "한국어, 영어, 중국어 출발 투어를 각각 운영합니다. 각 투어는 한 가지 언어로만 진행되니, 사용 언어에 맞는 투어를 선택해 주세요." },
       { num: "04", title: "안전과 명확한 소통", desc: "포괄적인 여행 보험과 24시간 연락 라인 — 가족도 안심할 수 있습니다." },
       { num: "05", title: "이야기가 있는 여정", desc: "우리는 여행이 도착이 아니라, 간직할 가치가 있는 추억이라고 믿습니다." },
     ],
@@ -242,7 +242,7 @@ const PACKS: Record<Locale, Pack> = {
     viewAllFaqs: "모든 FAQ 보기 →",
     faqs: [
       { q: "어떻게 예약하나요?", a: "문의 페이지의 양식을 작성하시거나 WhatsApp, 카카오톡, WeChat으로 연락 주세요. 24시간 이내에 답변드립니다." },
-      { q: "한국어 가이드가 있나요?", a: "네 — 영어, 중국어, 한국어 출발이 가능합니다." },
+      { q: "한국어 가이드가 있나요?", a: "네 — 다만 각 투어는 한 가지 언어로만 진행됩니다. 한국어, 영어, 중국어 출발 투어를 각각 운영하니, 예약 시 사용 언어에 맞는 투어를 선택해 주세요." },
       { q: "전액 결제는 언제까지 해야 하나요?", a: "원칙적으로 출발일 30일 전까지 전액 결제가 완료되어야 하며, 결제 확인 후 여행 계약이 정식으로 성립됩니다." },
       { q: "취소 및 환불 규정은 어떻게 되나요?", a: "출발 30일 이전: 50% 환불, 14–29일 전: 30% 환불, 13일 이내(출발 당일 포함): 환불 불가. 각 투어 페이지에 별도 규정이 있는 경우 해당 내용이 우선합니다." },
       { q: "신용카드 환불 수수료가 있나요?", a: "신용카드로 결제 후 환불을 요청하시는 경우, 실제 발생한 신용카드 수수료 4%를 환불 금액에서 공제합니다." },

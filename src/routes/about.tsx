@@ -60,7 +60,7 @@ const PACKS: Record<Locale, Pack> = {
     values: [
       { t: "Small groups, more comfort", d: "8–14 travellers per departure — no rushing, no crowds, every guest is looked after." },
       { t: "Considered in every detail", d: "From airport pickups to the corner café, every touchpoint is hand-picked." },
-      { t: "English, Mandarin & Korean guides", d: "Conversation and storytelling designed for travellers in their own language." },
+      { t: "Tours in your language", d: "We run separate English, Mandarin, and Korean departures. Each tour is hosted in one language — please choose the one that suits you." },
       { t: "Safety and clear communication", d: "Full travel insurance and a 24-hour contact line so loved ones rest easy." },
       { t: "Journeys with story", d: "We believe travel is not about arriving but about memories worth keeping." },
     ],
@@ -91,7 +91,7 @@ const PACKS: Record<Locale, Pack> = {
     values: [
       { t: "小團更舒適", d: "每團 8–14 人 — 不趕、不擠,每位旅人都被照顧到。" },
       { t: "細節都用心", d: "從機場接送到街角咖啡,每個接觸點都精挑細選。" },
-      { t: "中英韓三語導遊", d: "用旅人母語對話與述說的旅程。" },
+      { t: "中文 / 英文 / 韓文團", d: "我們分別提供中文、英文、韓文出發團，每一團皆以單一語言進行。請依您的語言選擇對應行程。" },
       { t: "安全與清晰溝通", d: "完整旅遊保險與 24 小時聯絡專線,讓家人安心。" },
       { t: "有故事的旅程", d: "我們相信旅行不在抵達,而在值得收藏的回憶。" },
     ],
@@ -122,7 +122,7 @@ const PACKS: Record<Locale, Pack> = {
     values: [
       { t: "소그룹의 편안함", d: "출발당 8–14명 — 서두르지 않고, 붐비지 않으며, 모든 손님을 살핍니다." },
       { t: "모든 디테일을 고민합니다", d: "공항 픽업부터 골목 카페까지, 모든 접점을 직접 고릅니다." },
-      { t: "영어/중국어/한국어 가이드", d: "여행자의 모국어로 이야기하는 여정." },
+      { t: "한국어 · 영어 · 중국어 투어", d: "한국어, 영어, 중국어 투어를 각각 운영하며, 각 투어는 한 가지 언어로만 진행됩니다. 사용 언어에 맞는 투어를 선택해 주세요." },
       { t: "안전과 명확한 소통", d: "전 일정 여행자 보험과 24시간 연락 채널로 가족도 안심." },
       { t: "이야기가 있는 여정", d: "여행의 본질은 도착이 아니라 간직할 추억이라 믿습니다." },
     ],

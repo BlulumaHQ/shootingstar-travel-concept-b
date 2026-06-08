@@ -74,6 +74,7 @@ export function Header() {
     { to: localized("/about"), label: t("nav.about") },
     { to: localized("/tours"), label: t("nav.tours") },
     { to: localized("/gallery"), label: t("nav.gallery") },
+    { to: localized("/reviews"), label: t("nav.reviews") },
     { to: localized("/faq"), label: t("nav.faq") },
     { to: localized("/contact"), label: t("nav.contact") },
   ];

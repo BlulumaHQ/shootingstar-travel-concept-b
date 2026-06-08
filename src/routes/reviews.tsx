@@ -3,9 +3,6 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { Star, Heart } from "lucide-react";
 import { tours } from "@/data/tours";
-import { reviews } from "@/data/reviews";
-import { useReviews } from "@/data/useReviews";
-import { ReviewCard } from "@/components/site/ReviewCard";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 
@@ -13,10 +10,9 @@ export const Route = createFileRoute("/reviews")({
   head: () => ({
     meta: [
       { title: "Traveler Stories — Shooting Star Travel" },
-      { name: "description", content: "Real stories from our travelers — photos and reviews from real journeys." },
+      { name: "description", content: "Real stories from travellers with Shooting Star Travel — share your own journey." },
       { property: "og:title", content: "Traveler Stories — Shooting Star Travel" },
-      { property: "og:description", content: "Real stories from our travelers — photos and reviews from real journeys." },
-      { property: "og:image", content: reviews[0].photos[0] },
+      { property: "og:description", content: "Real stories from travellers with Shooting Star Travel — share your own journey." },
     ],
     links: hreflangLinks("/reviews", "en"),
   }),
@@ -32,12 +28,16 @@ const T = {
     ko: "Shooting Star Travel과 함께한 여행자들이 남긴 소중한 기억들.",
   },
   shareCta: { en: "Share My Journey", zh: "分享我的旅程", ko: "내 여행 공유하기" },
-  travellerSection: { en: "Traveler Reviews", zh: "旅客心得", ko: "여행자 후기" },
-  travellerEyebrow: { en: "Travellers' Voices", zh: "旅客的聲音", ko: "여행자의 목소리" },
-  travellerBody: {
-    en: "Each journey is a real story written by a traveller. Share yours, so the next traveller can set off because of you.",
-    zh: "每段旅程都是旅人親手寫下的故事。分享你的回憶，讓下一位旅人因為你出發。",
-    ko: "각 여정은 여행자가 직접 쓴 진짜 이야기입니다. 당신의 이야기를 들려주세요.",
+  placeholderEyebrow: { en: "Coming soon", zh: "敬請期待", ko: "곧 공개됩니다" },
+  placeholderTitle: {
+    en: "The first traveller stories will appear here soon.",
+    zh: "第一批旅客分享即將在這裡出現。",
+    ko: "첫 여행자 이야기가 곧 이곳에 소개됩니다.",
+  },
+  placeholderBody: {
+    en: "We are collecting genuine stories from travellers who recently joined our tours. If you have travelled with us, we'd love to share your journey here.",
+    zh: "我們正在收集近期參加旅程的旅客分享。如果您曾經與我們同行，歡迎在此留下您的旅程故事。",
+    ko: "최근 투어에 함께한 여행자들의 진솔한 이야기를 모으고 있습니다. 함께 여행하셨다면, 당신의 이야기를 들려주세요.",
   },
   closeBtn: { en: "Close", zh: "關閉", ko: "닫기" },
   shareTitle: { en: "Share your journey", zh: "分享你的旅程", ko: "내 여행 공유하기" },
@@ -109,13 +109,12 @@ function ShareModal({ onClose }: { onClose: () => void }) {
 
 export function ReviewsPage() {
   const l = useLocale();
-  const travellerReviews = useReviews();
   const [shareOpen, setShareOpen] = useState(false);
 
   return (
     <SiteLayout>
       {/* Hero */}
-      <section className="relative bg-cream pt-24 md:pt-32 pb-20 overflow-hidden">
+      <section className="relative bg-cream pt-24 md:pt-32 pb-16 overflow-hidden">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 text-primary/75">
@@ -127,50 +126,28 @@ export function ReviewsPage() {
               {t("heroTitle", l)}
             </h1>
             <p className="mt-7 text-ink/65 leading-[2] text-[15px] max-w-xl">{t("heroSub", l)}</p>
-
-            <div className="mt-10">
-              <button
-                onClick={() => setShareOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
-              >
-                <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
-              </button>
-            </div>
           </div>
         </div>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
-      {/* Traveller reviews */}
-      <section className="bg-paper/40 pt-16 md:pt-20 pb-28 md:pb-36">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
-            <div>
-              <div className="flex items-center gap-3 text-primary/75">
-                <Heart size={14} className="text-primary/65" />
-                <span className="text-[11px] tracking-[0.4em] uppercase font-medium">{t("travellerEyebrow", l)}</span>
-              </div>
-              <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-4 font-medium tracking-[-0.01em]">
-                {t("travellerSection", l)}
-              </h2>
-              <p className="mt-4 max-w-xl text-ink/60 leading-[1.9] text-[14px]">{t("travellerBody", l)}</p>
+      {/* Single placeholder card */}
+      <section className="bg-paper/40 pt-12 md:pt-16 pb-28 md:pb-36">
+        <div className="mx-auto max-w-[760px] px-6 md:px-12">
+          <div className="rounded-2xl border border-dashed border-primary/30 bg-cream/70 px-7 py-12 md:px-12 md:py-16 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.45)]">
+            <div className="inline-flex items-center gap-2 text-primary/75">
+              <StarMark size={14} className="text-primary/65" />
+              <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium">{t("placeholderEyebrow", l)}</span>
             </div>
+            <h2 className="mt-5 font-serif text-[24px] md:text-[30px] text-ink leading-[1.35] tracking-[-0.01em]">
+              {t("placeholderTitle", l)}
+            </h2>
+            <p className="mt-5 text-ink/65 leading-[2] text-[14.5px] max-w-md mx-auto">
+              {t("placeholderBody", l)}
+            </p>
             <button
               onClick={() => setShareOpen(true)}
-              className="self-start md:self-end inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-2.5 text-[12.5px] tracking-[0.12em] uppercase hover:bg-primary/90 transition"
-            >
-              <Heart size={13} /> {t("shareCta", l)}
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {travellerReviews.map((r, i) => <ReviewCard key={i} r={r} />)}
-          </div>
-
-          <div className="mt-16 text-center">
-            <button
-              onClick={() => setShareOpen(true)}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/40 text-primary px-8 py-3 text-[12px] tracking-[0.18em] uppercase hover:bg-primary hover:text-primary-foreground transition"
+              className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
             >
               <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
             </button>

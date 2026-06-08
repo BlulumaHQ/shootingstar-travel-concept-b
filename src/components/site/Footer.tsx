@@ -35,8 +35,16 @@ export function Footer() {
     { l: t("nav.tours"), to: lp("/tours") },
     { l: t("nav.about"), to: lp("/about") },
     { l: t("nav.gallery"), to: lp("/gallery") },
+    { l: t("nav.reviews"), to: lp("/reviews") },
     { l: t("nav.faq"), to: lp("/faq") },
   ];
+
+  const currencyNote =
+    locale === "zh"
+      ? "除非特別標示，所有價格均以加拿大元（CAD）計算。"
+      : locale === "ko"
+        ? "별도 표기가 없는 경우 모든 요금은 캐나다 달러(CAD) 기준입니다."
+        : "Unless otherwise specified, all prices are in Canadian Dollars (CAD).";
 
   const popularToursByLocale = {
     en: [
@@ -291,6 +299,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 md:mt-24 pt-7 border-t border-ink/15 flex flex-col gap-3 text-[12px] tracking-wide text-ink/55">
+          <p className="text-center md:text-left text-ink/60">{currencyNote}</p>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-center md:text-left">
             <p>{t("footer.copyright")}</p>
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
