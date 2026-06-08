@@ -646,7 +646,7 @@ export function HomePage() {
               </div>
               <div className="mt-6 flex flex-wrap gap-2">
                 {[
-                  { l: "WhatsApp", h: "https://wa.me/16047657765" },
+                  { l: "WhatsApp", h: locale === "ko" ? "https://wa.me/17782887524" : "https://wa.me/16047657765" },
                   { l: "Email", h: "mailto:hello@shootingstartravel.ca" },
                   { l: "KakaoTalk", h: "#" },
                 ].map((c) => (
