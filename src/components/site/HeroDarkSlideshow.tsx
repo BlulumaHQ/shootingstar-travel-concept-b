@@ -20,7 +20,7 @@ type Props = {
   defaultDurationMs?: number;
 };
 
-export function HeroDarkSlideshow({ slides, defaultDurationMs = 5000 }: Props) {
+export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const touchStart = useRef<number | null>(null);

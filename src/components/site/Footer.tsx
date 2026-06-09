@@ -4,7 +4,7 @@ import tornEdge from "@/assets/header-torn-edge.png";
 import { Facebook, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
-import { getPhone } from "@/i18n/contact";
+import { getSupportLines } from "@/i18n/contact";
 import { StarMark, DottedLine } from "@/components/site/BrandMarks";
 
 
@@ -75,9 +75,14 @@ export function Footer() {
   } as const;
   const popularTours = popularToursByLocale[locale];
 
-  const phone = getPhone(locale);
-  const contact: { Icon: typeof Phone; t: string; href?: string }[] = [
-    { Icon: Phone, t: phone.display, href: phone.tel },
+  const supportLines = getSupportLines(locale);
+  const contact: { Icon: typeof Phone; t: string; href?: string; sub?: string }[] = [
+    ...supportLines.map((s) => ({
+      Icon: Phone,
+      t: s.display,
+      href: s.tel,
+      sub: s.label,
+    })),
     { Icon: Mail, t: "info@shootingstartravel.com", href: "mailto:info@shootingstartravel.com" },
     { Icon: MapPin, t: "Vancouver, BC, Canada" },
     { Icon: Clock, t: t("footer.hours") },
@@ -198,14 +203,19 @@ export function Footer() {
           <div>
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
             <ul className="mt-5 space-y-3 text-[13.5px] text-ink/85">
-              {contact.map(({ Icon, t: txt, href }) => (
-                <li key={txt} className="flex items-center justify-center gap-2.5">
-                  <Icon size={13} strokeWidth={1.5} className="text-primary/60" />
-                  {href ? (
-                    <a href={href} className="hover:text-primary transition">{txt}</a>
-                  ) : (
-                    <span>{txt}</span>
+              {contact.map(({ Icon, t: txt, href, sub }) => (
+                <li key={txt} className="flex flex-col items-center gap-0.5">
+                  {sub && (
+                    <span className="text-[10px] tracking-[0.25em] uppercase text-primary/70">{sub}</span>
                   )}
+                  <span className="flex items-center justify-center gap-2.5">
+                    <Icon size={13} strokeWidth={1.5} className="text-primary/60" />
+                    {href ? (
+                      <a href={href} className="hover:text-primary transition">{txt}</a>
+                    ) : (
+                      <span>{txt}</span>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -296,14 +306,19 @@ export function Footer() {
           <div className="col-span-3">
             <ColTitle>{t("footer.contactInfo")}</ColTitle>
             <ul className="mt-6 space-y-3.5 text-[13.5px] text-ink/85">
-              {contact.map(({ Icon, t: txt, href }) => (
+              {contact.map(({ Icon, t: txt, href, sub }) => (
                 <li key={txt} className="flex items-start gap-2.5">
                   <Icon size={14} strokeWidth={1.5} className="text-primary/60 mt-1" />
-                  {href ? (
-                    <a href={href} className="hover:text-primary leading-snug transition">{txt}</a>
-                  ) : (
-                    <span className="leading-snug">{txt}</span>
-                  )}
+                  <span className="flex flex-col">
+                    {sub && (
+                      <span className="text-[10px] tracking-[0.25em] uppercase text-primary/70">{sub}</span>
+                    )}
+                    {href ? (
+                      <a href={href} className="hover:text-primary leading-snug transition">{txt}</a>
+                    ) : (
+                      <span className="leading-snug">{txt}</span>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>

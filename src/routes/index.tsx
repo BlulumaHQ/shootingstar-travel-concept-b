@@ -34,7 +34,7 @@ export const Route = createFileRoute("/")({
       path: "/",
       locale: "en",
       title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Western US Tours",
-      description: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond — with English, Mandarin and Korean-friendly guides. Slow travel, considered detail.",
+      description: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond. Slow travel, considered detail.",
     }),
     scripts: [
       {
@@ -285,7 +285,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "Boutique small-group journeys across the Canadian Rockies and the Western United States — paced for slow mornings, mountain light, and stories worth keeping.",
       primary: "Explore Tours",
       secondary: "Our Story",
-      badges: ["Small Groups", "Korean Friendly", "Vancouver Departure"],
+      badges: ["Small Groups", "Vancouver Departure"],
     },
     lakes: {
       eyebrow: "— Featured · Canadian Rockies",
@@ -294,7 +294,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "Moraine Lake, Lake Louise, Emerald Lake — turquoise water and alpine air on a single, considered day across the Bow Valley.",
       primary: "View Lake Tours",
       secondary: "See Itinerary",
-      badges: ["1 Day · Banff", "Korean Friendly", "Hotel Pickup"],
+      badges: ["1 Day · Banff", "Hotel Pickup"],
     },
     icefields: {
       eyebrow: "— New · Banff ⇄ Jasper",
@@ -314,7 +314,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "加拿大洛磯山脈與美國西部的精品小團旅行 —— 緩慢的清晨、山林的光,以及值得收藏的故事。",
       primary: "探索行程",
       secondary: "關於我們",
-      badges: ["小團出發", "韓語友善", "溫哥華出發"],
+      badges: ["小團出發", "溫哥華出發"],
     },
     lakes: {
       eyebrow: "— 精選 · 加拿大洛磯",
@@ -323,7 +323,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "夢蓮湖、露易絲湖、翡翠湖 —— 一天之內,走過 Bow Valley 的綠松石湖水與高山空氣。",
       primary: "查看湖泊行程",
       secondary: "詳細安排",
-      badges: ["一日 · 班夫", "韓語友善", "飯店接送"],
+      badges: ["一日 · 班夫", "飯店接送"],
     },
     icefields: {
       eyebrow: "— 全新 · 班夫 ⇄ 賈斯珀",
@@ -343,7 +343,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "캐나디안 록키와 미국 서부를 가로지르는 부티크 소그룹 여정 — 느린 아침, 산의 빛, 그리고 간직할 만한 이야기.",
       primary: "투어 둘러보기",
       secondary: "브랜드 이야기",
-      badges: ["소그룹", "한국어 안내", "밴쿠버 출발"],
+      badges: ["소그룹", "밴쿠버 출발"],
     },
     lakes: {
       eyebrow: "— 추천 · 캐나디안 록키",
@@ -352,7 +352,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "모레인 호수, 루이스 호수, 에메랄드 호수 — 보우 밸리의 터쿠아즈 빛 호수와 알파인의 공기를 하루에.",
       primary: "레이크 투어 보기",
       secondary: "일정 보기",
-      badges: ["1일 · 밴프", "한국어 안내", "호텔 픽업"],
+      badges: ["1일 · 밴프", "호텔 픽업"],
     },
     icefields: {
       eyebrow: "— 신상품 · 밴프 ⇄ 재스퍼",
@@ -379,7 +379,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       badges: c.intro.badges,
       primary: { label: c.intro.primary, to: link("/tours") },
       secondary: c.intro.secondary ? { label: c.intro.secondary, to: link("/about") } : undefined,
-      durationMs: 2000,
+      durationMs: 6000,
     },
     {
       id: "lakes",
@@ -391,7 +391,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       badges: c.lakes.badges,
       primary: { label: c.lakes.primary, to: link("/rocky-mountain-lake-tours") },
       secondary: c.lakes.secondary ? { label: c.lakes.secondary, to: link("/rocky-mountain-lake-tours") } : undefined,
-      durationMs: 5000,
+      durationMs: 6000,
     },
     {
       id: "icefields",
@@ -403,7 +403,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       badges: c.icefields.badges,
       primary: { label: c.icefields.primary, to: link("/icefields-parkway-jasper-banff-shuttle-tours") },
       secondary: c.icefields.secondary ? { label: c.icefields.secondary, to: link("/icefields-parkway-jasper-banff-shuttle-tours") } : undefined,
-      durationMs: 5000,
+      durationMs: 6000,
     },
   ];
 }
