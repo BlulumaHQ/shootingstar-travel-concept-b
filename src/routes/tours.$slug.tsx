@@ -272,6 +272,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
+  const [bookingResult, setBookingResult] = useState<{
+    bookingReference: string | null;
+    orderNumber: string | null;
+    sessionId: string | number | null;
+    productCode: string;
+  } | null>(null);
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   // Selected Victoria session
   const selectedSession = isVictoria && rezdySessions
@@ -291,9 +298,46 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
   const dep = staticDepartures[Math.min(dateIdx, Math.max(0, staticDepartures.length - 1))] ?? staticDepartures[0];
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isVictoria) return; // test mode
+    if (isVictoria) {
+      if (!selectedSession || !selectedSession.date) return;
+      setBookingError(null);
+      setStage("loading");
+      try {
+        const startTimeLocal = `${selectedSession.date} ${selectedSession.startTime ?? "00:00"}:00`;
+        const res = await fetch("/api/rezdy/create-booking", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            productCode: selectedSession.productCode,
+            sessionId: selectedSession.rawSessionId,
+            startTimeLocal,
+            guests,
+            customer: { name, email, phone },
+          }),
+        });
+        const json = (await res.json()) as
+          | { success: true; bookingReference: string | null; orderNumber: string | null; sessionId: string | number | null; productCode: string }
+          | { success: false; message: string };
+        if (!("success" in json) || !json.success) {
+          setBookingError(("message" in json && json.message) || "Booking failed.");
+          setStage("form");
+          return;
+        }
+        setBookingResult({
+          bookingReference: json.bookingReference,
+          orderNumber: json.orderNumber,
+          sessionId: json.sessionId,
+          productCode: json.productCode,
+        });
+        setStage("done");
+      } catch (err) {
+        setBookingError(err instanceof Error ? err.message : "Network error");
+        setStage("form");
+      }
+      return;
+    }
     setStage("loading");
     setTimeout(() => setStage("done"), 1200);
   };
@@ -303,12 +347,30 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
         <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
         <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— processing</p>
-        <p className="mt-2 text-ink/65 text-[14px]">Holding your seat…</p>
+        <p className="mt-2 text-ink/65 text-[14px]">{isVictoria ? "Creating your booking…" : "Holding your seat…"}</p>
       </div>
     );
   }
 
   if (stage === "done") {
+    if (isVictoria && bookingResult) {
+      return (
+        <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
+          <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— booking confirmed</p>
+          <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Booking created in Rezdy ✦</h3>
+          <div className="mt-5 rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/75 leading-[1.95] space-y-1">
+            <p>Reference: <span className="font-medium text-ink">{bookingResult.bookingReference ?? "—"}</span></p>
+            <p>Order #: <span className="font-medium text-ink">{bookingResult.orderNumber ?? "—"}</span></p>
+            <p>Session: {bookingResult.sessionId ?? "—"}</p>
+            <p>Product: {bookingResult.productCode}</p>
+          </div>
+          <p className="mt-5 text-ink/65 leading-[2] text-[13px]">
+            No payment was processed. Our team will be in touch to finalize details.
+          </p>
+          <button onClick={() => { setStage("form"); setBookingResult(null); }} className="mt-5 text-primary text-sm underline underline-offset-4">Start over</button>
+        </div>
+      );
+    }
     return (
       <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
         <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— demo confirmation</p>
@@ -497,17 +559,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
       </div>
 
+      {isVictoria && bookingError && (
+        <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-[12.5px] text-red-700">
+          {bookingError}
+        </div>
+      )}
+
       <button
         type="submit"
-        disabled={continueDisabled || isVictoria}
-        title={isVictoria ? "Test mode — booking is not yet enabled" : undefined}
+        disabled={continueDisabled}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isVictoria ? "Continue (test mode — booking disabled)" : "Continue to checkout →"}
+        {isVictoria ? "Continue →" : "Continue to checkout →"}
       </button>
       <p className="text-[10.5px] text-ink/45 text-center">
         {isVictoria
-          ? "* Live availability from Rezdy. Booking & payment are not yet enabled."
+          ? "* Creates a booking in Rezdy. No payment is processed at this step."
           : "* Demo only — payment will run through a third-party system on the live site."}
       </p>
     </form>
