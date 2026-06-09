@@ -174,6 +174,24 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
+type RezdySessionDto = {
+  date: string | null;
+  startTime: string | null;
+  endTime: string | null;
+  seatsAvailable: number | null;
+  price: number | null;
+  currency: string;
+  productCode: string;
+  rawSessionId: string | null;
+};
+
+function formatRezdyDate(iso: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+}
+
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const locale = useLocale();
   const langCopy = {
