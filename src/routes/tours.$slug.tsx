@@ -271,6 +271,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
   const [bookingResult, setBookingResult] = useState<{
     bookingReference: string | null;
@@ -279,6 +280,11 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     productCode: string;
   } | null>(null);
   const [bookingError, setBookingError] = useState<string | null>(null);
+
+  // Map the localized language button to canonical Rezdy values by index
+  const LANG_MAP = ["English", "Mandarin", "Korean"] as const;
+  const pkgIdx = packages.indexOf(pkg);
+  const tourLanguage: (typeof LANG_MAP)[number] = LANG_MAP[pkgIdx >= 0 && pkgIdx < 3 ? pkgIdx : 0];
 
   // Selected Victoria session
   const selectedSession = isVictoria && rezdySessions
