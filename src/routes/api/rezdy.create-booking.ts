@@ -5,6 +5,8 @@ type CreateBookingBody = {
   sessionId?: string | number;
   startTimeLocal?: string; // "YYYY-MM-DD HH:mm:ss"
   guests?: number;
+  tourLanguage?: string;
+  notes?: string;
   customer?: {
     firstName?: string;
     lastName?: string;
@@ -13,6 +15,8 @@ type CreateBookingBody = {
     phone?: string;
   };
 };
+
+const ALLOWED_LANGUAGES = ["English", "Mandarin", "Korean"] as const;
 
 export const Route = createFileRoute("/api/rezdy/create-booking")({
   server: {
@@ -62,6 +66,19 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           );
         }
 
+        // Normalize Tour Language to the canonical allowed value
+        const rawLang = (body.tourLanguage ?? "").trim();
+        const tourLanguage =
+          (ALLOWED_LANGUAGES as readonly string[]).includes(rawLang)
+            ? rawLang
+            : "English";
+
+        // Build Special Requirements (comments) backup
+        const customerNotes = (body.notes ?? "").trim();
+        const comments =
+          `Tour Language: ${tourLanguage}\n\n` +
+          `Customer Notes:\n${customerNotes.length > 0 ? customerNotes : "None"}`;
+
         const payload = {
           status: "CONFIRMED",
           customer: {
@@ -81,6 +98,9 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
                   { label: "Last Name", value: lastName },
                 ],
               })),
+              // Rezdy custom field at the booking item level
+              extras: [],
+              fields: [{ label: "Tour Language", value: tourLanguage }],
             },
           ],
           payments: [
@@ -92,8 +112,10 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
               label: "Test booking (no payment processed)",
             },
           ],
-          fields: [],
-          comments: "Test booking created from Shootingstar Travel website.",
+          // Rezdy custom field at the booking (order) level
+          fields: [{ label: "Tour Language", value: tourLanguage }],
+          // Special Requirements / backup
+          comments,
         };
 
         try {

@@ -271,6 +271,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
   const [bookingResult, setBookingResult] = useState<{
     bookingReference: string | null;
@@ -279,6 +280,11 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     productCode: string;
   } | null>(null);
   const [bookingError, setBookingError] = useState<string | null>(null);
+
+  // Map the localized language button to canonical Rezdy values by index
+  const LANG_MAP = ["English", "Mandarin", "Korean"] as const;
+  const pkgIdx = packages.indexOf(pkg);
+  const tourLanguage: (typeof LANG_MAP)[number] = LANG_MAP[pkgIdx >= 0 && pkgIdx < 3 ? pkgIdx : 0];
 
   // Selected Victoria session
   const selectedSession = isVictoria && rezdySessions
@@ -314,6 +320,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             sessionId: selectedSession.rawSessionId,
             startTimeLocal,
             guests,
+            tourLanguage,
+            notes,
             customer: { name, email, phone },
           }),
         });
@@ -557,6 +565,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
         <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
         <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Special requests (optional) — e.g. window seat, dietary needs"
+          rows={2}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm resize-none"
+        />
       </div>
 
       {isVictoria && bookingError && (
