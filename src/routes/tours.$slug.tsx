@@ -192,6 +192,9 @@ function formatRezdyDate(iso: string | null): string {
   return d.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
 }
 
+const VICTORIA_GST_RATE = 0.05;
+const VICTORIA_PRICE = 170;
+
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const locale = useLocale();
   const langCopy = {
@@ -222,6 +225,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     isVictoria ? "loading" : "idle",
   );
   const [rezdyError, setRezdyError] = useState<string | null>(null);
+  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isVictoria) return;
@@ -238,7 +242,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           setRezdyStatus("error");
           return;
         }
-        setRezdySessions(json.sessions.filter((s) => s.date));
+        const filtered = json.sessions.filter((s) => s.date && s.rawSessionId);
+        setRezdySessions(filtered);
         setRezdyStatus("ready");
       })
       .catch((e: unknown) => {
@@ -251,33 +256,44 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     };
   }, [isVictoria]);
 
-  const liveDepartures =
-    isVictoria && rezdySessions
-      ? rezdySessions.map((s) => ({ date: formatRezdyDate(s.date), seats: s.seatsAvailable ?? 0 }))
-      : null;
-
-  const departures =
-    liveDepartures ??
+  const packages = tour?.packages ?? langCopy.options;
+  const staticDepartures =
     tour?.departures ?? [
       { date: "Jul 12", seats: 8 },
       { date: "Jul 18", seats: 4 },
       { date: "Jul 26", seats: 12 },
       { date: "Aug 09", seats: 6 },
     ];
-  const packages = tour?.packages ?? langCopy.options;
 
   const [dateIdx, setDateIdx] = useState(0);
   const [pkg, setPkg] = useState(packages[0]);
-  const [guests, setGuests] = useState(2);
+  const [guests, setGuests] = useState(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
 
-  const dep = departures[Math.min(dateIdx, Math.max(0, departures.length - 1))] ?? departures[0];
+  // Selected Victoria session
+  const selectedSession = isVictoria && rezdySessions
+    ? rezdySessions.find((s) => s.rawSessionId === selectedSessionId) ?? null
+    : null;
+
+  const maxSeats = isVictoria
+    ? (selectedSession?.seatsAvailable ?? 0)
+    : (staticDepartures[Math.min(dateIdx, staticDepartures.length - 1)]?.seats ?? 1);
+
+  // Clamp guests if exceeds available seats
+  useEffect(() => {
+    if (isVictoria && maxSeats > 0 && guests > maxSeats) {
+      setGuests(maxSeats);
+    }
+  }, [isVictoria, maxSeats, guests]);
+
+  const dep = staticDepartures[Math.min(dateIdx, Math.max(0, staticDepartures.length - 1))] ?? staticDepartures[0];
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isVictoria) return; // test mode
     setStage("loading");
     setTimeout(() => setStage("done"), 1200);
   };
@@ -310,6 +326,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     );
   }
 
+  const victoriaSubtotal = VICTORIA_PRICE * guests;
+  const victoriaGst = victoriaSubtotal * VICTORIA_GST_RATE;
+  const victoriaTotal = victoriaSubtotal + victoriaGst;
+  const continueDisabled = isVictoria
+    ? !selectedSession || guests < 1 || rezdyStatus !== "ready"
+    : false;
+
   return (
     <form
       id={`${idPrefix}booking-form`}
@@ -321,7 +344,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
           <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
         </div>
-        <span className="text-[11px] text-ink/55">from <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span></span>
+        <span className="text-[11px] text-ink/55">from <span className="text-primary font-serif text-[15px] font-semibold">{isVictoria ? "$170 CAD" : tour?.price}</span></span>
       </div>
 
       <div>
@@ -331,28 +354,60 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>
           )}
         </label>
-        {isVictoria && rezdyStatus === "loading" && (
-          <p className="text-[12px] text-ink/55">Loading live availability…</p>
-        )}
-        {isVictoria && rezdyStatus === "error" && (
-          <p className="text-[12px] text-red-600">{rezdyError ?? "Unable to load availability."}</p>
-        )}
-        {isVictoria && rezdyStatus === "ready" && departures.length === 0 && (
-          <p className="text-[12px] text-ink/55">No upcoming departures available.</p>
-        )}
-        <div className="flex flex-wrap gap-1.5">
-          {departures.map((d, i) => (
-            <button
-              type="button" key={`${d.date}-${i}`}
-              onClick={() => setDateIdx(i)}
-              className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
-                i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
-              }`}
-            >{d.date}</button>
-          ))}
-        </div>
-        {isVictoria && (
-          <p className="mt-2 text-[11px] text-ink/55">$170 CAD <span className="text-ink/45">+ GST</span></p>
+
+        {isVictoria ? (
+          <>
+            {rezdyStatus === "loading" && (
+              <p className="text-[12px] text-ink/55">Loading available dates...</p>
+            )}
+            {rezdyStatus === "error" && (
+              <p className="text-[12px] text-red-600">Unable to load availability. Please try again later.</p>
+            )}
+            {rezdyStatus === "ready" && rezdySessions && rezdySessions.length === 0 && (
+              <p className="text-[12px] text-ink/55">No available dates at the moment.</p>
+            )}
+            {rezdyStatus === "ready" && rezdySessions && rezdySessions.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {rezdySessions.map((s) => {
+                  const isSel = s.rawSessionId === selectedSessionId;
+                  const soldOut = (s.seatsAvailable ?? 0) <= 0;
+                  return (
+                    <button
+                      type="button"
+                      key={s.rawSessionId ?? `${s.date}-${s.startTime}`}
+                      disabled={soldOut}
+                      onClick={() => {
+                        setSelectedSessionId(s.rawSessionId);
+                        setGuests((g) => Math.min(Math.max(1, g), s.seatsAvailable ?? 1));
+                      }}
+                      className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
+                        isSel
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "border-border text-ink/70 hover:border-primary/50"
+                      } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
+                      title={soldOut ? "Sold out" : `${s.seatsAvailable} seats left`}
+                    >
+                      {formatRezdyDate(s.date)}
+                      {s.startTime ? ` · ${s.startTime}` : ""}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+            <p className="mt-2 text-[11px] text-ink/55">$170 CAD <span className="text-ink/45">+ 5% GST</span></p>
+          </>
+        ) : (
+          <div className="flex flex-wrap gap-1.5">
+            {staticDepartures.map((d, i) => (
+              <button
+                type="button" key={`${d.date}-${i}`}
+                onClick={() => setDateIdx(i)}
+                className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
+                  i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
+                }`}
+              >{d.date}</button>
+            ))}
+          </div>
         )}
       </div>
 
@@ -394,16 +449,47 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Travellers</label>
           <div className="inline-flex items-center rounded-full border border-border bg-cream">
-            <button type="button" onClick={() => setGuests(Math.max(1, guests - 1))} className="px-3 py-1.5 text-ink/70">−</button>
+            <button
+              type="button"
+              onClick={() => setGuests(Math.max(1, guests - 1))}
+              disabled={isVictoria && !selectedSession}
+              className="px-3 py-1.5 text-ink/70 disabled:opacity-40"
+            >−</button>
             <span className="w-8 text-center text-sm">{guests}</span>
-            <button type="button" onClick={() => setGuests(Math.min(dep?.seats ?? 1, guests + 1))} className="px-3 py-1.5 text-ink/70">+</button>
+            <button
+              type="button"
+              onClick={() => setGuests(Math.min(isVictoria ? (maxSeats || 1) : (dep?.seats ?? 1), guests + 1))}
+              disabled={isVictoria && (!selectedSession || guests >= maxSeats)}
+              className="px-3 py-1.5 text-ink/70 disabled:opacity-40"
+            >+</button>
           </div>
         </div>
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Seats left</label>
-          <p className="pt-1.5 text-primary font-serif text-lg font-semibold">{dep?.seats ?? "—"} <span className="text-[11px] text-ink/55 font-sans">seats</span></p>
+          <p className="pt-1.5 text-primary font-serif text-lg font-semibold">
+            {isVictoria
+              ? (selectedSession ? selectedSession.seatsAvailable ?? "—" : "—")
+              : (dep?.seats ?? "—")} <span className="text-[11px] text-ink/55 font-sans">seats</span>
+          </p>
         </div>
       </div>
+
+      {isVictoria && selectedSession && (
+        <div className="rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/80 leading-[1.85] space-y-1.5">
+          <div className="flex justify-between">
+            <span>Subtotal ({guests} × $170)</span>
+            <span className="font-medium">${victoriaSubtotal.toFixed(2)} CAD</span>
+          </div>
+          <div className="flex justify-between">
+            <span>GST (5%)</span>
+            <span className="font-medium">${victoriaGst.toFixed(2)} CAD</span>
+          </div>
+          <div className="flex justify-between border-t border-border/60 pt-1.5 mt-1.5 text-ink font-serif text-[15px] font-semibold">
+            <span>Total</span>
+            <span>${victoriaTotal.toFixed(2)} CAD</span>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-2.5 pt-1">
         <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
@@ -413,15 +499,15 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
       <button
         type="submit"
-        disabled={isVictoria}
-        title={isVictoria ? "Test mode — booking disabled while live availability is being verified." : undefined}
+        disabled={continueDisabled || isVictoria}
+        title={isVictoria ? "Test mode — booking is not yet enabled" : undefined}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isVictoria ? "Test mode — booking disabled" : "Continue to checkout →"}
+        {isVictoria ? "Continue (test mode — booking disabled)" : "Continue to checkout →"}
       </button>
       <p className="text-[10.5px] text-ink/45 text-center">
         {isVictoria
-          ? "* Live availability shown from Rezdy. Booking & payment are not yet enabled."
+          ? "* Live availability from Rezdy. Booking & payment are not yet enabled."
           : "* Demo only — payment will run through a third-party system on the live site."}
       </p>
     </form>
