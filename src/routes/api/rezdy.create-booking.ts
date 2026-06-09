@@ -5,6 +5,8 @@ type CreateBookingBody = {
   sessionId?: string | number;
   startTimeLocal?: string; // "YYYY-MM-DD HH:mm:ss"
   guests?: number;
+  tourLanguage?: string;
+  notes?: string;
   customer?: {
     firstName?: string;
     lastName?: string;
@@ -13,6 +15,8 @@ type CreateBookingBody = {
     phone?: string;
   };
 };
+
+const ALLOWED_LANGUAGES = ["English", "Mandarin", "Korean"] as const;
 
 export const Route = createFileRoute("/api/rezdy/create-booking")({
   server: {
