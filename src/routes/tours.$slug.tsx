@@ -320,6 +320,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             sessionId: selectedSession.rawSessionId,
             startTimeLocal,
             guests,
+            tourLanguage,
+            notes,
             customer: { name, email, phone },
           }),
         });
