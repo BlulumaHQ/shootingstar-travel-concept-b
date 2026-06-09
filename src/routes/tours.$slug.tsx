@@ -559,17 +559,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
       </div>
 
+      {isVictoria && bookingError && (
+        <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-[12.5px] text-red-700">
+          {bookingError}
+        </div>
+      )}
+
       <button
         type="submit"
-        disabled={continueDisabled || isVictoria}
-        title={isVictoria ? "Test mode — booking is not yet enabled" : undefined}
+        disabled={continueDisabled}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isVictoria ? "Continue (test mode — booking disabled)" : "Continue to checkout →"}
+        {isVictoria ? "Continue →" : "Continue to checkout →"}
       </button>
       <p className="text-[10.5px] text-ink/45 text-center">
         {isVictoria
-          ? "* Live availability from Rezdy. Booking & payment are not yet enabled."
+          ? "* Creates a booking in Rezdy. No payment is processed at this step."
           : "* Demo only — payment will run through a third-party system on the live site."}
       </p>
     </form>
