@@ -396,12 +396,12 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           <div className="inline-flex items-center rounded-full border border-border bg-cream">
             <button type="button" onClick={() => setGuests(Math.max(1, guests - 1))} className="px-3 py-1.5 text-ink/70">−</button>
             <span className="w-8 text-center text-sm">{guests}</span>
-            <button type="button" onClick={() => setGuests(Math.min(dep.seats, guests + 1))} className="px-3 py-1.5 text-ink/70">+</button>
+            <button type="button" onClick={() => setGuests(Math.min(dep?.seats ?? 1, guests + 1))} className="px-3 py-1.5 text-ink/70">+</button>
           </div>
         </div>
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Seats left</label>
-          <p className="pt-1.5 text-primary font-serif text-lg font-semibold">{dep.seats} <span className="text-[11px] text-ink/55 font-sans">seats</span></p>
+          <p className="pt-1.5 text-primary font-serif text-lg font-semibold">{dep?.seats ?? "—"} <span className="text-[11px] text-ink/55 font-sans">seats</span></p>
         </div>
       </div>
 
@@ -411,10 +411,19 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
       </div>
 
-      <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]">
-        Continue to checkout →
+      <button
+        type="submit"
+        disabled={isVictoria}
+        title={isVictoria ? "Test mode — booking disabled while live availability is being verified." : undefined}
+        className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isVictoria ? "Test mode — booking disabled" : "Continue to checkout →"}
       </button>
-      <p className="text-[10.5px] text-ink/45 text-center">* Demo only — payment will run through a third-party system on the live site.</p>
+      <p className="text-[10.5px] text-ink/45 text-center">
+        {isVictoria
+          ? "* Live availability shown from Rezdy. Booking & payment are not yet enabled."
+          : "* Demo only — payment will run through a third-party system on the live site."}
+      </p>
     </form>
   );
 }
