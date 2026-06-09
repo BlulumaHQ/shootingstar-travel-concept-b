@@ -4,7 +4,7 @@ import { TourGallery } from "@/components/site/TourGallery";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
@@ -174,6 +174,24 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
+type RezdySessionDto = {
+  date: string | null;
+  startTime: string | null;
+  endTime: string | null;
+  seatsAvailable: number | null;
+  price: number | null;
+  currency: string;
+  productCode: string;
+  rawSessionId: string | null;
+};
+
+function formatRezdyDate(iso: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(`${iso}T00:00:00`);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+}
+
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const locale = useLocale();
   const langCopy = {
@@ -197,12 +215,55 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     },
   }[locale];
 
-  const departures = tour?.departures ?? [
-    { date: "Jul 12", seats: 8 },
-    { date: "Jul 18", seats: 4 },
-    { date: "Jul 26", seats: 12 },
-    { date: "Aug 09", seats: 6 },
-  ];
+  const isVictoria = tour?.slug === "victoria-1-day";
+
+  const [rezdySessions, setRezdySessions] = useState<RezdySessionDto[] | null>(null);
+  const [rezdyStatus, setRezdyStatus] = useState<"idle" | "loading" | "ready" | "error">(
+    isVictoria ? "loading" : "idle",
+  );
+  const [rezdyError, setRezdyError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isVictoria) return;
+    let cancelled = false;
+    setRezdyStatus("loading");
+    fetch("/api/rezdy/victoria-availability")
+      .then(async (r) => {
+        const json = (await r.json()) as
+          | { success: true; sessions: RezdySessionDto[] }
+          | { success: false; message: string; details?: string };
+        if (cancelled) return;
+        if (!("success" in json) || json.success === false) {
+          setRezdyError(("message" in json && json.message) || "Unable to load availability.");
+          setRezdyStatus("error");
+          return;
+        }
+        setRezdySessions(json.sessions.filter((s) => s.date));
+        setRezdyStatus("ready");
+      })
+      .catch((e: unknown) => {
+        if (cancelled) return;
+        setRezdyError(e instanceof Error ? e.message : "Network error");
+        setRezdyStatus("error");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isVictoria]);
+
+  const liveDepartures =
+    isVictoria && rezdySessions
+      ? rezdySessions.map((s) => ({ date: formatRezdyDate(s.date), seats: s.seatsAvailable ?? 0 }))
+      : null;
+
+  const departures =
+    liveDepartures ??
+    tour?.departures ?? [
+      { date: "Jul 12", seats: 8 },
+      { date: "Jul 18", seats: 4 },
+      { date: "Jul 26", seats: 12 },
+      { date: "Aug 09", seats: 6 },
+    ];
   const packages = tour?.packages ?? langCopy.options;
 
   const [dateIdx, setDateIdx] = useState(0);
@@ -213,7 +274,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [phone, setPhone] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
 
-  const dep = departures[dateIdx];
+  const dep = departures[Math.min(dateIdx, Math.max(0, departures.length - 1))] ?? departures[0];
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -264,11 +325,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       </div>
 
       <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Choose a date</label>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
+          Choose a date
+          {isVictoria && rezdyStatus === "ready" && (
+            <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>
+          )}
+        </label>
+        {isVictoria && rezdyStatus === "loading" && (
+          <p className="text-[12px] text-ink/55">Loading live availability…</p>
+        )}
+        {isVictoria && rezdyStatus === "error" && (
+          <p className="text-[12px] text-red-600">{rezdyError ?? "Unable to load availability."}</p>
+        )}
+        {isVictoria && rezdyStatus === "ready" && departures.length === 0 && (
+          <p className="text-[12px] text-ink/55">No upcoming departures available.</p>
+        )}
         <div className="flex flex-wrap gap-1.5">
           {departures.map((d, i) => (
             <button
-              type="button" key={d.date}
+              type="button" key={`${d.date}-${i}`}
               onClick={() => setDateIdx(i)}
               className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
                 i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
@@ -276,6 +351,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             >{d.date}</button>
           ))}
         </div>
+        {isVictoria && (
+          <p className="mt-2 text-[11px] text-ink/55">$170 CAD <span className="text-ink/45">+ GST</span></p>
+        )}
       </div>
 
       <div>
