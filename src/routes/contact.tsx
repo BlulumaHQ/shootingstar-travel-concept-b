@@ -3,7 +3,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
-import { getPhone } from "@/i18n/contact";
+import { getSupportLines } from "@/i18n/contact";
 import { ChatSupportSection } from "@/components/site/ChatSupport";
 
 export const Route = createFileRoute("/contact")({
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/contact")({
 });
 
 function getChannels(locale: Locale) {
-  const phone = getPhone(locale);
+  const supportLines = getSupportLines(locale);
   return [
-    { l: "Phone", v: phone.display, h: phone.tel },
+    ...supportLines.map((s) => ({ l: s.label, v: s.display, h: s.tel })),
     { l: "Email", v: "info@shootingstartravel.com", h: "mailto:info@shootingstartravel.com" },
   ];
 }
