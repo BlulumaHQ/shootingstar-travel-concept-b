@@ -565,6 +565,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
         <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
         <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Special requests (optional) — e.g. window seat, dietary needs"
+          rows={2}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm resize-none"
+        />
       </div>
 
       {isVictoria && bookingError && (
