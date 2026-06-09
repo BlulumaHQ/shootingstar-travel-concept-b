@@ -325,11 +325,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       </div>
 
       <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Choose a date</label>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
+          Choose a date
+          {isVictoria && rezdyStatus === "ready" && (
+            <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>
+          )}
+        </label>
+        {isVictoria && rezdyStatus === "loading" && (
+          <p className="text-[12px] text-ink/55">Loading live availability…</p>
+        )}
+        {isVictoria && rezdyStatus === "error" && (
+          <p className="text-[12px] text-red-600">{rezdyError ?? "Unable to load availability."}</p>
+        )}
+        {isVictoria && rezdyStatus === "ready" && departures.length === 0 && (
+          <p className="text-[12px] text-ink/55">No upcoming departures available.</p>
+        )}
         <div className="flex flex-wrap gap-1.5">
           {departures.map((d, i) => (
             <button
-              type="button" key={d.date}
+              type="button" key={`${d.date}-${i}`}
               onClick={() => setDateIdx(i)}
               className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
                 i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
@@ -337,6 +351,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             >{d.date}</button>
           ))}
         </div>
+        {isVictoria && (
+          <p className="mt-2 text-[11px] text-ink/55">$170 CAD <span className="text-ink/45">+ GST</span></p>
+        )}
       </div>
 
       <div>
