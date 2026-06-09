@@ -215,12 +215,55 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     },
   }[locale];
 
-  const departures = tour?.departures ?? [
-    { date: "Jul 12", seats: 8 },
-    { date: "Jul 18", seats: 4 },
-    { date: "Jul 26", seats: 12 },
-    { date: "Aug 09", seats: 6 },
-  ];
+  const isVictoria = tour?.slug === "victoria-1-day";
+
+  const [rezdySessions, setRezdySessions] = useState<RezdySessionDto[] | null>(null);
+  const [rezdyStatus, setRezdyStatus] = useState<"idle" | "loading" | "ready" | "error">(
+    isVictoria ? "loading" : "idle",
+  );
+  const [rezdyError, setRezdyError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isVictoria) return;
+    let cancelled = false;
+    setRezdyStatus("loading");
+    fetch("/api/rezdy/victoria-availability")
+      .then(async (r) => {
+        const json = (await r.json()) as
+          | { success: true; sessions: RezdySessionDto[] }
+          | { success: false; message: string; details?: string };
+        if (cancelled) return;
+        if (!("success" in json) || json.success === false) {
+          setRezdyError(("message" in json && json.message) || "Unable to load availability.");
+          setRezdyStatus("error");
+          return;
+        }
+        setRezdySessions(json.sessions.filter((s) => s.date));
+        setRezdyStatus("ready");
+      })
+      .catch((e: unknown) => {
+        if (cancelled) return;
+        setRezdyError(e instanceof Error ? e.message : "Network error");
+        setRezdyStatus("error");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isVictoria]);
+
+  const liveDepartures =
+    isVictoria && rezdySessions
+      ? rezdySessions.map((s) => ({ date: formatRezdyDate(s.date), seats: s.seatsAvailable ?? 0 }))
+      : null;
+
+  const departures =
+    liveDepartures ??
+    tour?.departures ?? [
+      { date: "Jul 12", seats: 8 },
+      { date: "Jul 18", seats: 4 },
+      { date: "Jul 26", seats: 12 },
+      { date: "Aug 09", seats: 6 },
+    ];
   const packages = tour?.packages ?? langCopy.options;
 
   const [dateIdx, setDateIdx] = useState(0);
@@ -231,7 +274,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [phone, setPhone] = useState("");
   const [stage, setStage] = useState<"form" | "loading" | "done">("form");
 
-  const dep = departures[dateIdx];
+  const dep = departures[Math.min(dateIdx, Math.max(0, departures.length - 1))] ?? departures[0];
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
