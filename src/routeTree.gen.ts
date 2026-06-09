@@ -54,6 +54,7 @@ import { Route as KoToursIndexRouteImport } from './routes/ko/tours.index'
 import { Route as ZhToursSlugRouteImport } from './routes/zh/tours.$slug'
 import { Route as KoToursSlugRouteImport } from './routes/ko/tours.$slug'
 import { Route as ApiRezdyVictoriaAvailabilityRouteImport } from './routes/api/rezdy.victoria-availability'
+import { Route as ApiRezdyCreateBookingRouteImport } from './routes/api/rezdy.create-booking'
 
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
@@ -286,6 +287,11 @@ const ApiRezdyVictoriaAvailabilityRoute =
     path: '/api/rezdy/victoria-availability',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiRezdyCreateBookingRoute = ApiRezdyCreateBookingRouteImport.update({
+  id: '/api/rezdy/create-booking',
+  path: '/api/rezdy/create-booking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -328,6 +334,7 @@ export interface FileRoutesByFullPath {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -374,6 +381,7 @@ export interface FileRoutesByTo {
   '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
+  '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -422,6 +430,7 @@ export interface FileRoutesById {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -471,6 +480,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -517,6 +527,7 @@ export interface FileRouteTypes {
     | '/ko'
     | '/tours'
     | '/zh'
+    | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -564,6 +575,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -610,6 +622,7 @@ export interface RootRouteChildren {
   ZhTermsRoute: typeof ZhTermsRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhIndexRoute: typeof ZhIndexRoute
+  ApiRezdyCreateBookingRoute: typeof ApiRezdyCreateBookingRoute
   ApiRezdyVictoriaAvailabilityRoute: typeof ApiRezdyVictoriaAvailabilityRoute
   KoToursSlugRoute: typeof KoToursSlugRoute
   ZhToursSlugRoute: typeof ZhToursSlugRoute
@@ -934,6 +947,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiRezdyVictoriaAvailabilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/rezdy/create-booking': {
+      id: '/api/rezdy/create-booking'
+      path: '/api/rezdy/create-booking'
+      fullPath: '/api/rezdy/create-booking'
+      preLoaderRoute: typeof ApiRezdyCreateBookingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -991,6 +1011,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZhTermsRoute: ZhTermsRoute,
   KoIndexRoute: KoIndexRoute,
   ZhIndexRoute: ZhIndexRoute,
+  ApiRezdyCreateBookingRoute: ApiRezdyCreateBookingRoute,
   ApiRezdyVictoriaAvailabilityRoute: ApiRezdyVictoriaAvailabilityRoute,
   KoToursSlugRoute: KoToursSlugRoute,
   ZhToursSlugRoute: ZhToursSlugRoute,
@@ -1000,3 +1021,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
