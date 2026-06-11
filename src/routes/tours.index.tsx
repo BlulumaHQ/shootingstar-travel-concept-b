@@ -23,9 +23,11 @@ export const Route = createFileRoute("/tours/")({
 const US_SLUGS = new Set([
   "seattle-1-day",
   "seattle-2-day",
+  "seattle-tech-tour",
   "western-usa-8-day",
   "vegas-canyon-4-day",
   "los-angeles-3-day",
+  "los-angeles-4-day",
   "oregon-coast-3-day",
 ]);
 
