@@ -11,6 +11,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { localeFromPath } from "@/i18n/locale";
+import { fetchToursEn } from "@/data/toursSource";
 
 function NotFoundComponent() {
   return (
@@ -70,6 +71,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: async () => ({ toursEn: await fetchToursEn() }),
+  staleTime: 5 * 60 * 1000,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
