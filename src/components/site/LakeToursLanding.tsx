@@ -56,6 +56,9 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const gst = +(subtotal * 0.05).toFixed(2);
   const total = +(subtotal + gst).toFixed(2);
 
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
+  const tourHref = (key: TourKey) => withLocale(`/tours/${TOUR_TO_SLUG[key]}`, locale);
+
   const handleSelectTour = (key: TourKey) => {
     setSelected(key);
     setPickup(TOURS[key].pickupOptions[0]);
