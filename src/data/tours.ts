@@ -57,6 +57,8 @@ export type Tour = {
   notes: (string | { text: string; href?: string })[];
   /** Booking call-to-action label for this tour. */
   bookingCta?: string;
+  /** Rezdy product code linking this tour to live availability/booking (null = contact-only). */
+  rezdyProductCode?: string | null;
   /** Legacy fields kept optional for compatibility with existing UI. */
   bring?: string[];
   faq?: { q: string; a: string }[];
