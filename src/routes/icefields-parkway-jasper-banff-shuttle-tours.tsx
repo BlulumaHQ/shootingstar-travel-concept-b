@@ -891,9 +891,11 @@ function BookingEstimator({ c }: { c: IcefieldsContent }) {
             </div>
           </div>
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+}
+
 
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
