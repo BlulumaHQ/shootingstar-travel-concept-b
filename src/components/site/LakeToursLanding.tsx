@@ -338,7 +338,13 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 {TOUR_LIST.map((t, i) => (
                   <tr key={t.key} className={i % 2 ? "bg-paper/30" : ""}>
                     <td className="px-5 py-5 font-serif text-ink font-semibold align-top max-w-[220px]">
-                      {t.name}
+                      <div>{t.name}</div>
+                      <Link
+                        to={tourHref(t.key)}
+                        className="mt-2 inline-block text-[12px] tracking-wide text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
+                      >
+                        {bookLabel}
+                      </Link>
                     </td>
                     <td className="px-5 py-5 align-top">{t.bestFor}</td>
                     <td className="px-5 py-5 align-top text-primary font-semibold">
