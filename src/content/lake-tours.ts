@@ -314,6 +314,36 @@ export const LAKE_TOURS_EN: LakeToursContent = {
     contactCta: "Contact Us to Book →",
     close: "Close",
   },
+  reserveTours: {
+    eyebrow: "— pick your tour",
+    h2: "Reserve Your Rocky Mountain Day",
+    intro:
+      "Each tour below links to its live booking page with real-time availability and instant confirmation.",
+    bookCta: "View dates & Book →",
+    items: [
+      { letter: "A", name: "Rockies Signature — Columbia Icefield & Scenic Highway", tag: "Glacier · Icefields Parkway", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "Moraine Lake & Lake Louise Half-Day", tag: "Easy lake access", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "5 Iconic Lakes", tag: "Lake collector's day", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — Johnston Canyon, Emerald Lake & Takakkaw Falls", tag: "Canyon · Yoho waterfalls", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "Moraine Lake Sunrise", tag: "Sunrise photography", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— suggested combinations",
+    h2: "Plan Your Perfect Rockies Trip",
+    intro:
+      "Combine any of the day tours above into a multi-day journey and receive a special bundle discount. Contact us and we'll tailor the perfect itinerary for you.",
+    adCopy:
+      "Picture yourself sipping a Starbucks coffee at the Columbia Icefield, the glacier stretching out before you.",
+    contactCta: "Contact us to plan this →",
+    items: [
+      { name: "Rock Star Tour", flow: ["A — Rockies Signature", "B — Moraine & Lake Louise"], tagline: "Short on time but want the absolute best-of-the-best postcards of the Rockies." },
+      { name: "Lakes Chasers", flow: ["A — Rockies Signature", "C — 5 Iconic Lakes"], tagline: "Columbia Icefield plus the seven legendary turquoise lakes in one unforgettable sweep." },
+      { name: "Banff & Yoho Highlights", flow: ["A — Rockies Signature", "B — Moraine & Lake Louise", "D — JET"], tagline: "Ice, water, canyon, lakes and waterfalls — every element of the Rockies in one trip." },
+      { name: "The Postcards from Rockies", flow: ["Icefields Parkway Shuttles", "B — Moraine & Lake Louise"], tagline: "The full Icefields Parkway plus the trio of iconic lakes across Jasper and Banff." },
+      { name: "Rockies Grand Slam", flow: ["Icefields Parkway Shuttles", "B — Moraine & Lake Louise", "D — JET"], tagline: "Complete all three national parks — Banff, Jasper and Yoho — the ultimate Rockies conquest." },
+    ],
+  },
   tours: {
     halfday: {
       key: "halfday",
