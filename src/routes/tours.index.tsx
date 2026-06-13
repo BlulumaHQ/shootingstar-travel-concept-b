@@ -133,8 +133,13 @@ export function ToursIndexPage() {
   const locale = useLocale();
   const tours = useTours();
   const p = PACKS[locale];
-  const canada = tours.filter((t) => !US_SLUGS.has(t.slug));
+
   const usa = tours.filter((t) => US_SLUGS.has(t.slug));
+  const rockyLake = ROCKY_LAKE_SLUGS.map((s) => tours.find((t) => t.slug === s)!).filter(Boolean);
+  const jasper = JASPER_ICEFIELDS_SLUGS.map((s) => tours.find((t) => t.slug === s)!).filter(Boolean);
+  const canada = tours.filter(
+    (t) => !US_SLUGS.has(t.slug) && !ROCKY_LAKE_SET.has(t.slug) && !JASPER_ICEFIELDS_SET.has(t.slug),
+  );
 
   const renderCard = (t: (typeof tours)[number]) => (
     <Link
