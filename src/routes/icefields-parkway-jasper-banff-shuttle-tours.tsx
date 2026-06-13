@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { TourRouteSection } from "@/components/site/TourRouteSection";
@@ -8,7 +8,7 @@ import destJasper from "@/assets/dest-jasper.jpg";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
-import { useLocale } from "@/i18n/locale";
+import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { ChatSupportNote } from "@/components/site/ChatSupport";
 import {
   getIcefieldsContent,
@@ -17,6 +17,25 @@ import {
   type AddOnId,
   type Weekday,
 } from "@/content/icefields-i18n";
+
+// Map each shuttle product to its Rezdy-connected detail-page slug.
+const PRODUCT_TO_SLUG: Record<ProductId, string> = {
+  P1: "banff-to-jasper-sightseeing-shuttle",
+  P2A: "jasper-maligne-lake-spirit-island-day-tour",
+  P2B: "jasper-to-banff-express-shuttle",
+  P3A: "banff-to-jasper-express-shuttle",
+  P3B: "jasper-medicine-lake-maligne-lake-half-day-tour",
+  P4: "icefields-parkway-southbound-sightseeing-shuttle",
+};
+
+const VIEW_AND_BOOK_LABEL: Record<Locale, string> = {
+  en: "View & Book →",
+  zh: "查看與預訂 →",
+  ko: "자세히 보기 & 예약 →",
+};
+
+const productHref = (pid: ProductId, locale: Locale) =>
+  withLocale(`/tours/${PRODUCT_TO_SLUG[pid]}`, locale);
 
 export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-tours")({
   head: () => {
