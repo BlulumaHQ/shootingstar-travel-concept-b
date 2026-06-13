@@ -31,6 +31,28 @@ const US_SLUGS = new Set([
   "oregon-coast-3-day",
 ]);
 
+const ROCKY_LAKE_SLUGS = [
+  "banff-two-lake-1-day",
+  "jet-johnston-emerald-takakkaw",
+  "5-lakes-tour",
+  "moraine-lake-lake-louise-half-day",
+  "moraine-lake-sunrise-tour",
+  "rockies-signature-columbia-icefield",
+];
+
+const JASPER_ICEFIELDS_SLUGS = [
+  "icefields-parkway-jasper-banff-shuttle",
+  "banff-to-jasper-sightseeing-shuttle",
+  "jasper-maligne-lake-spirit-island-day-tour",
+  "jasper-to-banff-express-shuttle",
+  "banff-to-jasper-express-shuttle",
+  "jasper-medicine-lake-maligne-lake-half-day-tour",
+  "icefields-parkway-southbound-sightseeing-shuttle",
+];
+
+const ROCKY_LAKE_SET = new Set(ROCKY_LAKE_SLUGS);
+const JASPER_ICEFIELDS_SET = new Set(JASPER_ICEFIELDS_SLUGS);
+
 type Pack = {
   eyebrow: string;
   heading: string;
@@ -38,6 +60,12 @@ type Pack = {
   canadaEyebrow: string;
   canadaHeading: string;
   canadaBody: string;
+  rockyLakeEyebrow: string;
+  rockyLakeHeading: string;
+  rockyLakeBody: string;
+  jasperEyebrow: string;
+  jasperHeading: string;
+  jasperBody: string;
   usEyebrow: string;
   usHeading: string;
   usBody: string;
@@ -52,6 +80,12 @@ const PACKS: Record<Locale, Pack> = {
     canadaEyebrow: "Canada · True North",
     canadaHeading: "Canadian Journeys",
     canadaBody: "From the Rockies' mirror lakes to Pacific gardens — slow days across British Columbia and Alberta.",
+    rockyLakeEyebrow: "Banff · Lakes",
+    rockyLakeHeading: "Rocky Mountain Lake Tours",
+    rockyLakeBody: "Lake Louise, Moraine Lake, Emerald Lake, Takakkaw Falls — iconic alpine waters shaped by ice and light.",
+    jasperEyebrow: "Jasper · Icefields",
+    jasperHeading: "Icefields Parkway · Jasper & Banff Shuttles",
+    jasperBody: "Scenic shuttles along the Icefields Parkway between Banff, Jasper, Maligne Lake, Spirit Island and the Columbia Icefield.",
     usEyebrow: "USA · West Coast & Southwest",
     usHeading: "American Journeys",
     usBody: "Seattle mornings, Pacific coastlines, neon canyons — boutique road trips across the western United States.",
@@ -64,6 +98,12 @@ const PACKS: Record<Locale, Pack> = {
     canadaEyebrow: "加拿大 · 北國風景",
     canadaHeading: "加拿大行程",
     canadaBody: "從洛磯山的鏡面湖泊，到太平洋畔的花園 —— 在卑詩與亞伯達之間慢慢走過。",
+    rockyLakeEyebrow: "班夫 · 湖泊",
+    rockyLakeHeading: "洛磯山湖區行程",
+    rockyLakeBody: "露易絲湖、夢蓮湖、翡翠湖、塔卡考瀑布——由冰與光雕琢的經典高山湖泊。",
+    jasperEyebrow: "賈斯伯 · 冰原",
+    jasperHeading: "冰原大道 · 賈斯伯與班夫接駁",
+    jasperBody: "沿著冰原大道行駛於班夫與賈斯伯之間，探訪瑪琳湖、精靈島與哥倫比亞冰原的景觀接駁與一日遊。",
     usEyebrow: "美國 · 西岸與西南",
     usHeading: "美國行程",
     usBody: "西雅圖的清晨、太平洋的海岸、霓虹與峽谷 —— 一段段橫越美國西部的精品公路旅行。",
@@ -76,6 +116,12 @@ const PACKS: Record<Locale, Pack> = {
     canadaEyebrow: "캐나다 · 트루 노스",
     canadaHeading: "캐나다 여정",
     canadaBody: "록키의 거울 같은 호수에서 태평양의 정원까지 — 브리티시컬럼비아와 앨버타를 천천히 걷는 시간.",
+    rockyLakeEyebrow: "밴프 · 호수",
+    rockyLakeHeading: "록키 마운틴 호수 투어",
+    rockyLakeBody: "레이크 루이스, 모레인 호수, 에메랄드 호수, 타카카우 폭포 — 얼음과 빛이 빚어낸 상징적인 알프스 호수들.",
+    jasperEyebrow: "재스퍼 · 아이스필드",
+    jasperHeading: "아이스필드 파크웨이 · 재스퍼 & 밴프 셔틀",
+    jasperBody: "아이스필드 파크웨이를 따라 밴프와 재스퍼 사이를 잇는 경치 좋은 셔틀. 말린 호수, 스피릿 아일랜드, 콜럼비아 아이스필드를 만나는 여정.",
     usEyebrow: "미국 · 서부와 남서부",
     usHeading: "미국 여정",
     usBody: "시애틀의 아침, 태평양의 해안, 네온과 캐니언 — 미국 서부를 가로지르는 부티크 로드트립.",
