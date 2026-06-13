@@ -119,6 +119,7 @@ export function IcefieldsShuttlePage() {
       <PickupNotes c={c} />
       <IncludedSection c={c} />
       <TravelNotes c={c} />
+      <BundlesSection c={c} />
       <BookingTerms c={c} />
       <WhyDifferent c={c} />
       <FinalCTA c={c} scrollTo={scrollTo} />
