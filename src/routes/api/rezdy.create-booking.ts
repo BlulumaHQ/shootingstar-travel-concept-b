@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-type BookingItem = { label?: string; quantity?: number };
+type BookingItem = { label?: string; quantity?: number; optionPrice?: number };
 
 type CreateBookingBody = {
   productCode?: string;
@@ -61,26 +61,32 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           );
         }
 
-        const quantities = items
+        const enrichedItems = items
           .map((i) => ({
             optionLabel: (i.label ?? "Adult").trim() || "Adult",
             value: Math.max(0, Math.floor(Number(i.quantity ?? 0) || 0)),
+            optionPrice: Number(i.optionPrice ?? 0),
           }))
           .filter((q) => q.value > 0);
 
-        if (quantities.length === 0) {
+        if (enrichedItems.length === 0) {
           return Response.json(
             { success: false, message: "Please select at least one ticket." },
             { status: 400 },
           );
         }
 
-        const totalGuests = quantities.reduce((sum, q) => sum + q.value, 0);
+        const totalGuests = enrichedItems.reduce((sum, q) => sum + q.value, 0);
+        const total = enrichedItems.reduce((sum, q) => sum + q.optionPrice * q.value, 0);
         const firstName = (c.firstName ?? "Guest").trim() || "Guest";
         const lastName = (c.lastName ?? "Booking").trim() || "Booking";
 
+        const now = new Date();
+        const pad2 = (n: number) => String(n).padStart(2, "0");
+        const paymentDate = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+
         const payload = {
-          status: "PROCESSING",
+          status: "CONFIRMED",
           customer: {
             firstName,
             lastName,
@@ -91,14 +97,18 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
             {
               productCode,
               startTimeLocal,
-              quantities,
-              participants: Array.from({ length: totalGuests }, () => ({
-                fields: [
-                  { label: "First Name", value: firstName },
-                  { label: "Last Name", value: lastName },
-                ],
-              })),
+              quantities: enrichedItems.map(({ optionLabel, value }) => ({ optionLabel, value })),
               extras: [],
+            },
+          ],
+          // TODO: replace test payment with real Square payment data once Square is integrated
+          payments: [
+            {
+              type: "CREDITCARD",
+              amount: total,
+              currency: "CAD",
+              label: "Test payment (Square placeholder)",
+              date: paymentDate,
             },
           ],
           comments: body.notes?.trim() || "",
