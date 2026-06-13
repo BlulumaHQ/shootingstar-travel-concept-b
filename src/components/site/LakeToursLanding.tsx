@@ -498,12 +498,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="mt-6 w-full rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
+                <Link
+                  to={tourHref(selected)}
+                  className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
                 >
-                  {c.reserve.summary.continueCta}
-                </button>
+                  {bookLabel}
+                </Link>
                 <p className="mt-3 text-[11.5px] text-ink/50 text-center leading-[1.7]">
                   {c.reserve.summary.footnote}
                 </p>
