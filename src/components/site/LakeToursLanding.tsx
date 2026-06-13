@@ -282,12 +282,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                       {c.options.labels.gratuityNote}
                     </p>
 
-                    <button
-                      onClick={() => handleSelectTour(t.key)}
-                      className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+                    <Link
+                      to={tourHref(t.key)}
+                      className="w-full block text-center rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
                     >
-                      {t.cta} →
-                    </button>
+                      {bookLabel}
+                    </Link>
                   </div>
                 </div>
               </article>
