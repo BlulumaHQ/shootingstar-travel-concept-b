@@ -383,6 +383,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   <span className="text-ink/55">{c.compare.mobileLabels.louise}</span>
                   <span>{t.louiseTime}</span>
                 </div>
+                <Link
+                  to={tourHref(t.key)}
+                  className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
+                >
+                  {bookLabel}
+                </Link>
               </div>
             ))}
           </div>
