@@ -568,41 +568,6 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       </div>
       <div className="lg:hidden h-20" aria-hidden />
 
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="w-full max-w-md rounded-2xl bg-cream p-7 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.5)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="font-marker text-primary text-[12px] tracking-[0.25em] uppercase">
-              {c.modal.eyebrow}
-            </p>
-            <h3 className="mt-2 font-serif text-[24px] text-ink font-semibold leading-snug">
-              {c.modal.title}
-            </h3>
-            <p className="mt-3 text-[14.5px] text-ink/70 leading-[1.9]">
-              {c.modal.body}
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a
-                href="/contact"
-                className="flex-1 rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide text-center hover:bg-primary/90 transition"
-              >
-                {c.modal.contactCta}
-              </a>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="rounded-full border border-border text-ink/70 px-5 py-3 text-[13px] hover:bg-paper transition"
-              >
-                {c.modal.close}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </SiteLayout>
   );
 }
