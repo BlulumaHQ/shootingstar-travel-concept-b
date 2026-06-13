@@ -199,6 +199,14 @@ export type IcefieldsContent = {
     placeholderTitle: string;
     placeholderBody: string;
   };
+  bundles: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    adCopy: string;
+    contactCta: string;
+    items: { name: string; flow: string[]; tagline: string }[];
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
@@ -455,6 +463,33 @@ const EN: IcefieldsContent = {
     placeholderTitle: "No route selected yet",
     placeholderBody: "Select a travel day above to view the route map and detailed itinerary.",
   },
+  bundles: {
+    eyebrow: "— Suggested Combinations",
+    heading: "Plan Your Full Icefields Journey",
+    intro:
+      "Combine these shuttles with our Banff lake tours into a complete multi-day Rockies journey and receive a special bundle discount. Contact us and we'll tailor the perfect itinerary for you.",
+    adCopy:
+      "Picture yourself gliding the Icefields Parkway, glacier-fed lakes mirroring the peaks the whole way north.",
+    contactCta: "Contact us to plan this →",
+    items: [
+      {
+        name: "The Postcards from Rockies",
+        flow: ["Icefields Parkway Shuttles (F+G+H)", "Moraine & Lake Louise"],
+        tagline:
+          "The full Icefields Parkway plus the trio of iconic turquoise lakes across Jasper and Banff.",
+      },
+      {
+        name: "Rockies Grand Slam",
+        flow: [
+          "Icefields Parkway Shuttles (F+G+H)",
+          "Moraine & Lake Louise",
+          "JET — Johnston Canyon, Emerald & Takakkaw",
+        ],
+        tagline:
+          "Complete all three national parks — Banff, Jasper and Yoho — the ultimate Rockies conquest.",
+      },
+    ],
+  },
 };
 
 
@@ -689,6 +724,30 @@ const ZH: IcefieldsContent = {
     placeholderTitle: "尚未選擇路線",
     placeholderBody: "請在上方選擇出遊日,即可查看路線地圖與詳細行程。",
   },
+  bundles: {
+    eyebrow: "— 推薦組合",
+    heading: "規劃你的完整冰原大道之旅",
+    intro:
+      "將這些接駁與我們的班夫湖區行程組合成多日洛磯山旅程，即可享有專屬組合優惠。聯絡我們，為你量身安排最適合的行程。",
+    adCopy: "想像自己沿著冰原大道一路向北，冰川孕育的湖泊一座接一座，把整片山影都映入水中。",
+    contactCta: "聯絡我們規劃這個組合 →",
+    items: [
+      {
+        name: "洛磯明信片之旅",
+        flow: ["冰原大道接駁（F+G+H）", "夢蓮湖 & 露易絲湖"],
+        tagline: "完整走完冰原大道，再加上跨越 Jasper 與 Banff 的三大經典綠松石湖。",
+      },
+      {
+        name: "洛磯大滿貫",
+        flow: [
+          "冰原大道接駁（F+G+H）",
+          "夢蓮湖 & 露易絲湖",
+          "JET — 強斯頓峽谷、翡翠湖、塔卡考瀑布",
+        ],
+        tagline: "一次集齊三大國家公園 — Banff、Jasper、Yoho，終極洛磯山征服之旅。",
+      },
+    ],
+  },
 };
 
 
@@ -922,6 +981,30 @@ const KO: IcefieldsContent = {
     routeSuffix: " 노선",
     placeholderTitle: "선택된 노선이 없습니다",
     placeholderBody: "위에서 여행 요일을 선택하면 노선 지도와 상세 일정을 확인할 수 있습니다.",
+  },
+  bundles: {
+    eyebrow: "— 추천 조합",
+    heading: "완벽한 아이스필드 여정을 설계하세요",
+    intro:
+      "이 셔틀들과 밴프 호수 투어를 자유롭게 조합해 멀티데이 로키 여정으로 만드시면 특별 번들 할인이 적용됩니다. 문의 주시면 맞춤 일정으로 안내해 드립니다.",
+    adCopy: "아이스필드 파크웨이를 따라 북쪽으로, 빙하가 빚어낸 호수들이 산 그림자를 차례차례 비추는 풍경을 상상해 보세요.",
+    contactCta: "이 조합으로 문의하기 →",
+    items: [
+      {
+        name: "로키 포스트카드 여정",
+        flow: ["아이스필드 파크웨이 셔틀 (F+G+H)", "모레인 & 루이스 호수"],
+        tagline: "아이스필드 파크웨이를 완주하고 재스퍼와 밴프의 3대 청록 호수까지 한 번에.",
+      },
+      {
+        name: "로키 그랜드 슬램",
+        flow: [
+          "아이스필드 파크웨이 셔틀 (F+G+H)",
+          "모레인 & 루이스 호수",
+          "JET — 존스턴 캐년, 에메랄드 & 타카카우",
+        ],
+        tagline: "밴프, 재스퍼, 요호 — 세 국립공원을 모두 정복하는 최종 로키 여정.",
+      },
+    ],
   },
 };
 
