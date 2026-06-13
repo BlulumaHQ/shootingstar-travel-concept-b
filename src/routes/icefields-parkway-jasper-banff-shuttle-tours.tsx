@@ -775,8 +775,16 @@ function BookingEstimator({ c }: { c: IcefieldsContent }) {
                               {p.direction} · {p.time} ·{" "}
                               {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.reserve.perPerson}`}
                             </p>
+                            <Link
+                              to={productHref(pid, locale)}
+                              onClick={(e) => e.stopPropagation()}
+                              className="mt-2 inline-block text-[12.5px] text-primary hover:text-primary/80 underline underline-offset-2"
+                            >
+                              {bookLabel}
+                            </Link>
                           </div>
                         </label>
+
 
                         {sel && p.addOns.length > 0 && (
                           <div className="mt-4 ml-7 space-y-2">
