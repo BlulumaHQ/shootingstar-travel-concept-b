@@ -424,7 +424,7 @@ function RouteCardGrid({
               {isSelected ? f.ctaSelected : f.ctaSelect}
             </button>
             <Link
-              to={productHref(pid, locale)}
+              to={productHref(pid, locale) as never}
               className="mt-3 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
             >
               {bookLabel}
@@ -776,7 +776,7 @@ function BookingEstimator({ c }: { c: IcefieldsContent }) {
                               {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.reserve.perPerson}`}
                             </p>
                             <Link
-                              to={productHref(pid, locale)}
+                              to={productHref(pid, locale) as never}
                               onClick={(e) => e.stopPropagation()}
                               className="mt-2 inline-block text-[12.5px] text-primary hover:text-primary/80 underline underline-offset-2"
                             >
@@ -938,7 +938,7 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                     <td className="px-4 py-4 font-serif text-ink font-semibold align-top max-w-[220px]">
                       <div>{p.name}</div>
                       <Link
-                        to={productHref(id, locale)}
+                        to={productHref(id, locale) as never}
                         className="mt-2 inline-block text-[12px] text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
                       >
                         {bookLabel}
@@ -977,7 +977,7 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                   <span className="text-ink/55">{c.compare.headers[6]}</span><span>{p.bestFor}</span>
                 </div>
                 <Link
-                  to={productHref(id, locale)}
+                  to={productHref(id, locale) as never}
                   className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
                 >
                   {bookLabel}

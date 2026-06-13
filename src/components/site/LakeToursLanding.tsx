@@ -283,7 +283,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                     </p>
 
                     <Link
-                      to={tourHref(t.key)}
+                      to={tourHref(t.key) as never}
                       className="w-full block text-center rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
                     >
                       {bookLabel}
@@ -340,7 +340,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                     <td className="px-5 py-5 font-serif text-ink font-semibold align-top max-w-[220px]">
                       <div>{t.name}</div>
                       <Link
-                        to={tourHref(t.key)}
+                        to={tourHref(t.key) as never}
                         className="mt-2 inline-block text-[12px] tracking-wide text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
                       >
                         {bookLabel}
@@ -384,7 +384,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   <span>{t.louiseTime}</span>
                 </div>
                 <Link
-                  to={tourHref(t.key)}
+                  to={tourHref(t.key) as never}
                   className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
                 >
                   {bookLabel}
@@ -499,7 +499,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 </div>
 
                 <Link
-                  to={tourHref(selected)}
+                  to={tourHref(selected) as never}
                   className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
                 >
                   {bookLabel}
