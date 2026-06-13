@@ -1128,6 +1128,62 @@ function TravelNotes({ c }: { c: IcefieldsContent }) {
   );
 }
 
+function BundlesSection({ c }: { c: IcefieldsContent }) {
+  const locale = useLocale();
+  return (
+    <section id="bundles" className="py-20 md:py-28 bg-paper/40">
+      <div className="mx-auto max-w-[1240px] px-5 md:px-10">
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {c.bundles.eyebrow}
+        </p>
+        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+          {c.bundles.heading}
+        </h2>
+        <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">
+          {c.bundles.intro}
+        </p>
+
+        <div className="mt-6 max-w-3xl rounded-2xl border border-primary/20 bg-cream/70 px-6 py-5">
+          <p className="font-serif italic text-ink/80 text-[15.5px] leading-[1.85]">
+            "{c.bundles.adCopy}"
+          </p>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-5">
+          {c.bundles.items.map((b) => (
+            <article
+              key={b.name}
+              className="flex flex-col rounded-2xl border border-border/70 bg-cream p-6 md:p-7 hover:border-primary/40 hover:shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] transition"
+            >
+              <h3 className="font-serif text-[20px] text-ink font-semibold">{b.name}</h3>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                {b.flow.map((step, i) => (
+                  <span key={`${b.name}-${i}`} className="inline-flex items-center gap-2">
+                    <span className="rounded-full bg-primary/10 border border-primary/25 text-primary px-3 py-1.5 text-[12px] tracking-wide whitespace-nowrap">
+                      {step}
+                    </span>
+                    {i < b.flow.length - 1 && (
+                      <span className="text-primary/60 text-lg" aria-hidden>→</span>
+                    )}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-5 text-[14px] text-ink/70 leading-[1.9] flex-1">{b.tagline}</p>
+              <Link
+                to={withLocale("/contact", locale) as never}
+                className="mt-6 self-start inline-flex items-center rounded-full border border-primary/30 text-primary px-5 py-2.5 text-[13.5px] tracking-wide hover:bg-primary/5 transition"
+              >
+                {c.bundles.contactCta}
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function BookingTerms({ c }: { c: IcefieldsContent }) {
   return (
     <section className="py-20 md:py-24 bg-paper/40">
