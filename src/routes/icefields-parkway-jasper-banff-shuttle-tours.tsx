@@ -365,6 +365,8 @@ function RouteCardGrid({
   selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const f = c.finderV2;
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
