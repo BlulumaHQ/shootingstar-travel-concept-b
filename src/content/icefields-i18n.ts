@@ -463,6 +463,33 @@ const EN: IcefieldsContent = {
     placeholderTitle: "No route selected yet",
     placeholderBody: "Select a travel day above to view the route map and detailed itinerary.",
   },
+  bundles: {
+    eyebrow: "— Suggested Combinations",
+    heading: "Plan Your Full Icefields Journey",
+    intro:
+      "Combine these shuttles with our Banff lake tours into a complete multi-day Rockies journey and receive a special bundle discount. Contact us and we'll tailor the perfect itinerary for you.",
+    adCopy:
+      "Picture yourself gliding the Icefields Parkway, glacier-fed lakes mirroring the peaks the whole way north.",
+    contactCta: "Contact us to plan this →",
+    items: [
+      {
+        name: "The Postcards from Rockies",
+        flow: ["Icefields Parkway Shuttles (F+G+H)", "Moraine & Lake Louise"],
+        tagline:
+          "The full Icefields Parkway plus the trio of iconic turquoise lakes across Jasper and Banff.",
+      },
+      {
+        name: "Rockies Grand Slam",
+        flow: [
+          "Icefields Parkway Shuttles (F+G+H)",
+          "Moraine & Lake Louise",
+          "JET — Johnston Canyon, Emerald & Takakkaw",
+        ],
+        tagline:
+          "Complete all three national parks — Banff, Jasper and Yoho — the ultimate Rockies conquest.",
+      },
+    ],
+  },
 };
 
 
