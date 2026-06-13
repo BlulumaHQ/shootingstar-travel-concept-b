@@ -582,6 +582,33 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
     contactCta: "聯絡我們完成預訂 →",
     close: "關閉",
   },
+  reserveTours: {
+    eyebrow: "— 選擇行程",
+    h2: "預訂你的洛磯山一日",
+    intro: "下方每個行程都連結到即時可預訂頁面，提供真實出發日期與即時確認。",
+    bookCta: "查看日期與預訂 →",
+    items: [
+      { letter: "A", name: "洛磯經典 — 哥倫比亞冰原與冰原大道", tag: "冰川 · 冰原大道", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "夢蓮湖 & 露易絲湖半日遊", tag: "輕鬆玩湖", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "五湖經典一日", tag: "湖光收藏家之日", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — 強斯頓峽谷、翡翠湖與塔卡考瀑布", tag: "峽谷 · Yoho 瀑布", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "夢蓮湖日出團", tag: "日出攝影", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— 推薦組合",
+    h2: "為你規劃完美的洛磯山行程",
+    intro: "將上面任一日遊組合成多日行程，即可享有專屬組合優惠。聯絡我們，為你量身安排最適合的旅程。",
+    adCopy: "想像自己在哥倫比亞冰原邊上，手握一杯星巴克咖啡，看著冰川在腳下無盡延伸。",
+    contactCta: "聯絡我們規劃這個組合 →",
+    items: [
+      { name: "搖滾巨星行程", flow: ["A — 洛磯經典", "B — 夢蓮 & 露易絲"], tagline: "時間有限，但只想看洛磯山最精華的明信片風景。" },
+      { name: "追湖者之旅", flow: ["A — 洛磯經典", "C — 五湖經典"], tagline: "哥倫比亞冰原加上七座傳說中的綠松石湖，一次走完。" },
+      { name: "班夫 & Yoho 精華", flow: ["A — 洛磯經典", "B — 夢蓮 & 露易絲", "D — JET"], tagline: "冰川、湖水、峽谷與瀑布，洛磯山的每一種元素一次擁有。" },
+      { name: "洛磯明信片之旅", flow: ["冰原大道接駁", "B — 夢蓮 & 露易絲"], tagline: "完整走完冰原大道，再加上跨越 Jasper 與 Banff 的三大經典湖。" },
+      { name: "洛磯大滿貫", flow: ["冰原大道接駁", "B — 夢蓮 & 露易絲", "D — JET"], tagline: "一次集齊三大國家公園 — Banff、Jasper、Yoho，終極洛磯山征服之旅。" },
+    ],
+  },
   tours: {
     halfday: {
       key: "halfday",
