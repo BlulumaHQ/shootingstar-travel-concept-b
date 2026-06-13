@@ -43,26 +43,14 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const TOUR_LIST = [TOURS.halfday, TOURS.sunrise, TOURS.extended];
 
   const [selected, setSelected] = useState<TourKey>("halfday");
-  const [date, setDate] = useState<string>("");
-  const [pickup, setPickup] = useState<string>(TOURS.halfday.pickupOptions[0]);
-  const [time, setTime] = useState<string>(TOURS.halfday.times[0]);
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const tour = TOURS[selected];
-  const guests = adults + children;
-  const subtotal = tour.price * guests;
-  const gst = +(subtotal * 0.05).toFixed(2);
-  const total = +(subtotal + gst).toFixed(2);
 
   const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const tourHref = (key: TourKey) => withLocale(`/tours/${TOUR_TO_SLUG[key]}`, locale);
 
   const handleSelectTour = (key: TourKey) => {
     setSelected(key);
-    setPickup(TOURS[key].pickupOptions[0]);
-    setTime(TOURS[key].times[0]);
     document.getElementById("reserve")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -70,9 +58,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   const c = content;
-  const guestsLabel = `${c.reserve.summary.adultUnit(adults)}${
-    children ? `, ${c.reserve.summary.childUnit(children)}` : ""
-  }`;
+
 
   return (
     <SiteLayout>
