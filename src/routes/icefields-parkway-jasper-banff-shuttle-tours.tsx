@@ -568,6 +568,9 @@ function DetailedRoutes({
     },
   ];
 
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
+
   return (
     <div id="detailed-route">
       <div className="mx-auto max-w-[1100px] px-5 md:px-10 pt-16 md:pt-20">
@@ -579,6 +582,12 @@ function DetailedRoutes({
           </h2>
         </div>
         <p className="mt-2 text-[14px] text-ink/65 leading-[1.8]">{p.name}</p>
+        <Link
+          to={productHref(selectedProduct, locale) as never}
+          className="mt-4 inline-flex items-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+        >
+          {bookLabel}
+        </Link>
       </div>
       <TourRouteSection
         copy={copy}
@@ -588,6 +597,7 @@ function DetailedRoutes({
     </div>
   );
 }
+
 
 
 /* ------------------------------------------------------------------
