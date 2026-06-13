@@ -133,6 +133,21 @@ export type LakeToursContent = {
     contactCta: string;
     close: string;
   };
+  reserveTours: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    bookCta: string;
+    items: { letter: string; name: string; tag: string; slug: string }[];
+  };
+  bundles: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    adCopy: string;
+    contactCta: string;
+    items: { name: string; flow: string[]; tagline: string }[];
+  };
   tours: Record<TourKey, TourOption>;
 };
 
