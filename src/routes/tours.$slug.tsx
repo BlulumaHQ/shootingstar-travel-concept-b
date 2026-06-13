@@ -598,6 +598,10 @@ export function TourDetailPage() {
               <BookingWidget tour={tour} idPrefix="m-" />
             </div>
 
+            {/* Shared Trip Information — only on the five Rocky Mountain Lake tours */}
+            {isLakeTourSlug(slug) && <LakeTourTripInfo locale={locale} slug={slug} />}
+
+
             {/* ITINERARY */}
             <section>
               <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.itineraryEyebrow}</p>
