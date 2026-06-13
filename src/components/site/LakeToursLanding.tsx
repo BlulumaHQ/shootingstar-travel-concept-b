@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useLocale } from "@/i18n/locale";
+import { useLocale, withLocale } from "@/i18n/locale";
 import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake010 from "@/assets/lake-tours/lake-010.webp";
 import lake011 from "@/assets/lake-tours/lake-011.webp";
@@ -20,6 +21,19 @@ const TOUR_IMAGES: Record<TourKey, [string, string]> = {
   halfday: [lake057, lake014],
   sunrise: [lake011, lake052],
   extended: [lake055, lake015],
+};
+
+// Map each landing-page tour to its Rezdy-connected detail-page slug.
+const TOUR_TO_SLUG: Record<TourKey, string> = {
+  halfday: "moraine-lake-lake-louise-half-day",
+  sunrise: "moraine-lake-sunrise-tour",
+  extended: "5-lakes-tour",
+};
+
+const VIEW_AND_BOOK_LABEL: Record<"en" | "zh" | "ko", string> = {
+  en: "View & Book →",
+  zh: "查看與預訂 →",
+  ko: "자세히 보기 & 예약 →",
 };
 
 
