@@ -133,6 +133,21 @@ export type LakeToursContent = {
     contactCta: string;
     close: string;
   };
+  reserveTours: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    bookCta: string;
+    items: { letter: string; name: string; tag: string; slug: string }[];
+  };
+  bundles: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    adCopy: string;
+    contactCta: string;
+    items: { name: string; flow: string[]; tagline: string }[];
+  };
   tours: Record<TourKey, TourOption>;
 };
 
@@ -298,6 +313,36 @@ export const LAKE_TOURS_EN: LakeToursContent = {
     body: "Please contact Shooting Star Travel to reserve this tour. Our team will confirm availability and walk you through the booking.",
     contactCta: "Contact Us to Book →",
     close: "Close",
+  },
+  reserveTours: {
+    eyebrow: "— pick your tour",
+    h2: "Reserve Your Rocky Mountain Day",
+    intro:
+      "Each tour below links to its live booking page with real-time availability and instant confirmation.",
+    bookCta: "View dates & Book →",
+    items: [
+      { letter: "A", name: "Rockies Signature — Columbia Icefield & Scenic Highway", tag: "Glacier · Icefields Parkway", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "Moraine Lake & Lake Louise Half-Day", tag: "Easy lake access", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "5 Iconic Lakes", tag: "Lake collector's day", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — Johnston Canyon, Emerald Lake & Takakkaw Falls", tag: "Canyon · Yoho waterfalls", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "Moraine Lake Sunrise", tag: "Sunrise photography", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— suggested combinations",
+    h2: "Plan Your Perfect Rockies Trip",
+    intro:
+      "Combine any of the day tours above into a multi-day journey and receive a special bundle discount. Contact us and we'll tailor the perfect itinerary for you.",
+    adCopy:
+      "Picture yourself sipping a Starbucks coffee at the Columbia Icefield, the glacier stretching out before you.",
+    contactCta: "Contact us to plan this →",
+    items: [
+      { name: "Rock Star Tour", flow: ["A — Rockies Signature", "B — Moraine & Lake Louise"], tagline: "Short on time but want the absolute best-of-the-best postcards of the Rockies." },
+      { name: "Lakes Chasers", flow: ["A — Rockies Signature", "C — 5 Iconic Lakes"], tagline: "Columbia Icefield plus the seven legendary turquoise lakes in one unforgettable sweep." },
+      { name: "Banff & Yoho Highlights", flow: ["A — Rockies Signature", "B — Moraine & Lake Louise", "D — JET"], tagline: "Ice, water, canyon, lakes and waterfalls — every element of the Rockies in one trip." },
+      { name: "The Postcards from Rockies", flow: ["Icefields Parkway Shuttles", "B — Moraine & Lake Louise"], tagline: "The full Icefields Parkway plus the trio of iconic lakes across Jasper and Banff." },
+      { name: "Rockies Grand Slam", flow: ["Icefields Parkway Shuttles", "B — Moraine & Lake Louise", "D — JET"], tagline: "Complete all three national parks — Banff, Jasper and Yoho — the ultimate Rockies conquest." },
+    ],
   },
   tours: {
     halfday: {
@@ -537,6 +582,33 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
     contactCta: "聯絡我們完成預訂 →",
     close: "關閉",
   },
+  reserveTours: {
+    eyebrow: "— 選擇行程",
+    h2: "預訂你的洛磯山一日",
+    intro: "下方每個行程都連結到即時可預訂頁面，提供真實出發日期與即時確認。",
+    bookCta: "查看日期與預訂 →",
+    items: [
+      { letter: "A", name: "洛磯經典 — 哥倫比亞冰原與冰原大道", tag: "冰川 · 冰原大道", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "夢蓮湖 & 露易絲湖半日遊", tag: "輕鬆玩湖", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "五湖經典一日", tag: "湖光收藏家之日", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — 強斯頓峽谷、翡翠湖與塔卡考瀑布", tag: "峽谷 · Yoho 瀑布", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "夢蓮湖日出團", tag: "日出攝影", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— 推薦組合",
+    h2: "為你規劃完美的洛磯山行程",
+    intro: "將上面任一日遊組合成多日行程，即可享有專屬組合優惠。聯絡我們，為你量身安排最適合的旅程。",
+    adCopy: "想像自己在哥倫比亞冰原邊上，手握一杯星巴克咖啡，看著冰川在腳下無盡延伸。",
+    contactCta: "聯絡我們規劃這個組合 →",
+    items: [
+      { name: "搖滾巨星行程", flow: ["A — 洛磯經典", "B — 夢蓮 & 露易絲"], tagline: "時間有限，但只想看洛磯山最精華的明信片風景。" },
+      { name: "追湖者之旅", flow: ["A — 洛磯經典", "C — 五湖經典"], tagline: "哥倫比亞冰原加上七座傳說中的綠松石湖，一次走完。" },
+      { name: "班夫 & Yoho 精華", flow: ["A — 洛磯經典", "B — 夢蓮 & 露易絲", "D — JET"], tagline: "冰川、湖水、峽谷與瀑布，洛磯山的每一種元素一次擁有。" },
+      { name: "洛磯明信片之旅", flow: ["冰原大道接駁", "B — 夢蓮 & 露易絲"], tagline: "完整走完冰原大道，再加上跨越 Jasper 與 Banff 的三大經典湖。" },
+      { name: "洛磯大滿貫", flow: ["冰原大道接駁", "B — 夢蓮 & 露易絲", "D — JET"], tagline: "一次集齊三大國家公園 — Banff、Jasper、Yoho，終極洛磯山征服之旅。" },
+    ],
+  },
   tours: {
     halfday: {
       key: "halfday",
@@ -774,6 +846,33 @@ export const LAKE_TOURS_KO: LakeToursContent = {
     body: "Shooting Star Travel로 연락 주시면, 담당자가 가능 일정을 확인해 드리고 예약을 도와드립니다.",
     contactCta: "문의하고 예약하기 →",
     close: "닫기",
+  },
+  reserveTours: {
+    eyebrow: "— 투어 선택",
+    h2: "로키 산맥의 하루를 예약하세요",
+    intro: "아래 각 투어는 실시간 예약 페이지로 연결되어 출발일 확인과 즉시 예약이 가능합니다.",
+    bookCta: "날짜 확인 & 예약 →",
+    items: [
+      { letter: "A", name: "로키 시그니처 — 콜롬비아 아이스필드 & 아이스필드 파크웨이", tag: "빙하 · 아이스필드 파크웨이", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "모레인 호수 & 루이스 호수 반일 투어", tag: "편하게 호수 둘러보기", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "5대 아이코닉 호수", tag: "호수 컬렉터의 하루", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — 존스턴 캐년, 에메랄드 호수 & 타카카우 폭포", tag: "캐년 · 요호 폭포", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "모레인 호수 일출 투어", tag: "일출 사진", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— 추천 조합",
+    h2: "완벽한 로키 여행을 설계하세요",
+    intro: "위의 데이 투어를 자유롭게 조합해 멀티데이 여정으로 만드시면 특별 번들 할인이 적용됩니다. 문의 주시면 맞춤 일정으로 안내해 드립니다.",
+    adCopy: "콜롬비아 아이스필드 앞에서 스타벅스 커피 한 잔을 들고, 발 아래로 펼쳐진 빙하를 바라보는 자신을 상상해 보세요.",
+    contactCta: "이 조합으로 문의하기 →",
+    items: [
+      { name: "록스타 투어", flow: ["A — 로키 시그니처", "B — 모레인 & 루이스"], tagline: "시간은 짧지만 로키의 가장 상징적인 풍경만 골라 보고 싶은 분께." },
+      { name: "레이크 체이서", flow: ["A — 로키 시그니처", "C — 5대 호수"], tagline: "콜롬비아 아이스필드와 전설적인 일곱 개 청록색 호수를 한 번에." },
+      { name: "밴프 & 요호 하이라이트", flow: ["A — 로키 시그니처", "B — 모레인 & 루이스", "D — JET"], tagline: "빙하, 호수, 캐년, 폭포 — 로키의 모든 요소를 한 여정에." },
+      { name: "로키 포스트카드 여정", flow: ["아이스필드 파크웨이 셔틀", "B — 모레인 & 루이스"], tagline: "아이스필드 파크웨이를 완주하고 재스퍼와 밴프의 3대 호수까지." },
+      { name: "로키 그랜드 슬램", flow: ["아이스필드 파크웨이 셔틀", "B — 모레인 & 루이스", "D — JET"], tagline: "밴프, 재스퍼, 요호 — 세 국립공원을 모두 정복하는 최종 로키 여정." },
+    ],
   },
   tours: {
     halfday: {

@@ -43,26 +43,14 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const TOUR_LIST = [TOURS.halfday, TOURS.sunrise, TOURS.extended];
 
   const [selected, setSelected] = useState<TourKey>("halfday");
-  const [date, setDate] = useState<string>("");
-  const [pickup, setPickup] = useState<string>(TOURS.halfday.pickupOptions[0]);
-  const [time, setTime] = useState<string>(TOURS.halfday.times[0]);
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
 
   const tour = TOURS[selected];
-  const guests = adults + children;
-  const subtotal = tour.price * guests;
-  const gst = +(subtotal * 0.05).toFixed(2);
-  const total = +(subtotal + gst).toFixed(2);
 
   const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const tourHref = (key: TourKey) => withLocale(`/tours/${TOUR_TO_SLUG[key]}`, locale);
 
   const handleSelectTour = (key: TourKey) => {
     setSelected(key);
-    setPickup(TOURS[key].pickupOptions[0]);
-    setTime(TOURS[key].times[0]);
     document.getElementById("reserve")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -70,9 +58,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   const c = content;
-  const guestsLabel = `${c.reserve.summary.adultUnit(adults)}${
-    children ? `, ${c.reserve.summary.childUnit(children)}` : ""
-  }`;
+
 
   return (
     <SiteLayout>
@@ -395,123 +381,46 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
-      {/* RESERVE */}
+      {/* RESERVE — 5 tour cards linking to live Rezdy detail pages */}
       <section id="reserve" className="py-20 md:py-28 bg-paper/50">
-        <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.reserve.eyebrow}</p>
+        <div className="mx-auto max-w-[1240px] px-5 md:px-10">
+          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+            {c.reserveTours.eyebrow}
+          </p>
           <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
-            {c.reserve.h2}
+            {c.reserveTours.h2}
           </h2>
           <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">
-            {c.reserve.intro}
+            {c.reserveTours.intro}
           </p>
 
-          <div className="mt-10 grid lg:grid-cols-5 gap-6">
-            <div className="lg:col-span-3 rounded-2xl bg-cream border border-border/70 p-6 md:p-8 space-y-6 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.35)]">
-              <Field label={c.reserve.fields.tour}>
-                <select
-                  value={selected}
-                  onChange={(e) => {
-                    const k = e.target.value as TourKey;
-                    setSelected(k);
-                    setPickup(TOURS[k].pickupOptions[0]);
-                    setTime(TOURS[k].times[0]);
-                  }}
-                  className="w-full rounded-md border border-border bg-cream px-3 py-3 text-[14px]"
-                >
-                  {TOUR_LIST.map((t) => (
-                    <option key={t.key} value={t.key}>
-                      {t.name} — {t.priceLabel}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-
-              <Field label={c.reserve.fields.date}>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="w-full rounded-md border border-border bg-cream px-3 py-3 text-[14px]"
-                />
-              </Field>
-
-              <div className="grid sm:grid-cols-2 gap-5">
-                <Field label={c.reserve.fields.pickup}>
-                  <select
-                    value={pickup}
-                    onChange={(e) => setPickup(e.target.value)}
-                    className="w-full rounded-md border border-border bg-cream px-3 py-3 text-[14px]"
-                  >
-                    {tour.pickupOptions.map((p) => (
-                      <option key={p} value={p}>{p}</option>
-                    ))}
-                  </select>
-                </Field>
-                <Field label={c.reserve.fields.time}>
-                  <select
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    className="w-full rounded-md border border-border bg-cream px-3 py-3 text-[14px]"
-                  >
-                    {tour.times.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                </Field>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-5">
-                <Stepper label={c.reserve.fields.adults} value={adults} setValue={setAdults} min={1} />
-                <Stepper label={c.reserve.fields.children} value={children} setValue={setChildren} min={0} />
-              </div>
-            </div>
-
-            <div className="lg:col-span-2">
-              <div className="sticky top-28 rounded-2xl bg-cream border-2 border-primary/30 p-6 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-                <p className="font-marker text-primary text-[12px] tracking-[0.25em] uppercase">
-                  {c.reserve.summary.eyebrow}
-                </p>
-                <h3 className="mt-2 font-serif text-[20px] text-ink font-semibold">
-                  {tour.name}
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {c.reserveTours.items.map((it) => (
+              <Link
+                key={it.slug}
+                to={withLocale(`/tours/${it.slug}`, locale) as never}
+                className="group flex flex-col rounded-2xl border border-border/70 bg-cream p-6 hover:border-primary/40 hover:shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] transition"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary font-serif text-[15px] font-semibold">
+                    {it.letter}
+                  </span>
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-ink/55">
+                    {it.tag}
+                  </span>
+                </div>
+                <h3 className="mt-4 font-serif text-[18px] text-ink font-semibold leading-snug flex-1">
+                  {it.name}
                 </h3>
-                <div className="mt-4 space-y-2 text-[13.5px] text-ink/75">
-                  <Row label={c.reserve.summary.date} value={date || "—"} />
-                  <Row label={c.reserve.summary.pickup} value={pickup} />
-                  <Row label={c.reserve.summary.time} value={time} />
-                  <Row label={c.reserve.summary.guests} value={guestsLabel} />
-                </div>
-
-                <div className="mt-5 border-t border-border pt-4 space-y-2 text-[14px]">
-                  <Row label={c.reserve.summary.tourUnit(guests)} value={`$${subtotal.toFixed(2)} CAD`} />
-                  <Row label={c.reserve.summary.gst} value={`$${gst.toFixed(2)} CAD`} />
-                  <div className="flex justify-between items-end pt-2 border-t border-border/60">
-                    <span className="text-ink/55 text-[12px] tracking-[0.18em] uppercase">
-                      {c.reserve.summary.total}
-                    </span>
-                    <span className="font-serif text-primary text-[24px] font-semibold">
-                      ${total.toFixed(2)}
-                    </span>
-                  </div>
-                  <p className="text-[11.5px] text-ink/55 italic pt-1">
-                    {c.reserve.summary.gratuityNote}
-                  </p>
-                </div>
-
-                <Link
-                  to={tourHref(selected) as never}
-                  className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
-                >
-                  {bookLabel}
-                </Link>
-                <p className="mt-3 text-[11.5px] text-ink/50 text-center leading-[1.7]">
-                  {c.reserve.summary.footnote}
-                </p>
-              </div>
-            </div>
+                <span className="mt-6 inline-flex items-center text-[13.5px] tracking-wide text-primary group-hover:translate-x-0.5 transition">
+                  {c.reserveTours.bookCta}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* INCLUDED */}
       <section className="py-20 md:py-28">
@@ -527,8 +436,60 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
+      {/* BUNDLES — Suggested Combinations */}
+      <section id="bundles" className="py-20 md:py-28 bg-paper/40">
+        <div className="mx-auto max-w-[1240px] px-5 md:px-10">
+          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+            {c.bundles.eyebrow}
+          </p>
+          <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+            {c.bundles.h2}
+          </h2>
+          <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">
+            {c.bundles.intro}
+          </p>
+
+          <div className="mt-6 max-w-3xl rounded-2xl border border-primary/20 bg-cream/70 px-6 py-5">
+            <p className="font-serif italic text-ink/80 text-[15.5px] leading-[1.85]">
+              "{c.bundles.adCopy}"
+            </p>
+          </div>
+
+          <div className="mt-10 grid md:grid-cols-2 gap-5">
+            {c.bundles.items.map((b) => (
+              <article
+                key={b.name}
+                className="flex flex-col rounded-2xl border border-border/70 bg-cream p-6 md:p-7 hover:border-primary/40 hover:shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] transition"
+              >
+                <h3 className="font-serif text-[20px] text-ink font-semibold">{b.name}</h3>
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  {b.flow.map((step, i) => (
+                    <span key={`${b.name}-${i}`} className="inline-flex items-center gap-2">
+                      <span className="rounded-full bg-primary/10 border border-primary/25 text-primary px-3 py-1.5 text-[12px] tracking-wide whitespace-nowrap">
+                        {step}
+                      </span>
+                      {i < b.flow.length - 1 && (
+                        <span className="text-primary/60 text-lg" aria-hidden>→</span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+                <p className="mt-5 text-[14px] text-ink/70 leading-[1.9] flex-1">{b.tagline}</p>
+                <Link
+                  to={withLocale("/contact", locale) as never}
+                  className="mt-6 self-start inline-flex items-center rounded-full border border-primary/30 text-primary px-5 py-2.5 text-[13.5px] tracking-wide hover:bg-primary/5 transition"
+                >
+                  {c.bundles.contactCta}
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-20 md:py-28 bg-paper/50">
+
         <div className="mx-auto max-w-[1100px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.faq.eyebrow}</p>
           <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
@@ -607,41 +568,6 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       </div>
       <div className="lg:hidden h-20" aria-hidden />
 
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="w-full max-w-md rounded-2xl bg-cream p-7 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.5)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="font-marker text-primary text-[12px] tracking-[0.25em] uppercase">
-              {c.modal.eyebrow}
-            </p>
-            <h3 className="mt-2 font-serif text-[24px] text-ink font-semibold leading-snug">
-              {c.modal.title}
-            </h3>
-            <p className="mt-3 text-[14.5px] text-ink/70 leading-[1.9]">
-              {c.modal.body}
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a
-                href="/contact"
-                className="flex-1 rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide text-center hover:bg-primary/90 transition"
-              >
-                {c.modal.contactCta}
-              </a>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="rounded-full border border-border text-ink/70 px-5 py-3 text-[13px] hover:bg-paper transition"
-              >
-                {c.modal.close}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </SiteLayout>
   );
 }
