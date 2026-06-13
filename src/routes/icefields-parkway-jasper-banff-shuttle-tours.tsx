@@ -913,6 +913,8 @@ function Row2({ k, v }: { k: string; v: string }) {
  * ------------------------------------------------------------------ */
 
 function ComparisonTable({ c }: { c: IcefieldsContent }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   return (
     <section id="compare" className="py-20 md:py-24">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
@@ -933,7 +935,15 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                 const p = c.products[id];
                 return (
                   <tr key={id} className={i % 2 ? "bg-paper/30" : ""}>
-                    <td className="px-4 py-4 font-serif text-ink font-semibold align-top max-w-[220px]">{p.name}</td>
+                    <td className="px-4 py-4 font-serif text-ink font-semibold align-top max-w-[220px]">
+                      <div>{p.name}</div>
+                      <Link
+                        to={productHref(id, locale)}
+                        className="mt-2 inline-block text-[12px] text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
+                      >
+                        {bookLabel}
+                      </Link>
+                    </td>
                     <td className="px-4 py-4 align-top">{p.daysLabel}</td>
                     <td className="px-4 py-4 align-top">{p.direction}</td>
                     <td className="px-4 py-4 align-top">{p.time}</td>
@@ -966,6 +976,12 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                   <span className="text-ink/55">{c.detailed.addOnsLabel}</span><span>{addons}</span>
                   <span className="text-ink/55">{c.compare.headers[6]}</span><span>{p.bestFor}</span>
                 </div>
+                <Link
+                  to={productHref(id, locale)}
+                  className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
+                >
+                  {bookLabel}
+                </Link>
               </div>
             );
           })}
