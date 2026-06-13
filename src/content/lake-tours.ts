@@ -847,6 +847,33 @@ export const LAKE_TOURS_KO: LakeToursContent = {
     contactCta: "문의하고 예약하기 →",
     close: "닫기",
   },
+  reserveTours: {
+    eyebrow: "— 투어 선택",
+    h2: "로키 산맥의 하루를 예약하세요",
+    intro: "아래 각 투어는 실시간 예약 페이지로 연결되어 출발일 확인과 즉시 예약이 가능합니다.",
+    bookCta: "날짜 확인 & 예약 →",
+    items: [
+      { letter: "A", name: "로키 시그니처 — 콜롬비아 아이스필드 & 아이스필드 파크웨이", tag: "빙하 · 아이스필드 파크웨이", slug: "rockies-signature-columbia-icefield" },
+      { letter: "B", name: "모레인 호수 & 루이스 호수 반일 투어", tag: "편하게 호수 둘러보기", slug: "moraine-lake-lake-louise-half-day" },
+      { letter: "C", name: "5대 아이코닉 호수", tag: "호수 컬렉터의 하루", slug: "5-lakes-tour" },
+      { letter: "D", name: "JET — 존스턴 캐년, 에메랄드 호수 & 타카카우 폭포", tag: "캐년 · 요호 폭포", slug: "jet-johnston-emerald-takakkaw" },
+      { letter: "E", name: "모레인 호수 일출 투어", tag: "일출 사진", slug: "moraine-lake-sunrise-tour" },
+    ],
+  },
+  bundles: {
+    eyebrow: "— 추천 조합",
+    h2: "완벽한 로키 여행을 설계하세요",
+    intro: "위의 데이 투어를 자유롭게 조합해 멀티데이 여정으로 만드시면 특별 번들 할인이 적용됩니다. 문의 주시면 맞춤 일정으로 안내해 드립니다.",
+    adCopy: "콜롬비아 아이스필드 앞에서 스타벅스 커피 한 잔을 들고, 발 아래로 펼쳐진 빙하를 바라보는 자신을 상상해 보세요.",
+    contactCta: "이 조합으로 문의하기 →",
+    items: [
+      { name: "록스타 투어", flow: ["A — 로키 시그니처", "B — 모레인 & 루이스"], tagline: "시간은 짧지만 로키의 가장 상징적인 풍경만 골라 보고 싶은 분께." },
+      { name: "레이크 체이서", flow: ["A — 로키 시그니처", "C — 5대 호수"], tagline: "콜롬비아 아이스필드와 전설적인 일곱 개 청록색 호수를 한 번에." },
+      { name: "밴프 & 요호 하이라이트", flow: ["A — 로키 시그니처", "B — 모레인 & 루이스", "D — JET"], tagline: "빙하, 호수, 캐년, 폭포 — 로키의 모든 요소를 한 여정에." },
+      { name: "로키 포스트카드 여정", flow: ["아이스필드 파크웨이 셔틀", "B — 모레인 & 루이스"], tagline: "아이스필드 파크웨이를 완주하고 재스퍼와 밴프의 3대 호수까지." },
+      { name: "로키 그랜드 슬램", flow: ["아이스필드 파크웨이 셔틀", "B — 모레인 & 루이스", "D — JET"], tagline: "밴프, 재스퍼, 요호 — 세 국립공원을 모두 정복하는 최종 로키 여정." },
+    ],
+  },
   tours: {
     halfday: {
       key: "halfday",
