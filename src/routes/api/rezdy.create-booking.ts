@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-type BookingItem = { label?: string; quantity?: number };
+type BookingItem = { label?: string; quantity?: number; optionPrice?: number };
 
 type CreateBookingBody = {
   productCode?: string;
