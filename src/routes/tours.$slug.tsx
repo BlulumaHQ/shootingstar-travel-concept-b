@@ -6,7 +6,6 @@ import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
-import { CredentialsSection } from "@/components/site/CredentialsSection";
 
 const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
 const isRockies = (slug: string) => {
