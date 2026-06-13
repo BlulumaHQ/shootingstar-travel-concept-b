@@ -55,6 +55,7 @@ import { Route as ZhToursSlugRouteImport } from './routes/zh/tours.$slug'
 import { Route as KoToursSlugRouteImport } from './routes/ko/tours.$slug'
 import { Route as ApiRezdyVictoriaAvailabilityRouteImport } from './routes/api/rezdy.victoria-availability'
 import { Route as ApiRezdyCreateBookingRouteImport } from './routes/api/rezdy.create-booking'
+import { Route as ApiRezdyAvailabilityRouteImport } from './routes/api/rezdy.availability'
 
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
@@ -292,6 +293,11 @@ const ApiRezdyCreateBookingRoute = ApiRezdyCreateBookingRouteImport.update({
   path: '/api/rezdy/create-booking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRezdyAvailabilityRoute = ApiRezdyAvailabilityRouteImport.update({
+  id: '/api/rezdy/availability',
+  path: '/api/rezdy/availability',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -334,6 +340,7 @@ export interface FileRoutesByFullPath {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
@@ -381,6 +388,7 @@ export interface FileRoutesByTo {
   '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
+  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
@@ -430,6 +438,7 @@ export interface FileRoutesById {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
+  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/victoria-availability': typeof ApiRezdyVictoriaAvailabilityRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
@@ -480,6 +489,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
@@ -527,6 +537,7 @@ export interface FileRouteTypes {
     | '/ko'
     | '/tours'
     | '/zh'
+    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
@@ -575,6 +586,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
+    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/victoria-availability'
     | '/ko/tours/$slug'
@@ -622,6 +634,7 @@ export interface RootRouteChildren {
   ZhTermsRoute: typeof ZhTermsRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhIndexRoute: typeof ZhIndexRoute
+  ApiRezdyAvailabilityRoute: typeof ApiRezdyAvailabilityRoute
   ApiRezdyCreateBookingRoute: typeof ApiRezdyCreateBookingRoute
   ApiRezdyVictoriaAvailabilityRoute: typeof ApiRezdyVictoriaAvailabilityRoute
   KoToursSlugRoute: typeof KoToursSlugRoute
@@ -954,6 +967,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiRezdyCreateBookingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/rezdy/availability': {
+      id: '/api/rezdy/availability'
+      path: '/api/rezdy/availability'
+      fullPath: '/api/rezdy/availability'
+      preLoaderRoute: typeof ApiRezdyAvailabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1011,6 +1031,7 @@ const rootRouteChildren: RootRouteChildren = {
   ZhTermsRoute: ZhTermsRoute,
   KoIndexRoute: KoIndexRoute,
   ZhIndexRoute: ZhIndexRoute,
+  ApiRezdyAvailabilityRoute: ApiRezdyAvailabilityRoute,
   ApiRezdyCreateBookingRoute: ApiRezdyCreateBookingRoute,
   ApiRezdyVictoriaAvailabilityRoute: ApiRezdyVictoriaAvailabilityRoute,
   KoToursSlugRoute: KoToursSlugRoute,

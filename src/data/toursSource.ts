@@ -28,12 +28,15 @@ function mapRow(r: any): Tour {
     optional: r.optional ?? undefined,
     notes: r.notes ?? [],
     bookingCta: r.booking_cta ?? undefined,
+    rezdyProductCode: r.rezdy_product_code ?? null,
   };
 }
 
+const SELECT_COLS = "*,rezdy_product_code";
+
 export async function fetchToursEn(): Promise<Tour[]> {
   try {
-    const url = `${REST}?locale=eq.en&published=eq.true&order=sort_order.asc&select=*`;
+    const url = `${REST}?locale=eq.en&published=eq.true&order=sort_order.asc&select=${SELECT_COLS}`;
     const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) throw new Error(`status ${res.status}`);
     const rows = (await res.json()) as any[];
@@ -47,7 +50,7 @@ export async function fetchToursEn(): Promise<Tour[]> {
 
 export async function fetchTourBySlugEn(slug: string): Promise<Tour | null> {
   try {
-    const url = `${REST}?locale=eq.en&slug=eq.${encodeURIComponent(slug)}&limit=1&select=*`;
+    const url = `${REST}?locale=eq.en&slug=eq.${encodeURIComponent(slug)}&limit=1&select=${SELECT_COLS}`;
     const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) throw new Error(`status ${res.status}`);
     const rows = (await res.json()) as any[];

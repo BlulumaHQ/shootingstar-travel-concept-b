@@ -5,8 +5,6 @@ import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useEffect, useState } from "react";
-import { Info } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 
 const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
@@ -175,234 +173,189 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
-type RezdySessionDto = {
-  date: string | null;
-  startTime: string | null;
-  endTime: string | null;
-  seatsAvailable: number | null;
-  price: number | null;
-  currency: string;
-  productCode: string;
-  rawSessionId: string | null;
+type RezdyPriceOption = {
+  label: string;
+  price: number;
+  seatsUsed: number;
 };
 
-function formatRezdyDate(iso: string | null): string {
-  if (!iso) return "—";
-  const d = new Date(`${iso}T00:00:00`);
-  if (Number.isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+type RezdySession = {
+  id: string | null;
+  startTimeLocal: string | null;
+  endTimeLocal: string | null;
+  allDay: boolean;
+  seatsAvailable: number | null;
+  priceOptions: RezdyPriceOption[];
+};
+
+function formatSessionDate(startTimeLocal: string | null): string {
+  if (!startTimeLocal) return "—";
+  const [date, time] = startTimeLocal.replace("T", " ").split(" ");
+  const d = new Date(`${date}T${(time ?? "00:00:00").slice(0, 8)}`);
+  if (Number.isNaN(d.getTime())) return startTimeLocal;
+  const dateStr = d.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+  if (!time || time.startsWith("00:00")) return dateStr;
+  const timeStr = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  return `${dateStr} · ${timeStr}`;
 }
 
-const VICTORIA_GST_RATE = 0.05;
-const VICTORIA_PRICE = 170;
-
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
+  const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
   const locale = useLocale();
-  const langCopy = {
-    en: {
-      label: "Preferred Language",
-      tooltip: "Language preference only. Guide language depends on group composition and guide availability. We will do our best to accommodate your preferred language, but a single-language tour cannot be guaranteed.",
-      note: "Selecting a language indicates your preference only — it does not guarantee a dedicated single-language tour.",
-      options: ["English Preferred", "Mandarin Preferred", "Korean Preferred"],
-    },
-    zh: {
-      label: "偏好語言",
-      tooltip: "僅為語言偏好。導遊語言將依當團旅客組成與導遊安排而定。我們會盡力安排您的偏好語言，但無法保證提供單一語言團。",
-      note: "選擇語言僅代表您的偏好——並不保證會安排單一語言導覽團。",
-      options: ["偏好英文", "偏好中文", "偏好韓文"],
-    },
-    ko: {
-      label: "선호 언어",
-      tooltip: "언어 선호일 뿐입니다. 가이드 언어는 투어 구성과 가이드 가능 여부에 따라 결정됩니다. 선호하시는 언어를 최대한 반영하도록 노력하지만, 단일 언어 투어를 보장할 수는 없습니다.",
-      note: "언어 선택은 선호 사항일 뿐이며, 단일 언어 투어를 보장하지는 않습니다.",
-      options: ["영어 선호", "중국어 선호", "한국어 선호"],
-    },
-  }[locale];
+  const contactHref = withLocale("/contact", locale);
 
-  const isVictoria = tour?.slug === "victoria-1-day";
+  // No Rezdy product code → contact-only CTA, no booking UI
+  if (!productCode) {
+    return (
+      <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
+        <div>
+          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
+          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
+        </div>
+        <p className="text-[13.5px] text-ink/70 leading-[1.85]">
+          To arrange a date for this tour, please get in touch with our team.
+        </p>
+        <Link
+          to={contactHref as never}
+          id={`${idPrefix}contact-cta`}
+          className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
+        >
+          Contact us to book →
+        </Link>
+      </div>
+    );
+  }
 
-  const [rezdySessions, setRezdySessions] = useState<RezdySessionDto[] | null>(null);
-  const [rezdyStatus, setRezdyStatus] = useState<"idle" | "loading" | "ready" | "error">(
-    isVictoria ? "loading" : "idle",
-  );
-  const [rezdyError, setRezdyError] = useState<string | null>(null);
-  const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
+  const [sessions, setSessions] = useState<RezdySession[] | null>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [stage, setStage] = useState<"form" | "loading" | "done">("form");
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!isVictoria) return;
     let cancelled = false;
-    setRezdyStatus("loading");
-    fetch("/api/rezdy/victoria-availability")
+    setStatus("loading");
+    fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
-          | { success: true; sessions: RezdySessionDto[] }
-          | { success: false; message: string; details?: string };
+          | { success: true; sessions: RezdySession[] }
+          | { success: false; message: string };
         if (cancelled) return;
         if (!("success" in json) || json.success === false) {
-          setRezdyError(("message" in json && json.message) || "Unable to load availability.");
-          setRezdyStatus("error");
+          setLoadError(("message" in json && json.message) || "Unable to load availability.");
+          setStatus("error");
           return;
         }
-        const filtered = json.sessions.filter((s) => s.date && s.rawSessionId);
-        setRezdySessions(filtered);
-        setRezdyStatus("ready");
+        const usable = (json.sessions ?? []).filter((s) => s.id && s.startTimeLocal);
+        setSessions(usable);
+        setStatus("ready");
       })
       .catch((e: unknown) => {
         if (cancelled) return;
-        setRezdyError(e instanceof Error ? e.message : "Network error");
-        setRezdyStatus("error");
+        setLoadError(e instanceof Error ? e.message : "Network error");
+        setStatus("error");
       });
     return () => {
       cancelled = true;
     };
-  }, [isVictoria]);
+  }, [productCode]);
 
-  const packages = tour?.packages ?? langCopy.options;
-  const staticDepartures =
-    tour?.departures ?? [
-      { date: "Jul 12", seats: 8 },
-      { date: "Jul 18", seats: 4 },
-      { date: "Jul 26", seats: 12 },
-      { date: "Aug 09", seats: 6 },
-    ];
+  const selectedSession = sessions?.find((s) => s.id === selectedId) ?? null;
 
-  const [dateIdx, setDateIdx] = useState(0);
-  const [pkg, setPkg] = useState(packages[0]);
-  const [guests, setGuests] = useState(1);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [notes, setNotes] = useState("");
-  const [stage, setStage] = useState<"form" | "loading" | "done">("form");
-  const [bookingResult, setBookingResult] = useState<{
-    bookingReference: string | null;
-    orderNumber: string | null;
-    sessionId: string | number | null;
-    productCode: string;
-  } | null>(null);
-  const [bookingError, setBookingError] = useState<string | null>(null);
-
-  // Map the localized language button to canonical Rezdy values by index
-  const LANG_MAP = ["English", "Mandarin", "Korean"] as const;
-  const pkgIdx = packages.indexOf(pkg);
-  const tourLanguage: (typeof LANG_MAP)[number] = LANG_MAP[pkgIdx >= 0 && pkgIdx < 3 ? pkgIdx : 0];
-
-  // Selected Victoria session
-  const selectedSession = isVictoria && rezdySessions
-    ? rezdySessions.find((s) => s.rawSessionId === selectedSessionId) ?? null
-    : null;
-
-  const maxSeats = isVictoria
-    ? (selectedSession?.seatsAvailable ?? 0)
-    : (staticDepartures[Math.min(dateIdx, staticDepartures.length - 1)]?.seats ?? 1);
-
-  // Clamp guests if exceeds available seats
+  // Reset quantities when session changes
   useEffect(() => {
-    if (isVictoria && maxSeats > 0 && guests > maxSeats) {
-      setGuests(maxSeats);
+    if (!selectedSession) {
+      setQuantities({});
+      return;
     }
-  }, [isVictoria, maxSeats, guests]);
+    const init: Record<string, number> = {};
+    selectedSession.priceOptions.forEach((p, i) => {
+      init[`${p.label}__${i}`] = i === 0 ? 1 : 0;
+    });
+    setQuantities(init);
+  }, [selectedId]);
 
-  const dep = staticDepartures[Math.min(dateIdx, Math.max(0, staticDepartures.length - 1))] ?? staticDepartures[0];
+  const totalQty = Object.values(quantities).reduce((a, b) => a + b, 0);
+  const totalPrice = selectedSession
+    ? selectedSession.priceOptions.reduce((sum, p, i) => {
+        const q = quantities[`${p.label}__${i}`] ?? 0;
+        return sum + p.price * q;
+      }, 0)
+    : 0;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isVictoria) {
-      if (!selectedSession || !selectedSession.date) return;
-      setBookingError(null);
-      setStage("loading");
-      try {
-        const startTimeLocal = `${selectedSession.date} ${selectedSession.startTime ?? "00:00"}:00`;
-        const res = await fetch("/api/rezdy/create-booking", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            productCode: selectedSession.productCode,
-            sessionId: selectedSession.rawSessionId,
-            startTimeLocal,
-            guests,
-            tourLanguage,
-            notes,
-            customer: { name, email, phone },
-          }),
-        });
-        const json = (await res.json()) as
-          | { success: true; bookingReference: string | null; orderNumber: string | null; sessionId: string | number | null; productCode: string }
-          | { success: false; message: string };
-        if (!("success" in json) || !json.success) {
-          setBookingError(("message" in json && json.message) || "Booking failed.");
-          setStage("form");
-          return;
-        }
-        setBookingResult({
-          bookingReference: json.bookingReference,
-          orderNumber: json.orderNumber,
-          sessionId: json.sessionId,
-          productCode: json.productCode,
-        });
-        setStage("done");
-      } catch (err) {
-        setBookingError(err instanceof Error ? err.message : "Network error");
-        setStage("form");
-      }
-      return;
-    }
+    if (!selectedSession || !selectedSession.startTimeLocal || totalQty < 1) return;
+    setBookingError(null);
     setStage("loading");
-    setTimeout(() => setStage("done"), 1200);
+    try {
+      const items = selectedSession.priceOptions
+        .map((p, i) => ({ label: p.label, quantity: quantities[`${p.label}__${i}`] ?? 0 }))
+        .filter((it) => it.quantity > 0);
+
+      const res = await fetch("/api/rezdy/create-booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productCode,
+          startTimeLocal: selectedSession.startTimeLocal,
+          items,
+          customer: { firstName, lastName, email, phone },
+        }),
+      });
+      const json = (await res.json()) as
+        | { success: true }
+        | { success: false; message: string };
+      if (!("success" in json) || !json.success) {
+        setBookingError(("message" in json && json.message) || "Booking failed.");
+        setStage("form");
+        return;
+      }
+      setStage("done");
+    } catch (err) {
+      setBookingError(err instanceof Error ? err.message : "Network error");
+      setStage("form");
+    }
   };
 
   if (stage === "loading") {
     return (
       <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
         <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— processing</p>
-        <p className="mt-2 text-ink/65 text-[14px]">{isVictoria ? "Creating your booking…" : "Holding your seat…"}</p>
+        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— sending request</p>
+        <p className="mt-2 text-ink/65 text-[14px]">Submitting your booking…</p>
       </div>
     );
   }
 
   if (stage === "done") {
-    if (isVictoria && bookingResult) {
-      return (
-        <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-          <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— booking confirmed</p>
-          <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Booking created in Rezdy ✦</h3>
-          <div className="mt-5 rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/75 leading-[1.95] space-y-1">
-            <p>Reference: <span className="font-medium text-ink">{bookingResult.bookingReference ?? "—"}</span></p>
-            <p>Order #: <span className="font-medium text-ink">{bookingResult.orderNumber ?? "—"}</span></p>
-            <p>Session: {bookingResult.sessionId ?? "—"}</p>
-            <p>Product: {bookingResult.productCode}</p>
-          </div>
-          <p className="mt-5 text-ink/65 leading-[2] text-[13px]">
-            No payment was processed. Our team will be in touch to finalize details.
-          </p>
-          <button onClick={() => { setStage("form"); setBookingResult(null); }} className="mt-5 text-primary text-sm underline underline-offset-4">Start over</button>
-        </div>
-      );
-    }
     return (
       <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— demo confirmation</p>
-        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Booking demo complete ✦</h3>
-        <div className="mt-5 rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/75 leading-[1.95] space-y-1">
-          <p>Tour: {tour?.title}</p>
-          <p>Departure: {dep.date} · {pkg}</p>
-          <p>Guests: {guests} · Contact: {name || "—"}</p>
-        </div>
-        <p className="mt-5 text-ink/65 leading-[2] text-[13px]">
-          This is a preview of the booking flow — the live site will integrate a third-party booking system.
+        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— request received</p>
+        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Thank you! ✦</h3>
+        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">
+          Your booking request has been received — we&apos;ll confirm shortly.
         </p>
-        <button onClick={() => setStage("form")} className="mt-5 text-primary text-sm underline underline-offset-4">Start over</button>
+        <button
+          onClick={() => setStage("form")}
+          className="mt-5 text-primary text-sm underline underline-offset-4"
+        >
+          Make another request
+        </button>
       </div>
     );
   }
 
-  const victoriaSubtotal = VICTORIA_PRICE * guests;
-  const victoriaGst = victoriaSubtotal * VICTORIA_GST_RATE;
-  const victoriaTotal = victoriaSubtotal + victoriaGst;
-  const continueDisabled = isVictoria
-    ? !selectedSession || guests < 1 || rezdyStatus !== "ready"
-    : false;
+  const continueDisabled =
+    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone;
 
   return (
     <form
@@ -415,167 +368,151 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
           <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
         </div>
-        <span className="text-[11px] text-ink/55">from <span className="text-primary font-serif text-[15px] font-semibold">{isVictoria ? "$170 CAD" : tour?.price}</span></span>
+        <span className="text-[11px] text-ink/55">
+          from <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
+        </span>
       </div>
 
+      {/* Date selector */}
       <div>
         <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
           Choose a date
-          {isVictoria && rezdyStatus === "ready" && (
-            <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>
-          )}
+          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>}
         </label>
 
-        {isVictoria ? (
-          <>
-            {rezdyStatus === "loading" && (
-              <p className="text-[12px] text-ink/55">Loading available dates...</p>
-            )}
-            {rezdyStatus === "error" && (
-              <p className="text-[12px] text-red-600">Unable to load availability. Please try again later.</p>
-            )}
-            {rezdyStatus === "ready" && rezdySessions && rezdySessions.length === 0 && (
-              <p className="text-[12px] text-ink/55">No available dates at the moment.</p>
-            )}
-            {rezdyStatus === "ready" && rezdySessions && rezdySessions.length > 0 && (
-              <div className="flex flex-wrap gap-1.5">
-                {rezdySessions.map((s) => {
-                  const isSel = s.rawSessionId === selectedSessionId;
-                  const soldOut = (s.seatsAvailable ?? 0) <= 0;
-                  return (
-                    <button
-                      type="button"
-                      key={s.rawSessionId ?? `${s.date}-${s.startTime}`}
-                      disabled={soldOut}
-                      onClick={() => {
-                        setSelectedSessionId(s.rawSessionId);
-                        setGuests((g) => Math.min(Math.max(1, g), s.seatsAvailable ?? 1));
-                      }}
-                      className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
-                        isSel
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "border-border text-ink/70 hover:border-primary/50"
-                      } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
-                      title={soldOut ? "Sold out" : `${s.seatsAvailable} seats left`}
-                    >
-                      {formatRezdyDate(s.date)}
-                      {s.startTime ? ` · ${s.startTime}` : ""}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-            <p className="mt-2 text-[11px] text-ink/55">$170 CAD <span className="text-ink/45">+ 5% GST</span></p>
-          </>
-        ) : (
-          <div className="flex flex-wrap gap-1.5">
-            {staticDepartures.map((d, i) => (
-              <button
-                type="button" key={`${d.date}-${i}`}
-                onClick={() => setDateIdx(i)}
-                className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
-                  i === dateIdx ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
-                }`}
-              >{d.date}</button>
-            ))}
+        {status === "loading" && <p className="text-[12px] text-ink/55">Loading available dates…</p>}
+        {status === "error" && (
+          <p className="text-[12px] text-red-600">{loadError ?? "Unable to load availability. Please try again later."}</p>
+        )}
+        {status === "ready" && sessions && sessions.length === 0 && (
+          <p className="text-[12.5px] text-ink/65 leading-[1.85]">
+            No scheduled dates yet — please{" "}
+            <Link to={contactHref as never} className="text-primary underline underline-offset-4">
+              contact us
+            </Link>{" "}
+            to arrange a date.
+          </p>
+        )}
+        {status === "ready" && sessions && sessions.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 max-h-[180px] overflow-y-auto">
+            {sessions.map((s) => {
+              const isSel = s.id === selectedId;
+              const soldOut = (s.seatsAvailable ?? 0) <= 0;
+              return (
+                <button
+                  type="button"
+                  key={s.id}
+                  disabled={soldOut}
+                  onClick={() => setSelectedId(s.id)}
+                  className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
+                    isSel
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "border-border text-ink/70 hover:border-primary/50"
+                  } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
+                  title={soldOut ? "Sold out" : `${s.seatsAvailable ?? "?"} seats left`}
+                >
+                  {formatSessionDate(s.startTimeLocal)}
+                  {typeof s.seatsAvailable === "number" && !soldOut && (
+                    <span className="ml-1.5 text-[10px] opacity-70">({s.seatsAvailable})</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
 
-      <div>
-        <div className="flex items-center gap-1.5 mb-2">
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55">{langCopy.label}</label>
-          <TooltipProvider delayDuration={150}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  aria-label={langCopy.label}
-                  className="inline-flex items-center justify-center text-ink/45 hover:text-primary transition"
-                >
-                  <Info size={13} strokeWidth={2} />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-[260px] text-[11.5px] leading-[1.55] text-left">
-                {langCopy.tooltip}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          {packages.map((p) => (
-            <button
-              type="button" key={p}
-              onClick={() => setPkg(p)}
-              className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
-                p === pkg ? "bg-primary text-primary-foreground border-primary" : "border-border text-ink/70 hover:border-primary/50"
-              }`}
-            >{p}</button>
-          ))}
-        </div>
-        <p className="mt-2 text-[11px] text-ink/55 leading-[1.6]">{langCopy.note}</p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
+      {/* Price options + quantity steppers */}
+      {selectedSession && selectedSession.priceOptions.length > 0 && (
         <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Travellers</label>
-          <div className="inline-flex items-center rounded-full border border-border bg-cream">
-            <button
-              type="button"
-              onClick={() => setGuests(Math.max(1, guests - 1))}
-              disabled={isVictoria && !selectedSession}
-              className="px-3 py-1.5 text-ink/70 disabled:opacity-40"
-            >−</button>
-            <span className="w-8 text-center text-sm">{guests}</span>
-            <button
-              type="button"
-              onClick={() => setGuests(Math.min(isVictoria ? (maxSeats || 1) : (dep?.seats ?? 1), guests + 1))}
-              disabled={isVictoria && (!selectedSession || guests >= maxSeats)}
-              className="px-3 py-1.5 text-ink/70 disabled:opacity-40"
-            >+</button>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Tickets</label>
+          <div className="space-y-2">
+            {selectedSession.priceOptions.map((p, i) => {
+              const key = `${p.label}__${i}`;
+              const q = quantities[key] ?? 0;
+              return (
+                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                  <div>
+                    <p className="text-[13.5px] text-ink font-medium">{p.label}</p>
+                    <p className="text-[11.5px] text-ink/60">${p.price.toFixed(2)} CAD</p>
+                  </div>
+                  <div className="inline-flex items-center rounded-full border border-border">
+                    <button
+                      type="button"
+                      onClick={() => setQuantities((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      −
+                    </button>
+                    <span className="w-8 text-center text-sm">{q}</span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setQuantities((qs) => {
+                          const next = (qs[key] ?? 0) + 1;
+                          const others = Object.entries(qs).reduce(
+                            (sum, [k, v]) => (k === key ? sum : sum + v),
+                            0,
+                          );
+                          const max = selectedSession.seatsAvailable ?? Infinity;
+                          if (others + next > max) return qs;
+                          return { ...qs, [key]: next };
+                        })
+                      }
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        </div>
-        <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Seats left</label>
-          <p className="pt-1.5 text-primary font-serif text-lg font-semibold">
-            {isVictoria
-              ? (selectedSession ? selectedSession.seatsAvailable ?? "—" : "—")
-              : (dep?.seats ?? "—")} <span className="text-[11px] text-ink/55 font-sans">seats</span>
-          </p>
-        </div>
-      </div>
-
-      {isVictoria && selectedSession && (
-        <div className="rounded-xl bg-[var(--sand)] p-4 text-[13px] text-ink/80 leading-[1.85] space-y-1.5">
-          <div className="flex justify-between">
-            <span>Subtotal ({guests} × $170)</span>
-            <span className="font-medium">${victoriaSubtotal.toFixed(2)} CAD</span>
-          </div>
-          <div className="flex justify-between">
-            <span>GST (5%)</span>
-            <span className="font-medium">${victoriaGst.toFixed(2)} CAD</span>
-          </div>
-          <div className="flex justify-between border-t border-border/60 pt-1.5 mt-1.5 text-ink font-serif text-[15px] font-semibold">
-            <span>Total</span>
-            <span>${victoriaTotal.toFixed(2)} CAD</span>
-          </div>
+          {totalQty > 0 && (
+            <div className="mt-3 rounded-xl bg-[var(--sand)] p-3 text-[13px] text-ink/80 flex justify-between font-serif">
+              <span>Total ({totalQty})</span>
+              <span className="font-semibold text-ink">${totalPrice.toFixed(2)} CAD</span>
+            </div>
+          )}
         </div>
       )}
 
+      {/* Customer form */}
       <div className="space-y-2.5 pt-1">
-        <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Special requests (optional) — e.g. window seat, dietary needs"
-          rows={2}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm resize-none"
+        <div className="grid grid-cols-2 gap-2.5">
+          <input
+            required
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="First name"
+            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+          />
+          <input
+            required
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Last name"
+            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+          />
+        </div>
+        <input
+          required
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+        />
+        <input
+          required
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder="Phone"
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
         />
       </div>
 
-      {isVictoria && bookingError && (
+      {bookingError && (
         <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-[12.5px] text-red-700">
           {bookingError}
         </div>
@@ -586,12 +523,10 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         disabled={continueDisabled}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isVictoria ? "Continue →" : "Continue to checkout →"}
+        Request Booking →
       </button>
       <p className="text-[10.5px] text-ink/45 text-center">
-        {isVictoria
-          ? "* Creates a booking in Rezdy. No payment is processed at this step."
-          : "* Demo only — payment will run through a third-party system on the live site."}
+        * Submits a booking request. Our team will confirm and arrange payment manually.
       </p>
     </form>
   );
