@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useLocale } from "@/i18n/locale";
+import { useLocale, withLocale } from "@/i18n/locale";
 import lake009 from "@/assets/lake-tours/lake-009.webp";
 import lake010 from "@/assets/lake-tours/lake-010.webp";
 import lake011 from "@/assets/lake-tours/lake-011.webp";
@@ -22,6 +23,19 @@ const TOUR_IMAGES: Record<TourKey, [string, string]> = {
   extended: [lake055, lake015],
 };
 
+// Map each landing-page tour to its Rezdy-connected detail-page slug.
+const TOUR_TO_SLUG: Record<TourKey, string> = {
+  halfday: "moraine-lake-lake-louise-half-day",
+  sunrise: "moraine-lake-sunrise-tour",
+  extended: "5-lakes-tour",
+};
+
+const VIEW_AND_BOOK_LABEL: Record<"en" | "zh" | "ko", string> = {
+  en: "View & Book →",
+  zh: "查看與預訂 →",
+  ko: "자세히 보기 & 예약 →",
+};
+
 
 export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const locale = useLocale();
@@ -41,6 +55,9 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const subtotal = tour.price * guests;
   const gst = +(subtotal * 0.05).toFixed(2);
   const total = +(subtotal + gst).toFixed(2);
+
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
+  const tourHref = (key: TourKey) => withLocale(`/tours/${TOUR_TO_SLUG[key]}`, locale);
 
   const handleSelectTour = (key: TourKey) => {
     setSelected(key);
@@ -265,12 +282,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                       {c.options.labels.gratuityNote}
                     </p>
 
-                    <button
-                      onClick={() => handleSelectTour(t.key)}
-                      className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+                    <Link
+                      to={tourHref(t.key) as never}
+                      className="w-full block text-center rounded-full bg-primary text-primary-foreground py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
                     >
-                      {t.cta} →
-                    </button>
+                      {bookLabel}
+                    </Link>
                   </div>
                 </div>
               </article>
@@ -321,7 +338,13 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 {TOUR_LIST.map((t, i) => (
                   <tr key={t.key} className={i % 2 ? "bg-paper/30" : ""}>
                     <td className="px-5 py-5 font-serif text-ink font-semibold align-top max-w-[220px]">
-                      {t.name}
+                      <div>{t.name}</div>
+                      <Link
+                        to={tourHref(t.key) as never}
+                        className="mt-2 inline-block text-[12px] tracking-wide text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
+                      >
+                        {bookLabel}
+                      </Link>
                     </td>
                     <td className="px-5 py-5 align-top">{t.bestFor}</td>
                     <td className="px-5 py-5 align-top text-primary font-semibold">
@@ -360,6 +383,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   <span className="text-ink/55">{c.compare.mobileLabels.louise}</span>
                   <span>{t.louiseTime}</span>
                 </div>
+                <Link
+                  to={tourHref(t.key) as never}
+                  className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
+                >
+                  {bookLabel}
+                </Link>
               </div>
             ))}
           </div>
@@ -469,12 +498,12 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="mt-6 w-full rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
+                <Link
+                  to={tourHref(selected) as never}
+                  className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground py-3.5 text-[14px] tracking-wide hover:bg-primary/90 transition"
                 >
-                  {c.reserve.summary.continueCta}
-                </button>
+                  {bookLabel}
+                </Link>
                 <p className="mt-3 text-[11.5px] text-ink/50 text-center leading-[1.7]">
                   {c.reserve.summary.footnote}
                 </p>

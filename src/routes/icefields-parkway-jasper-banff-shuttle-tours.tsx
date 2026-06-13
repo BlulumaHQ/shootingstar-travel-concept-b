@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
 import { TourRouteSection } from "@/components/site/TourRouteSection";
@@ -8,7 +8,7 @@ import destJasper from "@/assets/dest-jasper.jpg";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
-import { useLocale } from "@/i18n/locale";
+import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { ChatSupportNote } from "@/components/site/ChatSupport";
 import {
   getIcefieldsContent,
@@ -17,6 +17,25 @@ import {
   type AddOnId,
   type Weekday,
 } from "@/content/icefields-i18n";
+
+// Map each shuttle product to its Rezdy-connected detail-page slug.
+const PRODUCT_TO_SLUG: Record<ProductId, string> = {
+  P1: "banff-to-jasper-sightseeing-shuttle",
+  P2A: "jasper-maligne-lake-spirit-island-day-tour",
+  P2B: "jasper-to-banff-express-shuttle",
+  P3A: "banff-to-jasper-express-shuttle",
+  P3B: "jasper-medicine-lake-maligne-lake-half-day-tour",
+  P4: "icefields-parkway-southbound-sightseeing-shuttle",
+};
+
+const VIEW_AND_BOOK_LABEL: Record<Locale, string> = {
+  en: "View & Book →",
+  zh: "查看與預訂 →",
+  ko: "자세히 보기 & 예약 →",
+};
+
+const productHref = (pid: ProductId, locale: Locale) =>
+  withLocale(`/tours/${PRODUCT_TO_SLUG[pid]}`, locale);
 
 export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-tours")({
   head: () => {
@@ -346,6 +365,8 @@ function RouteCardGrid({
   selectedProduct: ProductId | null;
   onSelect: (pid: ProductId) => void;
 }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const f = c.finderV2;
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -402,6 +423,12 @@ function RouteCardGrid({
             >
               {isSelected ? f.ctaSelected : f.ctaSelect}
             </button>
+            <Link
+              to={productHref(pid, locale) as never}
+              className="mt-3 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+            >
+              {bookLabel}
+            </Link>
           </article>
         );
       })}
@@ -570,6 +597,8 @@ function DetailedRoutes({
 type Selection = { productId: ProductId; addOns: Partial<Record<AddOnId, boolean>> };
 
 function BookingEstimator({ c }: { c: IcefieldsContent }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const [date, setDate] = useState<string>("");
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
@@ -746,8 +775,16 @@ function BookingEstimator({ c }: { c: IcefieldsContent }) {
                               {p.direction} · {p.time} ·{" "}
                               {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.reserve.perPerson}`}
                             </p>
+                            <Link
+                              to={productHref(pid, locale) as never}
+                              onClick={(e) => e.stopPropagation()}
+                              className="mt-2 inline-block text-[12.5px] text-primary hover:text-primary/80 underline underline-offset-2"
+                            >
+                              {bookLabel}
+                            </Link>
                           </div>
                         </label>
+
 
                         {sel && p.addOns.length > 0 && (
                           <div className="mt-4 ml-7 space-y-2">
@@ -876,6 +913,8 @@ function Row2({ k, v }: { k: string; v: string }) {
  * ------------------------------------------------------------------ */
 
 function ComparisonTable({ c }: { c: IcefieldsContent }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   return (
     <section id="compare" className="py-20 md:py-24">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
@@ -896,7 +935,15 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                 const p = c.products[id];
                 return (
                   <tr key={id} className={i % 2 ? "bg-paper/30" : ""}>
-                    <td className="px-4 py-4 font-serif text-ink font-semibold align-top max-w-[220px]">{p.name}</td>
+                    <td className="px-4 py-4 font-serif text-ink font-semibold align-top max-w-[220px]">
+                      <div>{p.name}</div>
+                      <Link
+                        to={productHref(id, locale) as never}
+                        className="mt-2 inline-block text-[12px] text-primary hover:text-primary/80 underline underline-offset-2 font-sans font-normal"
+                      >
+                        {bookLabel}
+                      </Link>
+                    </td>
                     <td className="px-4 py-4 align-top">{p.daysLabel}</td>
                     <td className="px-4 py-4 align-top">{p.direction}</td>
                     <td className="px-4 py-4 align-top">{p.time}</td>
@@ -929,6 +976,12 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                   <span className="text-ink/55">{c.detailed.addOnsLabel}</span><span>{addons}</span>
                   <span className="text-ink/55">{c.compare.headers[6]}</span><span>{p.bestFor}</span>
                 </div>
+                <Link
+                  to={productHref(id, locale) as never}
+                  className="mt-4 w-full block text-center rounded-full bg-primary text-primary-foreground py-2.5 text-[13px] tracking-wide hover:bg-primary/90 transition"
+                >
+                  {bookLabel}
+                </Link>
               </div>
             );
           })}
