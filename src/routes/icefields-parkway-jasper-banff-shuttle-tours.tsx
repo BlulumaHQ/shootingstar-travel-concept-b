@@ -597,6 +597,8 @@ function DetailedRoutes({
 type Selection = { productId: ProductId; addOns: Partial<Record<AddOnId, boolean>> };
 
 function BookingEstimator({ c }: { c: IcefieldsContent }) {
+  const locale = useLocale();
+  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
   const [date, setDate] = useState<string>("");
   const [adults, setAdults] = useState(2);
   const [children, setChildren] = useState(0);
