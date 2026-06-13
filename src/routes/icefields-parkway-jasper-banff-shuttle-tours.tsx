@@ -423,6 +423,12 @@ function RouteCardGrid({
             >
               {isSelected ? f.ctaSelected : f.ctaSelect}
             </button>
+            <Link
+              to={productHref(pid, locale)}
+              className="mt-3 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+            >
+              {bookLabel}
+            </Link>
           </article>
         );
       })}
