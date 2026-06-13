@@ -872,13 +872,29 @@ function BookingEstimator({ c }: { c: IcefieldsContent }) {
                 </div>
               </div>
 
-              <button
-                disabled={selectedList.length === 0 || !date}
-                className="mt-6 w-full rounded-full bg-cream text-ink py-3 text-[14px] tracking-wide hover:bg-cream/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {c.reserve.continueToBooking}
-              </button>
+              {selectedList.length > 0 && date ? (
+                <Link
+                  to={productHref(selectedList[0].productId, locale) as never}
+                  className="mt-6 w-full block text-center rounded-full bg-cream text-ink py-3 text-[14px] tracking-wide hover:bg-cream/90 transition"
+                >
+                  {bookLabel}
+                </Link>
+              ) : (
+                <button
+                  disabled
+                  className="mt-6 w-full rounded-full bg-cream text-ink py-3 text-[14px] tracking-wide opacity-50 cursor-not-allowed"
+                >
+                  {c.reserve.continueToBooking}
+                </button>
+              )}
               <p className="mt-3 text-[11.5px] text-cream/60 leading-relaxed">{c.reserve.finalNote}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
             </div>
           </div>
         </div>
