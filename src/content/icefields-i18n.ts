@@ -199,6 +199,14 @@ export type IcefieldsContent = {
     placeholderTitle: string;
     placeholderBody: string;
   };
+  bundles: {
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    adCopy: string;
+    contactCta: string;
+    items: { name: string; flow: string[]; tagline: string }[];
+  };
 };
 
 const WEEKDAY_EN: Record<Weekday, string> = {
