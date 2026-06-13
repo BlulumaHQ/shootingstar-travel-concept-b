@@ -203,6 +203,8 @@ export function ToursIndexPage() {
       </section>
 
       {canada.length > 0 && renderCategory(p.canadaEyebrow, p.canadaHeading, p.canadaBody, canada)}
+      {rockyLake.length > 0 && renderCategory(p.rockyLakeEyebrow, p.rockyLakeHeading, p.rockyLakeBody, rockyLake)}
+      {jasper.length > 0 && renderCategory(p.jasperEyebrow, p.jasperHeading, p.jasperBody, jasper)}
       {usa.length > 0 && renderCategory(p.usEyebrow, p.usHeading, p.usBody, usa)}
 
       <div className="pb-16" />
