@@ -6,6 +6,11 @@ import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
+import {
+  LAKE_TOUR_TRIP_INFO,
+  isLakeTourSlug,
+} from "@/content/lake-tour-trip-info";
+
 
 const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
 const isRockies = (slug: string) => {
@@ -593,6 +598,10 @@ export function TourDetailPage() {
               <BookingWidget tour={tour} idPrefix="m-" />
             </div>
 
+            {/* Shared Trip Information — only on the five Rocky Mountain Lake tours */}
+            {isLakeTourSlug(slug) && <LakeTourTripInfo locale={locale} slug={slug} />}
+
+
             {/* ITINERARY */}
             <section>
               <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.itineraryEyebrow}</p>
@@ -770,5 +779,113 @@ export function TourDetailPage() {
         </a>
       </div>
     </SiteLayout>
+  );
+}
+
+/* ============================================================
+ * LakeTourTripInfo — shared "What's Included / Not Included"
+ * + "Important Travel Notes" block, rendered ONLY for the five
+ * Rocky Mountain Lake tour detail pages.
+ * ============================================================ */
+function LakeTourTripInfo({
+  locale,
+  slug,
+}: {
+  locale: Locale;
+  slug: string;
+}) {
+  const pack = LAKE_TOUR_TRIP_INFO[locale];
+  const isSunrise = slug === "moraine-lake-sunrise-tour";
+
+  return (
+    <section
+      aria-labelledby="lake-tour-trip-info-heading"
+      className="rounded-2xl border border-border/60 bg-cream p-7 md:p-9 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.3)]"
+    >
+      <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+        — {pack.sectionEyebrow}
+      </p>
+      <h2
+        id="lake-tour-trip-info-heading"
+        className="mt-3 font-serif text-2xl md:text-[28px] text-ink font-semibold"
+      >
+        {pack.sectionTitle}
+      </h2>
+
+      {/* Block 1 — Included / Not Included */}
+      <div className="mt-7 grid md:grid-cols-2 gap-7">
+        <div>
+          <h3 className="font-serif text-[17px] text-ink font-semibold">
+            {pack.includedTitle}
+          </h3>
+          <div className="mt-3 h-px w-10 bg-primary/60" />
+          <ul className="mt-5 space-y-2.5 text-[14px] text-ink/75 leading-[1.9]">
+            {pack.included.map((it) => (
+              <li
+                key={it}
+                className="pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-primary"
+              >
+                {it}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="font-serif text-[17px] text-ink font-semibold">
+            {pack.notIncludedTitle}
+          </h3>
+          <div className="mt-3 h-px w-10 bg-ink/30" />
+          <ul className="mt-5 space-y-2.5 text-[14px] text-ink/75 leading-[1.9]">
+            {pack.notIncluded.map((it, i) => {
+              const key = typeof it === "string" ? it : `${it.text}-${i}`;
+              return (
+                <li
+                  key={key}
+                  className="pl-5 relative before:content-['×'] before:absolute before:left-0 before:text-ink/40"
+                >
+                  {typeof it === "string" ? (
+                    it
+                  ) : (
+                    <>
+                      {it.text}{" "}
+                      <a
+                        href={it.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline underline-offset-2 hover:text-primary/80"
+                      >
+                        {it.linkLabel}
+                      </a>
+                      .
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+
+      {/* Block 2 — Important Travel Notes */}
+      <div className="mt-9 pt-7 border-t border-border/60">
+        <h3 className="font-serif text-[17px] text-ink font-semibold">
+          {pack.notesTitle}
+        </h3>
+        <div className="mt-3 h-px w-10 bg-primary/60" />
+        <ol className="mt-5 space-y-3 text-[14px] text-ink/75 leading-[1.95] list-decimal pl-5 marker:text-primary marker:font-serif">
+          {pack.notes.map((n) => (
+            <li key={n}>{n}</li>
+          ))}
+        </ol>
+
+        {isSunrise && (
+          <div className="mt-5 rounded-xl border border-primary/25 bg-primary/5 px-5 py-4">
+            <p className="text-[13.5px] text-ink/80 leading-[1.9] italic">
+              {pack.sunriseExtraNote}
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }
