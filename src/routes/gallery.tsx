@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Play, X } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import { supabase } from "@/lib/supabase";
 import brownLogo from "@/assets/shootingstar-brown-logo.png";
@@ -26,13 +28,14 @@ const T = {
     zh: "與旅客一同走過的近期旅程記錄。",
     ko: "여행자들과 함께한 최근 여정의 기록.",
   },
-  empty: {
-    en: "No albums yet. Check back soon!",
-    zh: "目前還沒有相簿，敬請期待。",
-    ko: "아직 등록된 앨범이 없습니다. 곧 업데이트됩니다.",
-  },
+  empty: { en: "No albums yet. Check back soon!", zh: "目前還沒有相簿，敬請期待。", ko: "아직 등록된 앨범이 없습니다. 곧 업데이트됩니다." },
   loading: { en: "Loading…", zh: "載入中…", ko: "불러오는 중…" },
-  watchVideo: { en: "Watch the video", zh: "觀看影片", ko: "영상 보기" },
+  watchVideo: { en: "Watch video", zh: "觀看影片", ko: "영상 보기" },
+  filterTour: { en: "Tour", zh: "行程", ko: "투어" },
+  allTours: { en: "All tours", zh: "全部行程", ko: "모든 투어" },
+  sortLabel: { en: "Sort", zh: "排序", ko: "정렬" },
+  sortNewest: { en: "Newest first", zh: "最新優先", ko: "최신순" },
+  sortOldest: { en: "Oldest first", zh: "最舊優先", ko: "오래된순" },
 } as const;
 const tt = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
 
@@ -57,16 +60,12 @@ function formatDate(iso: string | null, l: Locale): string {
 function youtubeEmbedUrl(url: string): string | null {
   try {
     const u = new URL(url);
-    if (u.hostname.includes("youtu.be")) {
-      return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
-    }
+    if (u.hostname.includes("youtu.be")) return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
     if (u.hostname.includes("youtube.com")) {
       const v = u.searchParams.get("v");
       if (v) return `https://www.youtube.com/embed/${v}`;
       if (u.pathname.startsWith("/embed/")) return url;
-      if (u.pathname.startsWith("/shorts/")) {
-        return `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
-      }
+      if (u.pathname.startsWith("/shorts/")) return `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
     }
     return null;
   } catch {
@@ -74,60 +73,91 @@ function youtubeEmbedUrl(url: string): string | null {
   }
 }
 
-function PhotoWithWatermark({ src, alt }: { src: string; alt: string }) {
-  return (
-    <div className="relative overflow-hidden rounded-lg bg-muted aspect-[4/3] group">
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-      />
-      <img
-        src={brownLogo}
-        alt=""
-        aria-hidden
-        draggable={false}
-        className="pointer-events-none absolute bottom-2 right-2 select-none"
-        style={{ width: 80, height: "auto", opacity: 0.7 }}
-      />
-    </div>
-  );
-}
-
-function Album({ row, locale }: { row: GalleryRow; locale: Locale }) {
-  const photos = Array.isArray(row.photos) ? row.photos.filter(Boolean) : [];
+function AlbumCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
+  const photos = useMemo(() => (Array.isArray(row.photos) ? row.photos.filter(Boolean) : []), [row.photos]);
+  const [idx, setIdx] = useState(0);
+  const [videoOpen, setVideoOpen] = useState(false);
   const embed = row.youtube_url ? youtubeEmbedUrl(row.youtube_url) : null;
+  const featured = photos[idx] ?? photos[0];
 
   return (
-    <article className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/60">
-      <header className="px-6 md:px-8 pt-6 md:pt-8 pb-4 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-serif text-2xl md:text-3xl text-ink">{row.tour_label || "—"}</h2>
-        <p className="text-sm text-ink/60">{formatDate(row.trip_date, locale)}</p>
-      </header>
+    <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
+      {/* Feature image */}
+      <div className="relative aspect-[5/4] overflow-hidden bg-[var(--sand)]">
+        {featured ? (
+          <img src={featured} alt={row.tour_label ?? ""} loading="lazy" className="h-full w-full object-cover transition-opacity duration-300" />
+        ) : (
+          <div className="h-full w-full bg-muted" />
+        )}
+        {featured && (
+          <img
+            src={brownLogo}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="pointer-events-none absolute bottom-2 right-2 select-none"
+            style={{ width: 80, height: "auto", opacity: 0.7 }}
+          />
+        )}
+      </div>
 
-      {photos.length > 0 && (
-        <div className="px-6 md:px-8 pb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Thumbnails */}
+      {photos.length > 1 && (
+        <div className="px-4 pt-3 flex gap-2 overflow-x-auto">
           {photos.map((p, i) => (
-            <PhotoWithWatermark key={i} src={p} alt={`${row.tour_label ?? "photo"} ${i + 1}`} />
+            <button
+              key={i}
+              type="button"
+              onClick={() => setIdx(i)}
+              className={`shrink-0 h-12 w-16 overflow-hidden rounded-md border transition ${
+                i === idx ? "border-ink ring-1 ring-ink/40" : "border-border/60 opacity-80 hover:opacity-100"
+              }`}
+              aria-label={`Photo ${i + 1}`}
+            >
+              <img src={p} alt="" loading="lazy" className="h-full w-full object-cover" />
+            </button>
           ))}
         </div>
       )}
 
+      {/* Meta */}
+      <div className="p-5 md:p-6 flex-1 flex flex-col">
+        <h3 className="font-serif text-[18px] md:text-[20px] text-ink leading-snug">{row.tour_label || "—"}</h3>
+        <p className="mt-1 text-[12.5px] text-ink/60">{formatDate(row.trip_date, locale)}</p>
+
+        {embed && (
+          <button
+            type="button"
+            onClick={() => setVideoOpen(true)}
+            className="mt-4 inline-flex items-center gap-2 self-start rounded-full border border-border/70 bg-cream px-3.5 py-1.5 text-[12.5px] text-ink hover:bg-[var(--sand)] transition"
+          >
+            <Play size={13} fill="currentColor" /> {tt("watchVideo", locale)}
+          </button>
+        )}
+      </div>
+
       {embed && (
-        <div className="px-6 md:px-8 pb-8">
-          <p className="text-sm font-medium text-ink/70 mb-3">{tt("watchVideo", locale)}</p>
-          <div className="relative w-full overflow-hidden rounded-lg bg-black" style={{ paddingTop: "56.25%" }}>
-            <iframe
-              src={embed}
-              title={row.tour_label || "Video"}
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute inset-0 h-full w-full"
-            />
-          </div>
-        </div>
+        <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+          <DialogContent className="max-w-3xl p-0 overflow-hidden bg-black">
+            <button
+              type="button"
+              onClick={() => setVideoOpen(false)}
+              aria-label="Close"
+              className="absolute top-2 right-2 z-10 h-9 w-9 grid place-items-center rounded-full bg-white/15 text-white hover:bg-white/25"
+            >
+              <X size={18} />
+            </button>
+            <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+              <iframe
+                src={embed}
+                title={row.tour_label || "Video"}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
       )}
     </article>
   );
@@ -136,6 +166,8 @@ function Album({ row, locale }: { row: GalleryRow; locale: Locale }) {
 export function GalleryPage() {
   const locale = useLocale();
   const [rows, setRows] = useState<GalleryRow[] | null>(null);
+  const [tourFilter, setTourFilter] = useState<string>("");
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
 
   useEffect(() => {
     let alive = true;
@@ -158,23 +190,69 @@ export function GalleryPage() {
     };
   }, []);
 
+  const tourOptions = useMemo(() => {
+    if (!rows) return [];
+    const set = new Set<string>();
+    rows.forEach((r) => r.tour_label && set.add(r.tour_label));
+    return Array.from(set).sort();
+  }, [rows]);
+
+  const filtered = useMemo(() => {
+    if (!rows) return [];
+    let list = tourFilter ? rows.filter((r) => r.tour_label === tourFilter) : rows.slice();
+    list.sort((a, b) => {
+      const da = a.trip_date ? new Date(a.trip_date).getTime() : 0;
+      const db = b.trip_date ? new Date(b.trip_date).getTime() : 0;
+      return sortOrder === "newest" ? db - da : da - db;
+    });
+    return list;
+  }, [rows, tourFilter, sortOrder]);
+
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-16 pb-10">
+      <section className="mx-auto max-w-7xl px-6 md:px-10 pt-16 pb-8">
         <p className="font-hand text-clay text-2xl">— {tt("eyebrow", locale)}</p>
         <h1 className="font-serif text-5xl md:text-6xl mt-2">{tt("title", locale)}</h1>
         <p className="mt-4 text-ink/70 max-w-2xl">{tt("sub", locale)}</p>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-24">
+      <section className="mx-auto max-w-7xl px-6 md:px-10 pb-24">
+        {/* Controls */}
+        <div className="flex flex-wrap items-center gap-3 mb-8">
+          <label className="text-[12.5px] text-ink/70">
+            <span className="mr-2">{tt("filterTour", locale)}:</span>
+            <select
+              value={tourFilter}
+              onChange={(e) => setTourFilter(e.target.value)}
+              className="rounded-md border border-border bg-cream px-3 py-1.5 text-[13px] text-ink"
+            >
+              <option value="">{tt("allTours", locale)}</option>
+              {tourOptions.map((o) => (
+                <option key={o} value={o}>{o}</option>
+              ))}
+            </select>
+          </label>
+          <label className="text-[12.5px] text-ink/70">
+            <span className="mr-2">{tt("sortLabel", locale)}:</span>
+            <select
+              value={sortOrder}
+              onChange={(e) => setSortOrder(e.target.value as "newest" | "oldest")}
+              className="rounded-md border border-border bg-cream px-3 py-1.5 text-[13px] text-ink"
+            >
+              <option value="newest">{tt("sortNewest", locale)}</option>
+              <option value="oldest">{tt("sortOldest", locale)}</option>
+            </select>
+          </label>
+        </div>
+
         {rows === null ? (
           <p className="text-ink/60 py-12 text-center">{tt("loading", locale)}</p>
-        ) : rows.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <p className="text-ink/60 py-12 text-center">{tt("empty", locale)}</p>
         ) : (
-          <div className="space-y-10">
-            {rows.map((r) => (
-              <Album key={r.id} row={r} locale={locale} />
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {filtered.map((r) => (
+              <AlbumCard key={r.id} row={r} locale={locale} />
             ))}
           </div>
         )}
