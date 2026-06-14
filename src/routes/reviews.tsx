@@ -53,7 +53,10 @@ const T = {
     zh: "送出時發生錯誤，請再試一次。",
     ko: "후기 전송 중 문제가 발생했습니다. 다시 시도해 주세요.",
   },
+  cta: { en: "Share My Journey", zh: "分享我的旅程", ko: "내 여행 이야기 공유하기" },
+  close: { en: "Close", zh: "關閉", ko: "닫기" },
   chooseTour: { en: "Choose a tour", zh: "選擇行程", ko: "투어 선택" },
+
   sortLabel: { en: "Sort", zh: "排序", ko: "정렬" },
   sortHigh: { en: "Rating: High to Low", zh: "評分：高到低", ko: "평점: 높은순" },
   sortLow: { en: "Rating: Low to High", zh: "評分：低到高", ko: "평점: 낮은순" },
