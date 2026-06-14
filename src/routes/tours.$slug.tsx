@@ -438,8 +438,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     return (
       <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
         <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— sending request</p>
-        <p className="mt-2 text-ink/65 text-[14px]">Submitting your booking…</p>
+        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.sending}</p>
+        <p className="mt-2 text-ink/65 text-[14px]">{B.submitting}</p>
       </div>
     );
   }
@@ -447,20 +447,19 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   if (stage === "done") {
     return (
       <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— request received</p>
-        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Thank you! ✦</h3>
-        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">
-          Your booking request has been received — we&apos;ll confirm shortly.
-        </p>
+        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.received}</p>
+        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">{B.thanks}</h3>
+        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">{B.thanksBody}</p>
         <button
           onClick={() => setStage("form")}
           className="mt-5 text-primary text-sm underline underline-offset-4"
         >
-          Make another request
+          {B.another}
         </button>
       </div>
     );
   }
+
 
   const continueDisabled =
     status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone;
