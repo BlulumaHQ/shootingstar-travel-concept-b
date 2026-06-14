@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw } from "lucide-react";
+import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw, Upload, Eye, EyeOff, Image as ImageIcon, Video } from "lucide-react";
 import { supabase, type ReviewRow } from "@/lib/supabase";
+import { useTours } from "@/data/useTours";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
@@ -58,33 +59,13 @@ function LoginForm() {
     <div className="min-h-screen grid place-items-center bg-background px-4">
       <form onSubmit={submit} className="w-full max-w-sm bg-card border border-border rounded-xl p-8 shadow-sm">
         <h1 className="text-xl font-semibold text-foreground">Admin sign in</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Sign in to moderate reviews.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Sign in to manage reviews and gallery.</p>
         <div className="mt-6 space-y-3">
-          <input
-            type="email"
-            required
-            autoComplete="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-          />
-          <input
-            type="password"
-            required
-            autoComplete="current-password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-          />
+          <input type="email" required autoComplete="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring" />
+          <input type="password" required autoComplete="current-password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring" />
         </div>
         {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="mt-5 w-full rounded-md bg-primary text-primary-foreground py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-60"
-        >
+        <button type="submit" disabled={loading} className="mt-5 w-full rounded-md bg-primary text-primary-foreground py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-60">
           {loading ? "Signing in…" : "Sign in"}
         </button>
       </form>
@@ -92,12 +73,53 @@ function LoginForm() {
   );
 }
 
-type Tab = "pending" | "approved" | "rejected" | "all";
+type TopTab = "reviews" | "gallery";
 
 function Dashboard({ onLogout, email }: { onLogout: () => void; email: string }) {
+  const [topTab, setTopTab] = useState<TopTab>("reviews");
+
+  return (
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div>
+            <h1 className="text-lg font-semibold text-foreground">Admin dashboard</h1>
+            <p className="text-xs text-muted-foreground">{email}</p>
+          </div>
+          <button onClick={onLogout} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-3 py-1.5 text-sm hover:bg-accent">
+            <LogOut size={14} /> Log out
+          </button>
+        </div>
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="flex gap-1">
+            {(["reviews", "gallery"] as TopTab[]).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTopTab(t)}
+                className={`px-4 py-2.5 text-sm font-medium border-b-2 transition ${
+                  topTab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {t === "reviews" ? "Reviews" : "Gallery"}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      {topTab === "reviews" ? <ReviewsPanel /> : <GalleryPanel />}
+    </div>
+  );
+}
+
+/* ───────────────────────── Reviews panel ───────────────────────── */
+
+type ReviewTab = "pending" | "approved" | "rejected" | "all";
+
+function ReviewsPanel() {
   const [rows, setRows] = useState<ReviewRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<Tab>("pending");
+  const [tab, setTab] = useState<ReviewTab>("pending");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -105,10 +127,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
   const load = useCallback(async () => {
     setLoading(true);
     setErr(null);
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .order("created_at", { ascending: false });
+    const { data, error } = await supabase.from("reviews").select("*").order("created_at", { ascending: false });
     if (error) setErr(error.message);
     setRows((data as ReviewRow[]) ?? []);
     setLoading(false);
@@ -120,10 +139,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
     setBusyId(id);
     const { error } = await supabase.from("reviews").update({ status }).eq("id", id);
     setBusyId(null);
-    if (error) {
-      setErr(error.message);
-      return;
-    }
+    if (error) return setErr(error.message);
     await load();
   };
 
@@ -132,10 +148,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
     const { error } = await supabase.from("reviews").delete().eq("id", id);
     setBusyId(null);
     setDeleteConfirmId(null);
-    if (error) {
-      setErr(error.message);
-      return;
-    }
+    if (error) return setErr(error.message);
     await load();
   };
 
@@ -149,133 +162,74 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
   const filtered = tab === "all" ? rows : rows.filter((r) => r.status === tab);
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border bg-card">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-semibold text-foreground">Review moderation</h1>
-            <p className="text-xs text-muted-foreground">{email}</p>
-          </div>
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <div className="flex flex-wrap gap-2 mb-6">
+        {(["pending", "approved", "rejected", "all"] as ReviewTab[]).map((t) => (
           <button
-            onClick={onLogout}
-            className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-3 py-1.5 text-sm hover:bg-accent"
+            key={t}
+            onClick={() => setTab(t)}
+            className={`rounded-full px-4 py-1.5 text-sm border transition ${
+              tab === t ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border text-foreground hover:bg-accent"
+            }`}
           >
-            <LogOut size={14} /> Log out
+            {t[0].toUpperCase() + t.slice(1)} <span className="opacity-70">({counts[t]})</span>
           </button>
-        </div>
-      </header>
-
-      <div className="max-w-5xl mx-auto px-4 py-6">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {(["pending", "approved", "rejected", "all"] as Tab[]).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`rounded-full px-4 py-1.5 text-sm border transition ${
-                tab === t
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card border-border text-foreground hover:bg-accent"
-              }`}
-            >
-              {t[0].toUpperCase() + t.slice(1)} <span className="opacity-70">({counts[t]})</span>
-            </button>
-          ))}
-        </div>
-
-        {err && <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{err}</div>}
-
-        {loading ? (
-          <div className="grid place-items-center py-20"><Loader2 className="animate-spin text-muted-foreground" /></div>
-        ) : filtered.length === 0 ? (
-          <p className="text-sm text-muted-foreground py-12 text-center">No reviews in this tab.</p>
-        ) : (
-          <div className="space-y-4">
-            {filtered.map((r) => (
-              <ReviewAdminCard
-                key={r.id}
-                r={r}
-                busy={busyId === r.id}
-                onUpdate={updateStatus}
-                onDeleteRequest={setDeleteConfirmId}
-              />
-            ))}
-          </div>
-        )}
+        ))}
       </div>
 
-      {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-card border border-border rounded-xl p-6 max-w-sm w-full shadow-lg">
-            <h3 className="text-base font-semibold text-foreground">Permanently delete this review?</h3>
-            <p className="mt-1 text-sm text-muted-foreground">This cannot be undone.</p>
-            <div className="mt-5 flex justify-end gap-2">
-              <button
-                onClick={() => setDeleteConfirmId(null)}
-                className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => deleteReview(deleteConfirmId)}
-                disabled={busyId === deleteConfirmId}
-                className="inline-flex items-center gap-1.5 rounded-md bg-destructive text-destructive-foreground px-3 py-2 text-sm hover:bg-destructive/90 disabled:opacity-60"
-              >
-                <Trash2 size={14} /> Delete
-              </button>
-            </div>
-          </div>
+      {err && <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{err}</div>}
+
+      {loading ? (
+        <div className="grid place-items-center py-20"><Loader2 className="animate-spin text-muted-foreground" /></div>
+      ) : filtered.length === 0 ? (
+        <p className="text-sm text-muted-foreground py-12 text-center">No reviews in this tab.</p>
+      ) : (
+        <div className="space-y-4">
+          {filtered.map((r) => (
+            <ReviewAdminCard key={r.id} r={r} busy={busyId === r.id} onUpdate={updateStatus} onDeleteRequest={setDeleteConfirmId} />
+          ))}
         </div>
+      )}
+
+      {deleteConfirmId && (
+        <ConfirmDialog
+          title="Permanently delete this review?"
+          onCancel={() => setDeleteConfirmId(null)}
+          onConfirm={() => deleteReview(deleteConfirmId)}
+          busy={busyId === deleteConfirmId}
+        />
       )}
     </div>
   );
 }
 
 function ReviewAdminCard({
-  r,
-  busy,
-  onUpdate,
-  onDeleteRequest,
-}: {
-  r: ReviewRow;
-  busy: boolean;
-  onUpdate: (id: string, status: "approved" | "rejected" | "pending") => void;
-  onDeleteRequest: (id: string) => void;
-}) {
+  r, busy, onUpdate, onDeleteRequest,
+}: { r: ReviewRow; busy: boolean; onUpdate: (id: string, status: "approved" | "rejected" | "pending") => void; onDeleteRequest: (id: string) => void; }) {
   const photos = r.photos ?? [];
   const date = r.created_at ? new Date(r.created_at).toLocaleDateString() : "";
-
   const statusMeta =
-    r.status === "approved"
-      ? { label: "Approved", color: "bg-emerald-100 text-emerald-700" }
-      : r.status === "rejected"
-      ? { label: "Rejected", color: "bg-rose-100 text-rose-700" }
-      : { label: "Pending", color: "bg-amber-100 text-amber-700" };
+    r.status === "approved" ? { label: "Approved", color: "bg-emerald-100 text-emerald-700" } :
+    r.status === "rejected" ? { label: "Rejected", color: "bg-rose-100 text-rose-700" } :
+    { label: "Pending", color: "bg-amber-100 text-amber-700" };
 
   return (
     <article className="bg-card border border-border rounded-xl p-5">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
-          {r.avatar ? (
-            <img src={r.avatar} alt="" className="h-10 w-10 rounded-full object-cover" />
-          ) : (
-            <div className="h-10 w-10 rounded-full bg-muted grid place-items-center">
-              <UserCircle size={22} className="text-muted-foreground" />
-            </div>
+          {r.avatar ? <img src={r.avatar} alt="" className="h-10 w-10 rounded-full object-cover" /> : (
+            <div className="h-10 w-10 rounded-full bg-muted grid place-items-center"><UserCircle size={22} className="text-muted-foreground" /></div>
           )}
           <div>
             <p className="text-sm font-semibold text-foreground">{r.name || "Anonymous"}</p>
             <p className="text-xs text-muted-foreground">{r.tour_label || r.tour_slug || "—"} · {date}</p>
           </div>
         </div>
-        <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${statusMeta.color}`}>
-          {statusMeta.label}
-        </span>
+        <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${statusMeta.color}`}>{statusMeta.label}</span>
       </div>
 
       <div className="mt-3 flex gap-0.5 text-amber-500">
-        {Array.from({ length: Math.max(0, Math.min(5, r.rating ?? 0)) }).map((_, i) => (
-          <Star key={i} size={14} fill="currentColor" stroke="none" />
-        ))}
+        {Array.from({ length: Math.max(0, Math.min(5, r.rating ?? 0)) }).map((_, i) => <Star key={i} size={14} fill="currentColor" stroke="none" />)}
       </div>
 
       <p className="mt-3 text-sm text-foreground/85 leading-relaxed whitespace-pre-line">{r.text}</p>
@@ -293,57 +247,277 @@ function ReviewAdminCard({
       <div className="mt-4 flex flex-wrap items-center gap-2">
         {r.status === "pending" && (
           <>
-            <button
-              onClick={() => onUpdate(r.id, "approved")}
-              disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-md bg-emerald-600 text-white px-3 py-1.5 text-sm hover:bg-emerald-700 disabled:opacity-60"
-            >
-              <Check size={14} /> Approve
-            </button>
-            <button
-              onClick={() => onUpdate(r.id, "rejected")}
-              disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"
-            >
-              <X size={14} /> Reject
-            </button>
+            <button onClick={() => onUpdate(r.id, "approved")} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-emerald-600 text-white px-3 py-1.5 text-sm hover:bg-emerald-700 disabled:opacity-60"><Check size={14} /> Approve</button>
+            <button onClick={() => onUpdate(r.id, "rejected")} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"><X size={14} /> Reject</button>
           </>
         )}
         {r.status === "approved" && (
           <>
-            <button
-              onClick={() => onUpdate(r.id, "pending")}
-              disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-md bg-amber-600 text-white px-3 py-1.5 text-sm hover:bg-amber-700 disabled:opacity-60"
-            >
-              <RotateCcw size={14} /> Unapprove
-            </button>
-            <button
-              onClick={() => onUpdate(r.id, "rejected")}
-              disabled={busy}
-              className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"
-            >
-              <X size={14} /> Reject
-            </button>
+            <button onClick={() => onUpdate(r.id, "pending")} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-amber-600 text-white px-3 py-1.5 text-sm hover:bg-amber-700 disabled:opacity-60"><RotateCcw size={14} /> Unapprove</button>
+            <button onClick={() => onUpdate(r.id, "rejected")} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"><X size={14} /> Reject</button>
           </>
         )}
         {r.status === "rejected" && (
-          <button
-            onClick={() => onUpdate(r.id, "approved")}
-            disabled={busy}
-            className="inline-flex items-center gap-1.5 rounded-md bg-emerald-600 text-white px-3 py-1.5 text-sm hover:bg-emerald-700 disabled:opacity-60"
-          >
-            <Check size={14} /> Approve
-          </button>
+          <button onClick={() => onUpdate(r.id, "approved")} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-emerald-600 text-white px-3 py-1.5 text-sm hover:bg-emerald-700 disabled:opacity-60"><Check size={14} /> Approve</button>
         )}
-        <button
-          onClick={() => onDeleteRequest(r.id)}
-          disabled={busy}
-          className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto"
-        >
-          <Trash2 size={14} /> Delete
-        </button>
+        <button onClick={() => onDeleteRequest(r.id)} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto"><Trash2 size={14} /> Delete</button>
       </div>
     </article>
+  );
+}
+
+/* ───────────────────────── Gallery panel ───────────────────────── */
+
+const GALLERY_BUCKET = "gallery-photos";
+const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
+
+type GalleryRow = {
+  id: string;
+  tour_slug: string | null;
+  tour_label: string | null;
+  trip_date: string | null;
+  photos: string[] | null;
+  youtube_url: string | null;
+  status: string;
+  created_at?: string;
+};
+
+async function uploadGalleryPhoto(file: File): Promise<string | null> {
+  if (!ACCEPTED.includes(file.type)) return null;
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
+  const { error } = await supabase.storage.from(GALLERY_BUCKET).upload(path, file, {
+    contentType: file.type, cacheControl: "3600", upsert: false,
+  });
+  if (error) {
+    console.error("gallery upload failed", error);
+    return null;
+  }
+  const { data } = supabase.storage.from(GALLERY_BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+function GalleryPanel() {
+  const tours = useTours();
+  const [rows, setRows] = useState<GalleryRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+
+  // form state
+  const [tourSlug, setTourSlug] = useState("");
+  const [tripDate, setTripDate] = useState("");
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [warn, setWarn] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [formMsg, setFormMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setErr(null);
+    const { data, error } = await supabase.from("gallery").select("*").order("trip_date", { ascending: false });
+    if (error) setErr(error.message);
+    setRows((data as GalleryRow[]) ?? []);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files || []).filter((f) => ACCEPTED.includes(f.type));
+    if (files.length > 5) {
+      setWarn("You can upload up to 5 photos");
+      setPhotoFiles(files.slice(0, 5));
+    } else {
+      setWarn("");
+      setPhotoFiles(files);
+    }
+  }
+
+  async function submitAlbum(e: React.FormEvent) {
+    e.preventDefault();
+    setFormMsg(null);
+    if (!tourSlug || !tripDate) {
+      setFormMsg({ kind: "err", text: "Tour and trip date are required." });
+      return;
+    }
+    const tour = tours.find((t) => t.slug === tourSlug);
+    if (!tour) {
+      setFormMsg({ kind: "err", text: "Invalid tour selected." });
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const uploads = await Promise.all(photoFiles.map(uploadGalleryPhoto));
+      const photos = uploads.filter((u): u is string => !!u);
+      const { error } = await supabase.from("gallery").insert({
+        tour_slug: tour.slug,
+        tour_label: tour.title,
+        trip_date: tripDate,
+        photos,
+        youtube_url: youtubeUrl.trim() || null,
+        status: "published",
+      });
+      if (error) throw error;
+      setFormMsg({ kind: "ok", text: "Album added." });
+      setTourSlug("");
+      setTripDate("");
+      setPhotoFiles([]);
+      setYoutubeUrl("");
+      setWarn("");
+      await load();
+    } catch (e: any) {
+      setFormMsg({ kind: "err", text: e?.message || "Failed to add album." });
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function toggleStatus(row: GalleryRow) {
+    setBusyId(row.id);
+    const next = row.status === "published" ? "hidden" : "published";
+    const { error } = await supabase.from("gallery").update({ status: next }).eq("id", row.id);
+    setBusyId(null);
+    if (error) return setErr(error.message);
+    await load();
+  }
+
+  async function deleteAlbum(id: string) {
+    setBusyId(id);
+    const { error } = await supabase.from("gallery").delete().eq("id", id);
+    setBusyId(null);
+    setDeleteConfirmId(null);
+    if (error) return setErr(error.message);
+    await load();
+  }
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      {/* Add form */}
+      <section className="bg-card border border-border rounded-xl p-5 md:p-6 mb-8">
+        <h2 className="text-base font-semibold text-foreground">Add new album</h2>
+        <form onSubmit={submitAlbum} className="mt-4 grid gap-4 md:grid-cols-2">
+          <label className="block">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">Tour *</span>
+            <select required value={tourSlug} onChange={(e) => setTourSlug(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+              <option value="">Select a tour…</option>
+              {tours.map((t) => (
+                <option key={t.slug} value={t.slug}>{t.title}</option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">Trip date *</span>
+            <input type="date" required value={tripDate} onChange={(e) => setTripDate(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+          </label>
+          <label className="block md:col-span-2">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">Photos (up to 5)</span>
+            <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={onPhotosPick} className="w-full text-sm" />
+            {warn && <p className="mt-1 text-xs text-amber-600">{warn}</p>}
+            {photoFiles.length > 0 && <p className="mt-1 text-xs text-muted-foreground">{photoFiles.length} file(s) ready to upload.</p>}
+          </label>
+          <label className="block md:col-span-2">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">YouTube URL (optional)</span>
+            <input type="url" placeholder="https://youtu.be/…" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+          </label>
+          <div className="md:col-span-2 flex items-center gap-3">
+            <button type="submit" disabled={submitting} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-60">
+              {submitting ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+              {submitting ? "Adding…" : "Add to Gallery"}
+            </button>
+            {formMsg && (
+              <p className={`text-sm ${formMsg.kind === "ok" ? "text-emerald-700" : "text-destructive"}`}>{formMsg.text}</p>
+            )}
+          </div>
+        </form>
+      </section>
+
+      {/* Manage existing */}
+      <h2 className="text-base font-semibold text-foreground mb-3">Albums</h2>
+      {err && <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{err}</div>}
+
+      {loading ? (
+        <div className="grid place-items-center py-20"><Loader2 className="animate-spin text-muted-foreground" /></div>
+      ) : rows.length === 0 ? (
+        <p className="text-sm text-muted-foreground py-12 text-center">No albums yet.</p>
+      ) : (
+        <div className="space-y-3">
+          {rows.map((row) => (
+            <GalleryAdminCard
+              key={row.id}
+              row={row}
+              busy={busyId === row.id}
+              onToggle={() => toggleStatus(row)}
+              onDeleteRequest={() => setDeleteConfirmId(row.id)}
+            />
+          ))}
+        </div>
+      )}
+
+      {deleteConfirmId && (
+        <ConfirmDialog
+          title="Permanently delete this album?"
+          onCancel={() => setDeleteConfirmId(null)}
+          onConfirm={() => deleteAlbum(deleteConfirmId)}
+          busy={busyId === deleteConfirmId}
+        />
+      )}
+    </div>
+  );
+}
+
+function GalleryAdminCard({
+  row, busy, onToggle, onDeleteRequest,
+}: { row: GalleryRow; busy: boolean; onToggle: () => void; onDeleteRequest: () => void; }) {
+  const photos = row.photos ?? [];
+  const cover = photos[0];
+  const date = row.trip_date ? new Date(row.trip_date).toLocaleDateString() : "—";
+  const isPublished = row.status === "published";
+  const badge = isPublished
+    ? { label: "Published", color: "bg-emerald-100 text-emerald-700" }
+    : { label: "Hidden", color: "bg-slate-200 text-slate-700" };
+
+  return (
+    <article className="bg-card border border-border rounded-xl p-4 flex gap-4 items-start">
+      <div className="h-20 w-28 shrink-0 rounded-md overflow-hidden bg-muted">
+        {cover ? <img src={cover} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full grid place-items-center text-muted-foreground"><ImageIcon size={20} /></div>}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3 flex-wrap">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-foreground truncate">{row.tour_label || row.tour_slug || "—"}</p>
+            <p className="text-xs text-muted-foreground">{date} · {photos.length} photo{photos.length === 1 ? "" : "s"}{row.youtube_url ? " · " : ""}{row.youtube_url ? <span className="inline-flex items-center gap-1"><Video size={11} />video</span> : null}</p>
+          </div>
+          <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${badge.color}`}>{badge.label}</span>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <button onClick={onToggle} disabled={busy} className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm disabled:opacity-60 ${isPublished ? "bg-amber-600 text-white hover:bg-amber-700" : "bg-emerald-600 text-white hover:bg-emerald-700"}`}>
+            {isPublished ? <><EyeOff size={14} /> Hide</> : <><Eye size={14} /> Publish</>}
+          </button>
+          <button onClick={onDeleteRequest} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto">
+            <Trash2 size={14} /> Delete
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ConfirmDialog({ title, onCancel, onConfirm, busy }: { title: string; onCancel: () => void; onConfirm: () => void; busy: boolean }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="bg-card border border-border rounded-xl p-6 max-w-sm w-full shadow-lg">
+        <h3 className="text-base font-semibold text-foreground">{title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">This cannot be undone.</p>
+        <div className="mt-5 flex justify-end gap-2">
+          <button onClick={onCancel} className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent">Cancel</button>
+          <button onClick={onConfirm} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-destructive text-destructive-foreground px-3 py-2 text-sm hover:bg-destructive/90 disabled:opacity-60">
+            <Trash2 size={14} /> Delete
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
