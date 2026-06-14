@@ -569,9 +569,6 @@ export function TourDetailPage() {
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
 
-  if (isShuttleSlug(slug)) {
-    return <ShuttleTourDetail tour={tour} slug={slug} locale={locale} toursHref={toursHref} allToursLabel={T.allTours} />;
-  }
 
   return (
     <SiteLayout>
