@@ -574,6 +574,7 @@ export function TourDetailPage() {
   }
 
   return (
+    <SiteLayout>
       {/* Compact hero band */}
       <section className="relative bg-cream">
         <div className="relative h-[34vh] md:h-[42vh] min-h-[240px] max-h-[420px] overflow-hidden">
