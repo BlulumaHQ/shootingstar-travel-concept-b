@@ -575,7 +575,7 @@ export const tours: Tour[] = [
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "U-pick cost", "Fishing license", "GST"],
     optional: ["U-pick cost", "Fishing license"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Fruit U-Pick & Crab Catching",
   },
   {
@@ -599,7 +599,7 @@ export const tours: Tour[] = [
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "Admission", "GST"],
     optional: ["Capilano Suspension Bridge admission if selected"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Vancouver City Tour",
   },
   {
@@ -620,7 +620,7 @@ export const tours: Tour[] = [
     included: ["Bus", "Driver", "Guide", "Parking"],
     notIncluded: ["Meals", "Tip $20", "Admission", "GST"],
     optional: ["Boeing Flight Museum admission"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Seattle Tech Tour",
   },
   {
@@ -638,7 +638,7 @@ export const tours: Tour[] = [
     included: ["Comfortable transportation"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Optional self-guided hikes", "Suggested guide gratuity"],
     optional: ["None listed"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your JET 1-Day Tour",
   },
   {
@@ -656,7 +656,7 @@ export const tours: Tour[] = [
     included: ["Comfortable transportation"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Canoe rental", "Optional hikes", "Suggested guide gratuity"],
     optional: ["Canoe rental", "Optional self-guided hikes"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your 5 Lakes 1-Day Tour",
   },
   {
@@ -674,7 +674,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Banff pickup", "Moraine Lake visit", "Lake Louise visit"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Canoe rental", "Optional hikes", "Suggested guide gratuity"],
     optional: ["Canoe rental"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Moraine Lake & Lake Louise Half-Day Tour",
   },
   {
@@ -692,7 +692,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Canmore/Banff pickup", "Moraine Lake visit", "Lake Louise visit"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Suggested guide gratuity"],
     optional: ["None listed"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Moraine Lake Sunrise Tour",
   },
   {
@@ -710,7 +710,7 @@ export const tours: Tour[] = [
     included: ["Comfortable transportation"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Optional attraction tickets", "Suggested guide gratuity"],
     optional: ["Columbia Icefield Ice Explorer if requested"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Rockies Signature 1-Day Tour",
   },
   {
@@ -728,7 +728,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["Columbia Icefield Ice Explorer Adult +$90 / Child +$60", "Hinton extension +$20 one-way / +$35 round-trip"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Banff to Jasper Sightseeing Shuttle",
   },
   {
@@ -746,7 +746,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["Maligne Lake Cruise Adult +$115 / Child +$76"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Jasper & Maligne Lake Spirit Island Day Tour",
   },
   {
@@ -764,7 +764,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["None listed"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Jasper to Banff Express Shuttle",
   },
   {
@@ -782,7 +782,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["Hinton extension +$20 one-way / +$35 round-trip"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Banff to Jasper Express Shuttle",
   },
   {
@@ -800,7 +800,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["Maligne Lake Cruise Adult +$115 / Child +$76"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Jasper Medicine Lake & Maligne Lake Half-Day Tour",
   },
   {
@@ -818,7 +818,7 @@ export const tours: Tour[] = [
     ],
     included: ["飯店（Best Western 或同級，1 晚）","舒適交通","司機／導遊","停車費"],
     notIncluded: ["5% 消費稅 (GST)","餐食與飲料","個人消費","門票","建議導遊小費"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Victoria + Nanaimo 2-Day Tour",
   },
   {
@@ -838,7 +838,7 @@ export const tours: Tour[] = [
     ],
     included: ["飯店（3 晚，含早餐）","巴士","司機／導遊","停車費"],
     notIncluded: ["機票","餐食","門票","建議導遊小費（USD $20 × 4 = $80）"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Los Angeles 4-Day Tour",
   },
   {
@@ -859,7 +859,7 @@ export const tours: Tour[] = [
     ],
     included: ["飯店","巴士","司機","導遊","小費","餐食","3 項門票（尼加拉遊船、千島湖遊船、聖約瑟夫大教堂）","停車費"],
     notIncluded: ["機票","3 餐 + 早餐"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Eastern Canada Luxury 5-Day Tour",
   },
   {
@@ -881,7 +881,7 @@ export const tours: Tour[] = [
     included: ["飯店","巴士","司機／導遊","9 餐"],
     notIncluded: ["機票","導遊小費（$20 × 5 = $100）","飯店與餐廳小費（$22）","3 餐","所有門票"],
     optional: ["CN 塔 $60","尼加拉瀑布遊船 $55","千島湖遊船 $42","聖約瑟夫大教堂 $6","蒙特倫西瀑布 $16"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Eastern Canada 5-Day Tour",
   },
   {
@@ -899,7 +899,7 @@ export const tours: Tour[] = [
     included: ["Transportation", "Scheduled pickup/drop-off"],
     notIncluded: ["GST", "Meals", "Personal expenses", "Optional add-ons", "Suggested gratuity"],
     optional: ["Columbia Icefield Ice Explorer Adult +$90 / Child +$60", "Hinton pickup +$20 one-way / +$35 round-trip"],
-    notes: []
+    notes: [],
     bookingCta: "Book Your Icefields Parkway Southbound Sightseeing Shuttle",
   },
 ];
