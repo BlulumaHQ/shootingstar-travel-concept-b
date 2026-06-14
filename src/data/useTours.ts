@@ -6,20 +6,18 @@ import type { Tour } from "./tours";
 
 const rootApi = getRouteApi("__root__");
 
-// Fields that come from the English/Supabase source of truth and must be
-// merged into localized Tour objects so booking works in every locale.
-const BOOKING_FIELDS = ["rezdyProductCode", "price"] as const;
-
+// Localized tour files don't carry booking-only fields (rezdyProductCode).
+// Merge them from the English source of truth so booking works in every locale.
+// Keep localized title/intro/price untouched.
 function mergeBooking(localized: Tour | undefined, en: Tour | undefined): Tour | undefined {
   if (!localized) return undefined;
   if (!en) return localized;
   const merged: Tour = { ...localized };
-  for (const k of BOOKING_FIELDS) {
-    const v = (en as Tour)[k];
-    if (v !== undefined && v !== null && v !== "") {
-      (merged as Record<string, unknown>)[k] = v;
-    }
+  if (en.rezdyProductCode && !merged.rezdyProductCode) {
+    merged.rezdyProductCode = en.rezdyProductCode;
   }
+  // Fall back to EN price only if the localized one is missing.
+  if (en.price && !merged.price) merged.price = en.price;
   return merged;
 }
 
