@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { Star, Heart } from "lucide-react";
+import { ReviewCard } from "@/components/site/ReviewCard";
+import { useReviews } from "@/data/useReviews";
 import { tours } from "@/data/tours";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
@@ -109,6 +111,7 @@ function ShareModal({ onClose }: { onClose: () => void }) {
 
 export function ReviewsPage() {
   const l = useLocale();
+  const reviews = useReviews();
   const [shareOpen, setShareOpen] = useState(false);
 
   return (
@@ -131,27 +134,47 @@ export function ReviewsPage() {
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
-      {/* Single placeholder card */}
+      {/* Reviews grid */}
       <section className="bg-paper/40 pt-12 md:pt-16 pb-28 md:pb-36">
-        <div className="mx-auto max-w-[760px] px-6 md:px-12">
-          <div className="rounded-2xl border border-dashed border-primary/30 bg-cream/70 px-7 py-12 md:px-12 md:py-16 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.45)]">
-            <div className="inline-flex items-center gap-2 text-primary/75">
-              <StarMark size={14} className="text-primary/65" />
-              <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium">{t("placeholderEyebrow", l)}</span>
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          {reviews.length === 0 ? (
+            <div className="max-w-[760px] mx-auto">
+              <div className="rounded-2xl border border-dashed border-primary/30 bg-cream/70 px-7 py-12 md:px-12 md:py-16 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.45)]">
+                <div className="inline-flex items-center gap-2 text-primary/75">
+                  <StarMark size={14} className="text-primary/65" />
+                  <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium">{t("placeholderEyebrow", l)}</span>
+                </div>
+                <h2 className="mt-5 font-serif text-[24px] md:text-[30px] text-ink leading-[1.35] tracking-[-0.01em]">
+                  {t("placeholderTitle", l)}
+                </h2>
+                <p className="mt-5 text-ink/65 leading-[2] text-[14.5px] max-w-md mx-auto">
+                  {t("placeholderBody", l)}
+                </p>
+                <button
+                  onClick={() => setShareOpen(true)}
+                  className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
+                >
+                  <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
+                </button>
+              </div>
             </div>
-            <h2 className="mt-5 font-serif text-[24px] md:text-[30px] text-ink leading-[1.35] tracking-[-0.01em]">
-              {t("placeholderTitle", l)}
-            </h2>
-            <p className="mt-5 text-ink/65 leading-[2] text-[14.5px] max-w-md mx-auto">
-              {t("placeholderBody", l)}
-            </p>
-            <button
-              onClick={() => setShareOpen(true)}
-              className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
-            >
-              <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
-            </button>
-          </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                {reviews.map((r, i) => (
+                  <ReviewCard key={i} r={r} />
+                ))}
+              </div>
+              <div className="mt-14 text-center">
+                <button
+                  onClick={() => setShareOpen(true)}
+                  className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
+                >
+                  <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </section>
 

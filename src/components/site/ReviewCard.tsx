@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, UserCircle } from "lucide-react";
 
 export type Review = {
   avatar: string;
@@ -48,7 +48,13 @@ export function ReviewCard({ r, compact = false }: { r: Review; compact?: boolea
         </div>
         <p className="mt-4 text-[14px] text-ink/85 leading-[1.95] flex-1 font-serif">「{r.text}」</p>
         <div className="mt-6 pt-5 border-t border-border/60 flex items-center gap-3">
-          <img src={r.avatar} alt={r.name} className="h-10 w-10 rounded-full object-cover" />
+          {r.avatar ? (
+            <img src={r.avatar} alt={r.name} className="h-10 w-10 rounded-full object-cover" />
+          ) : (
+            <div className="h-10 w-10 rounded-full bg-border flex items-center justify-center">
+              <UserCircle size={24} className="text-ink/40" />
+            </div>
+          )}
           <div className="leading-tight">
             <p className="text-[13.5px] text-ink font-semibold">{r.name}</p>
             <p className="text-[11.5px] text-ink/65 mt-0.5">{r.country ? `${r.country} · ` : ""}{r.tour}</p>
