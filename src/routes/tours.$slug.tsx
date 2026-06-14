@@ -4,6 +4,7 @@ import { TourGallery } from "@/components/site/TourGallery";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
+import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
 import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
@@ -476,7 +477,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
         </div>
         <span className="text-[11px] text-ink/55">
-          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
+          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{formatPrice(tour?.price, locale)}</span>
         </span>
       </div>
 
@@ -682,7 +683,7 @@ export function TourDetailPage() {
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
-                <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{tour.price}</span></div>
+                <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{formatPrice(tour.price, locale)}</span></div>
               </div>
               {tour.language && (
                 <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
@@ -731,7 +732,7 @@ export function TourDetailPage() {
                       <div key={r.label} className="rounded-[6px] border border-border/70 bg-cream p-5">
                         <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{r.guests}</p>
                         <h4 className="font-serif text-[16px] text-ink mt-1 font-semibold leading-snug">{r.label}</h4>
-                        <p className="mt-3 font-serif text-primary text-[17px] font-semibold">{r.price}</p>
+                        <p className="mt-3 font-serif text-primary text-[17px] font-semibold">{formatPrice(r.price, locale)}</p>
                       </div>
                     ))}
                   </div>
@@ -742,7 +743,7 @@ export function TourDetailPage() {
               ) : (
                 <div className="mt-6 rounded-[6px] border border-border/70 bg-cream p-5">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{T.tourRate}</p>
-                  <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{tour.price}</p>
+                  <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{formatPrice(tour.price, locale)}</p>
                 </div>
               )}
               {tour.gratuity && (
@@ -870,7 +871,7 @@ export function TourDetailPage() {
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
         <div>
           <p className="text-[10.5px] text-ink/55 tracking-[0.2em] uppercase">From</p>
-          <p className="font-serif text-primary text-lg font-semibold leading-tight">{tour.price}</p>
+          <p className="font-serif text-primary text-lg font-semibold leading-tight">{formatPrice(tour.price, locale)}</p>
         </div>
         <a
           href="#m-booking-form"
