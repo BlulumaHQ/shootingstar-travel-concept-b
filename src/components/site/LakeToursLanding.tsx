@@ -64,7 +64,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           <p className="font-marker text-cream/90 text-[13px] tracking-[0.3em] uppercase">
             {c.hero.eyebrow}
           </p>
-          <h1 className="mt-5 font-serif text-[40px] md:text-[64px] leading-[1.05] font-semibold">
+          <h1 className="mt-5 font-serif text-[40px] md:text-[64px] leading-[1.05] font-semibold text-cream">
             {c.hero.title}
           </h1>
           <p className="mt-7 mx-auto max-w-2xl text-cream/95 text-[15.5px] md:text-[17px] leading-[1.9]">
