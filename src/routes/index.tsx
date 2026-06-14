@@ -643,7 +643,7 @@ export function HomePage() {
                   { l: "Email", h: "mailto:info@shootingstartravel.ca" },
                   { l: "KakaoTalk", h: "https://qr.kakao.com/talk/noworriesyep" },
                 ].map((c) => (
-                  <a key={c.l} href={c.h} className="rounded-full bg-cream/70 backdrop-blur-sm text-ink/75 px-4 py-1.5 text-[12.5px] hover:bg-cream transition">
+                  <a key={c.l} href={c.h} target={c.h.startsWith("http") ? "_blank" : undefined} rel={c.h.startsWith("http") ? "noopener noreferrer" : undefined} className="rounded-full bg-cream/70 backdrop-blur-sm text-ink/75 px-4 py-1.5 text-[12.5px] hover:bg-cream transition">
                     {c.l}
                   </a>
                 ))}
