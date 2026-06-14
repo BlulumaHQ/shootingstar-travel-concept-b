@@ -641,10 +641,10 @@ export const tours: Tour[] = [
   {
     slug: "5-lakes-tour",
     img: banffTwoLakeFeature,
-    title: "5 Lakes 1-Day Tour",
-    desc: "A Rockies lake-focused day tour visiting Two Jack Lake, Lake Minnewanka, Lake Louise, Moraine Lake, Natural Bridge, and Emerald Lake.",
-    intro: "Itinerary: Two Jack Lake; Lake Minnewanka; Lake Louise; Moraine Lake; Natural Bridge; Emerald Lake. Designed for guests who want to see multiple iconic Rockies lakes in one day.",
-    duration: "1 day",
+    title: "5대 호수 1일 투어",
+    desc: "투잭 호수, 미네완카 호수, 레이크 루이스, 모레인 호수, 내추럴 브리지, 에메랄드 호수를 둘러보는 로키산맥 호수 중심 1일 투어.",
+    intro: "일정: 투잭 호수, 미네완카 호수, 레이크 루이스, 모레인 호수, 내추럴 브리지, 에메랄드 호수. 하루 안에 로키산맥의 상징적인 호수들을 두루 보고 싶은 여행자를 위한 투어입니다.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
     itinerary: [
@@ -659,10 +659,10 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-lake-louise-half-day",
     img: heroBgMoraine,
-    title: "Moraine Lake & Lake Louise Half-Day Tour",
-    desc: "Half-day Banff lake access to Moraine Lake and Lake Louise.",
-    intro: "Half-day tour from Banff to Moraine Lake and Lake Louise for guests who want a comfortable lake experience without a full-day commitment.",
-    duration: "5 hours",
+    title: "모레인 호수 & 레이크 루이스 반일 투어",
+    desc: "모레인 호수와 레이크 루이스를 방문하는 밴프 호수 반일 투어.",
+    intro: "밴프에서 출발하여 모레인 호수와 레이크 루이스를 둘러보는 반일 투어로, 하루를 다 쓰지 않고도 편안하게 호수를 즐기고 싶은 여행자에게 적합합니다.",
+    duration: "5시간",
     language: LANGUAGE_NOTE,
     price: "From $130 CAD / adult",
     itinerary: [
@@ -677,10 +677,10 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-sunrise-tour",
     img: heroBgMoraine,
-    title: "Moraine Lake Sunrise Tour",
-    desc: "Early morning sunrise tour to Moraine Lake with Lake Louise free time.",
-    intro: "Early-morning Rockies experience for first light at Moraine Lake plus extended free time at Lake Louise.",
-    duration: "1 day",
+    title: "모레인 호수 일출 투어",
+    desc: "이른 아침 모레인 호수 일출 투어, 레이크 루이스 자유 시간 포함.",
+    intro: "모레인 호수의 첫 햇살을 담는 이른 아침 로키산맥 체험으로, 레이크 루이스에서 넉넉한 자유 시간을 즐길 수 있습니다.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $190 CAD / adult",
     itinerary: [
@@ -695,10 +695,10 @@ export const tours: Tour[] = [
   {
     slug: "rockies-signature-columbia-icefield",
     img: tourIcefield,
-    title: "Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway",
-    desc: "A Rockies scenic highway day tour covering Crowfoot Glacier, Peyto Lake, Saskatchewan River Crossing, Columbia Icefield, and Bow Lake.",
-    intro: "Itinerary: Crowfoot Glacier; Peyto Lake; Saskatchewan River Crossing; Columbia Icefield Glacier Discovery Centre; Bow Lake.",
-    duration: "1 day",
+    title: "로키산맥 시그니처 1일 투어｜컬럼비아 아이스필드 & 경관 하이웨이",
+    desc: "크로우풋 빙하, 페이토 호수, 서스캐처원 리버 크로싱, 컬럼비아 아이스필드, 보우 호수를 아우르는 로키산맥 경관 하이웨이 1일 투어.",
+    intro: "일정: 크로우풋 빙하, 페이토 호수, 서스캐처원 리버 크로싱, 컬럼비아 아이스필드 빙하 디스커버리 센터, 보우 호수.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
     itinerary: [
@@ -713,10 +713,10 @@ export const tours: Tour[] = [
   {
     slug: "banff-to-jasper-sightseeing-shuttle",
     img: tourIcefield,
-    title: "Banff to Jasper Sightseeing Shuttle",
-    desc: "Sightseeing transfer from Banff to Jasper with Icefields Parkway stops and optional Hinton extension.",
-    intro: "Sightseeing transfer from Banff to Jasper with Icefields Parkway stops and optional Hinton extension. Add-ons: Columbia Icefield Ice Explorer Adult +$90 / Child +$60; Hinton extension +$20 one-way / +$35 round-trip",
-    duration: "9~10 hours",
+    title: "밴프 → 재스퍼 관광 셔틀",
+    desc: "아이스필드 파크웨이 정차지를 경유하는 밴프발 재스퍼행 관광 셔틀, 힌튼 연장 구간 선택 가능.",
+    intro: "아이스필드 파크웨이 정차지를 경유하는 밴프발 재스퍼행 관광 셔틀이며, 힌튼 연장 구간을 추가할 수 있습니다. 추가 옵션: 컬럼비아 아이스필드 아이스 익스플로러 성인 +$90 / 아동 +$60; 힌튼 연장 편도 +$20 / 왕복 +$35.",
+    duration: "9~10시간",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
     itinerary: [
