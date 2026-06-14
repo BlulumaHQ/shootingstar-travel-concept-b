@@ -6,28 +6,47 @@ import type { Tour } from "./tours";
 
 const rootApi = getRouteApi("__root__");
 
-// Localized tour files don't carry booking-only fields (rezdyProductCode).
-// Merge them from the English source of truth so booking works in every locale.
-// Keep localized title/intro/price untouched.
-function mergeBooking(localized: Tour | undefined, en: Tour | undefined): Tour | undefined {
-  if (!localized) return undefined;
-  if (!en) return localized;
-  const merged: Tour = { ...localized };
-  if (en.rezdyProductCode && !merged.rezdyProductCode) {
-    merged.rezdyProductCode = en.rezdyProductCode;
+// Text fields that should come from the localized static file when present.
+// Everything else (img, gallery, price, rezdyProductCode, href, etc.) stays
+// from the English Supabase-sourced tour so cards, galleries, prices, and the
+// Rezdy booking widget match the English page exactly.
+const TEXT_KEYS = [
+  "title",
+  "desc",
+  "intro",
+  "duration",
+  "language",
+  "pickup",
+  "itinerary",
+  "roomOptions",
+  "roomNote",
+  "gratuity",
+  "included",
+  "notIncluded",
+  "optional",
+  "notes",
+  "bookingCta",
+] as const;
+
+function overlayText(en: Tour, localized: Tour | undefined): Tour {
+  if (!localized) return en;
+  const out: Tour = { ...en };
+  for (const k of TEXT_KEYS) {
+    const v = (localized as any)[k];
+    if (v !== undefined && v !== null && !(Array.isArray(v) && v.length === 0)) {
+      (out as any)[k] = v;
+    }
   }
-  // Fall back to EN price only if the localized one is missing.
-  if (en.price && !merged.price) merged.price = en.price;
-  return merged;
+  return out;
 }
 
 export function useTours(): Tour[] {
   const l = useLocale();
   const { toursEn } = rootApi.useLoaderData() as { toursEn: Tour[] };
   if (l === "en") return toursEn;
-  const base = l === "zh" ? toursZh : toursKo;
-  const enBySlug = new Map(toursEn.map((t) => [t.slug, t]));
-  return base.map((t) => mergeBooking(t, enBySlug.get(t.slug))!);
+  const localized = l === "zh" ? toursZh : toursKo;
+  const locBySlug = new Map(localized.map((t) => [t.slug, t]));
+  return toursEn.map((en) => overlayText(en, locBySlug.get(en.slug)));
 }
 
 export function useGetTour() {
@@ -37,6 +56,9 @@ export function useGetTour() {
     return (slug: string): Tour | undefined => toursEn.find((t) => t.slug === slug);
   }
   const localizedGetter = l === "zh" ? getTourZh : getTourKo;
-  return (slug: string): Tour | undefined =>
-    mergeBooking(localizedGetter(slug), toursEn.find((t) => t.slug === slug));
+  return (slug: string): Tour | undefined => {
+    const en = toursEn.find((t) => t.slug === slug);
+    if (!en) return undefined;
+    return overlayText(en, localizedGetter(slug));
+  };
 }
