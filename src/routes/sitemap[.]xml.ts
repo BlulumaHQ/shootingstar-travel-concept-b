@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { tours } from "@/data/tours";
 
-const BASE_URL = "https://shootingstar-travel-concept-b.lovable.app";
+const BASE_URL = "https://www.shootingstartravel.ca";
 const LOCALES = ["", "/zh", "/ko"] as const;
 const PAGES = ["/", "/about", "/tours", "/reviews", "/blog", "/faq", "/contact", "/destinations", "/privacy", "/terms"];
 

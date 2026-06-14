@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "TravelAgency",
           name: "Shootingstar Travel",
-          url: "https://shootingstar-travel-concept-b.lovable.app/",
+          url: "https://www.shootingstartravel.ca/",
           areaServed: ["Canada", "British Columbia", "Alberta", "Yukon", "United States", "Washington", "Oregon", "California", "Nevada"],
           knowsLanguage: ["en", "zh", "ko"],
           sameAs: [],
@@ -112,7 +112,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefsHeading: "Our Travel Philosophy",
     beliefsBody: "Five things we care about — in every departure.",
     beliefs: [
-      { num: "01", title: "Small Groups", desc: "8–14 people per group — unhurried, uncrowded, every traveller is looked after." },
+      { num: "01", title: "Flexible Group Sizes", desc: "From intimate small groups to full coaches — right-sized vehicles for every party, so every traveller is looked after." },
       { num: "02", title: "Thoughtful Detail", desc: "From airport pickups to corner cafés, every touchpoint is carefully chosen." },
       { num: "03", title: "Mandarin / English / Korean Tours", desc: "We run separate English + Mandarin and English + Korean departures. Please choose the itinerary that matches your language." },
       { num: "04", title: "Safety & Clear Communication", desc: "Full travel insurance and a 24-hour hotline — so family can rest easy." },
@@ -172,7 +172,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefsHeading: "五個我們在乎的事",
     beliefsBody: "貫穿每一次出發。",
     beliefs: [
-      { num: "01", title: "小團更舒適", desc: "每團 8–14 人 — 不趕、不擠,每位旅人都被照顧到。" },
+      { num: "01", title: "彈性團體規模", desc: "從小型團到大型巴士 — 依人數安排最合適的車輛，讓每位旅人都被照顧到。" },
       { num: "02", title: "細節都用心", desc: "從機場接送到街角咖啡,每個接觸點都精挑細選。" },
       { num: "03", title: "中文 / 英文 / 韓文團", desc: "我們分別提供 英文／中文、英文／韓文 出發團，請依您的語言選擇對應行程。" },
       { num: "04", title: "安全與清晰溝通", desc: "完整旅遊保險與 24 小時聯絡專線,讓家人安心。" },
@@ -232,7 +232,7 @@ const PACKS: Record<Locale, Pack> = {
     beliefsHeading: "우리가 아끼는 다섯 가지",
     beliefsBody: "모든 출발에 담겨 있습니다.",
     beliefs: [
-      { num: "01", title: "소그룹의 편안함", desc: "그룹당 8–14명 — 서두르지 않고, 붐비지 않게, 모든 여행자가 돌봄받는 여정." },
+      { num: "01", title: "유연한 그룹 규모", desc: "소규모 팀부터 대형 코치까지 — 인원에 맞춘 차량으로 모든 여행자가 세심하게 돌봄받습니다." },
       { num: "02", title: "디테일까지 정성껏", desc: "공항 픽업부터 골목 카페까지, 모든 접점은 정성껏 고릅니다." },
       { num: "03", title: "한국어 · 영어 · 중국어 투어", desc: "영어＋중국어, 영어＋한국어 출발 투어를 각각 운영합니다. 사용 언어에 맞는 일정으로 선택해 주세요." },
       { num: "04", title: "안전과 명확한 소통", desc: "포괄적인 여행 보험과 24시간 연락 라인 — 가족도 안심할 수 있습니다." },
@@ -293,7 +293,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "Rocky Mountain",
       h1Line2: "Lake Tours",
       sub: "Moraine Lake, Lake Louise, Emerald Lake — turquoise water and alpine air on a single, considered day across the Bow Valley.",
-      primary: "Explore Lake Tours →",
+      primary: "Explore Lake Tours",
       badges: ["1 Day · Banff", "Hotel Pickup"],
     },
     icefields: {
@@ -301,7 +301,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "Icefields Parkway",
       h1Line2: "Shuttle & Sightseeing",
       sub: "Flexible weekday-based shuttles between Banff, Jasper, the Columbia Icefield, and Maligne Lake — with optional attractions and clear pickup points.",
-      primary: "Explore Shuttle Routes →",
+      primary: "Explore Shuttle Routes",
       badges: ["Banff ⇄ Jasper", "Columbia Icefield", "Maligne Lake"],
     },
   },
@@ -320,7 +320,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "洛磯山脈",
       h1Line2: "湖泊一日遊",
       sub: "夢蓮湖、露易絲湖、翡翠湖 —— 一天之內,走過 Bow Valley 的綠松石湖水與高山空氣。",
-      primary: "探索湖泊行程 →",
+      primary: "探索湖泊行程",
       badges: ["一日 · 班夫", "飯店接送"],
     },
     icefields: {
@@ -328,7 +328,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "冰原大道",
       h1Line2: "接駁與觀光行程",
       sub: "班夫、賈斯珀、哥倫比亞冰原與瑪琳湖之間的彈性接駁,依星期安排路線,可加購景點門票,接送地點清楚。",
-      primary: "探索接駁路線 →",
+      primary: "探索接駁路線",
       badges: ["班夫 ⇄ 賈斯珀", "哥倫比亞冰原", "瑪琳湖"],
     },
   },
@@ -347,7 +347,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "로키 마운틴",
       h1Line2: "레이크 투어",
       sub: "모레인 호수, 루이스 호수, 에메랄드 호수 — 보우 밸리의 터쿠아즈 빛 호수와 알파인의 공기를 하루에.",
-      primary: "레이크 투어 둘러보기 →",
+      primary: "레이크 투어 둘러보기",
       badges: ["1일 · 밴프", "호텔 픽업"],
     },
     icefields: {
@@ -355,7 +355,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line1: "아이스필드 파크웨이",
       h1Line2: "셔틀 & 사이트싱",
       sub: "밴프, 재스퍼, 컬럼비아 아이스필드, 멀린 호수 사이의 요일별 셔틀 — 선택형 어트랙션 티켓과 명확한 픽업 지점.",
-      primary: "셔틀 노선 둘러보기 →",
+      primary: "셔틀 노선 둘러보기",
       badges: ["밴프 ⇄ 재스퍼", "컬럼비아 아이스필드", "멀린 호수"],
     },
   },
@@ -640,10 +640,10 @@ export function HomePage() {
               <div className="mt-6 flex flex-wrap gap-2">
                 {[
                   { l: "WhatsApp", h: locale === "ko" ? "https://wa.me/17782887524" : "https://wa.me/16047657765" },
-                  { l: "Email", h: "mailto:hello@shootingstartravel.ca" },
-                  { l: "KakaoTalk", h: "#" },
+                  { l: "Email", h: "mailto:info@shootingstartravel.ca" },
+                  { l: "KakaoTalk", h: "https://qr.kakao.com/talk/noworriesyep" },
                 ].map((c) => (
-                  <a key={c.l} href={c.h} className="rounded-full bg-cream/70 backdrop-blur-sm text-ink/75 px-4 py-1.5 text-[12.5px] hover:bg-cream transition">
+                  <a key={c.l} href={c.h} target={c.h.startsWith("http") ? "_blank" : undefined} rel={c.h.startsWith("http") ? "noopener noreferrer" : undefined} className="rounded-full bg-cream/70 backdrop-blur-sm text-ink/75 px-4 py-1.5 text-[12.5px] hover:bg-cream transition">
                     {c.l}
                   </a>
                 ))}

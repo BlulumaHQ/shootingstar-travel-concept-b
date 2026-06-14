@@ -3,7 +3,12 @@ import { MessageCircle, Copy, Check, ExternalLink } from "lucide-react";
 import { useLocale, type Locale } from "@/i18n/locale";
 
 export const CHAT_CHANNELS = {
-  kakao: { label: "KakaoTalk", id: "noworriesyep", type: "copy" as const },
+  kakao: {
+    label: "KakaoTalk",
+    id: "noworriesyep",
+    href: "https://qr.kakao.com/talk/noworriesyep",
+    type: "link" as const,
+  },
   whatsapp: {
     label: "WhatsApp",
     id: "+1 (604) 765-7765",
