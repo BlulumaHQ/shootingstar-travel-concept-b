@@ -356,6 +356,8 @@ export function Footer() {
               >
                 Web Design by BluLuma
               </a>
+              <span className="text-ink/20">·</span>
+              <Link to="/admin" className="text-[11px] text-ink/35 hover:text-ink/60 transition">Admin</Link>
             </div>
           </div>
         </div>
