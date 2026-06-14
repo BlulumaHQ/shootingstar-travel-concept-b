@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useCallback } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { Star, UserCircle, LogOut, Check, X, Loader2 } from "lucide-react";
+import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw } from "lucide-react";
 import { supabase, type ReviewRow } from "@/lib/supabase";
 
 export const Route = createFileRoute("/admin")({
@@ -100,6 +100,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
   const [tab, setTab] = useState<Tab>("pending");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -115,10 +116,22 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
 
   useEffect(() => { load(); }, [load]);
 
-  const updateStatus = async (id: string, status: "approved" | "rejected") => {
+  const updateStatus = async (id: string, status: "approved" | "rejected" | "pending") => {
     setBusyId(id);
     const { error } = await supabase.from("reviews").update({ status }).eq("id", id);
     setBusyId(null);
+    if (error) {
+      setErr(error.message);
+      return;
+    }
+    await load();
+  };
+
+  const deleteReview = async (id: string) => {
+    setBusyId(id);
+    const { error } = await supabase.from("reviews").delete().eq("id", id);
+    setBusyId(null);
+    setDeleteConfirmId(null);
     if (error) {
       setErr(error.message);
       return;
@@ -178,11 +191,41 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
         ) : (
           <div className="space-y-4">
             {filtered.map((r) => (
-              <ReviewAdminCard key={r.id} r={r} busy={busyId === r.id} onUpdate={updateStatus} />
+              <ReviewAdminCard
+                key={r.id}
+                r={r}
+                busy={busyId === r.id}
+                onUpdate={updateStatus}
+                onDeleteRequest={setDeleteConfirmId}
+              />
             ))}
           </div>
         )}
       </div>
+
+      {deleteConfirmId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-card border border-border rounded-xl p-6 max-w-sm w-full shadow-lg">
+            <h3 className="text-base font-semibold text-foreground">Permanently delete this review?</h3>
+            <p className="mt-1 text-sm text-muted-foreground">This cannot be undone.</p>
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                onClick={() => setDeleteConfirmId(null)}
+                className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => deleteReview(deleteConfirmId)}
+                disabled={busyId === deleteConfirmId}
+                className="inline-flex items-center gap-1.5 rounded-md bg-destructive text-destructive-foreground px-3 py-2 text-sm hover:bg-destructive/90 disabled:opacity-60"
+              >
+                <Trash2 size={14} /> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -191,19 +234,22 @@ function ReviewAdminCard({
   r,
   busy,
   onUpdate,
+  onDeleteRequest,
 }: {
   r: ReviewRow;
   busy: boolean;
-  onUpdate: (id: string, status: "approved" | "rejected") => void;
+  onUpdate: (id: string, status: "approved" | "rejected" | "pending") => void;
+  onDeleteRequest: (id: string) => void;
 }) {
   const photos = r.photos ?? [];
   const date = r.created_at ? new Date(r.created_at).toLocaleDateString() : "";
-  const statusColor =
+
+  const statusMeta =
     r.status === "approved"
-      ? "bg-emerald-100 text-emerald-700"
+      ? { label: "Approved", color: "bg-emerald-100 text-emerald-700" }
       : r.status === "rejected"
-      ? "bg-rose-100 text-rose-700"
-      : "bg-amber-100 text-amber-700";
+      ? { label: "Rejected", color: "bg-rose-100 text-rose-700" }
+      : { label: "Pending", color: "bg-amber-100 text-amber-700" };
 
   return (
     <article className="bg-card border border-border rounded-xl p-5">
@@ -221,7 +267,9 @@ function ReviewAdminCard({
             <p className="text-xs text-muted-foreground">{r.tour_label || r.tour_slug || "—"} · {date}</p>
           </div>
         </div>
-        <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${statusColor}`}>{r.status}</span>
+        <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${statusMeta.color}`}>
+          {statusMeta.label}
+        </span>
       </div>
 
       <div className="mt-3 flex gap-0.5 text-amber-500">
@@ -242,8 +290,44 @@ function ReviewAdminCard({
         </div>
       )}
 
-      {r.status === "pending" && (
-        <div className="mt-4 flex gap-2">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        {r.status === "pending" && (
+          <>
+            <button
+              onClick={() => onUpdate(r.id, "approved")}
+              disabled={busy}
+              className="inline-flex items-center gap-1.5 rounded-md bg-emerald-600 text-white px-3 py-1.5 text-sm hover:bg-emerald-700 disabled:opacity-60"
+            >
+              <Check size={14} /> Approve
+            </button>
+            <button
+              onClick={() => onUpdate(r.id, "rejected")}
+              disabled={busy}
+              className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"
+            >
+              <X size={14} /> Reject
+            </button>
+          </>
+        )}
+        {r.status === "approved" && (
+          <>
+            <button
+              onClick={() => onUpdate(r.id, "pending")}
+              disabled={busy}
+              className="inline-flex items-center gap-1.5 rounded-md bg-amber-600 text-white px-3 py-1.5 text-sm hover:bg-amber-700 disabled:opacity-60"
+            >
+              <RotateCcw size={14} /> Unapprove
+            </button>
+            <button
+              onClick={() => onUpdate(r.id, "rejected")}
+              disabled={busy}
+              className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"
+            >
+              <X size={14} /> Reject
+            </button>
+          </>
+        )}
+        {r.status === "rejected" && (
           <button
             onClick={() => onUpdate(r.id, "approved")}
             disabled={busy}
@@ -251,15 +335,15 @@ function ReviewAdminCard({
           >
             <Check size={14} /> Approve
           </button>
-          <button
-            onClick={() => onUpdate(r.id, "rejected")}
-            disabled={busy}
-            className="inline-flex items-center gap-1.5 rounded-md bg-rose-600 text-white px-3 py-1.5 text-sm hover:bg-rose-700 disabled:opacity-60"
-          >
-            <X size={14} /> Reject
-          </button>
-        </div>
-      )}
+        )}
+        <button
+          onClick={() => onDeleteRequest(r.id)}
+          disabled={busy}
+          className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto"
+        >
+          <Trash2 size={14} /> Delete
+        </button>
+      </div>
     </article>
   );
 }
