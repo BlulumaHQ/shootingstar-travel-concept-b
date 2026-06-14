@@ -39,6 +39,19 @@ const PRODUCT_IMG: Record<ProductId, string> = {
 const productHref = (pid: ProductId, locale: Locale) =>
   withLocale(`/tours/${PRODUCT_TO_SLUG[pid]}`, locale);
 
+// ------------------------------------------------------------------
+// Which product runs on which day group
+// ------------------------------------------------------------------
+const FILTER_GROUPS: { key: FilterKey; labelKey: FilterLabelKey; ids: ProductId[] }[] = [
+  { key: "all", labelKey: "all", ids: ["P1", "P3A", "P2A", "P3B", "P2B", "P4"] },
+  { key: "mon-fri", labelKey: "monFri", ids: ["P1"] },
+  { key: "tue-sat", labelKey: "tueSat", ids: ["P3A", "P2A", "P3B", "P2B"] },
+  { key: "wed-sun", labelKey: "wedSun", ids: ["P4"] },
+];
+
+type FilterKey = "all" | "mon-fri" | "tue-sat" | "wed-sun";
+type FilterLabelKey = "all" | "monFri" | "tueSat" | "wedSun";
+
 // Locale labels for new copy introduced by the redesign
 const I18N = {
   exploreCta: { en: "Explore the routes ↓", zh: "查看路線 ↓", ko: "노선 보기 ↓" } as Record<Locale, string>,
@@ -56,11 +69,6 @@ const I18N = {
     en: "Add-ons can be arranged when you book — contact us to add them to your reservation.",
     zh: "加購項目可於預訂時安排 — 歡迎聯絡我們將其加入您的訂單。",
     ko: "옵션은 예약 시 함께 진행할 수 있습니다 — 추가가 필요하시면 문의해 주세요.",
-  } as Record<Locale, string>,
-  thursdayShort: {
-    en: "Thursday has no scheduled route — please choose another day.",
-    zh: "週四目前沒有排定路線 — 請改選其他日期。",
-    ko: "목요일은 운행 노선이 없습니다 — 다른 요일을 선택해 주세요.",
   } as Record<Locale, string>,
   overviewEyebrow: {
     en: "— Route overview",
@@ -98,34 +106,6 @@ export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-to
 });
 
 /* ------------------------------------------------------------------
- * Quick Route Finder data
- * ------------------------------------------------------------------ */
-type FinderGroupId = "mon-fri" | "tue-sat" | "wed-sun";
-type FinderGroup =
-  | { id: FinderGroupId; labelKey: "monFri" | "wedSun"; type: "single"; productIds: ProductId[] }
-  | {
-      id: FinderGroupId;
-      labelKey: "tueSat";
-      type: "segmented";
-      segments: { titleKey: "morning" | "midday" | "evening"; productIds: ProductId[] }[];
-    };
-
-const FINDER_GROUPS: FinderGroup[] = [
-  { id: "mon-fri", labelKey: "monFri", type: "single", productIds: ["P1"] },
-  {
-    id: "tue-sat",
-    labelKey: "tueSat",
-    type: "segmented",
-    segments: [
-      { titleKey: "morning", productIds: ["P3A"] },
-      { titleKey: "midday", productIds: ["P2A", "P3B"] },
-      { titleKey: "evening", productIds: ["P2B"] },
-    ],
-  },
-  { id: "wed-sun", labelKey: "wedSun", type: "single", productIds: ["P4"] },
-];
-
-/* ------------------------------------------------------------------
  * Page
  * ------------------------------------------------------------------ */
 export function IcefieldsShuttlePage() {
@@ -138,7 +118,6 @@ export function IcefieldsShuttlePage() {
   return (
     <SiteLayout>
       <Hero c={c} locale={locale} scrollTo={scrollTo} />
-      <QuickRouteFinder c={c} locale={locale} />
       <WhyDifferent c={c} />
       <AllRoutesOverview c={c} locale={locale} />
       <ComparisonTable c={c} locale={locale} />
@@ -186,7 +165,7 @@ function Hero({
         </p>
         <div className="mt-10">
           <button
-            onClick={() => scrollTo("finder")}
+            onClick={() => scrollTo("routes")}
             className="rounded-full bg-cream text-ink px-8 py-4 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.55)]"
           >
             {tx("exploreCta", locale)}
@@ -281,79 +260,6 @@ function Row({ k, v }: { k: string; v: string }) {
 }
 
 /* ------------------------------------------------------------------
- * Quick Route Finder
- * ------------------------------------------------------------------ */
-function QuickRouteFinder({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
-  const [groupId, setGroupId] = useState<FinderGroupId>("mon-fri");
-  const group = FINDER_GROUPS.find((g) => g.id === groupId)!;
-  const f = c.finderV2;
-
-  return (
-    <section id="finder" className="py-20 md:py-24 bg-paper/50">
-      <div className="mx-auto max-w-[1240px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{f.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
-          {f.heading}
-        </h2>
-        <p className="mt-4 max-w-3xl text-[15px] text-ink/70 leading-[1.9]">{f.intro}</p>
-
-        <div className="mt-8 flex flex-wrap gap-2">
-          {FINDER_GROUPS.map((g) => {
-            const active = g.id === groupId;
-            return (
-              <button
-                key={g.id}
-                onClick={() => setGroupId(g.id)}
-                className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
-                  active
-                    ? "bg-ink text-cream border-ink"
-                    : "bg-cream text-ink/70 border-border hover:border-primary/40"
-                }`}
-              >
-                {f.groupLabels[g.labelKey]}
-              </button>
-            );
-          })}
-        </div>
-
-        <p className="mt-4 text-[12.5px] text-ink/55 italic">{tx("thursdayShort", locale)}</p>
-
-        <div className="mt-8 space-y-8">
-          {group.type === "single" ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {group.productIds.map((pid) => (
-                <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
-              ))}
-            </div>
-          ) : (
-            <div className="space-y-8">
-              <div className="rounded-2xl border border-amber-300/60 bg-amber-50/60 p-5 md:p-6">
-                <p className="font-serif text-[18px] md:text-[20px] text-ink font-semibold">
-                  {f.tueSatSummaryTitle}
-                </p>
-                <p className="mt-2 text-[14px] text-ink/75 leading-[1.85]">{f.tueSatSummaryDesc}</p>
-              </div>
-              {group.segments.map((seg) => (
-                <div key={seg.titleKey}>
-                  <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
-                    {f.segmentTitles[seg.titleKey]}
-                  </p>
-                  <div className="mt-3 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {seg.productIds.map((pid) => (
-                      <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------
  * Why This Route Is Different
  * ------------------------------------------------------------------ */
 function WhyDifferent({ c }: { c: IcefieldsContent }) {
@@ -384,13 +290,23 @@ function WhyDifferent({ c }: { c: IcefieldsContent }) {
 }
 
 /* ------------------------------------------------------------------
- * All Routes Overview — all six products as route-overview cards
+ * All Routes Overview — six cards + pill filter bar
  * ------------------------------------------------------------------ */
-const ALL_PRODUCTS: ProductId[] = ["P1", "P3A", "P2A", "P3B", "P2B", "P4"];
-
 function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
+
+  // Build filter label text using existing translations where available
+  const filterLabel = (labelKey: FilterLabelKey) => {
+    if (labelKey === "all") {
+      return ({ en: "All", zh: "全部", ko: "전체" } as Record<Locale, string>)[locale] ?? "All";
+    }
+    return c.finderV2.groupLabels[labelKey];
+  };
+
+  const visibleIds = FILTER_GROUPS.find((g) => g.key === activeFilter)!.ids;
+
   return (
-    <section className="py-20 md:py-24 bg-paper/40">
+    <section id="routes" className="py-20 md:py-24 bg-paper/40">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
         <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
           {tx("overviewEyebrow", locale)}
@@ -401,8 +317,28 @@ function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale 
         <p className="mt-4 max-w-3xl text-[15px] text-ink/70 leading-[1.9]">
           {tx("overviewIntro", locale)}
         </p>
-        <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ALL_PRODUCTS.map((pid) => (
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {FILTER_GROUPS.map((g) => {
+            const active = g.key === activeFilter;
+            return (
+              <button
+                key={g.key}
+                onClick={() => setActiveFilter(g.key)}
+                className={`rounded-full px-5 py-2.5 text-[13px] tracking-wide transition border ${
+                  active
+                    ? "bg-ink text-cream border-ink"
+                    : "bg-cream text-ink/70 border-border hover:border-primary/40"
+                }`}
+              >
+                {filterLabel(g.labelKey)}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visibleIds.map((pid) => (
             <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
           ))}
         </div>
