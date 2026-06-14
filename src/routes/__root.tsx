@@ -72,7 +72,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: async () => ({ toursEn: await fetchToursEn() }),
+  loader: async () => ({ toursEn: await fetchToursEn(), reviews: await fetchReviews() }),
   staleTime: 5 * 60 * 1000,
   head: () => ({
     meta: [
