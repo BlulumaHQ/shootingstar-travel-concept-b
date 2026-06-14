@@ -15,7 +15,7 @@ export const localeHtmlLang: Record<Locale, string> = {
   ko: "ko",
 };
 
-export const SITE_URL = "https://shootingstar-travel-concept-b.lovable.app";
+export const SITE_URL = "https://www.shootingstartravel.ca";
 
 /** Detect locale from any pathname. /zh/... -> zh, /ko/... -> ko, else en. */
 export function localeFromPath(pathname: string): Locale {

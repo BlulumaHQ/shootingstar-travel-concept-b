@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "TravelAgency",
           name: "Shootingstar Travel",
-          url: "https://shootingstar-travel-concept-b.lovable.app/",
+          url: "https://www.shootingstartravel.ca/",
           areaServed: ["Canada", "British Columbia", "Alberta", "Yukon", "United States", "Washington", "Oregon", "California", "Nevada"],
           knowsLanguage: ["en", "zh", "ko"],
           sameAs: [],
