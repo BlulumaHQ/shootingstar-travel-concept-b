@@ -766,18 +766,25 @@ export function TourDetailPage() {
 
             <section className="grid md:grid-cols-3 gap-8">
               {[
-                { t: T.included, items: tour.included },
-                { t: T.notIncluded, items: tour.notIncluded ?? [] },
-                { t: T.optional, items: tour.optional ?? [] },
+                { t: T.included, items: tour.included, kind: "included" as const },
+                { t: T.notIncluded, items: tour.notIncluded ?? [], kind: "notIncluded" as const },
+                { t: T.optional, items: tour.optional ?? [], kind: "optional" as const },
               ].filter((b) => b.items.length > 0).map((b) => (
                 <div key={b.t}>
                   <h3 className="font-serif text-lg text-ink font-semibold">{b.t}</h3>
                   <div className="mt-3 h-px w-8 bg-primary/40" />
                   <ul className="mt-4 space-y-2.5 text-[13.5px] text-ink/70 leading-[1.85]">
                     {b.items.map((x, i) => {
-                      const content = typeof x === "string" ? x : (
+                      const rawText = typeof x === "string" ? x : x.text;
+                      const translated =
+                        b.kind === "included"
+                          ? translateIncludedItem(rawText, locale)
+                          : b.kind === "notIncluded"
+                          ? translateNotIncludedItem(rawText, locale)
+                          : rawText;
+                      const content = typeof x === "string" ? translated : (
                         <>
-                          {x.text}{" "}
+                          {translated}{" "}
                           {x.href && (
                             <a href={x.href} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2">{x.href}</a>
                           )}
@@ -791,12 +798,18 @@ export function TourDetailPage() {
               ))}
             </section>
 
-            {tour.notes.length > 0 && (
+            {(() => {
+              const visibleNotes = tour.notes.filter((n) => {
+                const text = typeof n === "string" ? n : n.text;
+                return !isInternalDevNote(text);
+              });
+              if (visibleNotes.length === 0) return null;
+              return (
               <section>
                 <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.notesEyebrow}</p>
                 <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{T.notes}</h2>
                 <ul className="mt-5 space-y-3 text-[14px] text-ink/70 leading-[1.95]">
-                  {tour.notes.map((n, i) => {
+                  {visibleNotes.map((n, i) => {
                     const content = typeof n === "string" ? n : (
                       <>
                         {n.text}
@@ -810,7 +823,8 @@ export function TourDetailPage() {
                   })}
                 </ul>
               </section>
-            )}
+              );
+            })()}
 
             {tour.faq && tour.faq.length > 0 && (
               <section>
