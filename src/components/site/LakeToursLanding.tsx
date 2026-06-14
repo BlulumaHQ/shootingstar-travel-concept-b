@@ -97,10 +97,10 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
             {c.tours.map((t) => {
               const live = liveBySlug[t.slug];
               const img = live?.img ?? t.fallbackImg;
-              const priceLine =
-                typeof live?.price === "string" && live.price
-                  ? live.price
-                  : t.priceFromLabel;
+              const priceLine = formatPrice(
+                typeof live?.price === "string" && live.price ? live.price : t.priceFromLabel,
+                locale,
+              );
               return (
                 <article
                   key={t.slug}
@@ -174,7 +174,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                     <td className="px-5 py-5 align-top">{t.departure}</td>
                     <td className="px-5 py-5 align-top">{t.highlights}</td>
                     <td className="px-5 py-5 align-top text-primary font-semibold whitespace-nowrap">
-                      {t.priceFromLabel}
+                      {formatPrice(t.priceFromLabel, locale)}
                     </td>
                     <td className="px-5 py-5 align-top">{t.bestFor}</td>
                   </tr>
@@ -203,7 +203,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                   <dt className="text-ink/55">{c.compare.mobileLabels.highlights}</dt>
                   <dd className="text-ink/80">{t.highlights}</dd>
                   <dt className="text-ink/55">{c.compare.mobileLabels.price}</dt>
-                  <dd className="text-primary font-semibold">{t.priceFromLabel}</dd>
+                  <dd className="text-primary font-semibold">{formatPrice(t.priceFromLabel, locale)}</dd>
                   <dt className="text-ink/55">{c.compare.mobileLabels.bestFor}</dt>
                   <dd className="text-ink/80">{t.bestFor}</dd>
                 </dl>
