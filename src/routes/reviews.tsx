@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useState } from "react";
-import { Star, Heart } from "lucide-react";
-import { ReviewCard } from "@/components/site/ReviewCard";
+import { useMemo, useState } from "react";
+import { Star, UserCircle, Upload } from "lucide-react";
+import { ReviewCard, type Review } from "@/components/site/ReviewCard";
 import { useReviews } from "@/data/useReviews";
-import { tours } from "@/data/tours";
+import { useTours } from "@/data/useTours";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
+import { supabase } from "@/lib/supabase";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -22,163 +23,349 @@ export const Route = createFileRoute("/reviews")({
 });
 
 const T = {
-  heroEyebrow: { en: "Real stories from our travelers", zh: "Real stories from our travelers", ko: "Real stories from our travelers" },
+  heroEyebrow: { en: "Share your story", zh: "分享你的旅程", ko: "여행 이야기 공유" },
   heroTitle: { en: "Traveler Stories", zh: "旅客分享", ko: "여행자 이야기" },
   heroSub: {
-    en: "Memories shared by travelers who journeyed with Shooting Star Travel.",
-    zh: "看看旅客們與 Shooting Star Travel 一起留下的美好回憶。",
-    ko: "Shooting Star Travel과 함께한 여행자들이 남긴 소중한 기억들.",
+    en: "Tell us about your journey with Shooting Star Travel. Approved stories appear below.",
+    zh: "和我們分享你與 Shooting Star Travel 的旅程，審核通過後將顯示於下方。",
+    ko: "Shooting Star Travel과 함께한 여행 이야기를 들려주세요. 승인된 후기는 아래에 표시됩니다.",
   },
-  shareCta: { en: "Share My Journey", zh: "分享我的旅程", ko: "내 여행 공유하기" },
-  placeholderEyebrow: { en: "Coming soon", zh: "敬請期待", ko: "곧 공개됩니다" },
-  placeholderTitle: {
-    en: "The first traveller stories will appear here soon.",
-    zh: "第一批旅客分享即將在這裡出現。",
-    ko: "첫 여행자 이야기가 곧 이곳에 소개됩니다.",
+  fName: { en: "Name", zh: "姓名", ko: "이름" },
+  fAvatar: { en: "Your photo (optional)", zh: "你的頭像（選填）", ko: "프로필 사진(선택)" },
+  fRating: { en: "Rating", zh: "評分", ko: "평점" },
+  fTour: { en: "Which tour?", zh: "哪個行程？", ko: "어떤 투어?" },
+  fReview: { en: "Your review", zh: "你的評論", ko: "후기" },
+  fPhotos: { en: "Add photos (up to 5)", zh: "上傳照片（最多 5 張）", ko: "사진 추가(최대 5장)" },
+  fSubmit: { en: "Submit", zh: "送出", ko: "제출" },
+  fSubmitting: { en: "Submitting…", zh: "送出中…", ko: "전송 중…" },
+  warnMax: {
+    en: "You can upload up to 5 photos",
+    zh: "最多只能上傳 5 張照片",
+    ko: "사진은 최대 5장까지 업로드할 수 있습니다",
   },
-  placeholderBody: {
-    en: "We are collecting genuine stories from travellers who recently joined our tours. If you have travelled with us, we'd love to share your journey here.",
-    zh: "我們正在收集近期參加旅程的旅客分享。如果您曾經與我們同行，歡迎在此留下您的旅程故事。",
-    ko: "최근 투어에 함께한 여행자들의 진솔한 이야기를 모으고 있습니다. 함께 여행하셨다면, 당신의 이야기를 들려주세요.",
+  thanks: {
+    en: "Thank you for sharing your journey! Your review will appear after it's approved.",
+    zh: "感謝你分享旅程！你的評論將在審核後顯示。",
+    ko: "여행 이야기를 공유해 주셔서 감사합니다! 후기는 승인 후 표시됩니다.",
   },
-  closeBtn: { en: "Close", zh: "關閉", ko: "닫기" },
-  shareTitle: { en: "Share your journey", zh: "分享你的旅程", ko: "내 여행 공유하기" },
-  shareName: { en: "Name", zh: "姓名", ko: "이름" },
-  shareEmail: { en: "Email", zh: "Email", ko: "이메일" },
-  shareRate: { en: "Rate this journey", zh: "為這段旅程評分", ko: "이 여정 평가하기" },
-  shareStory: { en: "The story you'd like to share…", zh: "想分享的旅程故事…", ko: "공유하고 싶은 이야기…" },
-  shareUpload: { en: "📷 Upload travel photos (5–6 max)", zh: "📷 上傳旅行照片（最多 5–6 張）", ko: "📷 여행 사진 업로드 (최대 5–6장)" },
-  shareSubmit: { en: "Submit", zh: "送出", ko: "제출" },
+  errSubmit: {
+    en: "Something went wrong submitting your review. Please try again.",
+    zh: "送出時發生錯誤，請再試一次。",
+    ko: "후기 전송 중 문제가 발생했습니다. 다시 시도해 주세요.",
+  },
   chooseTour: { en: "Choose a tour", zh: "選擇行程", ko: "투어 선택" },
-  thankYou: { en: "Thank you for sharing!", zh: "感謝你的分享！", ko: "공유해 주셔서 감사합니다!" },
-  thankBody: {
-    en: "Your story has joined our traveller's journal. We can't wait for the next time our paths cross.",
-    zh: "你的故事已加入我們的旅行日誌，期待下次旅途再相見。",
-    ko: "당신의 이야기가 우리의 여행 일지에 더해졌습니다.",
+  sortLabel: { en: "Sort", zh: "排序", ko: "정렬" },
+  sortHigh: { en: "Rating: High to Low", zh: "評分：高到低", ko: "평점: 높은순" },
+  sortLow: { en: "Rating: Low to High", zh: "評分：低到高", ko: "평점: 낮은순" },
+  filterLabel: { en: "Tour", zh: "行程", ko: "투어" },
+  allTours: { en: "All tours", zh: "全部行程", ko: "모든 투어" },
+  emptyApproved: {
+    en: "Be the first to share your story.",
+    zh: "成為第一位分享故事的旅客。",
+    ko: "첫 번째 이야기를 들려주세요.",
   },
 } as const;
 
 const t = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
 
-function ShareModal({ onClose }: { onClose: () => void }) {
+const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
+const BUCKET = "review-photos";
+
+async function uploadImage(file: File): Promise<string | null> {
+  if (!ACCEPTED.includes(file.type)) return null;
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
+  const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
+    contentType: file.type,
+    cacheControl: "3600",
+    upsert: false,
+  });
+  if (error) {
+    console.error("upload failed", error);
+    return null;
+  }
+  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+function SubmitForm({ onDone }: { onDone: () => void }) {
   const l = useLocale();
-  const [done, setDone] = useState(false);
+  const tours = useTours();
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [tourSlug, setTourSlug] = useState("");
+  const [text, setText] = useState("");
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string>("");
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [warn, setWarn] = useState("");
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  function onAvatarPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    if (!ACCEPTED.includes(f.type)) return;
+    setAvatarFile(f);
+    setAvatarPreview(URL.createObjectURL(f));
+  }
+
+  function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files || []).filter((f) => ACCEPTED.includes(f.type));
+    if (files.length > 5) {
+      setWarn(t("warnMax", l));
+      setPhotoFiles(files.slice(0, 5));
+    } else {
+      setWarn("");
+      setPhotoFiles(files);
+    }
+  }
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setErr("");
+    if (!name.trim() || !tourSlug || !text.trim() || !rating) return;
+    setBusy(true);
+    try {
+      const tour = tours.find((tr) => tr.slug === tourSlug);
+      const tour_label = tour?.title ?? tourSlug;
+
+      let avatarUrl: string | null = null;
+      if (avatarFile) avatarUrl = await uploadImage(avatarFile);
+
+      const photoUrls: string[] = [];
+      for (const f of photoFiles) {
+        const url = await uploadImage(f);
+        if (url) photoUrls.push(url);
+      }
+
+      const { error } = await supabase.from("reviews").insert({
+        name: name.trim(),
+        avatar: avatarUrl,
+        tour_slug: tourSlug,
+        tour_label,
+        rating,
+        text: text.trim(),
+        photos: photoUrls,
+        status: "pending",
+      });
+      if (error) throw error;
+      onDone();
+    } catch (e2) {
+      console.error(e2);
+      setErr(t("errSubmit", l));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const stars = hoverRating || rating;
+
   return (
-    <div className="fixed inset-0 z-[60] bg-ink/40 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" onClick={onClose}>
-      <div className="bg-cream rounded-2xl max-w-lg w-full p-7 md:p-9 my-8 shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        {done ? (
-          <div className="text-center py-6">
-            <p className="font-marker text-primary text-sm tracking-[0.25em] uppercase">— thank you</p>
-            <h3 className="font-serif text-2xl text-ink mt-3">{t("thankYou", l)}</h3>
-            <p className="mt-4 text-ink/70 leading-[2] text-[14.5px]">{t("thankBody", l)}</p>
-            <button onClick={onClose} className="mt-6 rounded-full bg-primary text-primary-foreground px-7 py-2.5 text-sm">
-              {t("closeBtn", l)}
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={(e) => { e.preventDefault(); setDone(true); }} className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-serif text-2xl text-ink font-semibold">{t("shareTitle", l)}</h3>
-              <button type="button" onClick={onClose} className="text-ink/50 text-xl">×</button>
-            </div>
-            <input required placeholder={t("shareName", l)} className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-            <input required type="email" placeholder={t("shareEmail", l)} className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-            <select required defaultValue="" className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm">
-              <option value="" disabled>{t("chooseTour", l)}</option>
-              {tours.map((tr) => <option key={tr.slug} value={tr.slug}>{tr.title}</option>)}
-            </select>
-            <div>
-              <label className="block text-[12px] text-ink/60 mb-1.5">{t("shareRate", l)}</label>
-              <div className="flex gap-2">
-                {[1,2,3,4,5].map((n) => (
-                  <button type="button" key={n} className="text-primary"><Star size={20} fill="currentColor" /></button>
-                ))}
+    <form onSubmit={onSubmit} className="bg-cream rounded-2xl shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.4)] border border-border/60 p-7 md:p-10 space-y-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fName", l)} *</label>
+          <input
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={80}
+            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40"
+          />
+        </div>
+        <div>
+          <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fAvatar", l)}</label>
+          <div className="flex items-center gap-3">
+            {avatarPreview ? (
+              <img src={avatarPreview} alt="" className="h-12 w-12 rounded-full object-cover" />
+            ) : (
+              <div className="h-12 w-12 rounded-full bg-border/60 flex items-center justify-center">
+                <UserCircle size={26} className="text-ink/40" />
               </div>
-            </div>
-            <textarea required rows={4} placeholder={t("shareStory", l)} className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm" />
-            <div className="rounded-md border border-dashed border-border px-3 py-6 text-center text-[12.5px] text-ink/55">
-              {t("shareUpload", l)}
-            </div>
-            <button type="submit" className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14px]">
-              {t("shareSubmit", l)}
-            </button>
-          </form>
-        )}
+            )}
+            <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-[12px] text-ink/70 hover:bg-paper/60 transition">
+              <Upload size={13} /> {t("fAvatar", l)}
+              <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={onAvatarPick} />
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div>
+        <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fRating", l)} *</label>
+        <div className="flex gap-1">
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button
+              key={n}
+              type="button"
+              onClick={() => setRating(n)}
+              onMouseEnter={() => setHoverRating(n)}
+              onMouseLeave={() => setHoverRating(0)}
+              className="text-[oklch(0.7_0.18_70)] p-1"
+              aria-label={`${n} star`}
+            >
+              <Star size={22} fill={n <= stars ? "currentColor" : "none"} stroke="currentColor" />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fTour", l)} *</label>
+        <select
+          required
+          value={tourSlug}
+          onChange={(e) => setTourSlug(e.target.value)}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40"
+        >
+          <option value="" disabled>{t("chooseTour", l)}</option>
+          {tours.map((tr) => (
+            <option key={tr.slug} value={tr.slug}>{tr.title}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fReview", l)} *</label>
+        <textarea
+          required
+          rows={5}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          maxLength={2000}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 leading-[1.8]"
+        />
+      </div>
+
+      <div>
+        <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fPhotos", l)}</label>
+        <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-3 text-[13px] text-ink/65 hover:bg-paper/60 transition">
+          <Upload size={14} /> {t("fPhotos", l)}
+          <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={onPhotosPick} />
+        </label>
+        {photoFiles.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {photoFiles.map((f, i) => (
+              <span key={i} className="text-[11.5px] text-ink/55 bg-paper/60 rounded px-2 py-1">{f.name}</span>
+            ))}
+          </div>
+        )}
+        {warn && <p className="mt-2 text-[12px] text-[oklch(0.55_0.18_30)]">{warn}</p>}
+      </div>
+
+      {err && <p className="text-[13px] text-destructive">{err}</p>}
+
+      <div className="pt-2">
+        <button
+          type="submit"
+          disabled={busy}
+          className="rounded-full bg-primary text-primary-foreground px-8 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition disabled:opacity-60 shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
+        >
+          {busy ? t("fSubmitting", l) : t("fSubmit", l)}
+        </button>
+      </div>
+    </form>
   );
 }
 
 export function ReviewsPage() {
   const l = useLocale();
   const reviews = useReviews();
-  const [shareOpen, setShareOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [sortDir, setSortDir] = useState<"high" | "low">("high");
+  const [tourFilter, setTourFilter] = useState<string>("all");
+
+  const tourOptions = useMemo(() => {
+    const set = new Map<string, string>();
+    reviews.forEach((r) => {
+      if (r.tour) set.set(r.tour, r.tour);
+    });
+    return Array.from(set.keys());
+  }, [reviews]);
+
+  const visible = useMemo(() => {
+    let list: Review[] = reviews.slice();
+    if (tourFilter !== "all") list = list.filter((r) => r.tour === tourFilter);
+    list.sort((a, b) => (sortDir === "high" ? b.rating - a.rating : a.rating - b.rating));
+    return list;
+  }, [reviews, sortDir, tourFilter]);
 
   return (
     <SiteLayout>
-      {/* Hero */}
+      {/* Hero + Form */}
       <section className="relative bg-cream pt-24 md:pt-32 pb-16 overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-primary/75">
+        <div className="mx-auto max-w-[1000px] px-6 md:px-12">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-3 text-primary/75">
               <StarMark size={18} className="text-primary/65" />
               <DottedLine length={36} className="text-primary/45" />
               <span className="text-[11px] tracking-[0.4em] uppercase font-medium">— {t("heroEyebrow", l)}</span>
             </div>
-            <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
+            <h1 className="font-serif text-4xl md:text-[52px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
               {t("heroTitle", l)}
             </h1>
-            <p className="mt-7 text-ink/65 leading-[2] text-[15px] max-w-xl">{t("heroSub", l)}</p>
+            <p className="mt-6 text-ink/65 leading-[2] text-[15px]">{t("heroSub", l)}</p>
+          </div>
+
+          <div className="mt-12">
+            {submitted ? (
+              <div className="bg-cream rounded-2xl border border-primary/30 p-10 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.4)]">
+                <p className="font-marker text-primary text-sm tracking-[0.25em] uppercase">— thank you</p>
+                <p className="mt-4 font-serif text-2xl text-ink leading-[1.4]">{t("thanks", l)}</p>
+              </div>
+            ) : (
+              <SubmitForm onDone={() => setSubmitted(true)} />
+            )}
           </div>
         </div>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
-      {/* Reviews grid */}
-      <section className="bg-paper/40 pt-12 md:pt-16 pb-28 md:pb-36">
+      {/* Approved reviews */}
+      <section className="bg-paper/40 pt-16 md:pt-20 pb-28 md:pb-36">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           {reviews.length === 0 ? (
-            <div className="max-w-[760px] mx-auto">
-              <div className="rounded-2xl border border-dashed border-primary/30 bg-cream/70 px-7 py-12 md:px-12 md:py-16 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.45)]">
-                <div className="inline-flex items-center gap-2 text-primary/75">
-                  <StarMark size={14} className="text-primary/65" />
-                  <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium">{t("placeholderEyebrow", l)}</span>
-                </div>
-                <h2 className="mt-5 font-serif text-[24px] md:text-[30px] text-ink leading-[1.35] tracking-[-0.01em]">
-                  {t("placeholderTitle", l)}
-                </h2>
-                <p className="mt-5 text-ink/65 leading-[2] text-[14.5px] max-w-md mx-auto">
-                  {t("placeholderBody", l)}
-                </p>
-                <button
-                  onClick={() => setShareOpen(true)}
-                  className="mt-9 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
-                >
-                  <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
-                </button>
-              </div>
-            </div>
+            <p className="text-center text-ink/55 text-[14.5px]">{t("emptyApproved", l)}</p>
           ) : (
             <>
+              <div className="flex flex-wrap items-center justify-end gap-4 mb-8">
+                <div className="flex items-center gap-2">
+                  <label className="text-[11.5px] tracking-[0.2em] uppercase text-ink/55">{t("filterLabel", l)}</label>
+                  <select
+                    value={tourFilter}
+                    onChange={(e) => setTourFilter(e.target.value)}
+                    className="rounded-md border border-border bg-cream px-3 py-1.5 text-[13px]"
+                  >
+                    <option value="all">{t("allTours", l)}</option>
+                    {tourOptions.map((tr) => (
+                      <option key={tr} value={tr}>{tr}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-[11.5px] tracking-[0.2em] uppercase text-ink/55">{t("sortLabel", l)}</label>
+                  <select
+                    value={sortDir}
+                    onChange={(e) => setSortDir(e.target.value as "high" | "low")}
+                    className="rounded-md border border-border bg-cream px-3 py-1.5 text-[13px]"
+                  >
+                    <option value="high">{t("sortHigh", l)}</option>
+                    <option value="low">{t("sortLow", l)}</option>
+                  </select>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                {reviews.map((r, i) => (
+                {visible.map((r, i) => (
                   <ReviewCard key={i} r={r} />
                 ))}
-              </div>
-              <div className="mt-14 text-center">
-                <button
-                  onClick={() => setShareOpen(true)}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-7 py-3 text-[13px] tracking-[0.12em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
-                >
-                  <Heart size={13} strokeWidth={1.6} /> {t("shareCta", l)}
-                </button>
               </div>
             </>
           )}
         </div>
       </section>
-
-      {shareOpen && <ShareModal onClose={() => setShareOpen(false)} />}
     </SiteLayout>
   );
 }
