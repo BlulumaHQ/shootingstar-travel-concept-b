@@ -215,6 +215,98 @@ function formatSessionDate(startTimeLocal: string | null): string {
   return `${dateStr} · ${timeStr}`;
 }
 
+const BOOKING_I18N: Record<Locale, {
+  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
+  from: string; chooseDate: string; liveAvail: string; loadingDates: string;
+  loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
+  soldOut: string; seatsLeft: (n: number) => string; tickets: string;
+  total: (n: number) => string; firstName: string; lastName: string;
+  email: string; phone: string; requestBooking: string;
+  disclaimer: string; sending: string; submitting: string; received: string;
+  thanks: string; thanksBody: string; another: string;
+}> = {
+  en: {
+    eyebrow: "— booking", bookTitle: "Book this tour",
+    contactBody: "To arrange a date for this tour, please get in touch with our team.",
+    contactCta: "Contact us to book →",
+    from: "from", chooseDate: "Choose a date", liveAvail: "· live availability",
+    loadingDates: "Loading available dates…",
+    loadErrFallback: "Unable to load availability. Please try again later.",
+    noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
+    soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
+    tickets: "Tickets", total: (n) => `Total (${n})`,
+    firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
+    requestBooking: "Request Booking →",
+    disclaimer: "* Submits a booking request. Our team will confirm and arrange payment manually.",
+    sending: "— sending request", submitting: "Submitting your booking…",
+    received: "— request received", thanks: "Thank you! ✦",
+    thanksBody: "Your booking request has been received — we'll confirm shortly.",
+    another: "Make another request",
+  },
+  zh: {
+    eyebrow: "— 預訂", bookTitle: "預訂此行程",
+    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
+    contactCta: "聯絡我們預訂 →",
+    from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
+    loadingDates: "正在載入可訂日期…",
+    loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
+    noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
+    soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
+    tickets: "票種", total: (n) => `總計（${n}）`,
+    firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
+    requestBooking: "送出預訂申請 →",
+    disclaimer: "* 此為預訂申請，我們將與您確認並協助完成付款。",
+    sending: "— 傳送中", submitting: "正在送出您的預訂申請…",
+    received: "— 已收到申請", thanks: "感謝您！✦",
+    thanksBody: "我們已收到您的預訂申請，將盡快與您確認。",
+    another: "再送出一筆申請",
+  },
+  ko: {
+    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
+    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
+    contactCta: "예약 문의하기 →",
+    from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
+    loadingDates: "예약 가능 날짜를 불러오는 중…",
+    loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
+    noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
+    soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
+    tickets: "티켓", total: (n) => `합계 (${n})`,
+    firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
+    requestBooking: "예약 요청 보내기 →",
+    disclaimer: "* 예약 요청을 보냅니다. 저희 팀이 확인 후 결제를 안내해 드립니다.",
+    sending: "— 전송 중", submitting: "예약 요청을 전송 중입니다…",
+    received: "— 요청 접수 완료", thanks: "감사합니다! ✦",
+    thanksBody: "예약 요청을 접수했습니다. 곧 확인 후 연락드리겠습니다.",
+    another: "다른 요청 보내기",
+  },
+};
+
+function translatePriceLabel(label: string, locale: Locale): string {
+  if (locale === "en") return label;
+  const t = label.trim();
+  const groupNum =
+    t.match(/group of\s*(\d+)/i)?.[1] ??
+    t.match(/\(\s*(\d+)\s*(?:people|persons|pax)\s*\)/i)?.[1] ??
+    null;
+  if (groupNum) {
+    return locale === "zh"
+      ? `每人（${groupNum}人成行）`
+      : `${groupNum}인 그룹 (1인당)`;
+  }
+  const low = t.toLowerCase();
+  const ZH: Record<string, string> = {
+    "per person": "每人", adult: "成人", child: "兒童",
+    solo: "單人", "solo (1 person)": "單人",
+  };
+  const KO: Record<string, string> = {
+    "per person": "1인당", adult: "성인", child: "어린이",
+    solo: "1인", "solo (1 person)": "1인",
+  };
+  const map = locale === "zh" ? ZH : KO;
+  return map[low] ?? label;
+}
+
+
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
   const locale = useLocale();
