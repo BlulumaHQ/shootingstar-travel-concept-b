@@ -88,7 +88,7 @@ const PACKS: Record<Locale, Pack> = {
     featuresEyebrow: "Why Travel With Us",
     feat: [
       { t: "Curated Itineraries", d: "Classic routes, carefully drawn —\ncollecting every corner worth keeping." },
-      { t: "Small Groups", d: "Smaller groups, more space —\nfor a deeper sense of place." },
+      { t: "Flexible Groups", d: "Right-sized vehicles for any party, from small groups to full coaches" },
       { t: "Local Expertise", d: "Local guides who know the land —\nso every step feels considered." },
       { t: "Reliable Care", d: "Comprehensive travel safeguards —\ntravel with peace of mind." },
       { t: "Thoughtful Service", d: "From planning to the road home —\nwe stay close from start to finish." },
@@ -148,7 +148,7 @@ const PACKS: Record<Locale, Pack> = {
     featuresEyebrow: "為什麼選擇我們",
     feat: [
       { t: "精選行程", d: "精心規劃經典路線\n探索每一個值得收藏的角落" },
-      { t: "小團出發", d: "小團更自在\n深度體驗在地風情" },
+      { t: "彈性團型", d: "依人數安排車型／大小團都能成行" },
       { t: "專業旅遊", d: "在地專業嚮導帶路\n讓旅程更安心有趣" },
       { t: "安心保障", d: "完善旅遊保障制度\n讓你玩得安心無憂" },
       { t: "貼心服務", d: "從行前到旅途中\n全程貼心為你服務" },
@@ -208,7 +208,7 @@ const PACKS: Record<Locale, Pack> = {
     featuresEyebrow: "함께 떠나야 할 이유",
     feat: [
       { t: "엄선된 여정", d: "정성껏 그린 클래식 코스 —\n간직할 가치 있는 모든 순간을." },
-      { t: "소그룹 출발", d: "더 작은 그룹, 더 깊은\n현지 경험." },
+      { t: "유연한 그룹", d: "인원에 맞춘 차량 배정, 소규모부터 대형 버스까지" },
       { t: "현지 전문성", d: "땅을 잘 아는 현지 가이드와\n함께하는 모든 발걸음." },
       { t: "안심 보장", d: "포괄적인 여행 보호 —\n안심하고 떠나세요." },
       { t: "세심한 서비스", d: "준비부터 귀국까지\n처음부터 끝까지 함께합니다." },
