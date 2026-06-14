@@ -215,9 +215,102 @@ function formatSessionDate(startTimeLocal: string | null): string {
   return `${dateStr} · ${timeStr}`;
 }
 
+const BOOKING_I18N: Record<Locale, {
+  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
+  from: string; chooseDate: string; liveAvail: string; loadingDates: string;
+  loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
+  soldOut: string; seatsLeft: (n: number) => string; tickets: string;
+  total: (n: number) => string; firstName: string; lastName: string;
+  email: string; phone: string; requestBooking: string;
+  disclaimer: string; sending: string; submitting: string; received: string;
+  thanks: string; thanksBody: string; another: string;
+}> = {
+  en: {
+    eyebrow: "— booking", bookTitle: "Book this tour",
+    contactBody: "To arrange a date for this tour, please get in touch with our team.",
+    contactCta: "Contact us to book →",
+    from: "from", chooseDate: "Choose a date", liveAvail: "· live availability",
+    loadingDates: "Loading available dates…",
+    loadErrFallback: "Unable to load availability. Please try again later.",
+    noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
+    soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
+    tickets: "Tickets", total: (n) => `Total (${n})`,
+    firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
+    requestBooking: "Request Booking →",
+    disclaimer: "* Submits a booking request. Our team will confirm and arrange payment manually.",
+    sending: "— sending request", submitting: "Submitting your booking…",
+    received: "— request received", thanks: "Thank you! ✦",
+    thanksBody: "Your booking request has been received — we'll confirm shortly.",
+    another: "Make another request",
+  },
+  zh: {
+    eyebrow: "— 預訂", bookTitle: "預訂此行程",
+    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
+    contactCta: "聯絡我們預訂 →",
+    from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
+    loadingDates: "正在載入可訂日期…",
+    loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
+    noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
+    soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
+    tickets: "票種", total: (n) => `總計（${n}）`,
+    firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
+    requestBooking: "送出預訂申請 →",
+    disclaimer: "* 此為預訂申請，我們將與您確認並協助完成付款。",
+    sending: "— 傳送中", submitting: "正在送出您的預訂申請…",
+    received: "— 已收到申請", thanks: "感謝您！✦",
+    thanksBody: "我們已收到您的預訂申請，將盡快與您確認。",
+    another: "再送出一筆申請",
+  },
+  ko: {
+    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
+    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
+    contactCta: "예약 문의하기 →",
+    from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
+    loadingDates: "예약 가능 날짜를 불러오는 중…",
+    loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
+    noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
+    soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
+    tickets: "티켓", total: (n) => `합계 (${n})`,
+    firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
+    requestBooking: "예약 요청 보내기 →",
+    disclaimer: "* 예약 요청을 보냅니다. 저희 팀이 확인 후 결제를 안내해 드립니다.",
+    sending: "— 전송 중", submitting: "예약 요청을 전송 중입니다…",
+    received: "— 요청 접수 완료", thanks: "감사합니다! ✦",
+    thanksBody: "예약 요청을 접수했습니다. 곧 확인 후 연락드리겠습니다.",
+    another: "다른 요청 보내기",
+  },
+};
+
+function translatePriceLabel(label: string, locale: Locale): string {
+  if (locale === "en") return label;
+  const t = label.trim();
+  const groupNum =
+    t.match(/group of\s*(\d+)/i)?.[1] ??
+    t.match(/\(\s*(\d+)\s*(?:people|persons|pax)\s*\)/i)?.[1] ??
+    null;
+  if (groupNum) {
+    return locale === "zh"
+      ? `每人（${groupNum}人成行）`
+      : `${groupNum}인 그룹 (1인당)`;
+  }
+  const low = t.toLowerCase();
+  const ZH: Record<string, string> = {
+    "per person": "每人", adult: "成人", child: "兒童",
+    solo: "單人", "solo (1 person)": "單人",
+  };
+  const KO: Record<string, string> = {
+    "per person": "1인당", adult: "성인", child: "어린이",
+    solo: "1인", "solo (1 person)": "1인",
+  };
+  const map = locale === "zh" ? ZH : KO;
+  return map[low] ?? label;
+}
+
+
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
   const locale = useLocale();
+  const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
   // No Rezdy product code → contact-only CTA, no booking UI
@@ -225,22 +318,21 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
+          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
         </div>
-        <p className="text-[13.5px] text-ink/70 leading-[1.85]">
-          To arrange a date for this tour, please get in touch with our team.
-        </p>
+        <p className="text-[13.5px] text-ink/70 leading-[1.85]">{B.contactBody}</p>
         <Link
           to={contactHref as never}
           id={`${idPrefix}contact-cta`}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
         >
-          Contact us to book →
+          {B.contactCta}
         </Link>
       </div>
     );
   }
+
 
   const [sessions, setSessions] = useState<RezdySession[] | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -346,8 +438,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     return (
       <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
         <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— sending request</p>
-        <p className="mt-2 text-ink/65 text-[14px]">Submitting your booking…</p>
+        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.sending}</p>
+        <p className="mt-2 text-ink/65 text-[14px]">{B.submitting}</p>
       </div>
     );
   }
@@ -355,20 +447,19 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   if (stage === "done") {
     return (
       <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">— request received</p>
-        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">Thank you! ✦</h3>
-        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">
-          Your booking request has been received — we&apos;ll confirm shortly.
-        </p>
+        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.received}</p>
+        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">{B.thanks}</h3>
+        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">{B.thanksBody}</p>
         <button
           onClick={() => setStage("form")}
           className="mt-5 text-primary text-sm underline underline-offset-4"
         >
-          Make another request
+          {B.another}
         </button>
       </div>
     );
   }
+
 
   const continueDisabled =
     status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone;
@@ -381,32 +472,32 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     >
       <div className="flex items-center justify-between border-b border-border/60 pb-4">
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
+          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
         </div>
         <span className="text-[11px] text-ink/55">
-          from <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
+          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
         </span>
       </div>
 
       {/* Date selector */}
       <div>
         <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
-          Choose a date
-          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>}
+          {B.chooseDate}
+          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">{B.liveAvail}</span>}
         </label>
 
-        {status === "loading" && <p className="text-[12px] text-ink/55">Loading available dates…</p>}
+        {status === "loading" && <p className="text-[12px] text-ink/55">{B.loadingDates}</p>}
         {status === "error" && (
-          <p className="text-[12px] text-red-600">{loadError ?? "Unable to load availability. Please try again later."}</p>
+          <p className="text-[12px] text-red-600">{loadError ?? B.loadErrFallback}</p>
         )}
         {status === "ready" && sessions && sessions.length === 0 && (
           <p className="text-[12.5px] text-ink/65 leading-[1.85]">
-            No scheduled dates yet — please{" "}
+            {B.noDates1}
             <Link to={contactHref as never} className="text-primary underline underline-offset-4">
-              contact us
-            </Link>{" "}
-            to arrange a date.
+              {B.noDates2}
+            </Link>
+            {B.noDates3}
           </p>
         )}
         {status === "ready" && sessions && sessions.length > 0 && (
@@ -425,7 +516,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
                       ? "bg-primary text-primary-foreground border-primary"
                       : "border-border text-ink/70 hover:border-primary/50"
                   } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
-                  title={soldOut ? "Sold out" : `${s.seatsAvailable ?? "?"} seats left`}
+                  title={soldOut ? B.soldOut : B.seatsLeft(s.seatsAvailable ?? 0)}
                 >
                   {formatSessionDate(s.startTimeLocal)}
                   {typeof s.seatsAvailable === "number" && !soldOut && (
@@ -441,7 +532,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       {/* Price options + quantity steppers */}
       {selectedSession && selectedSession.priceOptions.length > 0 && (
         <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Tickets</label>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.tickets}</label>
           <div className="space-y-2">
             {selectedSession.priceOptions.map((p, i) => {
               const key = `${p.label}__${i}`;
@@ -449,9 +540,10 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
               return (
                 <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
                   <div>
-                    <p className="text-[13.5px] text-ink font-medium">{p.label}</p>
+                    <p className="text-[13.5px] text-ink font-medium">{translatePriceLabel(p.label, locale)}</p>
                     <p className="text-[11.5px] text-ink/60">${p.price.toFixed(2)} CAD</p>
                   </div>
+
                   <div className="inline-flex items-center rounded-full border border-border">
                     <button
                       type="button"
@@ -486,7 +578,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           </div>
           {totalQty > 0 && (
             <div className="mt-3 rounded-xl bg-[var(--sand)] p-3 text-[13px] text-ink/80 flex justify-between font-serif">
-              <span>Total ({totalQty})</span>
+              <span>{B.total(totalQty)}</span>
               <span className="font-semibold text-ink">${totalPrice.toFixed(2)} CAD</span>
             </div>
           )}
@@ -500,14 +592,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First name"
+            placeholder={B.firstName}
             className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
           />
           <input
             required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last name"
+            placeholder={B.lastName}
             className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
           />
         </div>
@@ -516,14 +608,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder={B.email}
           className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
         />
         <input
           required
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone"
+          placeholder={B.phone}
           className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
         />
       </div>
@@ -539,11 +631,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         disabled={continueDisabled}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Request Booking →
+        {B.requestBooking}
       </button>
-      <p className="text-[10.5px] text-ink/45 text-center">
-        * Submits a booking request. Our team will confirm and arrange payment manually.
-      </p>
+      <p className="text-[10.5px] text-ink/45 text-center">{B.disclaimer}</p>
     </form>
   );
 }
