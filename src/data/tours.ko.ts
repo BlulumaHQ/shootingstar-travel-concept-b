@@ -558,10 +558,10 @@ export const tours: Tour[] = [
   {
     slug: "fruit-upick-crab-catching",
     img: tourVancouver,
-    title: "Fruit U-Pick & Crab Catching",
-    desc: "Seasonal local day tour featuring a U-pick farm visit, Fort Langley, and crab catching experience.",
-    intro: "Stops: U-pick farm; Fort Langley; crab catching. Includes car, driver/tour guide, and parking. Excludes tip $20, meals, U-pick cost, and fishing license.",
-    duration: "1 day",
+    title: "과일 따기 & 게 잡기 체험",
+    desc: "U-pick 농장, 포트 랭리, 게 잡기 체험을 포함한 계절 한정 현지 1일 투어.",
+    intro: "일정: U-pick 농장, 포트 랭리, 게 잡기. 차량, 기사/가이드, 주차 포함. 팁 $20, 식사, 과일 따기 비용, 낚시 면허는 불포함.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
@@ -731,10 +731,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-maligne-lake-spirit-island-day-tour",
     img: destJasper,
-    title: "Jasper & Maligne Lake Spirit Island Day Tour",
-    desc: "Jasper and Maligne Lake / Spirit Island day tour with optional cruise.",
-    intro: "Jasper and Maligne Lake / Spirit Island day tour with optional cruise. Add-ons: Maligne Lake Cruise Adult +$115 / Child +$76",
-    duration: "5~6 hours",
+    title: "재스퍼 & 말린 호수 스피릿 아일랜드 1일 투어",
+    desc: "크루즈 선택이 가능한 재스퍼·말린 호수/스피릿 아일랜드 1일 투어.",
+    intro: "크루즈 선택이 가능한 재스퍼·말린 호수/스피릿 아일랜드 1일 투어입니다. 추가 옵션: 말린 호수 크루즈 성인 +$115 / 아동 +$76.",
+    duration: "5~6시간",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
     itinerary: [
@@ -749,10 +749,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-to-banff-express-shuttle",
     img: tourIcefield,
-    title: "Jasper to Banff Express Shuttle",
-    desc: "Evening Jasper to Banff express shuttle.",
-    intro: "Evening Jasper to Banff express shuttle. Add-ons: None listed",
-    duration: "~5 hours",
+    title: "재스퍼 → 밴프 익스프레스 셔틀",
+    desc: "저녁 시간 재스퍼발 밴프행 고속 셔틀.",
+    intro: "저녁 시간 재스퍼발 밴프행 고속 셔틀입니다. 추가 옵션: 없음.",
+    duration: "약 5시간",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
     itinerary: [
@@ -767,10 +767,10 @@ export const tours: Tour[] = [
   {
     slug: "banff-to-jasper-express-shuttle",
     img: tourIcefield,
-    title: "Banff to Jasper Express Shuttle",
-    desc: "Fast Banff to Jasper shuttle with optional Hinton extension.",
-    intro: "Fast Banff to Jasper shuttle with optional Hinton extension. Add-ons: Hinton extension +$20 one-way / +$35 round-trip",
-    duration: "~5 hours",
+    title: "밴프 → 재스퍼 익스프레스 셔틀",
+    desc: "힌튼 연장 구간 선택이 가능한 밴프발 재스퍼행 고속 셔틀.",
+    intro: "힌튼 연장 구간 선택이 가능한 밴프발 재스퍼행 고속 셔틀입니다. 추가 옵션: 힌튼 연장 편도 +$20 / 왕복 +$35.",
+    duration: "약 5시간",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
     itinerary: [
@@ -785,10 +785,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-medicine-lake-maligne-lake-half-day-tour",
     img: destJasper,
-    title: "Jasper Medicine Lake & Maligne Lake Half-Day Tour",
-    desc: "Half-day lake sightseeing from Jasper to Medicine Lake and Maligne Lake.",
-    intro: "Half-day lake sightseeing from Jasper to Medicine Lake and Maligne Lake. Add-ons: Maligne Lake Cruise Adult +$115 / Child +$76",
-    duration: "5~6 hours",
+    title: "재스퍼 메디신 호수 & 말린 호수 반일 투어",
+    desc: "재스퍼에서 출발하여 메디신 호수와 말린 호수를 둘러보는 반일 호수 관광.",
+    intro: "재스퍼에서 출발하여 메디신 호수와 말린 호수를 둘러보는 반일 호수 관광입니다. 추가 옵션: 말린 호수 크루즈 성인 +$115 / 아동 +$76.",
+    duration: "5~6시간",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
     itinerary: [
@@ -875,10 +875,10 @@ export const tours: Tour[] = [
   {
     slug: "icefields-parkway-southbound-sightseeing-shuttle",
     img: tourIcefield,
-    title: "Icefields Parkway Southbound Sightseeing Shuttle",
-    desc: "Southbound Icefields Parkway sightseeing shuttle from Jasper/Hinton to Banff.",
-    intro: "Southbound Icefields Parkway sightseeing shuttle from Jasper/Hinton to Banff. Add-ons: Columbia Icefield Ice Explorer Adult +$90 / Child +$60; Hinton pickup +$20 one-way / +$35 round-trip",
-    duration: "Approx. 10 hours",
+    title: "아이스필드 파크웨이 남행 관광 셔틀",
+    desc: "재스퍼/힌튼에서 밴프로 남행하는 아이스필드 파크웨이 관광 셔틀.",
+    intro: "재스퍼/힌튼에서 밴프로 남행하는 아이스필드 파크웨이 관광 셔틀입니다. 추가 옵션: 컬럼비아 아이스필드 아이스 익스플로러 성인 +$90 / 아동 +$60; 힌튼 픽업 편도 +$20 / 왕복 +$35.",
+    duration: "약 10시간",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
     itinerary: [

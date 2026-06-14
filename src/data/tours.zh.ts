@@ -561,10 +561,10 @@ export const tours: Tour[] = [
   {
     slug: "fruit-upick-crab-catching",
     img: tourVancouver,
-    title: "Fruit U-Pick & Crab Catching",
-    desc: "Seasonal local day tour featuring a U-pick farm visit, Fort Langley, and crab catching experience.",
-    intro: "Stops: U-pick farm; Fort Langley; crab catching. Includes car, driver/tour guide, and parking. Excludes tip $20, meals, U-pick cost, and fishing license.",
-    duration: "1 day",
+    title: "採果 & 抓蟹體驗",
+    desc: "季節限定在地一日遊，包含採果農場、蘭里堡與抓蟹體驗。",
+    intro: "行程：採果農場、蘭里堡、抓蟹。含車輛、司機／導遊與停車費。不含小費 $20、餐食、採果費用與釣魚證。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
@@ -734,10 +734,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-maligne-lake-spirit-island-day-tour",
     img: destJasper,
-    title: "Jasper & Maligne Lake Spirit Island Day Tour",
-    desc: "Jasper and Maligne Lake / Spirit Island day tour with optional cruise.",
-    intro: "Jasper and Maligne Lake / Spirit Island day tour with optional cruise. Add-ons: Maligne Lake Cruise Adult +$115 / Child +$76",
-    duration: "5~6 hours",
+    title: "賈斯珀 & 瑪琳湖 精靈島一日遊",
+    desc: "賈斯珀與瑪琳湖／精靈島一日遊，可加購遊船。",
+    intro: "賈斯珀與瑪琳湖／精靈島一日遊，可加購遊船。加購項目：瑪琳湖遊船 成人 +$115／兒童 +$76。",
+    duration: "5~6 小時",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
     itinerary: [
@@ -752,10 +752,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-to-banff-express-shuttle",
     img: tourIcefield,
-    title: "Jasper to Banff Express Shuttle",
-    desc: "Evening Jasper to Banff express shuttle.",
-    intro: "Evening Jasper to Banff express shuttle. Add-ons: None listed",
-    duration: "~5 hours",
+    title: "賈斯珀 至 班佛 快速接駁",
+    desc: "傍晚從賈斯珀返回班佛的快速接駁。",
+    intro: "傍晚從賈斯珀返回班佛的快速接駁。加購項目：無。",
+    duration: "約 5 小時",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
     itinerary: [
@@ -770,10 +770,10 @@ export const tours: Tour[] = [
   {
     slug: "banff-to-jasper-express-shuttle",
     img: tourIcefield,
-    title: "Banff to Jasper Express Shuttle",
-    desc: "Fast Banff to Jasper shuttle with optional Hinton extension.",
-    intro: "Fast Banff to Jasper shuttle with optional Hinton extension. Add-ons: Hinton extension +$20 one-way / +$35 round-trip",
-    duration: "~5 hours",
+    title: "班佛 至 賈斯珀 快速接駁",
+    desc: "班佛到賈斯珀的快速接駁，可加購欣頓延伸路段。",
+    intro: "班佛到賈斯珀的快速接駁。加購項目：欣頓延伸 單程 +$20／來回 +$35。",
+    duration: "約 5 小時",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
     itinerary: [
@@ -788,10 +788,10 @@ export const tours: Tour[] = [
   {
     slug: "jasper-medicine-lake-maligne-lake-half-day-tour",
     img: destJasper,
-    title: "Jasper Medicine Lake & Maligne Lake Half-Day Tour",
-    desc: "Half-day lake sightseeing from Jasper to Medicine Lake and Maligne Lake.",
-    intro: "Half-day lake sightseeing from Jasper to Medicine Lake and Maligne Lake. Add-ons: Maligne Lake Cruise Adult +$115 / Child +$76",
-    duration: "5~6 hours",
+    title: "賈斯珀 藥湖 & 瑪琳湖 半日遊",
+    desc: "從賈斯珀出發的半日湖泊觀光，造訪藥湖與瑪琳湖。",
+    intro: "從賈斯珀出發的半日湖泊觀光，造訪藥湖與瑪琳湖。加購項目：瑪琳湖遊船 成人 +$115／兒童 +$76。",
+    duration: "5~6 小時",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
     itinerary: [
@@ -878,10 +878,10 @@ export const tours: Tour[] = [
   {
     slug: "icefields-parkway-southbound-sightseeing-shuttle",
     img: tourIcefield,
-    title: "Icefields Parkway Southbound Sightseeing Shuttle",
-    desc: "Southbound Icefields Parkway sightseeing shuttle from Jasper/Hinton to Banff.",
-    intro: "Southbound Icefields Parkway sightseeing shuttle from Jasper/Hinton to Banff. Add-ons: Columbia Icefield Ice Explorer Adult +$90 / Child +$60; Hinton pickup +$20 one-way / +$35 round-trip",
-    duration: "Approx. 10 hours",
+    title: "冰原大道 南向觀光接駁",
+    desc: "從賈斯珀／欣頓南下班佛的冰原大道觀光接駁。",
+    intro: "從賈斯珀／欣頓南下班佛的冰原大道觀光接駁。加購項目：哥倫比亞冰原冰原探險車 成人 +$90／兒童 +$60；欣頓接送 單程 +$20／來回 +$35。",
+    duration: "約 10 小時",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
     itinerary: [
