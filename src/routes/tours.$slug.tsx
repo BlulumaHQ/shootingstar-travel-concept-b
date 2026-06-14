@@ -760,6 +760,9 @@ export function TourDetailPage() {
                 ))}
               </div>
             </section>
+
+            {/* Shuttle-only extras — appended below standard content for the 6 Icefields shuttle products */}
+            {isShuttleSlug(slug) && <ShuttleExtras slug={slug} locale={locale} />}
           </div>
 
           {/* RIGHT — sticky booking */}
