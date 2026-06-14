@@ -145,7 +145,7 @@ export function ToursIndexPage() {
     <Link
       to={withLocale(t.href ?? `/tours/${t.slug}`, locale) as never}
       key={t.slug}
-      className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 block"
+      className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 flex flex-col h-full"
     >
       <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
         <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
@@ -153,11 +153,11 @@ export function ToursIndexPage() {
           <Heart size={13} strokeWidth={1.8} />
         </button>
       </div>
-      <div className="px-1 pt-4">
+      <div className="px-1 pt-4 flex flex-col flex-1">
         <p className="text-[11px] tracking-[0.2em] uppercase text-ink/50">{t.duration}</p>
         <h3 className="tour-title font-serif text-[16px] text-ink leading-snug font-semibold mt-1.5">{t.title}</h3>
         <p className="mt-1.5 text-[12px] text-ink/55 leading-relaxed">{t.desc}</p>
-        <div className="mt-3 flex items-center justify-between">
+        <div className="mt-auto pt-3 flex items-center justify-between">
           <p className="font-serif text-[13.5px] text-primary font-semibold">{t.price}</p>
           <span className="text-[11.5px] text-primary tracking-wide">{p.viewTour}</span>
         </div>
