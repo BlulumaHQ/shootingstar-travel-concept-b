@@ -578,7 +578,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           </div>
           {totalQty > 0 && (
             <div className="mt-3 rounded-xl bg-[var(--sand)] p-3 text-[13px] text-ink/80 flex justify-between font-serif">
-              <span>Total ({totalQty})</span>
+              <span>{B.total(totalQty)}</span>
               <span className="font-semibold text-ink">${totalPrice.toFixed(2)} CAD</span>
             </div>
           )}
