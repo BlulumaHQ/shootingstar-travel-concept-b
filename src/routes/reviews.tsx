@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useMemo, useState } from "react";
 import { Star, UserCircle, Upload } from "lucide-react";
 import { ReviewCard, type Review } from "@/components/site/ReviewCard";
