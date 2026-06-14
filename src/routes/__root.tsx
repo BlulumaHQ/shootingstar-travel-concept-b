@@ -12,6 +12,7 @@ import {
 import appCss from "../styles.css?url";
 import { localeFromPath } from "@/i18n/locale";
 import { fetchToursEn } from "@/data/toursSource";
+import { fetchReviews } from "@/data/reviewsSource";
 
 function NotFoundComponent() {
   return (
