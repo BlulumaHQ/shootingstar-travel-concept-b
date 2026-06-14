@@ -569,8 +569,11 @@ export function TourDetailPage() {
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
 
+  if (isShuttleSlug(slug)) {
+    return <ShuttleTourDetail tour={tour} slug={slug} locale={locale} toursHref={toursHref} allToursLabel={T.allTours} />;
+  }
+
   return (
-    <SiteLayout>
       {/* Compact hero band */}
       <section className="relative bg-cream">
         <div className="relative h-[34vh] md:h-[42vh] min-h-[240px] max-h-[420px] overflow-hidden">
