@@ -225,14 +225,15 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <Link
-              to={lp("/contact")}
-              className="mt-4 inline-flex items-center gap-2 text-[12px] text-ink/70 hover:text-primary transition"
-            >
-              <span className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80">{chatSupportLabel}</span>
+            <div className="mt-4 inline-flex items-center gap-2 text-[12px] text-ink/70 flex-wrap">
+              <Link to={lp("/contact")} className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80 hover:text-primary transition">{chatSupportLabel}</Link>
               <span className="text-ink/40">·</span>
-              <span>KakaoTalk · WhatsApp · WeChat</span>
-            </Link>
+              <a href="https://qr.kakao.com/talk/noworriesyep" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">KakaoTalk</a>
+              <span className="text-ink/40">·</span>
+              <a href="https://wa.me/16047657765" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">WhatsApp</a>
+              <span className="text-ink/40">·</span>
+              <Link to={lp("/contact")} className="hover:text-primary transition">WeChat</Link>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-10 w-full max-w-sm text-left">
@@ -328,14 +329,15 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <Link
-              to={lp("/contact")}
-              className="mt-5 inline-flex items-center gap-2 text-[12px] text-ink/70 hover:text-primary transition"
-            >
-              <span className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80">{chatSupportLabel}</span>
+            <div className="mt-5 inline-flex items-center gap-2 text-[12px] text-ink/70 flex-wrap">
+              <Link to={lp("/contact")} className="text-[10.5px] tracking-[0.3em] uppercase text-primary/80 hover:text-primary transition">{chatSupportLabel}</Link>
               <span className="text-ink/40">·</span>
-              <span>KakaoTalk · WhatsApp · WeChat</span>
-            </Link>
+              <a href="https://qr.kakao.com/talk/noworriesyep" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">KakaoTalk</a>
+              <span className="text-ink/40">·</span>
+              <a href="https://wa.me/16047657765" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition">WhatsApp</a>
+              <span className="text-ink/40">·</span>
+              <Link to={lp("/contact")} className="hover:text-primary transition">WeChat</Link>
+            </div>
           </div>
         </div>
 
