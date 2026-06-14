@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale } from "@/i18n/locale";
+import { formatPrice } from "@/i18n/tourText";
 import type { LakeToursContent, LakeTourCard } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";

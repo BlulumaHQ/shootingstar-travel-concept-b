@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
+import { formatPrice } from "@/i18n/tourText";
 import { seoHead } from "@/i18n/seo";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
@@ -468,7 +469,7 @@ export function HomePage() {
                   <h3 className="tour-title font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
                   <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
                   <div className="mt-auto pt-4 flex items-center justify-between">
-                    <p className="font-serif text-[14px] text-primary font-semibold">{t.price}</p>
+                    <p className="font-serif text-[14px] text-primary font-semibold">{formatPrice(t.price, locale)}</p>
                     <span className="text-[11px] text-primary tracking-[0.18em] uppercase">{p.viewTour}</span>
                   </div>
                 </div>
