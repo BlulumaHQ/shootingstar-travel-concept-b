@@ -472,32 +472,32 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     >
       <div className="flex items-center justify-between border-b border-border/60 pb-4">
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
+          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
         </div>
         <span className="text-[11px] text-ink/55">
-          from <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
+          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{tour?.price}</span>
         </span>
       </div>
 
       {/* Date selector */}
       <div>
         <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
-          Choose a date
-          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">· live availability</span>}
+          {B.chooseDate}
+          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">{B.liveAvail}</span>}
         </label>
 
-        {status === "loading" && <p className="text-[12px] text-ink/55">Loading available dates…</p>}
+        {status === "loading" && <p className="text-[12px] text-ink/55">{B.loadingDates}</p>}
         {status === "error" && (
-          <p className="text-[12px] text-red-600">{loadError ?? "Unable to load availability. Please try again later."}</p>
+          <p className="text-[12px] text-red-600">{loadError ?? B.loadErrFallback}</p>
         )}
         {status === "ready" && sessions && sessions.length === 0 && (
           <p className="text-[12.5px] text-ink/65 leading-[1.85]">
-            No scheduled dates yet — please{" "}
+            {B.noDates1}
             <Link to={contactHref as never} className="text-primary underline underline-offset-4">
-              contact us
-            </Link>{" "}
-            to arrange a date.
+              {B.noDates2}
+            </Link>
+            {B.noDates3}
           </p>
         )}
         {status === "ready" && sessions && sessions.length > 0 && (
@@ -516,7 +516,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
                       ? "bg-primary text-primary-foreground border-primary"
                       : "border-border text-ink/70 hover:border-primary/50"
                   } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
-                  title={soldOut ? "Sold out" : `${s.seatsAvailable ?? "?"} seats left`}
+                  title={soldOut ? B.soldOut : B.seatsLeft(s.seatsAvailable ?? 0)}
                 >
                   {formatSessionDate(s.startTimeLocal)}
                   {typeof s.seatsAvailable === "number" && !soldOut && (
@@ -532,7 +532,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       {/* Price options + quantity steppers */}
       {selectedSession && selectedSession.priceOptions.length > 0 && (
         <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">Tickets</label>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.tickets}</label>
           <div className="space-y-2">
             {selectedSession.priceOptions.map((p, i) => {
               const key = `${p.label}__${i}`;
@@ -540,9 +540,10 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
               return (
                 <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
                   <div>
-                    <p className="text-[13.5px] text-ink font-medium">{p.label}</p>
+                    <p className="text-[13.5px] text-ink font-medium">{translatePriceLabel(p.label, locale)}</p>
                     <p className="text-[11.5px] text-ink/60">${p.price.toFixed(2)} CAD</p>
                   </div>
+
                   <div className="inline-flex items-center rounded-full border border-border">
                     <button
                       type="button"
