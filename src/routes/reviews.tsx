@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useState } from "react";
 import { Star, Heart } from "lucide-react";
+import { ReviewCard } from "@/components/site/ReviewCard";
+import { useReviews } from "@/data/useReviews";
 import { tours } from "@/data/tours";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
