@@ -1,36 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useState, useMemo, useEffect } from "react";
-import { Play, MapPin, Calendar, X, ChevronLeft, ChevronRight } from "lucide-react";
-import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
+import { useEffect, useState } from "react";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
-import logo from "@/assets/logo.png";
-
-// Media
-import b1 from "@/assets/banff3/b1.webp";
-import b2 from "@/assets/banff3/b2.webp";
-import b3 from "@/assets/banff3/b3.webp";
-import b4 from "@/assets/banff3/b4.webp";
-import b5 from "@/assets/banff3/b5.webp";
-import b6 from "@/assets/banff3/b6.webp";
-import lake9 from "@/assets/lake-tours/lake-009.webp";
-import lake10 from "@/assets/lake-tours/lake-010.webp";
-import lake13 from "@/assets/lake-tours/lake-013.webp";
-import lake52 from "@/assets/lake-tours/lake-052.webp";
-import lake55 from "@/assets/lake-tours/lake-055.webp";
-import v1 from "@/assets/victoria/v1.webp";
-import v2 from "@/assets/victoria/v2.webp";
-import v5 from "@/assets/victoria/v5.webp";
-import v7 from "@/assets/victoria/v7.webp";
-import w1 from "@/assets/whistler/w1.webp";
-import w2 from "@/assets/whistler/w2.webp";
-import w3 from "@/assets/whistler/w3.webp";
-import w5 from "@/assets/whistler/w5.webp";
-import w7 from "@/assets/whistler/w7.webp";
-import vc1 from "@/assets/vancouver-city/v1.webp";
-import vc2 from "@/assets/vancouver-city/v2.webp";
-import vc3 from "@/assets/vancouver-city/v3.webp";
-import vc4 from "@/assets/vancouver-city/v4.webp";
+import { supabase } from "@/lib/supabase";
+import brownLogo from "@/assets/shootingstar-brown-logo.png";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -38,502 +11,174 @@ export const Route = createFileRoute("/gallery")({
       { title: "Gallery — Shooting Star Travel" },
       { name: "description", content: "Latest travel moments, photos, and videos from Shooting Star Travel." },
       { property: "og:title", content: "Gallery — Shooting Star Travel" },
-      { property: "og:description", content: "Latest travel moments, photos, and videos from Shooting Star Travel." },
-      { property: "og:image", content: b1 },
+      { property: "og:description", content: "Trip albums and journey highlights from Shooting Star Travel." },
     ],
     links: hreflangLinks("/gallery", "en"),
   }),
   component: GalleryPage,
 });
 
-// ── i18n ──────────────────────────────────────────────────────────────
 const T = {
-  heroEyebrow: { en: "Studio Gallery", zh: "旅程相簿", ko: "스튜디오 갤러리" },
-  heroTitle: { en: "Gallery", zh: "旅程相簿", ko: "갤러리" },
-  heroSub: {
-    en: "Latest travel moments, photos, and videos from Shooting Star Travel.",
-    zh: "持續更新最新旅遊照片、影片與行程紀錄，讓你看到我們真實的旅程現場。",
-    ko: "Shooting Star Travel의 최신 여행 순간과 사진, 영상.",
+  eyebrow: { en: "Trip Albums", zh: "旅程相簿", ko: "여행 앨범" },
+  title: { en: "Gallery", zh: "相簿", ko: "갤러리" },
+  sub: {
+    en: "Recent journeys, captured with our travelers.",
+    zh: "與旅客一同走過的近期旅程記錄。",
+    ko: "여행자들과 함께한 최근 여정의 기록.",
   },
-  featuredEyebrow: { en: "Latest update", zh: "最新一筆上傳", ko: "최신 업데이트" },
-  latestSection: { en: "Latest Uploads", zh: "最新上傳", ko: "최신 업로드" },
-  videoBadge: { en: "Video", zh: "影片", ko: "영상" },
-  viewJourney: { en: "View Journey", zh: "查看旅程", ko: "여정 보기" },
-  closeBtn: { en: "Close", zh: "關閉", ko: "닫기" },
-  filterAll: { en: "All", zh: "全部", ko: "전체" },
-  filterPhotos: { en: "Photos", zh: "照片", ko: "사진" },
-  filterVideos: { en: "Videos", zh: "影片", ko: "영상" },
-  filterGroup: { en: "Group Tours", zh: "團體旅遊", ko: "그룹 투어" },
-  filterDest: { en: "Destination Highlights", zh: "目的地亮點", ko: "목적지 하이라이트" },
+  empty: {
+    en: "No albums yet. Check back soon!",
+    zh: "目前還沒有相簿，敬請期待。",
+    ko: "아직 등록된 앨범이 없습니다. 곧 업데이트됩니다.",
+  },
+  loading: { en: "Loading…", zh: "載入中…", ko: "불러오는 중…" },
+  watchVideo: { en: "Watch the video", zh: "觀看影片", ko: "영상 보기" },
 } as const;
-const t = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
+const tt = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
 
-// ── Data ──────────────────────────────────────────────────────────────
-type Category = "group" | "destination";
-type GalleryItem = {
+type GalleryRow = {
   id: string;
-  dateISO: string;
-  date: Record<Locale, string>;
-  title: Record<Locale, string>;
-  description: Record<Locale, string>;
-  location: Record<Locale, string>;
-  category: Category;
-  cover: string;
-  photos: string[];
-  hasVideo: boolean;
-  featured?: boolean;
+  tour_label: string | null;
+  trip_date: string | null;
+  photos: string[] | null;
+  youtube_url: string | null;
+  status: string;
 };
 
-const items: GalleryItem[] = [
-  {
-    id: "rocky-mountain-highlights",
-    dateISO: "2026-05-29",
-    date: { en: "May 29, 2026", zh: "2026 年 5 月 29 日", ko: "2026년 5월 29일" },
-    title: {
-      en: "Rocky Mountain Tour Highlights",
-      zh: "洛磯山脈旅程亮點",
-      ko: "로키 마운틴 하이라이트",
-    },
-    description: {
-      en: "A quick look at our latest group journey through the Canadian Rockies.",
-      zh: "帶你快速回顧最近一團走過加拿大洛磯山脈的精彩瞬間。",
-      ko: "캐나디안 로키를 여행한 최근 그룹의 하이라이트를 빠르게 살펴보세요.",
-    },
-    location: {
-      en: "Canadian Rockies",
-      zh: "加拿大洛磯山脈",
-      ko: "캐나디안 로키",
-    },
-    category: "group",
-    cover: b1,
-    photos: [b1, b2, b3, b4, b5, b6],
-    hasVideo: false,
-    featured: true,
-  },
-  {
-    id: "banff-two-lake-day",
-    dateISO: "2026-07-18",
-    date: { en: "July 18, 2026", zh: "2026 年 7 月 18 日", ko: "2026년 7월 18일" },
-    title: {
-      en: "Banff Two-Lake Day Tour",
-      zh: "Banff 雙湖一日遊現場",
-      ko: "밴프 투-레이크 1일 투어",
-    },
-    description: {
-      en: "Bright weather, soft light, and happy travellers around Lake Louise and Moraine Lake.",
-      zh: "天氣好、光線柔，旅客笑得很開心，把 Banff 雙湖經典畫面一次收齊。",
-      ko: "맑은 날씨와 부드러운 빛, 그리고 즐거운 여행자들의 모습.",
-    },
-    location: {
-      en: "Lake Louise & Moraine Lake",
-      zh: "Lake Louise 與 Moraine Lake",
-      ko: "레이크 루이스 & 모레인 레이크",
-    },
-    category: "destination",
-    cover: lake10,
-    photos: [lake10, lake9, lake13, lake52, lake55],
-    hasVideo: true,
-  },
-  {
-    id: "victoria-day",
-    dateISO: "2026-08-09",
-    date: { en: "August 9, 2026", zh: "2026 年 8 月 9 日", ko: "2026년 8월 9일" },
-    title: {
-      en: "Victoria Coastal Day Trip",
-      zh: "維多利亞海岸一日遊",
-      ko: "빅토리아 해안 1일 투어",
-    },
-    description: {
-      en: "Garden highlights, ferry views, and a peaceful walk around the Inner Harbour.",
-      zh: "賞花、搭船、漫步維多利亞內港，慢慢走過一整天。",
-      ko: "정원과 페리, 이너 하버 산책까지 함께한 하루.",
-    },
-    location: {
-      en: "Butchart Gardens & Inner Harbour",
-      zh: "Butchart Gardens 與 Inner Harbour",
-      ko: "부차트 가든 & 이너 하버",
-    },
-    category: "destination",
-    cover: v1,
-    photos: [v1, v2, v5, v7],
-    hasVideo: false,
-  },
-  {
-    id: "whistler-summer",
-    dateISO: "2026-08-22",
-    date: { en: "August 22, 2026", zh: "2026 年 8 月 22 日", ko: "2026년 8월 22일" },
-    title: {
-      en: "Whistler Summer Escape",
-      zh: "Whistler 夏日山林輕旅",
-      ko: "휘슬러 여름 산악 여행",
-    },
-    description: {
-      en: "Alpine lakes, gondola rides, and quiet forest trails in Whistler village.",
-      zh: "高山湖泊、纜車風景，還有 Whistler 村裡靜謐的森林步道。",
-      ko: "고산 호수와 곤돌라, 그리고 휘슬러 빌리지의 조용한 숲길.",
-    },
-    location: {
-      en: "Whistler, BC",
-      zh: "Whistler，BC 省",
-      ko: "휘슬러, BC",
-    },
-    category: "destination",
-    cover: w1,
-    photos: [w1, w2, w3, w5, w7],
-    hasVideo: false,
-  },
-  {
-    id: "vancouver-city-walk",
-    dateISO: "2026-09-05",
-    date: { en: "September 5, 2026", zh: "2026 年 9 月 5 日", ko: "2026년 9월 5일" },
-    title: {
-      en: "Vancouver City Walk Recap",
-      zh: "溫哥華城市漫步回顧",
-      ko: "밴쿠버 시티 워크 후기",
-    },
-    description: {
-      en: "A short film from our small-group walk through Gastown, the seawall, and Stanley Park.",
-      zh: "小團漫步 Gastown、海堤與史丹利公園的短片紀錄。",
-      ko: "개스타운, 시월, 스탠리 파크를 함께 걸은 소그룹의 짧은 영상.",
-    },
-    location: {
-      en: "Downtown Vancouver",
-      zh: "溫哥華市中心",
-      ko: "다운타운 밴쿠버",
-    },
-    category: "group",
-    cover: vc1,
-    photos: [vc1, vc2, vc3, vc4],
-    hasVideo: true,
-  },
-];
+const dateLocaleMap: Record<Locale, string> = { en: "en-US", zh: "zh-Hant", ko: "ko-KR" };
 
-// ── Sticker-style watermark (logo with white outline, no padding box) ──
-function Watermark() {
-  return (
-    <img
-      src={logo}
-      alt=""
-      draggable={false}
-      aria-hidden
-      className="pointer-events-none absolute bottom-2 right-2 z-10 block select-none"
-      style={{
-        height: 56,
-        width: "auto",
-        // Sticker effect: white outline tracing the logo shape + soft shadow
-        filter:
-          "drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 0 1.5px #fff) drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
-      }}
-    />
-  );
+function formatDate(iso: string | null, l: Locale): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString(dateLocaleMap[l], { year: "numeric", month: "long", day: "numeric" });
 }
 
-function ImgWithMark({ src, alt = "", className = "" }: { src: string; alt?: string; className?: string }) {
+function youtubeEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) {
+      return `https://www.youtube.com/embed/${u.pathname.slice(1)}`;
+    }
+    if (u.hostname.includes("youtube.com")) {
+      const v = u.searchParams.get("v");
+      if (v) return `https://www.youtube.com/embed/${v}`;
+      if (u.pathname.startsWith("/embed/")) return url;
+      if (u.pathname.startsWith("/shorts/")) {
+        return `https://www.youtube.com/embed/${u.pathname.split("/")[2]}`;
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function PhotoWithWatermark({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover" />
-      <Watermark />
+    <div className="relative overflow-hidden rounded-lg bg-muted aspect-[4/3] group">
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+      />
+      <img
+        src={brownLogo}
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="pointer-events-none absolute bottom-2 right-2 select-none"
+        style={{ width: 80, height: "auto", opacity: 0.7 }}
+      />
     </div>
   );
 }
 
-// ── Detail modal ──────────────────────────────────────────────────────
-function Detail({ item, onClose }: { item: GalleryItem; onClose: () => void }) {
-  const l = useLocale();
+function Album({ row, locale }: { row: GalleryRow; locale: Locale }) {
+  const photos = Array.isArray(row.photos) ? row.photos.filter(Boolean) : [];
+  const embed = row.youtube_url ? youtubeEmbedUrl(row.youtube_url) : null;
+
   return (
-    <div className="fixed inset-0 z-[60] bg-ink/60 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto" onClick={onClose}>
-      <div className="bg-cream rounded-2xl max-w-4xl w-full my-8 shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-start justify-between px-7 md:px-9 pt-7">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-sage-soft/40 text-ink/75 px-3 py-1 text-[11.5px]">
-              <Calendar size={12} /> {item.date[l]}
-            </div>
-            <h3 className="font-serif text-2xl md:text-3xl text-ink font-semibold mt-3">{item.title[l]}</h3>
-            <p className="text-ink/65 text-[13px] mt-1 flex items-center gap-1.5"><MapPin size={13} />{item.location[l]}</p>
-          </div>
-          <button onClick={onClose} className="text-ink/50 p-1"><X size={22} /></button>
-        </div>
-        <div className="px-7 md:px-9 mt-5">
-          <p className="text-ink/80 leading-[2] text-[14.5px] font-serif">{item.description[l]}</p>
-        </div>
-        <div className="px-7 md:px-9 mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
-          {item.photos.map((p, i) => (
-            <ImgWithMark key={i} src={p} className="aspect-[4/3] rounded-lg" />
+    <article className="bg-card rounded-2xl overflow-hidden shadow-sm border border-border/60">
+      <header className="px-6 md:px-8 pt-6 md:pt-8 pb-4 flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="font-serif text-2xl md:text-3xl text-ink">{row.tour_label || "—"}</h2>
+        <p className="text-sm text-ink/60">{formatDate(row.trip_date, locale)}</p>
+      </header>
+
+      {photos.length > 0 && (
+        <div className="px-6 md:px-8 pb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {photos.map((p, i) => (
+            <PhotoWithWatermark key={i} src={p} alt={`${row.tour_label ?? "photo"} ${i + 1}`} />
           ))}
-          {item.hasVideo && (
-            <div className="relative aspect-[4/3] rounded-lg bg-ink/85 grid place-items-center text-cream/80 col-span-2 md:col-span-1">
-              <div className="text-center">
-                <Play size={36} className="mx-auto mb-2" />
-                <p className="text-[12px] tracking-[0.2em] uppercase">{t("videoBadge", l)}</p>
-              </div>
-            </div>
-          )}
         </div>
-        <div className="px-7 md:px-9 py-7 mt-4 text-right">
-          <button onClick={onClose} className="rounded-full border border-primary/40 text-primary px-7 py-2.5 text-[13px] tracking-[0.12em] uppercase hover:bg-primary hover:text-primary-foreground transition">
-            {t("closeBtn", l)}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+      )}
 
-// ── Lightbox ──────────────────────────────────────────────────────────
-function Lightbox({
-  photos,
-  startIndex,
-  onClose,
-}: { photos: string[]; startIndex: number; onClose: () => void }) {
-  const [idx, setIdx] = useState(startIndex);
-  const go = (n: number) => setIdx((n + photos.length) % photos.length);
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") setIdx((i) => (i + 1) % photos.length);
-      if (e.key === "ArrowLeft") setIdx((i) => (i - 1 + photos.length) % photos.length);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [photos.length, onClose]);
-  return (
-    <div className="fixed inset-0 z-[80] bg-ink/90 backdrop-blur-sm flex flex-col" onClick={onClose}>
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 z-10 text-cream/85 hover:text-cream p-2"
-        aria-label="Close"
-      >
-        <X size={28} />
-      </button>
-      <div className="flex-1 flex items-center justify-center p-4 md:p-12" onClick={(e) => e.stopPropagation()}>
-        <button
-          onClick={() => go(idx - 1)}
-          aria-label="Previous"
-          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition mr-4"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <div className="relative max-h-[80vh] max-w-[90vw]">
-          <img src={photos[idx]} alt="" className="max-h-[80vh] max-w-[90vw] object-contain rounded-md" />
-          <Watermark />
-        </div>
-        <button
-          onClick={() => go(idx + 1)}
-          aria-label="Next"
-          className="hidden md:grid h-12 w-12 place-items-center rounded-full bg-cream/15 text-cream hover:bg-cream/25 transition ml-4"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
-      <div className="pb-6 px-4 flex items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
-        <button onClick={() => go(idx - 1)} className="md:hidden text-cream/80 p-2"><ChevronLeft size={20} /></button>
-        <span className="text-cream/70 text-[12px] tracking-[0.2em]">{idx + 1} / {photos.length}</span>
-        <button onClick={() => go(idx + 1)} className="md:hidden text-cream/80 p-2"><ChevronRight size={20} /></button>
-      </div>
-    </div>
-  );
-}
-
-// ── Card ──────────────────────────────────────────────────────────────
-function Card({
-  item,
-  onOpen,
-  onOpenLightbox,
-}: {
-  item: GalleryItem;
-  onOpen: () => void;
-  onOpenLightbox: (startIndex: number) => void;
-}) {
-  const l = useLocale();
-  const thumbs = item.photos.slice(0, 4);
-  return (
-    <article className="bg-card rounded-[12px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
-      <button type="button" onClick={onOpen} className="relative text-left">
-        <ImgWithMark src={item.cover} className="aspect-[5/4]" />
-        {item.hasVideo && (
-          <div className="absolute top-3 left-3 inline-flex items-center gap-1 rounded-full bg-ink/75 text-cream px-2.5 py-1 text-[10.5px] tracking-[0.18em] uppercase">
-            <Play size={11} fill="currentColor" /> {t("videoBadge", l)}
+      {embed && (
+        <div className="px-6 md:px-8 pb-8">
+          <p className="text-sm font-medium text-ink/70 mb-3">{tt("watchVideo", locale)}</p>
+          <div className="relative w-full overflow-hidden rounded-lg bg-black" style={{ paddingTop: "56.25%" }}>
+            <iframe
+              src={embed}
+              title={row.tour_label || "Video"}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
           </div>
-        )}
-      </button>
-      <div className="p-6 flex-1 flex flex-col">
-        <div className="inline-flex items-center gap-1.5 self-start rounded-full bg-sage-soft/40 text-ink/75 px-2.5 py-1 text-[11px] font-medium">
-          <Calendar size={11} /> {item.date[l]}
         </div>
-        <h3
-          className="font-serif text-[20px] text-ink font-semibold mt-3 leading-tight hover:text-primary transition-colors cursor-pointer"
-          onClick={onOpen}
-        >
-          {item.title[l]}
-        </h3>
-        <p className="text-ink/60 text-[12.5px] mt-1 flex items-center gap-1.5"><MapPin size={12} />{item.location[l]}</p>
-        <p className="mt-3 text-[13.5px] text-ink/80 leading-[1.85] font-serif flex-1">{item.description[l]}</p>
-
-        {/* Equal-height media strip: thumbnails for photos, play CTA for video */}
-        <div className="mt-5 h-[68px]">
-          {item.hasVideo ? (
-            <button
-              type="button"
-              onClick={onOpen}
-              className="h-full w-full rounded-md bg-ink/90 text-cream/90 flex items-center justify-center gap-2 hover:bg-ink transition"
-            >
-              <Play size={16} fill="currentColor" />
-              <span className="text-[12px] tracking-[0.2em] uppercase">{t("videoBadge", l)}</span>
-            </button>
-          ) : (
-            <div className="grid grid-cols-4 gap-2 h-full">
-              {thumbs.map((p, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => onOpenLightbox(i)}
-                  className="relative overflow-hidden rounded-md ring-1 ring-border/40 hover:ring-primary transition"
-                  aria-label={`Photo ${i + 1}`}
-                >
-                  <img src={p} alt="" loading="lazy" className="h-full w-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </article>
   );
 }
 
-
-// ── Page ──────────────────────────────────────────────────────────────
-type Filter = "all" | "photos" | "videos" | "group" | "destination";
-
 export function GalleryPage() {
-  const l = useLocale();
-  const [filter, setFilter] = useState<Filter>("all");
-  const [detail, setDetail] = useState<GalleryItem | null>(null);
-  const [lightbox, setLightbox] = useState<{ photos: string[]; index: number } | null>(null);
+  const locale = useLocale();
+  const [rows, setRows] = useState<GalleryRow[] | null>(null);
 
-  const sorted = useMemo(() => [...items].sort((a, b) => b.dateISO.localeCompare(a.dateISO)), []);
-  const featured = sorted.find((i) => i.featured) ?? sorted[0];
-  const rest = sorted.filter((i) => i.id !== featured.id);
-
-  const filtered = useMemo(() => {
-    return rest.filter((i) => {
-      if (filter === "all") return true;
-      if (filter === "photos") return !i.hasVideo;
-      if (filter === "videos") return i.hasVideo;
-      return i.category === filter;
-    });
-  }, [rest, filter]);
-
-  const filters: { key: Filter; label: string }[] = [
-    { key: "all", label: t("filterAll", l) },
-    { key: "photos", label: t("filterPhotos", l) },
-    { key: "videos", label: t("filterVideos", l) },
-    { key: "group", label: t("filterGroup", l) },
-    { key: "destination", label: t("filterDest", l) },
-  ];
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const { data, error } = await supabase
+        .from("gallery")
+        .select("id, tour_label, trip_date, photos, youtube_url, status")
+        .eq("status", "published")
+        .order("trip_date", { ascending: false });
+      if (!alive) return;
+      if (error) {
+        console.error("[gallery] fetch error", error);
+        setRows([]);
+        return;
+      }
+      setRows((data as GalleryRow[]) ?? []);
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   return (
     <SiteLayout>
-      {/* Hero */}
-      <section className="relative bg-cream pt-24 md:pt-32 pb-16 overflow-hidden">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-primary/75">
-              <StarMark size={18} className="text-primary/65" />
-              <DottedLine length={36} className="text-primary/45" />
-              <span className="text-[11px] tracking-[0.4em] uppercase font-medium">— {t("heroEyebrow", l)}</span>
-            </div>
-            <h1 className="font-serif text-4xl md:text-[56px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-              {t("heroTitle", l)}
-            </h1>
-            <p className="mt-7 text-ink/65 leading-[2] text-[15px] max-w-xl">{t("heroSub", l)}</p>
-          </div>
-        </div>
-        <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pt-16 pb-10">
+        <p className="font-hand text-clay text-2xl">— {tt("eyebrow", locale)}</p>
+        <h1 className="font-serif text-5xl md:text-6xl mt-2">{tt("title", locale)}</h1>
+        <p className="mt-4 text-ink/70 max-w-2xl">{tt("sub", locale)}</p>
       </section>
 
-      {/* Featured */}
-      <section className="bg-paper/40 pt-16 md:pt-20 pb-12">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex items-center gap-3 text-primary/75 mb-6">
-            <span className="text-[11px] tracking-[0.4em] uppercase font-medium">— {t("featuredEyebrow", l)}</span>
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-24">
+        {rows === null ? (
+          <p className="text-ink/60 py-12 text-center">{tt("loading", locale)}</p>
+        ) : rows.length === 0 ? (
+          <p className="text-ink/60 py-12 text-center">{tt("empty", locale)}</p>
+        ) : (
+          <div className="space-y-10">
+            {rows.map((r) => (
+              <Album key={r.id} row={r} locale={locale} />
+            ))}
           </div>
-          <article
-            className="grid md:grid-cols-2 gap-0 bg-card rounded-[14px] overflow-hidden shadow-[0_36px_72px_-36px_rgba(70,80,75,0.32)] cursor-pointer group"
-            onClick={() => setDetail(featured)}
-          >
-            <div className="relative">
-              <ImgWithMark src={featured.cover} className="aspect-[5/4] md:aspect-auto md:h-full" />
-              {featured.hasVideo && (
-                <div className="absolute top-4 left-4 inline-flex items-center gap-1 rounded-full bg-ink/75 text-cream px-3 py-1 text-[11px] tracking-[0.18em] uppercase">
-                  <Play size={12} fill="currentColor" /> {t("videoBadge", l)}
-                </div>
-              )}
-            </div>
-            <div className="p-8 md:p-10 flex flex-col justify-center">
-              <div className="inline-flex items-center gap-1.5 self-start rounded-full bg-sage-soft/50 text-ink/80 px-3 py-1.5 text-[12px] font-medium">
-                <Calendar size={12} /> {featured.date[l]}
-              </div>
-              <h2 className="font-serif text-3xl md:text-[36px] text-ink font-semibold mt-4 leading-tight group-hover:text-primary transition-colors">
-                {featured.title[l]}
-              </h2>
-              <p className="text-ink/65 text-[13px] mt-2 flex items-center gap-1.5"><MapPin size={13} />{featured.location[l]}</p>
-              <p className="mt-5 text-[14.5px] text-ink/80 leading-[2] font-serif">{featured.description[l]}</p>
-            </div>
-          </article>
-        </div>
+        )}
       </section>
-
-      {/* Latest uploads with filters */}
-      <section className="bg-paper/40 pb-28 md:pb-36">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10">
-            <h2 className="font-serif text-3xl md:text-[40px] text-ink font-medium tracking-[-0.01em]">
-              {t("latestSection", l)}
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {filters.map((f) => (
-                <button
-                  key={f.key}
-                  onClick={() => setFilter(f.key)}
-                  className={
-                    "rounded-full px-4 py-2 text-[12px] tracking-[0.1em] uppercase transition " +
-                    (filter === f.key
-                      ? "bg-primary text-primary-foreground"
-                      : "border border-primary/30 text-ink/70 hover:border-primary hover:text-primary")
-                  }
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {filtered.length === 0 ? (
-            <p className="text-center text-ink/55 text-[14px] py-16">—</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8">
-              {filtered.map((it) => (
-                <Card
-                  key={it.id}
-                  item={it}
-                  onOpen={() => setDetail(it)}
-                  onOpenLightbox={(index) => setLightbox({ photos: it.photos, index })}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {detail && <Detail item={detail} onClose={() => setDetail(null)} />}
-      {lightbox && (
-        <Lightbox
-          photos={lightbox.photos}
-          startIndex={lightbox.index}
-          onClose={() => setLightbox(null)}
-        />
-      )}
     </SiteLayout>
   );
 }
