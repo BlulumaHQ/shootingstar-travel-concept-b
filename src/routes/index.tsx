@@ -464,7 +464,7 @@ export function HomePage() {
               <Link
                 to={link(t.href ?? `/tours/${t.slug}`) as never}
                 key={t.slug}
-                className="group relative bg-card rounded-[6px] p-3 pb-6 shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] hover:-translate-y-1.5 hover:shadow-[0_4px_10px_-2px_rgba(70,80,75,0.08),0_48px_80px_-32px_rgba(70,80,75,0.4)] transition-all duration-500 block"
+                className="group relative bg-card rounded-[6px] p-3 pb-6 shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] hover:-translate-y-1.5 hover:shadow-[0_4px_10px_-2px_rgba(70,80,75,0.08),0_48px_80px_-32px_rgba(70,80,75,0.4)] transition-all duration-500 flex flex-col h-full"
               >
                 <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
@@ -472,10 +472,10 @@ export function HomePage() {
                     <HeartFill size={13} strokeWidth={1.8} />
                   </button>
                 </div>
-                <div className="px-2 pt-5">
+                <div className="px-2 pt-5 flex flex-col flex-1">
                   <h3 className="tour-title font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
                   <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
-                  <div className="mt-4 flex items-center justify-between">
+                  <div className="mt-auto pt-4 flex items-center justify-between">
                     <p className="font-serif text-[14px] text-primary font-semibold">{t.price}</p>
                     <span className="text-[11px] text-primary tracking-[0.18em] uppercase">{p.viewTour}</span>
                   </div>
