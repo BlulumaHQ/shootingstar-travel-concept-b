@@ -10,6 +10,17 @@ import {
   LAKE_TOUR_TRIP_INFO,
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
+import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
+
+const SHUTTLE_SLUG_TO_PRODUCT: Record<string, ProductId> = {
+  "banff-to-jasper-sightseeing-shuttle": "P1",
+  "jasper-maligne-lake-spirit-island-day-tour": "P2A",
+  "jasper-to-banff-express-shuttle": "P2B",
+  "banff-to-jasper-express-shuttle": "P3A",
+  "jasper-medicine-lake-maligne-lake-half-day-tour": "P3B",
+  "icefields-parkway-southbound-sightseeing-shuttle": "P4",
+};
+const isShuttleSlug = (slug: string) => slug in SHUTTLE_SLUG_TO_PRODUCT;
 
 
 const ROCKIES_KEYWORDS = ["banff", "rocky", "rockies", "jasper", "yoho", "louise", "moraine", "icefield", "canadian-rockies"];
