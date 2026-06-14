@@ -810,7 +810,8 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
-      { stop: "Itinerary", title: "Victoria + Nanaimo 2-Day Tour", body: "Guided visit / stop at Victoria + Nanaimo 2-Day Tour." }
+      { "stop": "1일차", "title": "빅토리아", "body": "페리 터미널; 부차트 가든; 피셔맨스 워프; 마일 제로; 이너 하버, BC 주의사당, 페어몬트 엠프레스; 먼로스 북스; 햇리 캐슬." },
+      { "stop": "2일차", "title": "나나이모 & 카우찬", "body": "셰마이너스 벽화 마을; 와일드플레이 어드벤처 파크(최소 인원에 따라 운영); 맥밀란 주립공원(캐시드럴 그로브); 지붕 위의 염소(Goats on the Roof)." }
     ],
     included: ["CLIENT TO CONFIRM"],
     notIncluded: ["CLIENT TO CONFIRM"],
@@ -828,7 +829,10 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
-      { stop: "Itinerary", title: "Los Angeles 4-Day Tour | Theme Parks & California Highlights", body: "Guided visit / stop at Los Angeles 4-Day Tour | Theme Parks & California Highlights." }
+      { "stop": "1일차", "title": "도착 & 할리우드", "body": "LAX 정오 12시 픽업; In-N-Out 버거 점심; 파머스 마켓; 베벌리힐스; 할리우드; 어반 라이트." },
+      { "stop": "2일차", "title": "테마파크 & 전망", "body": "유니버설 스튜디오; 그리피스 천문대." },
+      { "stop": "3일차", "title": "디즈니랜드", "body": "디즈니랜드에서 하루 종일." },
+      { "stop": "4일차", "title": "해안 & 문화", "body": "산타모니카 해변; UCLA; 게티 센터; 오후 3시 30분 LAX 드롭오프." }
     ],
     included: ["Hotel 3 nights with breakfast", "Bus", "Driver/tour guide", "Parking"],
     notIncluded: ["Flight", "Tip USD $80", "Meals", "Admission", "GST if charged in CAD"],
@@ -846,7 +850,11 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
     itinerary: [
-      { stop: "Itinerary", title: "Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal." }
+      { "stop": "1일차", "title": "토론토", "body": "토론토 공항 오후 2시 30분 픽업; CN 타워; 토론토 시청. 숙박: 나이아가라 뷰 호텔." },
+      { "stop": "2일차", "title": "나이아가라", "body": "나이아가라 폭포; 테이블 록 전망대 & 플로럴 클락; 나이아가라온더레이크; 와이너리." },
+      { "stop": "3일차", "title": "킹스턴 & 오타와", "body": "킹스턴; 천섬 크루즈; 오타와; 캐나다 국회의사당; 리도 홀; 리도 운하." },
+      { "stop": "4일차", "title": "퀘벡시티", "body": "어퍼 타운: 페어몬트 프롱트낙, 더퍼린 테라스, 트레조 거리, 노트르담 대성당. 로어 타운: 플라스 루아얄, 브레이크넥 스텝스, 쁘띠 샹플랭. 숙박: 페어몬트 프롱트낙." },
+      { "stop": "5일차", "title": "몬트리올", "body": "성 요셉 성당; 노트르담 대성당; 자크 카르티에 광장; 올림픽 스타디움; 오후 2시 30분 몬트리올 공항 드롭오프." }
     ],
     included: ["Hotel", "Bus", "Driver", "Tour guide", "Tip", "Meals", "3 admissions: Niagara cruise, Thousand Island cruise, Saint Joseph's Oratory", "Parking"],
     notIncluded: ["Flight", "3 meals + breakfast per Kim note"],
@@ -864,7 +872,11 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
     itinerary: [
-      { stop: "Itinerary", title: "Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal." }
+      { "stop": "1일차", "title": "토론토", "body": "토론토 공항 오후 2시 30분 픽업; CN 타워; 토론토 시청; 토론토 대학교; 차이나타운." },
+      { "stop": "2일차", "title": "오타와 & 몬트리올", "body": "오타와; 캐나다 국회의사당; 리도 홀; 리도 운하; 몬트리올 — 성 요셉 성당." },
+      { "stop": "3일차", "title": "퀘벡", "body": "쁘띠 샹플랭; 몽모랑시 폭포; 퀘벡 어퍼 타운(페어몬트 프롱트낙, 더퍼린 테라스, 트레조 거리, 노트르담 대성당); 로어 타운(플라스 루아얄, 브레이크넥 스텝스)." },
+      { "stop": "4일차", "title": "천섬 & 토론토", "body": "몬트리올; 킹스턴 — 천섬 크루즈; 토론토." },
+      { "stop": "5일차", "title": "나이아가라", "body": "나이아가라 폭포; 테이블 록 전망대 & 플로럴 클락; 나이아가라온더레이크; 와이너리; 오후 6시 토론토 공항 드롭오프." }
     ],
     included: ["Hotel", "Bus", "Driver/guide", "9 meals"],
     notIncluded: ["Flight", "Tip $100", "hotel/restaurant tip $22", "3 meals", "all admission", "GST"],

@@ -813,7 +813,8 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
-      { stop: "Itinerary", title: "Victoria + Nanaimo 2-Day Tour", body: "Guided visit / stop at Victoria + Nanaimo 2-Day Tour." }
+      { "stop": "第 1 天", "title": "維多利亞", "body": "渡輪碼頭；布查特花園；漁人碼頭；零哩紀念碑；內港、BC 省議會大廈與費爾蒙帝后飯店；Munro's 書店；哈特利城堡。" },
+      { "stop": "第 2 天", "title": "納奈莫與考迪夫", "body": "Chemainus 壁畫小鎮；WildPlay 冒險樂園（視成行人數而定）；MacMillan 省立公園（大教堂樹林）；屋頂山羊 Goats on the Roof。" }
     ],
     included: ["CLIENT TO CONFIRM"],
     notIncluded: ["CLIENT TO CONFIRM"],
@@ -831,7 +832,10 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
-      { stop: "Itinerary", title: "Los Angeles 4-Day Tour | Theme Parks & California Highlights", body: "Guided visit / stop at Los Angeles 4-Day Tour | Theme Parks & California Highlights." }
+      { "stop": "第 1 天", "title": "抵達與好萊塢", "body": "LAX 中午 12 點接機；In-N-Out 漢堡午餐；農夫市集；比佛利山莊；好萊塢；Urban Lights 路燈藝術。" },
+      { "stop": "第 2 天", "title": "主題樂園與景觀", "body": "環球影城；葛瑞菲斯天文台。" },
+      { "stop": "第 3 天", "title": "迪士尼樂園", "body": "迪士尼樂園一整天。" },
+      { "stop": "第 4 天", "title": "海岸與藝文", "body": "聖塔莫尼卡海灘；UCLA；蓋蒂中心；下午 3:30 送 LAX 機場。" }
     ],
     included: ["Hotel 3 nights with breakfast", "Bus", "Driver/tour guide", "Parking"],
     notIncluded: ["Flight", "Tip USD $80", "Meals", "Admission", "GST if charged in CAD"],
@@ -849,7 +853,11 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
     itinerary: [
-      { stop: "Itinerary", title: "Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal." }
+      { "stop": "第 1 天", "title": "多倫多", "body": "多倫多機場下午 2:30 接機；CN 塔；多倫多市政廳。住宿：尼加拉景觀飯店。" },
+      { "stop": "第 2 天", "title": "尼加拉", "body": "尼加拉瀑布；桌岩觀景台與花鐘；湖濱小鎮 Niagara-on-the-Lake；酒莊。" },
+      { "stop": "第 3 天", "title": "京斯頓與渥太華", "body": "京斯頓；千島湖遊船；渥太華；加拿大國會大廈；麗都廳；麗都運河。" },
+      { "stop": "第 4 天", "title": "魁北克市", "body": "上城：費爾蒙城堡飯店、達弗林平台、財富街、聖母聖殿主教座堂。下城：皇家廣場、斷頸梯、小香普蘭區。住宿：費爾蒙城堡飯店。" },
+      { "stop": "第 5 天", "title": "蒙特婁", "body": "聖約瑟夫大教堂；聖母聖殿；雅克卡蒂耶廣場；奧林匹克體育場；下午 2:30 送蒙特婁機場。" }
     ],
     included: ["Hotel", "Bus", "Driver", "Tour guide", "Tip", "Meals", "3 admissions: Niagara cruise, Thousand Island cruise, Saint Joseph's Oratory", "Parking"],
     notIncluded: ["Flight", "3 meals + breakfast per Kim note"],
@@ -867,7 +875,11 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
     itinerary: [
-      { stop: "Itinerary", title: "Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal." }
+      { "stop": "第 1 天", "title": "多倫多", "body": "多倫多機場下午 2:30 接機；CN 塔；多倫多市政廳；多倫多大學；唐人街。" },
+      { "stop": "第 2 天", "title": "渥太華與蒙特婁", "body": "渥太華；加拿大國會大廈；麗都廳；麗都運河；蒙特婁——聖約瑟夫大教堂。" },
+      { "stop": "第 3 天", "title": "魁北克", "body": "小香普蘭區；蒙特倫西瀑布；魁北克上城（費爾蒙城堡飯店、達弗林平台、財富街、聖母聖殿主教座堂）；下城（皇家廣場、斷頸梯）。" },
+      { "stop": "第 4 天", "title": "千島湖與多倫多", "body": "蒙特婁；京斯頓——千島湖遊船；多倫多。" },
+      { "stop": "第 5 天", "title": "尼加拉", "body": "尼加拉瀑布；桌岩觀景台與花鐘；湖濱小鎮 Niagara-on-the-Lake；酒莊；下午 6 點送多倫多機場。" }
     ],
     included: ["Hotel", "Bus", "Driver/guide", "9 meals"],
     notIncluded: ["Flight", "Tip $100", "hotel/restaurant tip $22", "3 meals", "all admission", "GST"],
