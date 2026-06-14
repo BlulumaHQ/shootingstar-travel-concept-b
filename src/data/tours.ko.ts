@@ -816,6 +816,7 @@ export const tours: Tour[] = [
     included: ["호텔(베스트웨스턴 또는 동급, 1박)","편안한 차량","기사/가이드","주차"],
     notIncluded: ["5% 부가세 (GST)","식사 및 음료","개인 경비","입장료","권장 가이드 팁"],
     notes: [],
+    optional: [],
     bookingCta: "Book Your Victoria + Nanaimo 2-Day Tour",
   },
   {

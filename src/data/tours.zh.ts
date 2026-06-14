@@ -819,6 +819,7 @@ export const tours: Tour[] = [
     included: ["飯店（Best Western 或同級，1 晚）","舒適交通","司機／導遊","停車費"],
     notIncluded: ["5% 消費稅 (GST)","餐食與飲料","個人消費","門票","建議導遊小費"],
     notes: [],
+    optional: [],
     bookingCta: "Book Your Victoria + Nanaimo 2-Day Tour",
   },
   {
