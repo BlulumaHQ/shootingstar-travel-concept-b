@@ -623,10 +623,10 @@ export const tours: Tour[] = [
   {
     slug: "jet-johnston-emerald-takakkaw",
     img: bgLake,
-    title: "JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls",
-    desc: "A Rockies day tour combining Johnston Canyon short hike, Natural Bridge, Emerald Lake, and Takakkaw Falls.",
-    intro: "Itinerary: Johnston Canyon short hiking; Natural Bridge; Emerald Lake; Takakkaw Falls. This product is from the Banff/Rockies day-tour file and Kim’s latest JET itinerary.",
-    duration: "1 day",
+    title: "JET 1일 투어｜존스턴 캐니언, 에메랄드 호수 & 타카카우 폭포",
+    desc: "존스턴 캐니언 가벼운 하이킹, 내추럴 브리지, 에메랄드 호수, 타카카우 폭포를 함께 즐기는 로키산맥 1일 투어.",
+    intro: "일정: 존스턴 캐니언 가벼운 하이킹, 내추럴 브리지, 에메랄드 호수, 타카카우 폭포. 로키산맥의 대표적인 협곡과 폭포를 한 번에 만나보세요.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / adult",
     itinerary: [
