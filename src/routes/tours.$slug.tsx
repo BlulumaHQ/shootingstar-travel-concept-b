@@ -592,14 +592,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             required
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            placeholder="First name"
+            placeholder={B.firstName}
             className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
           />
           <input
             required
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            placeholder="Last name"
+            placeholder={B.lastName}
             className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
           />
         </div>
@@ -608,14 +608,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
+          placeholder={B.email}
           className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
         />
         <input
           required
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="Phone"
+          placeholder={B.phone}
           className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
         />
       </div>
@@ -631,11 +631,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         disabled={continueDisabled}
         className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Request Booking →
+        {B.requestBooking}
       </button>
-      <p className="text-[10.5px] text-ink/45 text-center">
-        * Submits a booking request. Our team will confirm and arrange payment manually.
-      </p>
+      <p className="text-[10.5px] text-ink/45 text-center">{B.disclaimer}</p>
     </form>
   );
 }
