@@ -310,6 +310,7 @@ function translatePriceLabel(label: string, locale: Locale): string {
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
   const locale = useLocale();
+  const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
   // No Rezdy product code → contact-only CTA, no booking UI
@@ -317,22 +318,21 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">— booking</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">Book this tour</h3>
+          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
         </div>
-        <p className="text-[13.5px] text-ink/70 leading-[1.85]">
-          To arrange a date for this tour, please get in touch with our team.
-        </p>
+        <p className="text-[13.5px] text-ink/70 leading-[1.85]">{B.contactBody}</p>
         <Link
           to={contactHref as never}
           id={`${idPrefix}contact-cta`}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
         >
-          Contact us to book →
+          {B.contactCta}
         </Link>
       </div>
     );
   }
+
 
   const [sessions, setSessions] = useState<RezdySession[] | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
