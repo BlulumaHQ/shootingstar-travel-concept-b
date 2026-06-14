@@ -626,10 +626,10 @@ export const tours: Tour[] = [
   {
     slug: "jet-johnston-emerald-takakkaw",
     img: bgLake,
-    title: "JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls",
-    desc: "A Rockies day tour combining Johnston Canyon short hike, Natural Bridge, Emerald Lake, and Takakkaw Falls.",
-    intro: "Itinerary: Johnston Canyon short hiking; Natural Bridge; Emerald Lake; Takakkaw Falls. This product is from the Banff/Rockies day-tour file and Kim’s latest JET itinerary.",
-    duration: "1 day",
+    title: "JET 一日遊｜強斯頓峽谷、翡翠湖與塔卡考瀑布",
+    desc: "洛磯山脈一日遊，結合強斯頓峽谷輕健行、天然橋、翡翠湖與塔卡考瀑布。",
+    intro: "行程：強斯頓峽谷輕健行、天然橋、翡翠湖、塔卡考瀑布。帶您一次走訪洛磯山脈最具代表性的峽谷與瀑布美景。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / adult",
     itinerary: [
@@ -644,10 +644,10 @@ export const tours: Tour[] = [
   {
     slug: "5-lakes-tour",
     img: banffTwoLakeFeature,
-    title: "5 Lakes 1-Day Tour",
-    desc: "A Rockies lake-focused day tour visiting Two Jack Lake, Lake Minnewanka, Lake Louise, Moraine Lake, Natural Bridge, and Emerald Lake.",
-    intro: "Itinerary: Two Jack Lake; Lake Minnewanka; Lake Louise; Moraine Lake; Natural Bridge; Emerald Lake. Designed for guests who want to see multiple iconic Rockies lakes in one day.",
-    duration: "1 day",
+    title: "五大湖一日遊",
+    desc: "洛磯山脈經典湖泊一日遊，造訪雙傑克湖、明尼旺卡湖、露易絲湖、夢蓮湖、天然橋與翡翠湖。",
+    intro: "行程：雙傑克湖、明尼旺卡湖、露易絲湖、夢蓮湖、天然橋、翡翠湖。專為想在一天內飽覽洛磯山脈多座經典湖泊的旅客設計。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
     itinerary: [
@@ -662,10 +662,10 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-lake-louise-half-day",
     img: heroBgMoraine,
-    title: "Moraine Lake & Lake Louise Half-Day Tour",
-    desc: "Half-day Banff lake access to Moraine Lake and Lake Louise.",
-    intro: "Half-day tour from Banff to Moraine Lake and Lake Louise for guests who want a comfortable lake experience without a full-day commitment.",
-    duration: "5 hours",
+    title: "夢蓮湖與露易絲湖 半日遊",
+    desc: "半日班佛湖區行程，前往夢蓮湖與露易絲湖。",
+    intro: "從班佛出發的半日遊，造訪夢蓮湖與露易絲湖，適合想輕鬆飽覽湖光美景、又不想花上一整天的旅客。",
+    duration: "5 小時",
     language: LANGUAGE_NOTE,
     price: "From $130 CAD / adult",
     itinerary: [
@@ -680,10 +680,10 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-sunrise-tour",
     img: heroBgMoraine,
-    title: "Moraine Lake Sunrise Tour",
-    desc: "Early morning sunrise tour to Moraine Lake with Lake Louise free time.",
-    intro: "Early-morning Rockies experience for first light at Moraine Lake plus extended free time at Lake Louise.",
-    duration: "1 day",
+    title: "夢蓮湖日出之旅",
+    desc: "清晨日出行程，前往夢蓮湖，並於露易絲湖自由活動。",
+    intro: "清晨出發的洛磯山脈體驗，捕捉夢蓮湖第一道曙光，並在露易絲湖享有充裕的自由時間。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $190 CAD / adult",
     itinerary: [
@@ -698,10 +698,10 @@ export const tours: Tour[] = [
   {
     slug: "rockies-signature-columbia-icefield",
     img: tourIcefield,
-    title: "Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway",
-    desc: "A Rockies scenic highway day tour covering Crowfoot Glacier, Peyto Lake, Saskatchewan River Crossing, Columbia Icefield, and Bow Lake.",
-    intro: "Itinerary: Crowfoot Glacier; Peyto Lake; Saskatchewan River Crossing; Columbia Icefield Glacier Discovery Centre; Bow Lake.",
-    duration: "1 day",
+    title: "洛磯山脈經典一日遊｜哥倫比亞冰原與景觀公路",
+    desc: "洛磯山脈景觀公路一日遊，涵蓋鴉爪冰川、佩托湖、薩斯喀徹溫河匯流口、哥倫比亞冰原與弓湖。",
+    intro: "行程：鴉爪冰川、佩托湖、薩斯喀徹溫河匯流口、哥倫比亞冰原冰川探索中心、弓湖。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
     itinerary: [
@@ -716,10 +716,10 @@ export const tours: Tour[] = [
   {
     slug: "banff-to-jasper-sightseeing-shuttle",
     img: tourIcefield,
-    title: "Banff to Jasper Sightseeing Shuttle",
-    desc: "Sightseeing transfer from Banff to Jasper with Icefields Parkway stops and optional Hinton extension.",
-    intro: "Sightseeing transfer from Banff to Jasper with Icefields Parkway stops and optional Hinton extension. Add-ons: Columbia Icefield Ice Explorer Adult +$90 / Child +$60; Hinton extension +$20 one-way / +$35 round-trip",
-    duration: "9~10 hours",
+    title: "班佛 至 賈斯珀 觀光接駁",
+    desc: "從班佛到賈斯珀的觀光接駁，沿途停靠冰原大道景點，並可加購欣頓延伸路段。",
+    intro: "從班佛到賈斯珀的觀光接駁，沿途停靠冰原大道景點，並可加購欣頓延伸路段。加購項目：哥倫比亞冰原冰原探險車 成人 +$90／兒童 +$60；欣頓延伸 單程 +$20／來回 +$35。",
+    duration: "9~10 小時",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
     itinerary: [
