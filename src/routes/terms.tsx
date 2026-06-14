@@ -116,7 +116,7 @@ const TERMS: Record<Locale, TermsCopy> = {
       { type: "h2", text: "10. Contact" },
       { type: "p", text: "For any questions about these Terms, please contact:" },
     ],
-    contactLines: ["Shooting Star Travel", "Email: info@shootingstartravel.com"],
+    contactLines: ["Shooting Star Travel", "Email: info@shootingstartravel.ca"],
   },
   zh: {
     eyebrow: "Terms of Use",
@@ -195,7 +195,7 @@ const TERMS: Record<Locale, TermsCopy> = {
       { type: "h2", text: "10. 聯絡方式" },
       { type: "p", text: "如對本服務條款有任何疑問，請聯絡：" },
     ],
-    contactLines: ["Shooting Star Travel", "Email：info@shootingstartravel.com"],
+    contactLines: ["Shooting Star Travel", "Email：info@shootingstartravel.ca"],
   },
   ko: {
     eyebrow: "Terms of Use",
@@ -274,7 +274,7 @@ const TERMS: Record<Locale, TermsCopy> = {
       { type: "h2", text: "10. 문의" },
       { type: "p", text: "본 약관에 대한 문의 사항은 아래로 연락 주십시오:" },
     ],
-    contactLines: ["Shooting Star Travel", "Email: info@shootingstartravel.com"],
+    contactLines: ["Shooting Star Travel", "Email: info@shootingstartravel.ca"],
   },
 };
 
@@ -302,7 +302,7 @@ export function TermsPage() {
             line.startsWith("Email") ? (
               <p key={line}>
                 {line.split(/info@shootingstartravel\.com/)[0]}
-                <a href="mailto:info@shootingstartravel.com" className="underline text-primary hover:text-primary/80">info@shootingstartravel.com</a>
+                <a href="mailto:info@shootingstartravel.ca" className="underline text-primary hover:text-primary/80">info@shootingstartravel.ca</a>
               </p>
             ) : (
               <p key={line}>{line}</p>

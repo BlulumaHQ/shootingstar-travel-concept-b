@@ -23,7 +23,7 @@ function getChannels(locale: Locale) {
   const supportLines = getSupportLines(locale);
   return [
     ...supportLines.map((s) => ({ l: s.label, v: s.display, h: s.tel })),
-    { l: "Email", v: "info@shootingstartravel.com", h: "mailto:info@shootingstartravel.com" },
+    { l: "Email", v: "info@shootingstartravel.ca", h: "mailto:info@shootingstartravel.ca" },
   ];
 }
 

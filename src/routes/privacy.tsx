@@ -36,10 +36,10 @@ const PRIVACY: Record<Locale, PrivacyCopy> = {
       { h: "3. Payment Information", p: "Payment transactions are processed by third-party payment providers (such as Stripe) in encrypted form. We do not store complete credit card numbers on our own servers." },
       { h: "4. Sharing of Information", p: "Except as required to deliver the trip (e.g. airlines, hotels, insurance, partner suppliers) or as required by law, we do not sell or share your personal information with third parties." },
       { h: "5. Cookies and Analytics", p: "This website uses cookies and analytics tools to understand usage and improve our service. You may disable cookies in your browser settings." },
-      { h: "6. Your Rights", p: "You may request access to, correction of, or deletion of your personal information at any time by emailing info@shootingstartravel.com." },
+      { h: "6. Your Rights", p: "You may request access to, correction of, or deletion of your personal information at any time by emailing info@shootingstartravel.ca." },
       { h: "7. Policy Updates", p: "This policy may be updated from time to time. The latest version will always be posted on this page." },
     ],
-    contact: "If you have any questions, please contact: info@shootingstartravel.com",
+    contact: "If you have any questions, please contact: info@shootingstartravel.ca",
   },
   zh: {
     eyebrow: "privacy policy",
@@ -53,10 +53,10 @@ const PRIVACY: Record<Locale, PrivacyCopy> = {
       { h: "3. 付款資訊", p: "付款交易由第三方支付處理商（例如 Stripe）以加密方式處理。我們不會在自有伺服器儲存完整信用卡號。" },
       { h: "4. 資料分享", p: "除完成行程所需（如航空公司、飯店、保險、合作供應商）或法律要求外，我們不會將您的個人資料出售或分享給第三方。" },
       { h: "5. Cookie 與分析", p: "本網站使用 Cookie 與分析工具以了解使用情況並改善服務。您可在瀏覽器設定中停用 Cookie。" },
-      { h: "6. 您的權利", p: "您可隨時要求查閱、修改或刪除您的個人資料，請來信 info@shootingstartravel.com。" },
+      { h: "6. 您的權利", p: "您可隨時要求查閱、修改或刪除您的個人資料，請來信 info@shootingstartravel.ca。" },
       { h: "7. 政策更新", p: "本政策可能不定期更新，最新版本將公布於本頁面。" },
     ],
-    contact: "如有任何問題，請聯繫：info@shootingstartravel.com",
+    contact: "如有任何問題，請聯繫：info@shootingstartravel.ca",
   },
   ko: {
     eyebrow: "privacy policy",
@@ -70,10 +70,10 @@ const PRIVACY: Record<Locale, PrivacyCopy> = {
       { h: "3. 결제 정보", p: "모든 결제는 제3자 결제 대행사(예: Stripe)에서 암호화되어 처리되며, 당사 서버에는 전체 카드번호를 저장하지 않습니다." },
       { h: "4. 정보의 공유", p: "여행 진행에 필요한 경우(항공사, 호텔, 보험, 협력 공급업체 등) 또는 법률상 요구되는 경우를 제외하고, 당사는 귀하의 개인정보를 제3자에게 판매하거나 공유하지 않습니다." },
       { h: "5. 쿠키 및 분석", p: "본 웹사이트는 이용 현황을 파악하고 서비스를 개선하기 위해 쿠키 및 분석 도구를 사용합니다. 브라우저 설정에서 쿠키를 비활성화하실 수 있습니다." },
-      { h: "6. 귀하의 권리", p: "귀하는 언제든지 info@shootingstartravel.com 으로 이메일을 보내 개인정보의 열람, 수정, 삭제를 요청하실 수 있습니다." },
+      { h: "6. 귀하의 권리", p: "귀하는 언제든지 info@shootingstartravel.ca 으로 이메일을 보내 개인정보의 열람, 수정, 삭제를 요청하실 수 있습니다." },
       { h: "7. 방침 변경", p: "본 방침은 수시로 업데이트될 수 있으며, 최신 내용은 본 페이지에 게시됩니다." },
     ],
-    contact: "문의 사항이 있으시면 info@shootingstartravel.com 으로 연락해 주세요.",
+    contact: "문의 사항이 있으시면 info@shootingstartravel.ca 으로 연락해 주세요.",
   },
 };
 
