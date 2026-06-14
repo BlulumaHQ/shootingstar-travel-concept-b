@@ -565,9 +565,9 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "U-pick farm", body: "Guided visit / stop at U-pick farm." },
-      { stop: "Day 1", title: "Fort Langley", body: "Guided visit / stop at Fort Langley." },
-      { stop: "Day 1", title: "crab catching", body: "Guided visit / stop at crab catching." }
+      { "stop": "1번째", "title": "과일 따기 농장", "body": "현지 농장에서 제철 신선 과일을 직접 수확." },
+      { "stop": "2번째", "title": "포트 랭리", "body": "브리티시컬럼비아의 역사적 발상지 탐방." },
+      { "stop": "3번째", "title": "게 잡기", "body": "물가에서 직접 게를 잡는 체험." }
     ],
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "U-pick cost", "Fishing license", "GST"],
@@ -585,13 +585,13 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "Canada Place", body: "Guided visit / stop at Canada Place." },
-      { stop: "Day 1", title: "Gastown Steam Clock", body: "Guided visit / stop at Gastown Steam Clock." },
-      { stop: "Day 1", title: "Chinatown", body: "Guided visit / stop at Chinatown." },
-      { stop: "Day 1", title: "Queen Elizabeth Park", body: "Guided visit / stop at Queen Elizabeth Park." },
-      { stop: "Day 1", title: "Granville Island", body: "Guided visit / stop at Granville Island." },
-      { stop: "Day 1", title: "Stanley Park", body: "Guided visit / stop at Stanley Park." },
-      { stop: "Day 1", title: "Capilano Suspension Bridge or Lynn Canyon", body: "Guided visit / stop at Capilano Suspension Bridge or Lynn Canyon." }
+      { "stop": "1번째", "title": "캐나다 플레이스", "body": "돛 모양의 밴쿠버 워터프론트 랜드마크." },
+      { "stop": "2번째", "title": "개스타운", "body": "역사적인 지구와 유명한 증기시계." },
+      { "stop": "3번째", "title": "차이나타운", "body": "샘키(기네스) 빌딩과 역사 거리 방문." },
+      { "stop": "4번째", "title": "퀸 엘리자베스 공원", "body": "도시 최고 지점의 정원과 스카이라인 전망." },
+      { "stop": "5번째", "title": "그랜빌 아일랜드", "body": "활기찬 공공 마켓과 공예 상점." },
+      { "stop": "6번째", "title": "스탠리 공원", "body": "해안 산책로, 토템 폴, 원시림." },
+      { "stop": "7번째", "title": "카필라노 현수교 / 린 캐니언", "body": "숲 캐노피와 현수교 체험." }
     ],
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "Admission", "GST"],
@@ -609,10 +609,10 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "Microsoft Visitor Center", body: "Guided visit / stop at Microsoft Visitor Center." },
-      { stop: "Day 1", title: "University of Washington", body: "Guided visit / stop at University of Washington." },
-      { stop: "Day 1", title: "Boeing Flight Museum", body: "Guided visit / stop at Boeing Flight Museum." },
-      { stop: "Day 1", title: "Amazon Go", body: "Guided visit / stop at Amazon Go." }
+      { "stop": "1번째", "title": "마이크로소프트 비지터 센터", "body": "마이크로소프트의 이야기와 혁신을 만나다." },
+      { "stop": "2번째", "title": "워싱턴 대학교", "body": "고딕 양식 캠퍼스와 수잘로 도서관 산책." },
+      { "stop": "3번째", "title": "보잉 항공 박물관", "body": "세계 최대 규모의 민간 항공·우주 박물관." },
+      { "stop": "4번째", "title": "아마존 고", "body": "계산대 없는 미래형 매장 체험." }
     ],
     included: ["Bus", "Driver", "Guide", "Parking"],
     notIncluded: ["Meals", "Tip $20", "Admission", "GST"],

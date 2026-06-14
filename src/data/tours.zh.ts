@@ -568,9 +568,9 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "U-pick farm", body: "Guided visit / stop at U-pick farm." },
-      { stop: "Day 1", title: "Fort Langley", body: "Guided visit / stop at Fort Langley." },
-      { stop: "Day 1", title: "crab catching", body: "Guided visit / stop at crab catching." }
+      { "stop": "第 1 站", "title": "採果農場", "body": "於在地農場現採當季新鮮水果。" },
+      { "stop": "第 2 站", "title": "蘭里堡 Fort Langley", "body": "探訪卑詩省的歷史發源地。" },
+      { "stop": "第 3 站", "title": "抓螃蟹", "body": "在海邊體驗親手抓蟹的樂趣。" }
     ],
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "U-pick cost", "Fishing license", "GST"],
@@ -588,13 +588,13 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "Canada Place", body: "Guided visit / stop at Canada Place." },
-      { stop: "Day 1", title: "Gastown Steam Clock", body: "Guided visit / stop at Gastown Steam Clock." },
-      { stop: "Day 1", title: "Chinatown", body: "Guided visit / stop at Chinatown." },
-      { stop: "Day 1", title: "Queen Elizabeth Park", body: "Guided visit / stop at Queen Elizabeth Park." },
-      { stop: "Day 1", title: "Granville Island", body: "Guided visit / stop at Granville Island." },
-      { stop: "Day 1", title: "Stanley Park", body: "Guided visit / stop at Stanley Park." },
-      { stop: "Day 1", title: "Capilano Suspension Bridge or Lynn Canyon", body: "Guided visit / stop at Capilano Suspension Bridge or Lynn Canyon." }
+      { "stop": "第 1 站", "title": "加拿大廣場", "body": "溫哥華地標,船帆造型的濱海建築。" },
+      { "stop": "第 2 站", "title": "蓋斯鎮 Gastown", "body": "歷史老城區與著名的蒸汽鐘。" },
+      { "stop": "第 3 站", "title": "唐人街", "body": "造訪山記大樓（金氏世界紀錄最窄建築）與歷史街區。" },
+      { "stop": "第 4 站", "title": "伊麗莎白女王公園", "body": "全市最高點,花園與天際線美景。" },
+      { "stop": "第 5 站", "title": "格蘭維爾島", "body": "熱鬧的公共市集與藝術工坊。" },
+      { "stop": "第 6 站", "title": "史丹利公園", "body": "海濱步道、圖騰柱與原始森林。" },
+      { "stop": "第 7 站", "title": "卡皮拉諾吊橋／林恩峽谷", "body": "森林樹冠與吊橋體驗。" }
     ],
     included: ["Car", "Driver / tour guide", "Parking"],
     notIncluded: ["Tip $20", "Meals", "Admission", "GST"],
@@ -612,10 +612,10 @@ export const tours: Tour[] = [
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
     itinerary: [
-      { stop: "Day 1", title: "Microsoft Visitor Center", body: "Guided visit / stop at Microsoft Visitor Center." },
-      { stop: "Day 1", title: "University of Washington", body: "Guided visit / stop at University of Washington." },
-      { stop: "Day 1", title: "Boeing Flight Museum", body: "Guided visit / stop at Boeing Flight Museum." },
-      { stop: "Day 1", title: "Amazon Go", body: "Guided visit / stop at Amazon Go." }
+      { "stop": "第 1 站", "title": "微軟參訪中心", "body": "認識微軟背後的故事與創新。" },
+      { "stop": "第 2 站", "title": "華盛頓大學", "body": "漫步哥德式校園與蘇札羅圖書館。" },
+      { "stop": "第 3 站", "title": "波音飛行博物館", "body": "全球最大的私人航空航太博物館。" },
+      { "stop": "第 4 站", "title": "Amazon Go", "body": "體驗無收銀台的未來商店。" }
     ],
     included: ["Bus", "Driver", "Guide", "Parking"],
     notIncluded: ["Meals", "Tip $20", "Admission", "GST"],
