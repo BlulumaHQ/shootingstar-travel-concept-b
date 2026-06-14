@@ -89,7 +89,7 @@ export function Footer() {
       href: s.tel,
       sub: s.label,
     })),
-    { Icon: Mail, t: "info@shootingstartravel.com", href: "mailto:info@shootingstartravel.com" },
+    { Icon: Mail, t: "info@shootingstartravel.ca", href: "mailto:info@shootingstartravel.ca" },
     { Icon: MapPin, t: "Vancouver, BC, Canada" },
     { Icon: Clock, t: t("footer.hours") },
   ];
