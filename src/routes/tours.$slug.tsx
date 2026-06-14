@@ -906,140 +906,100 @@ function LakeTourTripInfo({
 }
 
 /* ============================================================
- * ShuttleTourDetail — alternative layout for the 6 Icefields
- * shuttle products. Uses content from icefields-i18n.ts.
- * Order: intro → Key Attractions → Stop-by-Stop → Pickup notes
- *        → Travel Notes (FAQ) → Booking Terms → Booking widget.
+ * ShuttleExtras — appended-only sections for the 6 Icefields
+ * shuttle products. Rendered at the bottom of the standard
+ * left-column content; does NOT alter the standard layout or
+ * the booking widget position.
  * ============================================================ */
-function ShuttleTourDetail({
-  tour,
-  slug,
-  locale,
-  toursHref,
-  allToursLabel,
-}: {
-  tour: Tour;
-  slug: string;
-  locale: Locale;
-  toursHref: string;
-  allToursLabel: string;
-}) {
+function ShuttleExtras({ slug, locale }: { slug: string; locale: Locale }) {
   const productId = SHUTTLE_SLUG_TO_PRODUCT[slug];
   const c = getIcefieldsContent(locale);
   const product = c.products[productId];
 
   return (
-    <SiteLayout>
-      {/* Compact hero band */}
-      <section className="relative bg-cream">
-        <div className="relative h-[34vh] md:h-[42vh] min-h-[240px] max-h-[420px] overflow-hidden">
-          <img src={tour.img} alt={tour.title} className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/10 via-transparent to-cream" />
+    <>
+      {/* Key Attractions on This Route */}
+      <section>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.routeSection.highlightsEyebrow}</p>
+        <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{c.routeSection.highlightsHeading}</h2>
+        <div className="mt-7 grid sm:grid-cols-2 gap-5">
+          {c.routeSection.highlights.map((h) => (
+            <div key={h.name} className="rounded-[8px] border border-border/60 bg-cream p-5">
+              <h3 className="font-serif text-[17px] text-ink font-semibold">{h.name}</h3>
+              <p className="mt-2 text-[14px] text-ink/70 leading-[1.9]">{h.desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      <div className="mx-auto max-w-[920px] px-5 md:px-10 -mt-10 md:-mt-16 relative pb-24 space-y-12">
-        {/* Title / intro */}
-        <header className="bg-cream rounded-[8px] p-7 md:p-9 border border-border/60 shadow-[0_30px_60px_-30px_rgba(60,80,70,0.35)]">
-          <Link to={toursHref as never} className="text-[12px] text-ink/60 tracking-[0.2em] uppercase hover:text-primary">{allToursLabel}</Link>
-          <h1 className="tour-title font-serif text-3xl md:text-[42px] text-ink mt-3 font-semibold leading-[1.2]">{tour.title}</h1>
-          <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
-          <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
-            <div><span className="text-ink/50">{product.daysLabel} · </span><span className="text-ink">{product.direction}</span></div>
-            <div><span className="text-ink/50">{product.time}</span></div>
-            <div><span className="text-ink/50">{product.durationHrs}</span></div>
-          </div>
-        </header>
+      {/* Stop-by-Stop Itinerary */}
+      <section>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.routeSection.timelineEyebrow}</p>
+        <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{c.routeSection.timelineHeading}</h2>
+        <ol className="mt-7 relative border-l border-primary/30 pl-6 space-y-6">
+          {product.schedule.map((step, i) => (
+            <li key={i} className="relative">
+              <span className="absolute -left-[31px] top-1 grid h-4 w-4 place-items-center rounded-full bg-primary text-[10px] text-primary-foreground">●</span>
+              <p className="font-marker text-primary text-xs tracking-[0.2em] uppercase">{c.routeSection.stopLabel} {i + 1}</p>
+              <p className="mt-1 text-ink/80 leading-[1.9] text-[14.5px]">{step}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-        {/* 1. Key Attractions on This Route */}
-        <section>
-          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.routeSection.highlightsEyebrow}</p>
-          <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{c.routeSection.highlightsHeading}</h2>
-          <div className="mt-7 grid sm:grid-cols-2 gap-5">
-            {c.routeSection.highlights.map((h) => (
-              <div key={h.name} className="rounded-[8px] border border-border/60 bg-cream p-5">
-                <h3 className="font-serif text-[17px] text-ink font-semibold">{h.name}</h3>
-                <p className="mt-2 text-[14px] text-ink/70 leading-[1.9]">{h.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+      {/* Pickup & drop-off notes (collapsible) */}
+      <details className="group rounded-2xl bg-[var(--sand)] open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60 px-6 py-4">
+        <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
+          <span className="font-serif text-[17px] text-ink font-semibold">{c.pickupNotes.heading}</span>
+          <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
+        </summary>
+        <div className="mt-5 grid sm:grid-cols-2 gap-5">
+          {c.pickupNotes.cards.map((card) => (
+            <div key={card.t}>
+              <h4 className="font-serif text-[15px] text-ink font-semibold">{card.t}</h4>
+              <ul className="mt-2 space-y-1.5 text-[13.5px] text-ink/70 leading-[1.85]">
+                {card.lines.map((l, i) => (
+                  <li key={i} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{l}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
 
-        {/* 2. Stop-by-Stop Itinerary */}
-        <section>
-          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.routeSection.timelineEyebrow}</p>
-          <h2 className="font-serif text-3xl text-ink mt-3 font-semibold">{c.routeSection.timelineHeading}</h2>
-          <ol className="mt-7 relative border-l border-primary/30 pl-6 space-y-6">
-            {product.schedule.map((step, i) => (
-              <li key={i} className="relative">
-                <span className="absolute -left-[31px] top-1 grid h-4 w-4 place-items-center rounded-full bg-primary text-[10px] text-primary-foreground">●</span>
-                <p className="font-marker text-primary text-xs tracking-[0.2em] uppercase">{c.routeSection.stopLabel} {i + 1}</p>
-                <p className="mt-1 text-ink/80 leading-[1.9] text-[14.5px]">{step}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
+      {/* Travel Notes (FAQ) */}
+      <section>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.faq.eyebrow}</p>
+        <h2 className="font-serif text-2xl md:text-[28px] text-ink mt-3 font-semibold">{c.faq.heading}</h2>
+        <div className="mt-6 space-y-3">
+          {c.faq.items.map((f) => (
+            <details key={f.q} className="group rounded-2xl bg-[var(--sand)] px-6 py-4 open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60">
+              <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
+                <span className="font-serif text-[15.5px] text-ink">{f.q}</span>
+                <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
+              </summary>
+              <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
-        {/* 3. Pickup & drop-off notes (collapsible) */}
-        <details className="group rounded-2xl bg-[var(--sand)] open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60 px-6 py-4">
-          <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-            <span className="font-serif text-[17px] text-ink font-semibold">{c.pickupNotes.heading}</span>
-            <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
-          </summary>
-          <div className="mt-5 grid sm:grid-cols-2 gap-5">
-            {c.pickupNotes.cards.map((card) => (
-              <div key={card.t}>
-                <h4 className="font-serif text-[15px] text-ink font-semibold">{card.t}</h4>
-                <ul className="mt-2 space-y-1.5 text-[13.5px] text-ink/70 leading-[1.85]">
-                  {card.lines.map((l, i) => (
-                    <li key={i} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">{l}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </details>
-
-        {/* 4. Travel Notes (FAQ) collapsible */}
-        <section>
-          <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.faq.eyebrow}</p>
-          <h2 className="font-serif text-2xl md:text-[28px] text-ink mt-3 font-semibold">{c.faq.heading}</h2>
-          <div className="mt-6 space-y-3">
-            {c.faq.items.map((f) => (
-              <details key={f.q} className="group rounded-2xl bg-[var(--sand)] px-6 py-4 open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60">
-                <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-                  <span className="font-serif text-[15.5px] text-ink">{f.q}</span>
-                  <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
-                </summary>
-                <p className="mt-3 text-ink/65 leading-[1.95] text-[14px]">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        {/* 5. Booking Terms (collapsible) */}
-        <details className="group rounded-2xl bg-[var(--sand)] open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60 px-6 py-4">
-          <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-            <span className="font-serif text-[17px] text-ink font-semibold">{c.terms.heading}</span>
-            <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
-          </summary>
-          <div className="mt-5 space-y-5 text-[13.5px] text-ink/70 leading-[1.9]">
-            {c.terms.blocks.map((b) => (
-              <div key={b.t}>
-                <h4 className="font-serif text-[15px] text-ink font-semibold">{b.t}</h4>
-                <p className="mt-1.5">{b.d}</p>
-              </div>
-            ))}
-          </div>
-        </details>
-
-        {/* Booking widget at the bottom */}
-        <section id="booking">
-          <BookingWidget tour={tour} idPrefix="b-" />
-        </section>
-      </div>
-
-      <CredentialsSection />
-    </SiteLayout>
+      {/* Booking Terms (collapsible) */}
+      <details className="group rounded-2xl bg-[var(--sand)] open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60 px-6 py-4">
+        <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
+          <span className="font-serif text-[17px] text-ink font-semibold">{c.terms.heading}</span>
+          <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
+        </summary>
+        <div className="mt-5 space-y-5 text-[13.5px] text-ink/70 leading-[1.9]">
+          {c.terms.blocks.map((b) => (
+            <div key={b.t}>
+              <h4 className="font-serif text-[15px] text-ink font-semibold">{b.t}</h4>
+              <p className="mt-1.5">{b.d}</p>
+            </div>
+          ))}
+        </div>
+      </details>
+    </>
   );
 }
+
