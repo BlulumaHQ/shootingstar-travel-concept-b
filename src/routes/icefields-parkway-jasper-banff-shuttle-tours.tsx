@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { SiteLayout } from "@/components/site/Layout";
-import { TourRouteSection } from "@/components/site/TourRouteSection";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import bgMoraine from "@/assets/hero-bg-moraine.webp";
 import destJasper from "@/assets/dest-jasper.jpg";
@@ -14,11 +13,11 @@ import {
   getIcefieldsContent,
   type IcefieldsContent,
   type ProductId,
-  type AddOnId,
-  type Weekday,
 } from "@/content/icefields-i18n";
 
-// Map each shuttle product to its Rezdy-connected detail-page slug.
+// ------------------------------------------------------------------
+// Slugs + per-product hero images (route-overview card style)
+// ------------------------------------------------------------------
 const PRODUCT_TO_SLUG: Record<ProductId, string> = {
   P1: "banff-to-jasper-sightseeing-shuttle",
   P2A: "jasper-maligne-lake-spirit-island-day-tour",
@@ -28,14 +27,59 @@ const PRODUCT_TO_SLUG: Record<ProductId, string> = {
   P4: "icefields-parkway-southbound-sightseeing-shuttle",
 };
 
-const VIEW_AND_BOOK_LABEL: Record<Locale, string> = {
-  en: "View & Book →",
-  zh: "查看與預訂 →",
-  ko: "자세히 보기 & 예약 →",
+const PRODUCT_IMG: Record<ProductId, string> = {
+  P1: heroBanff,
+  P2A: bgMoraine,
+  P2B: destJasper,
+  P3A: heroMountains,
+  P3B: tourRockies,
+  P4: heroIcefield,
 };
 
 const productHref = (pid: ProductId, locale: Locale) =>
   withLocale(`/tours/${PRODUCT_TO_SLUG[pid]}`, locale);
+
+// Locale labels for new copy introduced by the redesign
+const I18N = {
+  exploreCta: { en: "Explore the routes ↓", zh: "查看路線 ↓", ko: "노선 보기 ↓" } as Record<Locale, string>,
+  viewAndBook: {
+    en: "View route & book →",
+    zh: "查看路線並預訂 →",
+    ko: "노선 보기 & 예약 →",
+  } as Record<Locale, string>,
+  browseAll: {
+    en: "Browse all tours",
+    zh: "瀏覽所有行程",
+    ko: "전체 투어 보기",
+  } as Record<Locale, string>,
+  addonsContact: {
+    en: "Add-ons can be arranged when you book — contact us to add them to your reservation.",
+    zh: "加購項目可於預訂時安排 — 歡迎聯絡我們將其加入您的訂單。",
+    ko: "옵션은 예약 시 함께 진행할 수 있습니다 — 추가가 필요하시면 문의해 주세요.",
+  } as Record<Locale, string>,
+  thursdayShort: {
+    en: "Thursday has no scheduled route — please choose another day.",
+    zh: "週四目前沒有排定路線 — 請改選其他日期。",
+    ko: "목요일은 운행 노선이 없습니다 — 다른 요일을 선택해 주세요.",
+  } as Record<Locale, string>,
+  overviewEyebrow: {
+    en: "— Route overview",
+    zh: "— 路線總覽",
+    ko: "— 노선 개요",
+  } as Record<Locale, string>,
+  overviewHeading: {
+    en: "All Shuttle Routes",
+    zh: "所有接駁路線",
+    ko: "전체 셔틀 노선",
+  } as Record<Locale, string>,
+  overviewIntro: {
+    en: "Six routes across the Icefields Parkway corridor between Banff, Jasper and Maligne Lake. Pick the one that matches your travel day, then click through to the booking page.",
+    zh: "班夫、賈斯珀與瑪琳湖之間共六條冰原大道路線。依出遊日挑選最合適的一條,點入即可前往預訂頁。",
+    ko: "밴프, 재스퍼, 말린 호수를 잇는 6개 아이스필드 파크웨이 노선. 여행 요일에 맞는 노선을 선택해 예약 페이지로 이동하세요.",
+  } as Record<Locale, string>,
+} as const;
+
+const tx = (key: keyof typeof I18N, locale: Locale) => I18N[key][locale] ?? I18N[key].en;
 
 export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-tours")({
   head: () => {
@@ -54,191 +98,9 @@ export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-to
 });
 
 /* ------------------------------------------------------------------
- * Constants (locale-independent)
+ * Quick Route Finder data
  * ------------------------------------------------------------------ */
-
-const PRODUCTS_BY_DAY: Record<Weekday, ProductId[]> = {
-  Mon: ["P1"],
-  Tue: ["P2A", "P2B", "P3A", "P3B"],
-  Wed: ["P4"],
-  Thu: [],
-  Fri: ["P1"],
-  Sat: ["P2A", "P2B", "P3A", "P3B"],
-  Sun: ["P4"],
-};
-
-const WEEKEND: Weekday[] = ["Fri", "Sat", "Sun"];
-const SELECTABLE_DAYS: Weekday[] = ["Mon", "Tue", "Wed", "Fri", "Sat", "Sun"];
-
-function weekdayFromISO(iso: string): Weekday | null {
-  if (!iso) return null;
-  const d = new Date(iso + "T00:00:00");
-  if (isNaN(d.getTime())) return null;
-  const map: Weekday[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return map[d.getDay()];
-}
-
-const fmt = (n: number) => `$${n.toFixed(2)}`;
-
-/* ------------------------------------------------------------------
- * Page
- * ------------------------------------------------------------------ */
-
-export function IcefieldsShuttlePage() {
-  const locale = useLocale();
-  const c = getIcefieldsContent(locale);
-  const [selectedProduct, setSelectedProduct] = useState<ProductId | null>(null);
-
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  const selectAndScroll = (pid: ProductId) => {
-    setSelectedProduct(pid);
-    // Defer to next frame so the timeline re-renders before we scroll.
-    requestAnimationFrame(() => scrollTo("detailed-route"));
-  };
-
-  return (
-    <SiteLayout>
-      <Hero c={c} scrollTo={scrollTo} />
-      <RouteOverview c={c} />
-      <QuickRouteFinder
-        c={c}
-        selectedProduct={selectedProduct}
-        onSelect={selectAndScroll}
-      />
-      <DetailedRoutes c={c} selectedProduct={selectedProduct} />
-      <BookingEstimator c={c} />
-      <section className="bg-paper/50 pb-16 md:pb-20">
-        <div className="mx-auto max-w-[1240px] px-5 md:px-10">
-          <ChatSupportNote />
-        </div>
-      </section>
-      <ComparisonTable c={c} />
-      <AddOnsSection c={c} />
-      <PickupNotes c={c} />
-      <IncludedSection c={c} />
-      <TravelNotes c={c} />
-      <BundlesSection c={c} />
-      <BookingTerms c={c} />
-      <WhyDifferent c={c} />
-      <FinalCTA c={c} scrollTo={scrollTo} />
-    </SiteLayout>
-  );
-}
-
-/* ------------------------------------------------------------------
- * Hero
- * ------------------------------------------------------------------ */
-
-function Hero({ c, scrollTo }: { c: IcefieldsContent; scrollTo: (id: string) => void }) {
-  return (
-    <section className="relative overflow-hidden bg-ink">
-      <img
-        src={heroIcefield}
-        alt="Icefields Parkway and the Canadian Rockies"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-ink/10" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/40" />
-
-      <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-20 md:py-28 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
-          <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
-            {c.hero.eyebrow}
-          </p>
-          <h1 className="mt-4 font-serif text-cream text-[36px] md:text-[54px] leading-[1.05] font-semibold">
-            {c.hero.h1}
-          </h1>
-          <p className="mt-5 max-w-xl text-cream/95 text-[15.5px] leading-[1.95]">{c.hero.sub}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <button
-              onClick={() => scrollTo("reserve")}
-              className="rounded-full bg-cream text-ink px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]"
-            >
-              {c.hero.ctaReserve}
-            </button>
-            <button
-              onClick={() => scrollTo("compare")}
-              className="rounded-full border border-cream/70 text-cream px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/15 transition backdrop-blur-sm"
-            >
-              {c.hero.ctaCompare}
-            </button>
-          </div>
-          <div className="mt-9 flex flex-wrap gap-x-5 gap-y-2 text-[12px] text-cream/90 tracking-[0.15em] uppercase">
-            {c.hero.badges.map((b) => (
-              <span key={b} className="inline-flex items-center gap-2">
-                <span className="h-1 w-1 rounded-full bg-cream/80" /> {b}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:col-span-5">
-          <div className="rounded-2xl bg-cream/95 backdrop-blur p-6 md:p-7 border border-cream/40 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.45)]">
-            <p className="font-marker text-primary text-[12px] tracking-[0.25em] uppercase">
-              {c.hero.sideEyebrow}
-            </p>
-            <h3 className="mt-2 font-serif text-[22px] text-ink font-semibold">{c.hero.sideTitle}</h3>
-            <div className="mt-4 space-y-2">
-              {c.hero.cards.map((card) => (
-                <button
-                  key={card.day}
-                  onClick={() => scrollTo("finder")}
-                  className="w-full text-left rounded-xl border border-border bg-cream hover:border-primary/40 px-4 py-3 transition"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{card.day}</p>
-                      <p className="mt-0.5 font-serif text-[15px] text-ink font-semibold">{card.title}</p>
-                    </div>
-                    <DayDot accent={card.accent} />
-                  </div>
-                  <p className="mt-1 text-[12.5px] text-ink/65">{card.from}</p>
-                </button>
-              ))}
-            </div>
-            <button
-              onClick={() => scrollTo("reserve")}
-              className="mt-5 w-full rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide hover:bg-primary/90 transition"
-            >
-              {c.hero.sideCtaContinue}
-            </button>
-            <p className="mt-3 text-[11px] text-ink/55 text-center leading-relaxed">{c.hero.weekendNote}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DayDot({ accent }: { accent: "north" | "split" | "south" }) {
-  const cls =
-    accent === "north" ? "bg-emerald-500" : accent === "south" ? "bg-amber-500" : "bg-sky-500";
-  return <span className={`h-2.5 w-2.5 rounded-full ${cls}`} aria-hidden />;
-}
-
-function AccentBadge({ accent, children }: { accent: "north" | "split" | "south"; children: React.ReactNode }) {
-  const cls =
-    accent === "north"
-      ? "bg-emerald-50 text-emerald-800 border-emerald-200"
-      : accent === "south"
-        ? "bg-amber-50 text-amber-800 border-amber-200"
-        : "bg-sky-50 text-sky-800 border-sky-200";
-  return (
-    <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] tracking-[0.18em] uppercase ${cls}`}>
-      <DayDot accent={accent} />
-      {children}
-    </span>
-  );
-}
-
-/* ------------------------------------------------------------------
- * Quick Route Finder
- * ------------------------------------------------------------------ */
-
 type FinderGroupId = "mon-fri" | "tue-sat" | "wed-sun";
-
 type FinderGroup =
   | { id: FinderGroupId; labelKey: "monFri" | "wedSun"; type: "single"; productIds: ProductId[] }
   | {
@@ -263,33 +125,172 @@ const FINDER_GROUPS: FinderGroup[] = [
   { id: "wed-sun", labelKey: "wedSun", type: "single", productIds: ["P4"] },
 ];
 
-const PRODUCT_TO_GROUP: Record<ProductId, FinderGroupId> = {
-  P1: "mon-fri",
-  P2A: "tue-sat",
-  P2B: "tue-sat",
-  P3A: "tue-sat",
-  P3B: "tue-sat",
-  P4: "wed-sun",
-};
+/* ------------------------------------------------------------------
+ * Page
+ * ------------------------------------------------------------------ */
+export function IcefieldsShuttlePage() {
+  const locale = useLocale();
+  const c = getIcefieldsContent(locale);
 
-function QuickRouteFinder({
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  return (
+    <SiteLayout>
+      <Hero c={c} locale={locale} scrollTo={scrollTo} />
+      <QuickRouteFinder c={c} locale={locale} />
+      <WhyDifferent c={c} />
+      <AllRoutesOverview c={c} locale={locale} />
+      <ComparisonTable c={c} locale={locale} />
+      <AddOnsSummary c={c} locale={locale} />
+      <BundlesSection c={c} locale={locale} />
+      <FinalCTA c={c} locale={locale} />
+      <section className="bg-paper/50 py-12">
+        <div className="mx-auto max-w-[1240px] px-5 md:px-10">
+          <ChatSupportNote />
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}
+
+/* ------------------------------------------------------------------
+ * Hero — full-width image, single CTA
+ * ------------------------------------------------------------------ */
+function Hero({
   c,
-  selectedProduct,
-  onSelect,
+  locale,
+  scrollTo,
 }: {
   c: IcefieldsContent;
-  selectedProduct: ProductId | null;
-  onSelect: (pid: ProductId) => void;
+  locale: Locale;
+  scrollTo: (id: string) => void;
 }) {
-  const [groupId, setGroupId] = useState<FinderGroupId>(
-    selectedProduct ? PRODUCT_TO_GROUP[selectedProduct] : "mon-fri",
+  return (
+    <section className="relative overflow-hidden bg-ink">
+      <img
+        src={heroIcefield}
+        alt="Icefields Parkway and the Canadian Rockies"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/35 to-ink/75" />
+      <div className="relative mx-auto max-w-[1100px] px-5 md:px-10 py-28 md:py-40 text-center text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.7)]">
+        <p className="font-marker text-cream/90 text-[13px] tracking-[0.3em] uppercase">
+          {c.hero.eyebrow}
+        </p>
+        <h1 className="mt-5 font-serif text-cream text-[40px] md:text-[64px] leading-[1.05] font-semibold">
+          {c.hero.h1}
+        </h1>
+        <p className="mt-7 mx-auto max-w-2xl text-cream/95 text-[15.5px] md:text-[17px] leading-[1.9]">
+          {c.hero.sub}
+        </p>
+        <div className="mt-10">
+          <button
+            onClick={() => scrollTo("finder")}
+            className="rounded-full bg-cream text-ink px-8 py-4 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.55)]"
+          >
+            {tx("exploreCta", locale)}
+          </button>
+        </div>
+      </div>
+    </section>
   );
+}
+
+/* ------------------------------------------------------------------
+ * Day Accent Badge
+ * ------------------------------------------------------------------ */
+function AccentBadge({
+  accent,
+  children,
+}: {
+  accent: "north" | "split" | "south";
+  children: React.ReactNode;
+}) {
+  const cls =
+    accent === "north"
+      ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+      : accent === "south"
+        ? "bg-amber-50 text-amber-800 border-amber-200"
+        : "bg-sky-50 text-sky-800 border-sky-200";
+  const dot =
+    accent === "north" ? "bg-emerald-500" : accent === "south" ? "bg-amber-500" : "bg-sky-500";
+  return (
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] tracking-[0.18em] uppercase ${cls}`}
+    >
+      <span className={`h-2 w-2 rounded-full ${dot}`} aria-hidden />
+      {children}
+    </span>
+  );
+}
+
+/* ------------------------------------------------------------------
+ * Shared Route Overview-style product card
+ * ------------------------------------------------------------------ */
+function ProductRouteCard({
+  c,
+  pid,
+  locale,
+}: {
+  c: IcefieldsContent;
+  pid: ProductId;
+  locale: Locale;
+}) {
+  const p = c.products[pid];
+  const f = c.finderV2;
+  const priceText = p.childAvailable
+    ? `$${p.adult} / $${p.child}`
+    : `$${p.adult} ${c.compare.pp}`;
+  return (
+    <article className="flex flex-col rounded-2xl border border-border/70 bg-cream overflow-hidden shadow-[0_20px_50px_-30px_rgba(60,80,70,0.35)] hover:border-primary/40 hover:shadow-[0_24px_60px_-25px_rgba(60,80,70,0.45)] transition">
+      <div className="relative h-48 overflow-hidden">
+        <img src={PRODUCT_IMG[pid]} alt={p.name} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute top-4 left-4">
+          <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
+        </div>
+      </div>
+      <div className="flex flex-col flex-1 p-6">
+        <h3 className="font-serif text-[19px] text-ink font-semibold leading-snug">{p.name}</h3>
+        <p className="mt-1 text-[12px] tracking-[0.2em] uppercase text-ink/55">{p.durationHrs}</p>
+        <p className="mt-3 text-[14px] text-ink/70 leading-[1.85]">{p.bestFor}</p>
+        <dl className="mt-5 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
+          <Row k={c.detailed.direction} v={p.direction} />
+          <Row k={c.detailed.time} v={p.time} />
+          <Row k={f.durationLabel} v={p.durationHrs} />
+          <Row k={c.detailed.baseFare} v={priceText} />
+        </dl>
+        <Link
+          to={productHref(pid, locale) as never}
+          className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+        >
+          {tx("viewAndBook", locale)}
+        </Link>
+      </div>
+    </article>
+  );
+}
+
+function Row({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="flex justify-between gap-3">
+      <dt className="text-ink/55 shrink-0 max-w-[45%]">{k}</dt>
+      <dd className="text-right">{v}</dd>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------
+ * Quick Route Finder
+ * ------------------------------------------------------------------ */
+function QuickRouteFinder({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
+  const [groupId, setGroupId] = useState<FinderGroupId>("mon-fri");
   const group = FINDER_GROUPS.find((g) => g.id === groupId)!;
   const f = c.finderV2;
 
   return (
     <section id="finder" className="py-20 md:py-24 bg-paper/50">
-      <div className="mx-auto max-w-[1200px] px-5 md:px-10">
+      <div className="mx-auto max-w-[1240px] px-5 md:px-10">
         <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{f.eyebrow}</p>
         <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
           {f.heading}
@@ -315,14 +316,15 @@ function QuickRouteFinder({
           })}
         </div>
 
+        <p className="mt-4 text-[12.5px] text-ink/55 italic">{tx("thursdayShort", locale)}</p>
+
         <div className="mt-8 space-y-8">
           {group.type === "single" ? (
-            <RouteCardGrid
-              c={c}
-              productIds={group.productIds}
-              selectedProduct={selectedProduct}
-              onSelect={onSelect}
-            />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {group.productIds.map((pid) => (
+                <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
+              ))}
+            </div>
           ) : (
             <div className="space-y-8">
               <div className="rounded-2xl border border-amber-300/60 bg-amber-50/60 p-5 md:p-6">
@@ -331,19 +333,15 @@ function QuickRouteFinder({
                 </p>
                 <p className="mt-2 text-[14px] text-ink/75 leading-[1.85]">{f.tueSatSummaryDesc}</p>
               </div>
-
               {group.segments.map((seg) => (
                 <div key={seg.titleKey}>
                   <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">
                     {f.segmentTitles[seg.titleKey]}
                   </p>
-                  <div className="mt-3">
-                    <RouteCardGrid
-                      c={c}
-                      productIds={seg.productIds}
-                      selectedProduct={selectedProduct}
-                      onSelect={onSelect}
-                    />
+                  <div className="mt-3 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {seg.productIds.map((pid) => (
+                      <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
+                    ))}
                   </div>
                 </div>
               ))}
@@ -355,112 +353,25 @@ function QuickRouteFinder({
   );
 }
 
-function RouteCardGrid({
-  c,
-  productIds,
-  selectedProduct,
-  onSelect,
-}: {
-  c: IcefieldsContent;
-  productIds: ProductId[];
-  selectedProduct: ProductId | null;
-  onSelect: (pid: ProductId) => void;
-}) {
-  const locale = useLocale();
-  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
-  const f = c.finderV2;
-  return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {productIds.map((pid) => {
-        const p = c.products[pid];
-        const isSelected = selectedProduct === pid;
-        const addOnsText =
-          p.addOns.length > 0
-            ? Array.from(
-                new Set(
-                  p.addOns.map((a) =>
-                    a === "HINTON_ONE" || a === "HINTON_ROUND" ? c.finder.hintonExt : c.addOns[a].name,
-                  ),
-                ),
-              ).join(" · ")
-            : "—";
-        return (
-          <article
-            key={pid}
-            className={`rounded-2xl border bg-cream p-6 flex flex-col transition ${
-              isSelected ? "border-primary ring-2 ring-primary/30" : "border-border/70"
-            }`}
-          >
-            <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
-            <h3 className="mt-3 font-serif text-[19px] text-ink font-semibold leading-snug break-words">
-              {p.name}
-            </h3>
-
-            <dl className="mt-4 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
-              <Row k={c.detailed.direction} v={p.direction} />
-              <Row k={c.detailed.time} v={p.time} />
-              <Row k={f.durationLabel} v={p.durationHrs} />
-              <Row
-                k={c.detailed.baseFare}
-                v={p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.compare.pp}`}
-              />
-              <Row k={f.addOnsLabel} v={addOnsText} />
-            </dl>
-
-            <div className="mt-4 text-[13px] text-ink/75 leading-[1.7]">
-              <span className="text-ink/55">{f.bestForLabel}: </span>
-              <span>{p.bestFor}</span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => onSelect(pid)}
-              disabled={isSelected}
-              className={`mt-5 w-full rounded-full px-5 py-3 text-[13.5px] tracking-wide transition ${
-                isSelected
-                  ? "bg-primary/10 text-primary border border-primary/40 cursor-default"
-                  : "bg-ink text-cream hover:bg-ink/85"
-              }`}
-            >
-              {isSelected ? f.ctaSelected : f.ctaSelect}
-            </button>
-            <Link
-              to={productHref(pid, locale) as never}
-              className="mt-3 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
-            >
-              {bookLabel}
-            </Link>
-          </article>
-        );
-      })}
-    </div>
-  );
-}
-
-function Row({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="flex justify-between gap-4">
-      <dt className="text-ink/55">{k}</dt>
-      <dd className="text-right">{v}</dd>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------
- * Why / Overview / Detailed
+ * Why This Route Is Different
  * ------------------------------------------------------------------ */
-
 function WhyDifferent({ c }: { c: IcefieldsContent }) {
   return (
     <section className="py-20 md:py-28">
       <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.why.eyebrow}</p>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {c.why.eyebrow}
+        </p>
         <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold leading-[1.15] max-w-3xl">
           {c.why.heading}
         </h2>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {c.why.items.map((f, i) => (
-            <div key={f.t} className="rounded-2xl border border-border/70 bg-cream p-6 hover:border-primary/40 transition">
+            <div
+              key={f.t}
+              className="rounded-2xl border border-border/70 bg-cream p-6 hover:border-primary/40 transition"
+            >
               <p className="font-marker text-primary/70 text-[12px] tracking-[0.2em]">0{i + 1}</p>
               <h3 className="mt-2 font-serif text-[18px] text-ink font-semibold">{f.t}</h3>
               <p className="mt-2 text-[14px] text-ink/65 leading-[1.85]">{f.d}</p>
@@ -472,36 +383,27 @@ function WhyDifferent({ c }: { c: IcefieldsContent }) {
   );
 }
 
-function RouteOverview({ c }: { c: IcefieldsContent }) {
-  const images = [heroBanff, destJasper, bgMoraine];
+/* ------------------------------------------------------------------
+ * All Routes Overview — all six products as route-overview cards
+ * ------------------------------------------------------------------ */
+const ALL_PRODUCTS: ProductId[] = ["P1", "P3A", "P2A", "P3B", "P2B", "P4"];
+
+function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
   return (
     <section className="py-20 md:py-24 bg-paper/40">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.overview.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.overview.heading}</h2>
-        <div className="mt-10 grid lg:grid-cols-3 gap-6">
-          {c.overview.groups.map((g, i) => (
-            <article key={g.title} className="flex flex-col rounded-2xl border border-border/70 bg-cream overflow-hidden shadow-[0_20px_50px_-30px_rgba(60,80,70,0.35)]">
-              <div className="relative h-48 overflow-hidden">
-                <img src={images[i]} alt={g.title} className="absolute inset-0 h-full w-full object-cover" />
-                <div className="absolute top-4 left-4">
-                  <AccentBadge accent={g.accent}>{g.day}</AccentBadge>
-                </div>
-              </div>
-              <div className="flex flex-col flex-1 p-6">
-                <h3 className="font-serif text-[20px] text-ink font-semibold leading-snug">{g.title}</h3>
-                <p className="mt-1 text-[12px] tracking-[0.2em] uppercase text-ink/55">{g.dur}</p>
-                <p className="mt-3 text-[14px] text-ink/70 leading-[1.85]">{g.bestFor}</p>
-                <dl className="mt-5 space-y-2 text-[13px] text-ink/75 border-t border-border/60 pt-4">
-                  {g.lines.map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-3">
-                      <dt className="text-ink/55 shrink-0 max-w-[45%]">{k}</dt>
-                      <dd className="text-right">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            </article>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {tx("overviewEyebrow", locale)}
+        </p>
+        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+          {tx("overviewHeading", locale)}
+        </h2>
+        <p className="mt-4 max-w-3xl text-[15px] text-ink/70 leading-[1.9]">
+          {tx("overviewIntro", locale)}
+        </p>
+        <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {ALL_PRODUCTS.map((pid) => (
+            <ProductRouteCard key={pid} c={c} pid={pid} locale={locale} />
           ))}
         </div>
       </div>
@@ -509,446 +411,29 @@ function RouteOverview({ c }: { c: IcefieldsContent }) {
   );
 }
 
-function DetailedRoutes({
-  c,
-  selectedProduct,
-}: {
-  c: IcefieldsContent;
-  selectedProduct: ProductId | null;
-}) {
-  const f = c.finderV2;
-
-  if (!selectedProduct) {
-    return (
-      <section id="detailed-route" className="py-20 md:py-24">
-        <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-          <div className="rounded-2xl border border-dashed border-border bg-cream/60 px-6 py-16 md:py-20 text-center">
-            <p className="font-marker text-primary/70 text-[12px] tracking-[0.25em] uppercase">
-              {f.eyebrow}
-            </p>
-            <h3 className="mt-3 font-serif text-2xl md:text-[28px] text-ink font-semibold">
-              {f.placeholderTitle}
-            </h3>
-            <p className="mt-3 max-w-xl mx-auto text-[14.5px] text-ink/65 leading-[1.85]">
-              {f.placeholderBody}
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  const parseStop = (line: string) => {
-    const m = line.match(/^\s*([^—\-–]+?)\s*[—\-–]\s*(.+)$/);
-    if (m) {
-      const left = m[1].trim();
-      const right = m[2].trim();
-      const looksLikeTime = /\d/.test(left);
-      return looksLikeTime
-        ? { time: left, name: right }
-        : { time: undefined, name: line.trim() };
-    }
-    return { time: undefined, name: line.trim() };
-  };
-
-  const p = c.products[selectedProduct];
-  const copy = {
-    ...c.routeSection,
-    timelineHeading: f.selectedTimelineHeading,
-  };
-  const days = [
-    {
-      dayLabel: p.daysLabel,
-      title: p.name,
-      description: p.bestFor,
-      accent: p.accent,
-      stops: p.schedule.map((s, i) => {
-        const { time, name } = parseStop(s);
-        return { sequence: String(i + 1), time, name };
-      }),
-    },
-  ];
-
-  const locale = useLocale();
-  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
-
-  return (
-    <div id="detailed-route">
-      <div className="mx-auto max-w-[1100px] px-5 md:px-10 pt-16 md:pt-20">
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <p className="text-[11px] tracking-[0.25em] uppercase text-ink/55">{f.showingPrefix}</p>
-          <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold">
-            {p.daysLabel}
-            {f.routeSuffix}
-          </h2>
-        </div>
-        <p className="mt-2 text-[14px] text-ink/65 leading-[1.8]">{p.name}</p>
-        <Link
-          to={productHref(selectedProduct, locale) as never}
-          className="mt-4 inline-flex items-center rounded-full bg-primary text-primary-foreground px-5 py-2.5 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
-        >
-          {bookLabel}
-        </Link>
-      </div>
-      <TourRouteSection
-        copy={copy}
-        days={days}
-        highlights={c.routeSection.highlights}
-      />
-    </div>
-  );
-}
-
-
-
-/* ------------------------------------------------------------------
- * Booking Estimator
- * ------------------------------------------------------------------ */
-
-type Selection = { productId: ProductId; addOns: Partial<Record<AddOnId, boolean>> };
-
-function BookingEstimator({ c }: { c: IcefieldsContent }) {
-  const locale = useLocale();
-  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
-  const [date, setDate] = useState<string>("");
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [pickup, setPickup] = useState(c.pickups[0]);
-  const [dropoff, setDropoff] = useState(c.dropoffs[0]);
-  const [selections, setSelections] = useState<Record<ProductId, Selection | undefined>>({} as any);
-
-  const weekday = weekdayFromISO(date);
-  const availableIds = weekday ? PRODUCTS_BY_DAY[weekday] : [];
-  const allowMulti = weekday === "Tue" || weekday === "Sat";
-  const isWeekend = weekday ? WEEKEND.includes(weekday) : false;
-
-  const selectedList = availableIds.map((id) => selections[id]).filter((s): s is Selection => !!s);
-
-  const directionalWarning = useMemo(() => {
-    const dirs = selectedList.map((s) => c.products[s.productId].direction);
-    const hasNorth = dirs.some((d) => /Banff\s*→|밴프\s*→|班夫\s*→/.test(d));
-    const hasSouth = dirs.some((d) => /Jasper\s*→\s*Banff|재스퍼\s*→\s*밴프|賈斯珀\s*→\s*班夫/.test(d));
-    return hasNorth && hasSouth;
-  }, [selectedList, c.products]);
-
-  const comboLabel = useMemo(() => {
-    const ids = selectedList.map((s) => s.productId).sort();
-    if (ids.length === 2 && ids.includes("P2A") && ids.includes("P2B")) return c.reserve.combo2;
-    if (ids.length === 2 && ids.includes("P3A") && ids.includes("P3B")) return c.reserve.combo3;
-    return null;
-  }, [selectedList, c.reserve.combo2, c.reserve.combo3]);
-
-  const toggleProduct = (id: ProductId) => {
-    setSelections((prev) => {
-      const exists = !!prev[id];
-      if (exists) {
-        const next = { ...prev };
-        delete next[id];
-        return next;
-      }
-      if (!allowMulti) {
-        const next: Record<ProductId, Selection | undefined> = {} as any;
-        next[id] = { productId: id, addOns: {} };
-        return next;
-      }
-      return { ...prev, [id]: { productId: id, addOns: {} } };
-    });
-  };
-
-  const toggleAddOn = (pid: ProductId, aid: AddOnId) => {
-    setSelections((prev) => {
-      const sel = prev[pid];
-      if (!sel) return prev;
-      const cur = !!sel.addOns[aid];
-      const nextAdds = { ...sel.addOns, [aid]: !cur };
-      if (!cur && aid === "HINTON_ONE") nextAdds.HINTON_ROUND = false;
-      if (!cur && aid === "HINTON_ROUND") nextAdds.HINTON_ONE = false;
-      return { ...prev, [pid]: { ...sel, addOns: nextAdds } };
-    });
-  };
-
-  const lineItems: { label: string; amount: number }[] = [];
-  let subtotal = 0;
-
-  selectedList.forEach((s) => {
-    const p = c.products[s.productId];
-    const adultBase = p.adult * adults;
-    const childBase = p.childAvailable ? p.child * children : p.adult * children;
-    const baseTotal = adultBase + childBase;
-    lineItems.push({
-      label: `${p.name} — ${c.reserve.baseSuffix} (${adults} ${c.reserve.adults}${children ? `, ${children} ${c.reserve.children}` : ""})`,
-      amount: baseTotal,
-    });
-    subtotal += baseTotal;
-
-    if (isWeekend) {
-      const surcharge = 20 * (adults + children);
-      lineItems.push({ label: `${p.name} — ${c.reserve.weekendSurcharge}`, amount: surcharge });
-      subtotal += surcharge;
-    }
-
-    p.addOns.forEach((aid) => {
-      if (!s.addOns[aid]) return;
-      const a = c.addOns[aid];
-      const amount = a.perPerson ? a.adult * (adults + children) : a.adult * adults + a.child * children;
-      lineItems.push({ label: `${p.name} — ${a.name}`, amount });
-      subtotal += amount;
-    });
-  });
-
-  const gst = +(subtotal * 0.05).toFixed(2);
-  const total = +(subtotal + gst).toFixed(2);
-
-  return (
-    <section id="reserve" className="py-20 md:py-28 bg-paper/50">
-      <div className="mx-auto max-w-[1240px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.reserve.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.reserve.heading}</h2>
-        <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">{c.reserve.intro}</p>
-
-        <div className="mt-10 grid lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3 rounded-2xl bg-cream border border-border/70 p-6 md:p-8 space-y-6">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <Field label={c.reserve.departureDate}>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                    setSelections({} as any);
-                  }}
-                  className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-[14px] text-ink"
-                />
-                {weekday && (
-                  <p className="mt-1.5 text-[12px] text-ink/55">
-                    {c.reserve.detected} {c.weekdayLabel[weekday]}
-                    {isWeekend ? c.reserve.weekendApplies : ""}
-                  </p>
-                )}
-              </Field>
-              <Field label={c.reserve.guests}>
-                <div className="flex gap-3">
-                  <CounterInput label={c.reserve.adults} value={adults} setValue={setAdults} min={1} />
-                  <CounterInput label={c.reserve.children} value={children} setValue={setChildren} min={0} />
-                </div>
-              </Field>
-              <Field label={c.reserve.pickupLoc}>
-                <select
-                  value={pickup}
-                  onChange={(e) => setPickup(e.target.value)}
-                  className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-[14px] text-ink"
-                >
-                  {c.pickups.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
-                </select>
-              </Field>
-              <Field label={c.reserve.dropoffLoc}>
-                <select
-                  value={dropoff}
-                  onChange={(e) => setDropoff(e.target.value)}
-                  className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-[14px] text-ink"
-                >
-                  {c.dropoffs.map((d) => (
-                    <option key={d} value={d}>{d}</option>
-                  ))}
-                </select>
-              </Field>
-            </div>
-
-            <div>
-              <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{c.reserve.availableProducts}</p>
-              {!date && (
-                <div className="mt-3 rounded-xl border border-dashed border-border bg-paper/40 p-5 text-[14px] text-ink/60">
-                  {c.reserve.pickDate}
-                </div>
-              )}
-              {date && weekday === "Thu" && (
-                <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-5 text-[14px] text-amber-900 leading-[1.8]">
-                  {c.reserve.thursdayWarn}
-                </div>
-              )}
-              {date && availableIds.length > 0 && (
-                <div className="mt-3 space-y-3">
-                  {availableIds.map((pid) => {
-                    const p = c.products[pid];
-                    const sel = selections[pid];
-                    return (
-                      <div key={pid} className={`rounded-xl border p-4 transition ${sel ? "border-primary bg-primary/5" : "border-border bg-cream"}`}>
-                        <label className="flex items-start gap-3 cursor-pointer">
-                          <input type="checkbox" checked={!!sel} onChange={() => toggleProduct(pid)} className="mt-1" />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <span className="font-serif text-[15px] text-ink font-semibold">{p.name}</span>
-                              <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
-                            </div>
-                            <p className="mt-1 text-[12.5px] text-ink/60">
-                              {p.direction} · {p.time} ·{" "}
-                              {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.reserve.perPerson}`}
-                            </p>
-                            <Link
-                              to={productHref(pid, locale) as never}
-                              onClick={(e) => e.stopPropagation()}
-                              className="mt-2 inline-block text-[12.5px] text-primary hover:text-primary/80 underline underline-offset-2"
-                            >
-                              {bookLabel}
-                            </Link>
-                          </div>
-                        </label>
-
-
-                        {sel && p.addOns.length > 0 && (
-                          <div className="mt-4 ml-7 space-y-2">
-                            <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{c.reserve.addOnsLabel}</p>
-                            {p.addOns.map((aid) => {
-                              const a = c.addOns[aid];
-                              return (
-                                <label key={aid} className="flex items-center gap-2 text-[13.5px] text-ink/75">
-                                  <input type="checkbox" checked={!!sel.addOns[aid]} onChange={() => toggleAddOn(pid, aid)} />
-                                  <span>{a.name}</span>
-                                  <span className="text-ink/50">— {a.label}</span>
-                                </label>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                  {!allowMulti && availableIds.length > 1 && (
-                    <p className="text-[12px] text-ink/55">{c.reserve.singlePerBooking}</p>
-                  )}
-                  {allowMulti && <p className="text-[12px] text-ink/55">{c.reserve.multiAllowed}</p>}
-                </div>
-              )}
-            </div>
-
-            {comboLabel && (
-              <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 text-[13.5px] text-ink/80">{comboLabel}</div>
-            )}
-            {directionalWarning && (
-              <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-[13.5px] text-amber-900">{c.reserve.directionWarn}</div>
-            )}
-          </div>
-
-          <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-6 rounded-2xl bg-ink text-cream p-6 md:p-7 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.45)]">
-              <p className="font-marker text-cream/70 text-[11px] tracking-[0.25em] uppercase">{c.reserve.estimatedTotal}</p>
-              <h3 className="mt-2 font-serif text-cream text-[22px] font-semibold">{c.reserve.orderSummary}</h3>
-
-              <dl className="mt-5 space-y-2 text-[13px] text-cream/85 border-t border-cream/15 pt-4">
-                <Row2 k={c.reserve.date} v={date || "—"} />
-                <Row2 k={c.reserve.day} v={weekday ? c.weekdayLabel[weekday] : "—"} />
-                <Row2 k={c.reserve.adults} v={String(adults)} />
-                <Row2 k={c.reserve.children} v={String(children)} />
-                <Row2 k={c.reserve.pickup} v={pickup} />
-                <Row2 k={c.reserve.dropoff} v={dropoff} />
-              </dl>
-
-              <div className="mt-5 border-t border-cream/15 pt-4 space-y-2 text-[13px]">
-                {lineItems.length === 0 ? (
-                  <p className="text-cream/60">{c.reserve.noSelection}</p>
-                ) : (
-                  lineItems.map((li, i) => (
-                    <div key={i} className="flex justify-between gap-3">
-                      <span className="text-cream/80">{li.label}</span>
-                      <span className="font-medium">{fmt(li.amount)}</span>
-                    </div>
-                  ))
-                )}
-              </div>
-
-              <div className="mt-5 border-t border-cream/15 pt-4 space-y-1.5 text-[14px]">
-                <div className="flex justify-between">
-                  <span className="text-cream/70">{c.reserve.subtotal}</span>
-                  <span>{fmt(subtotal)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-cream/70">{c.reserve.gst}</span>
-                  <span>{fmt(gst)}</span>
-                </div>
-                <div className="flex justify-between font-serif text-[20px] font-semibold pt-2">
-                  <span>{c.reserve.estimatedTotalRow}</span>
-                  <span>{fmt(total)}</span>
-                </div>
-              </div>
-
-              {selectedList.length > 0 && date ? (
-                <Link
-                  to={productHref(selectedList[0].productId, locale) as never}
-                  className="mt-6 w-full block text-center rounded-full bg-cream text-ink py-3 text-[14px] tracking-wide hover:bg-cream/90 transition"
-                >
-                  {bookLabel}
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="mt-6 w-full rounded-full bg-cream text-ink py-3 text-[14px] tracking-wide opacity-50 cursor-not-allowed"
-                >
-                  {c.reserve.continueToBooking}
-                </button>
-              )}
-              <p className="mt-3 text-[11.5px] text-cream/60 leading-relaxed">{c.reserve.finalNote}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{label}</span>
-      <div className="mt-1.5">{children}</div>
-    </label>
-  );
-}
-
-function CounterInput({ label, value, setValue, min }: { label: string; value: number; setValue: (n: number) => void; min: number }) {
-  return (
-    <div className="flex-1 rounded-md border border-border bg-cream px-3 py-2 flex items-center justify-between">
-      <span className="text-[12px] text-ink/60">{label}</span>
-      <div className="flex items-center gap-2">
-        <button type="button" onClick={() => setValue(Math.max(min, value - 1))} className="h-6 w-6 rounded-full border border-border text-ink/70 leading-none">−</button>
-        <span className="w-5 text-center text-[14px]">{value}</span>
-        <button type="button" onClick={() => setValue(value + 1)} className="h-6 w-6 rounded-full border border-border text-ink/70 leading-none">+</button>
-      </div>
-    </div>
-  );
-}
-
-function Row2({ k, v }: { k: string; v: string }) {
-  return (
-    <div className="flex justify-between gap-3">
-      <dt className="text-cream/60">{k}</dt>
-      <dd className="text-right text-cream/95 truncate max-w-[60%]">{v}</dd>
-    </div>
-  );
-}
-
 /* ------------------------------------------------------------------
  * Comparison Table
  * ------------------------------------------------------------------ */
-
-function ComparisonTable({ c }: { c: IcefieldsContent }) {
-  const locale = useLocale();
-  const bookLabel = VIEW_AND_BOOK_LABEL[locale] ?? VIEW_AND_BOOK_LABEL.en;
+function ComparisonTable({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
+  const bookLabel = tx("viewAndBook", locale);
   return (
     <section id="compare" className="py-20 md:py-24">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.compare.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.compare.heading}</h2>
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {c.compare.eyebrow}
+        </p>
+        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+          {c.compare.heading}
+        </h2>
 
         <div className="mt-10 hidden md:block overflow-hidden rounded-2xl border border-border/70 bg-cream">
           <table className="w-full text-[13.5px] text-ink/80">
             <thead className="bg-paper/60 text-[11.5px] tracking-[0.18em] uppercase text-ink/60">
               <tr>
                 {c.compare.headers.map((h) => (
-                  <th key={h} className="text-left px-4 py-4 font-medium">{h}</th>
+                  <th key={h} className="text-left px-4 py-4 font-medium">
+                    {h}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -970,7 +455,9 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                     <td className="px-4 py-4 align-top">{p.direction}</td>
                     <td className="px-4 py-4 align-top">{p.time}</td>
                     <td className="px-4 py-4 align-top text-primary font-semibold">
-                      {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.compare.pp}`}
+                      {p.childAvailable
+                        ? `$${p.adult} / $${p.child}`
+                        : `$${p.adult} ${c.compare.pp}`}
                     </td>
                     <td className="px-4 py-4 align-top">{addons}</td>
                     <td className="px-4 py-4 align-top">{p.bestFor}</td>
@@ -989,14 +476,20 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
                 <AccentBadge accent={p.accent}>{p.daysLabel}</AccentBadge>
                 <h3 className="mt-2 font-serif text-[16px] text-ink font-semibold">{p.name}</h3>
                 <div className="mt-3 grid grid-cols-2 gap-y-2 text-[13px] text-ink/75">
-                  <span className="text-ink/55">{c.detailed.direction}</span><span>{p.direction}</span>
-                  <span className="text-ink/55">{c.detailed.time}</span><span>{p.time}</span>
+                  <span className="text-ink/55">{c.detailed.direction}</span>
+                  <span>{p.direction}</span>
+                  <span className="text-ink/55">{c.detailed.time}</span>
+                  <span>{p.time}</span>
                   <span className="text-ink/55">{c.detailed.baseFare}</span>
                   <span className="text-primary font-semibold">
-                    {p.childAvailable ? `$${p.adult} / $${p.child}` : `$${p.adult} ${c.compare.pp}`}
+                    {p.childAvailable
+                      ? `$${p.adult} / $${p.child}`
+                      : `$${p.adult} ${c.compare.pp}`}
                   </span>
-                  <span className="text-ink/55">{c.detailed.addOnsLabel}</span><span>{addons}</span>
-                  <span className="text-ink/55">{c.compare.headers[6]}</span><span>{p.bestFor}</span>
+                  <span className="text-ink/55">{c.detailed.addOnsLabel}</span>
+                  <span>{addons}</span>
+                  <span className="text-ink/55">{c.compare.headers[6]}</span>
+                  <span>{p.bestFor}</span>
                 </div>
                 <Link
                   to={productHref(id, locale) as never}
@@ -1014,16 +507,18 @@ function ComparisonTable({ c }: { c: IcefieldsContent }) {
 }
 
 /* ------------------------------------------------------------------
- * Add-ons / Pickup Notes / Included
+ * Add-ons summary
  * ------------------------------------------------------------------ */
-
-function AddOnsSection({ c }: { c: IcefieldsContent }) {
+function AddOnsSummary({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
   return (
     <section className="py-20 md:py-24 bg-paper/40">
       <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.addonsSection.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.addonsSection.heading}</h2>
-
+        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+          {c.addonsSection.eyebrow}
+        </p>
+        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
+          {c.addonsSection.heading}
+        </h2>
         <div className="mt-10 grid md:grid-cols-3 gap-5">
           {c.addonsSection.cards.map((card) => (
             <div key={card.t} className="rounded-2xl border border-border/70 bg-cream p-6">
@@ -1033,105 +528,20 @@ function AddOnsSection({ c }: { c: IcefieldsContent }) {
             </div>
           ))}
         </div>
-        <p className="mt-6 text-[13px] text-ink/55 italic">{c.addonsSection.note}</p>
+        <p className="mt-6 text-[14px] text-ink/70 italic leading-[1.85]">
+          {tx("addonsContact", locale)}
+        </p>
       </div>
     </section>
   );
 }
 
-function PickupNotes({ c }: { c: IcefieldsContent }) {
+/* ------------------------------------------------------------------
+ * Suggested Combinations
+ * ------------------------------------------------------------------ */
+function BundlesSection({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
   return (
-    <section className="py-20 md:py-24">
-      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.pickupNotes.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.pickupNotes.heading}</h2>
-        <div className="mt-10 grid sm:grid-cols-2 gap-5">
-          {c.pickupNotes.cards.map((card) => (
-            <div key={card.t} className="rounded-2xl border border-border/70 bg-cream p-6">
-              <h3 className="font-serif text-[17px] text-ink font-semibold">{card.t}</h3>
-              <ul className="mt-3 space-y-1.5 text-[13.5px] text-ink/70 leading-[1.85]">
-                {card.lines.map((l) => (
-                  <li key={l} className="pl-3 relative before:content-['·'] before:absolute before:left-0 before:text-primary">
-                    {l}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function IncludedSection({ c }: { c: IcefieldsContent }) {
-  return (
-    <section className="py-20 md:py-24 bg-paper/40">
-      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.included.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.included.heading}</h2>
-
-        <div className="mt-10 grid md:grid-cols-2 gap-6">
-          <div className="rounded-2xl border border-border/70 bg-cream p-6">
-            <h3 className="font-serif text-[18px] text-ink font-semibold">{c.included.includedTitle}</h3>
-            <ul className="mt-4 space-y-2 text-[14px] text-ink/75 leading-[1.85]">
-              {c.included.included.map((i) => (
-                <li key={i} className="pl-5 relative before:content-['✓'] before:absolute before:left-0 before:text-emerald-600">
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="rounded-2xl border border-border/70 bg-cream p-6">
-            <h3 className="font-serif text-[18px] text-ink font-semibold">{c.included.notIncludedTitle}</h3>
-            <ul className="mt-4 space-y-2 text-[14px] text-ink/75 leading-[1.85]">
-              {c.included.notIncluded.map((i) => (
-                <li key={i} className="pl-5 relative before:content-['×'] before:absolute before:left-0 before:text-ink/40">
-                  {i}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TravelNotes({ c }: { c: IcefieldsContent }) {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section className="py-20 md:py-24">
-      <div className="mx-auto max-w-[900px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.faq.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.faq.heading}</h2>
-        <div className="mt-10 space-y-2">
-          {c.faq.items.map((it, i) => (
-            <div key={it.q} className="rounded-xl border border-border/70 bg-cream overflow-hidden">
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-              >
-                <span className="font-serif text-[15.5px] text-ink font-semibold">{it.q}</span>
-                <span className="text-ink/50 text-xl shrink-0">{open === i ? "−" : "+"}</span>
-              </button>
-              {open === i && (
-                <div className="px-5 pb-5 text-[14px] text-ink/70 leading-[1.9] border-t border-border/60 pt-3">
-                  {it.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BundlesSection({ c }: { c: IcefieldsContent }) {
-  const locale = useLocale();
-  return (
-    <section id="bundles" className="py-20 md:py-28 bg-paper/40">
+    <section id="bundles" className="py-20 md:py-28">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
         <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
           {c.bundles.eyebrow}
@@ -1139,9 +549,7 @@ function BundlesSection({ c }: { c: IcefieldsContent }) {
         <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">
           {c.bundles.heading}
         </h2>
-        <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">
-          {c.bundles.intro}
-        </p>
+        <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">{c.bundles.intro}</p>
 
         <div className="mt-6 max-w-3xl rounded-2xl border border-primary/20 bg-cream/70 px-6 py-5">
           <p className="font-serif italic text-ink/80 text-[15.5px] leading-[1.85]">
@@ -1163,7 +571,9 @@ function BundlesSection({ c }: { c: IcefieldsContent }) {
                       {step}
                     </span>
                     {i < b.flow.length - 1 && (
-                      <span className="text-primary/60 text-lg" aria-hidden>→</span>
+                      <span className="text-primary/60 text-lg" aria-hidden>
+                        →
+                      </span>
                     )}
                   </span>
                 ))}
@@ -1183,51 +593,31 @@ function BundlesSection({ c }: { c: IcefieldsContent }) {
   );
 }
 
-
-function BookingTerms({ c }: { c: IcefieldsContent }) {
-  return (
-    <section className="py-20 md:py-24 bg-paper/40">
-      <div className="mx-auto max-w-[1100px] px-5 md:px-10">
-        <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">{c.terms.eyebrow}</p>
-        <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">{c.terms.heading}</h2>
-        <div className="mt-10 grid md:grid-cols-2 gap-5">
-          {c.terms.blocks.map((b) => (
-            <div key={b.t} className="rounded-2xl border border-border/70 bg-cream p-6">
-              <h3 className="font-serif text-[17px] text-ink font-semibold">{b.t}</h3>
-              <p className="mt-2 text-[14px] text-ink/70 leading-[1.9]">{b.d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FinalCTA({ c, scrollTo }: { c: IcefieldsContent; scrollTo: (id: string) => void }) {
+/* ------------------------------------------------------------------
+ * Final CTA → Browse all tours
+ * ------------------------------------------------------------------ */
+function FinalCTA({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
   return (
     <section className="relative overflow-hidden bg-ink">
-      <img src={heroMountains} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      <img src={tourRockies} alt="" aria-hidden className="hidden" />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/30" />
-      <div className="relative mx-auto max-w-[1100px] px-5 md:px-10 py-20 md:py-28 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
-        <p className="font-marker text-cream/80 text-[12px] tracking-[0.3em] uppercase">{c.finalCta.eyebrow}</p>
+      <img src={heroMountains} alt="" className="absolute inset-0 h-full w-full object-cover opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/65 to-ink/40" />
+      <div className="relative mx-auto max-w-[1100px] px-5 md:px-10 py-20 md:py-28 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.7)]">
+        <p className="font-marker text-cream/80 text-[12px] tracking-[0.3em] uppercase">
+          {c.finalCta.eyebrow}
+        </p>
         <h2 className="mt-3 font-serif text-cream text-3xl md:text-[44px] font-semibold leading-[1.15] max-w-3xl">
           {c.finalCta.h2}
         </h2>
-        <p className="mt-5 max-w-2xl text-cream/90 text-[15.5px] leading-[1.95]">{c.finalCta.sub}</p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          <button
-            onClick={() => scrollTo("reserve")}
-            className="rounded-full bg-cream text-ink px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/90 transition"
+        <p className="mt-5 max-w-2xl text-cream/90 text-[15.5px] leading-[1.95]">
+          {c.finalCta.sub}
+        </p>
+        <div className="mt-7">
+          <Link
+            to={withLocale("/tours", locale) as never}
+            className="inline-flex items-center rounded-full bg-cream text-ink px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/90 transition"
           >
-            {c.finalCta.ctaReserve}
-          </button>
-          <button
-            onClick={() => scrollTo("compare")}
-            className="rounded-full border border-cream/70 text-cream px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/15 transition"
-          >
-            {c.finalCta.ctaCompare}
-          </button>
+            {tx("browseAll", locale)}
+          </Link>
         </div>
       </div>
     </section>
