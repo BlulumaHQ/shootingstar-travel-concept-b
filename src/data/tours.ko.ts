@@ -578,10 +578,10 @@ export const tours: Tour[] = [
   {
     slug: "vancouver-city-tour",
     img: tourVancouver,
-    title: "Vancouver City Tour",
-    desc: "A full-day Vancouver highlights tour covering Canada Place, Gastown, Chinatown, Queen Elizabeth Park, Granville Island, Stanley Park, and Capilano or Lynn Canyon.",
-    intro: "Stops: Canada Place; Gastown Steam Clock; Chinatown; Queen Elizabeth Park; Granville Island; Stanley Park; Capilano Suspension Bridge or Lynn Canyon. Includes car, driver/tour guide, and parking. Excludes tip $20, meals, and admission.",
-    duration: "1 day",
+    title: "밴쿠버 시티 투어",
+    desc: "캐나다 플레이스, 개스타운, 차이나타운, 퀸 엘리자베스 공원, 그랜빌 아일랜드, 스탠리 공원, 카필라노 또는 린 캐니언을 둘러보는 밴쿠버 하이라이트 종일 투어.",
+    intro: "일정: 캐나다 플레이스, 개스타운 증기시계, 차이나타운, 퀸 엘리자베스 공원, 그랜빌 아일랜드, 스탠리 공원, 카필라노 현수교 또는 린 캐니언. 차량, 기사/가이드, 주차 포함. 팁 $20, 식사, 입장료는 불포함.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
@@ -602,10 +602,10 @@ export const tours: Tour[] = [
   {
     slug: "seattle-tech-tour",
     img: seattleHero,
-    title: "Seattle Tech Tour",
-    desc: "A Seattle technology-focused day tour visiting Microsoft Visitor Center, University of Washington, Boeing Flight Museum, and Amazon Go.",
-    intro: "Stops: Microsoft Visitor Center; University of Washington; Boeing Flight Museum; Amazon Go. Includes bus, driver, guide, and parking. Excludes meals, tip $20, and admission.",
-    duration: "1 day",
+    title: "시애틀 테크 투어",
+    desc: "마이크로소프트 비지터 센터, 워싱턴 대학교, 보잉 항공 박물관, 아마존 고를 방문하는 시애틀 기술 테마 종일 투어.",
+    intro: "일정: 마이크로소프트 비지터 센터, 워싱턴 대학교, 보잉 항공 박물관, 아마존 고. 버스, 기사, 가이드, 주차 포함. 식사, 팁 $20, 입장료는 불포함.",
+    duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
     itinerary: [
@@ -803,10 +803,10 @@ export const tours: Tour[] = [
   {
     slug: "victoria-nanaimo-2-day",
     img: victoriaHero,
-    title: "Victoria + Nanaimo 2-Day Tour",
-    desc: "Two-day Vancouver Island tour combining Victoria and Nanaimo highlights.",
-    intro: "Latest Kim message only provides dates and minimum group size. Full itinerary, inclusions, exclusions, and price must be confirmed before final Rezdy publication.",
-    duration: "2 days, 1 night",
+    title: "빅토리아 + 나나이모 2일 투어",
+    desc: "빅토리아와 나나이모의 하이라이트를 함께 즐기는 밴쿠버 아일랜드 2일 투어.",
+    intro: "빅토리아와 나나이모의 핵심 명소를 결합한 밴쿠버 아일랜드 2일 투어입니다.",
+    duration: "2일 1박",
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
@@ -821,10 +821,10 @@ export const tours: Tour[] = [
   {
     slug: "los-angeles-4-day",
     img: la3Hero,
-    title: "Los Angeles 4-Day Tour | Theme Parks & California Highlights",
-    desc: "Four-day Los Angeles itinerary with LAX pickup, In-N-Out, Farmers Market, Beverly Hills, Hollywood, Universal Studios, Griffith Observatory, Disneyland, Santa Monica, UCLA, and The Getty.",
-    intro: "Day 1: LAX 12 PM pickup, In-N-Out Burger lunch, Farmers Market, Beverly Hills, Hollywood, Urban Lights. Day 2: Universal Studios, Griffith Observatory. Day 3: Disneyland. Day 4: Santa Monica Beach, UCLA, The Getty, LAX drop-off 3:30 PM.",
-    duration: "4 days, 3 nights",
+    title: "로스앤젤레스 4일 투어｜테마파크 & 캘리포니아 하이라이트",
+    desc: "LAX 픽업, In-N-Out, 파머스 마켓, 베벌리힐스, 할리우드, 유니버설 스튜디오, 그리피스 천문대, 디즈니랜드, 산타모니카, UCLA, 게티 센터를 포함한 로스앤젤레스 4일 일정.",
+    intro: "1일차: LAX 정오 12시 픽업, In-N-Out 점심, 파머스 마켓, 베벌리힐스, 할리우드, 어반 라이트. 2일차: 유니버설 스튜디오, 그리피스 천문대. 3일차: 디즈니랜드. 4일차: 산타모니카 해변, UCLA, 게티 센터, 오후 3시 30분 LAX 드롭오프.",
+    duration: "4일 3박",
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
@@ -839,10 +839,10 @@ export const tours: Tour[] = [
   {
     slug: "eastern-canada-luxury-5-day",
     img: tourToronto,
-    title: "Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal",
-    desc: "Luxury Eastern Canada five-day tour covering Toronto, Niagara Falls, Kingston, Ottawa, Quebec City, and Montreal with premium hotel highlights.",
-    intro: "Day 1 Toronto airport pickup 2:30 PM, CN Tower, Toronto City Hall, Niagara View Hotel. Day 2 Niagara Falls, Table Rock, Floral Clock, Niagara-on-the-Lake, winery. Day 3 Kingston, Thousand Island Cruise, Ottawa, Parliament, Rideau Hall, Rideau Canal. Day 4 Quebec upper/lower town and Fairmont Frontenac. Day 5 Montreal highlights and airport drop-off 2:30 PM.",
-    duration: "5 days, 4 nights",
+    title: "동부 캐나다 럭셔리 5일 투어｜나이아가라 폭포, 퀘벡 & 몬트리올",
+    desc: "토론토, 나이아가라 폭포, 킹스턴, 오타와, 퀘벡시티, 몬트리올을 아우르며 프리미엄 호텔 숙박이 포함된 동부 캐나다 럭셔리 5일 투어.",
+    intro: "1일차 토론토 공항 오후 2시 30분 픽업, CN 타워, 토론토 시청, 나이아가라 뷰 호텔. 2일차 나이아가라 폭포, 테이블 록, 플로럴 클락, 나이아가라온더레이크, 와이너리. 3일차 킹스턴, 천섬 크루즈, 오타와, 국회의사당, 리도 홀, 리도 운하. 4일차 퀘벡 어퍼/로어 타운과 페어몬트 프롱트낙. 5일차 몬트리올 하이라이트 및 오후 2시 30분 공항 드롭오프.",
+    duration: "5일 4박",
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
     itinerary: [
@@ -857,10 +857,10 @@ export const tours: Tour[] = [
   {
     slug: "eastern-canada-5-day",
     img: tourToronto,
-    title: "Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal",
-    desc: "Standard Eastern Canada five-day tour covering Toronto, Ottawa, Montreal, Quebec City, Kingston, Thousand Islands, and Niagara Falls.",
-    intro: "Itinerary includes Toronto airport pickup, CN Tower, Toronto City Hall, University of Toronto, Chinatown, Ottawa Parliament/Rideau Hall/Rideau Canal, Montreal Saint Joseph's Oratory, Quebec upper/lower town, Montmorency Falls, Thousand Islands Cruise, Niagara Falls, Table Rock, Floral Clock, Niagara-on-the-Lake, and winery. Drop-off Toronto airport 6 PM.",
-    duration: "5 days, 4 nights",
+    title: "동부 캐나다 5일 투어｜나이아가라 폭포, 퀘벡 & 몬트리올",
+    desc: "토론토, 오타와, 몬트리올, 퀘벡시티, 킹스턴, 천섬, 나이아가라 폭포를 아우르는 동부 캐나다 스탠더드 5일 투어.",
+    intro: "일정에는 토론토 공항 픽업, CN 타워, 토론토 시청, 토론토 대학교, 차이나타운, 오타와 국회의사당/리도 홀/리도 운하, 몬트리올 성 요셉 성당, 퀘벡 어퍼/로어 타운, 몽모랑시 폭포, 천섬 크루즈, 나이아가라 폭포, 테이블 록, 플로럴 클락, 나이아가라온더레이크, 와이너리가 포함됩니다. 오후 6시 토론토 공항 드롭오프.",
+    duration: "5일 4박",
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
     itinerary: [

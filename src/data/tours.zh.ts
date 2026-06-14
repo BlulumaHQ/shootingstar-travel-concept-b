@@ -581,10 +581,10 @@ export const tours: Tour[] = [
   {
     slug: "vancouver-city-tour",
     img: tourVancouver,
-    title: "Vancouver City Tour",
-    desc: "A full-day Vancouver highlights tour covering Canada Place, Gastown, Chinatown, Queen Elizabeth Park, Granville Island, Stanley Park, and Capilano or Lynn Canyon.",
-    intro: "Stops: Canada Place; Gastown Steam Clock; Chinatown; Queen Elizabeth Park; Granville Island; Stanley Park; Capilano Suspension Bridge or Lynn Canyon. Includes car, driver/tour guide, and parking. Excludes tip $20, meals, and admission.",
-    duration: "1 day",
+    title: "溫哥華市區一日遊",
+    desc: "溫哥華市區精華一日遊，涵蓋加拿大廣場、蓋斯鎮、唐人街、伊麗莎白女王公園、格蘭維爾島、史丹利公園，以及卡皮拉諾或林恩峽谷。",
+    intro: "行程：加拿大廣場、蓋斯鎮蒸汽鐘、唐人街、伊麗莎白女王公園、格蘭維爾島、史丹利公園、卡皮拉諾吊橋或林恩峽谷。含車輛、司機／導遊與停車費。不含小費 $20、餐食與門票。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
     itinerary: [
@@ -605,10 +605,10 @@ export const tours: Tour[] = [
   {
     slug: "seattle-tech-tour",
     img: seattleHero,
-    title: "Seattle Tech Tour",
-    desc: "A Seattle technology-focused day tour visiting Microsoft Visitor Center, University of Washington, Boeing Flight Museum, and Amazon Go.",
-    intro: "Stops: Microsoft Visitor Center; University of Washington; Boeing Flight Museum; Amazon Go. Includes bus, driver, guide, and parking. Excludes meals, tip $20, and admission.",
-    duration: "1 day",
+    title: "西雅圖科技之旅",
+    desc: "西雅圖科技主題一日遊，造訪微軟參訪中心、華盛頓大學、波音飛行博物館與 Amazon Go。",
+    intro: "行程：微軟參訪中心、華盛頓大學、波音飛行博物館、Amazon Go。含巴士、司機、導遊與停車費。不含餐食、小費 $20 與門票。",
+    duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
     itinerary: [
@@ -806,10 +806,10 @@ export const tours: Tour[] = [
   {
     slug: "victoria-nanaimo-2-day",
     img: victoriaHero,
-    title: "Victoria + Nanaimo 2-Day Tour",
-    desc: "Two-day Vancouver Island tour combining Victoria and Nanaimo highlights.",
-    intro: "Latest Kim message only provides dates and minimum group size. Full itinerary, inclusions, exclusions, and price must be confirmed before final Rezdy publication.",
-    duration: "2 days, 1 night",
+    title: "維多利亞 + 納奈莫 兩日遊",
+    desc: "溫哥華島兩日遊，結合維多利亞與納奈莫的精華景點。",
+    intro: "結合維多利亞與納奈莫精華的溫哥華島兩日遊行程。",
+    duration: "2 日 1 夜",
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
@@ -824,10 +824,10 @@ export const tours: Tour[] = [
   {
     slug: "los-angeles-4-day",
     img: la3Hero,
-    title: "Los Angeles 4-Day Tour | Theme Parks & California Highlights",
-    desc: "Four-day Los Angeles itinerary with LAX pickup, In-N-Out, Farmers Market, Beverly Hills, Hollywood, Universal Studios, Griffith Observatory, Disneyland, Santa Monica, UCLA, and The Getty.",
-    intro: "Day 1: LAX 12 PM pickup, In-N-Out Burger lunch, Farmers Market, Beverly Hills, Hollywood, Urban Lights. Day 2: Universal Studios, Griffith Observatory. Day 3: Disneyland. Day 4: Santa Monica Beach, UCLA, The Getty, LAX drop-off 3:30 PM.",
-    duration: "4 days, 3 nights",
+    title: "洛杉磯四日遊｜主題樂園與加州精華",
+    desc: "洛杉磯四日行程，含 LAX 接機、In-N-Out、農夫市集、比佛利山莊、好萊塢、環球影城、葛瑞菲斯天文台、迪士尼樂園、聖塔莫尼卡、UCLA 與蓋蒂中心。",
+    intro: "第 1 天：LAX 中午 12 點接機、In-N-Out 午餐、農夫市集、比佛利山莊、好萊塢、Urban Lights。第 2 天：環球影城、葛瑞菲斯天文台。第 3 天：迪士尼樂園。第 4 天：聖塔莫尼卡海灘、UCLA、蓋蒂中心、下午 3:30 送 LAX。",
+    duration: "4 日 3 夜",
     language: LANGUAGE_NOTE,
     price: "Contact us for pricing",
     itinerary: [
@@ -842,10 +842,10 @@ export const tours: Tour[] = [
   {
     slug: "eastern-canada-luxury-5-day",
     img: tourToronto,
-    title: "Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal",
-    desc: "Luxury Eastern Canada five-day tour covering Toronto, Niagara Falls, Kingston, Ottawa, Quebec City, and Montreal with premium hotel highlights.",
-    intro: "Day 1 Toronto airport pickup 2:30 PM, CN Tower, Toronto City Hall, Niagara View Hotel. Day 2 Niagara Falls, Table Rock, Floral Clock, Niagara-on-the-Lake, winery. Day 3 Kingston, Thousand Island Cruise, Ottawa, Parliament, Rideau Hall, Rideau Canal. Day 4 Quebec upper/lower town and Fairmont Frontenac. Day 5 Montreal highlights and airport drop-off 2:30 PM.",
-    duration: "5 days, 4 nights",
+    title: "加東豪華五日遊｜尼加拉瀑布、魁北克與蒙特婁",
+    desc: "加東豪華五日遊，涵蓋多倫多、尼加拉瀑布、京斯頓、渥太華、魁北克市與蒙特婁，搭配高級飯店住宿。",
+    intro: "第 1 天 多倫多機場下午 2:30 接機、CN 塔、多倫多市政廳、尼加拉景觀飯店。第 2 天 尼加拉瀑布、桌岩、花鐘、湖濱小鎮、酒莊。第 3 天 京斯頓、千島湖遊船、渥太華、國會大廈、麗都廳、麗都運河。第 4 天 魁北克上下城與費爾蒙城堡飯店。第 5 天 蒙特婁精華景點，下午 2:30 送機。",
+    duration: "5 日 4 夜",
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
     itinerary: [
@@ -860,10 +860,10 @@ export const tours: Tour[] = [
   {
     slug: "eastern-canada-5-day",
     img: tourToronto,
-    title: "Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal",
-    desc: "Standard Eastern Canada five-day tour covering Toronto, Ottawa, Montreal, Quebec City, Kingston, Thousand Islands, and Niagara Falls.",
-    intro: "Itinerary includes Toronto airport pickup, CN Tower, Toronto City Hall, University of Toronto, Chinatown, Ottawa Parliament/Rideau Hall/Rideau Canal, Montreal Saint Joseph's Oratory, Quebec upper/lower town, Montmorency Falls, Thousand Islands Cruise, Niagara Falls, Table Rock, Floral Clock, Niagara-on-the-Lake, and winery. Drop-off Toronto airport 6 PM.",
-    duration: "5 days, 4 nights",
+    title: "加東五日遊｜尼加拉瀑布、魁北克與蒙特婁",
+    desc: "加東標準五日遊，涵蓋多倫多、渥太華、蒙特婁、魁北克市、京斯頓、千島湖與尼加拉瀑布。",
+    intro: "行程包含多倫多機場接機、CN 塔、多倫多市政廳、多倫多大學、唐人街、渥太華國會大廈／麗都廳／麗都運河、蒙特婁聖約瑟夫大教堂、魁北克上下城、蒙特倫西瀑布、千島湖遊船、尼加拉瀑布、桌岩、花鐘、湖濱小鎮與酒莊。下午 6 點送多倫多機場。",
+    duration: "5 日 4 夜",
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
     itinerary: [
