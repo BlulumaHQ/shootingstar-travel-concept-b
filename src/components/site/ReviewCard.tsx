@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, UserCircle } from "lucide-react";
 
 export type Review = {
   avatar: string;

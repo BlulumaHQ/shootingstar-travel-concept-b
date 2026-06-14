@@ -1,9 +1,8 @@
-import { useLocale } from "@/i18n/locale";
-import { reviews as reviewsEn } from "./reviews";
-import { reviews as reviewsZh } from "./reviews.zh";
-import { reviews as reviewsKo } from "./reviews.ko";
+import { getRouteApi } from "@tanstack/react-router";
+
+const rootApi = getRouteApi("__root__");
 
 export function useReviews() {
-  const l = useLocale();
-  return l === "zh" ? reviewsZh : l === "ko" ? reviewsKo : reviewsEn;
+  const { reviews } = rootApi.useLoaderData() as { reviews: import("@/components/site/ReviewCard").Review[] };
+  return reviews;
 }
