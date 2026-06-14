@@ -298,37 +298,37 @@ export function ReviewsPage() {
 
   return (
     <SiteLayout>
-      {/* Hero + Form */}
-      <section className="relative bg-cream pt-24 md:pt-32 pb-16 overflow-hidden">
-        <div className="mx-auto max-w-[1000px] px-6 md:px-12">
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-3 text-primary/75">
-              <StarMark size={18} className="text-primary/65" />
-              <DottedLine length={36} className="text-primary/45" />
-              <span className="text-[11px] tracking-[0.4em] uppercase font-medium">— {t("heroEyebrow", l)}</span>
-            </div>
-            <h1 className="font-serif text-4xl md:text-[52px] text-ink mt-6 font-medium tracking-[-0.015em] leading-[1.1]">
-              {t("heroTitle", l)}
-            </h1>
-            <p className="mt-6 text-ink/65 leading-[2] text-[15px]">{t("heroSub", l)}</p>
-          </div>
-
-          <div className="mt-12">
-            {submitted ? (
-              <div className="bg-cream rounded-2xl border border-primary/30 p-10 text-center shadow-[0_20px_50px_-30px_oklch(0.55_0.04_152/0.4)]">
-                <p className="font-marker text-primary text-sm tracking-[0.25em] uppercase">— thank you</p>
-                <p className="mt-4 font-serif text-2xl text-ink leading-[1.4]">{t("thanks", l)}</p>
+      {/* Slim CTA bar */}
+      <section className="relative bg-cream pt-24 md:pt-28 pb-10 md:pb-12 overflow-hidden">
+        <div className="mx-auto max-w-[1200px] px-6 md:px-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="md:max-w-[60%]">
+              <div className="inline-flex items-center gap-3 text-primary/75">
+                <StarMark size={16} className="text-primary/65" />
+                <DottedLine length={28} className="text-primary/45" />
+                <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium">— {t("heroEyebrow", l)}</span>
               </div>
-            ) : (
-              <SubmitForm onDone={() => setSubmitted(true)} />
-            )}
+              <h1 className="font-serif text-3xl md:text-[40px] text-ink mt-3 font-medium tracking-[-0.015em] leading-[1.1]">
+                {t("heroTitle", l)}
+              </h1>
+              <p className="mt-3 text-ink/65 leading-[1.7] text-[14px]">{t("heroSub", l)}</p>
+            </div>
+            <div className="shrink-0">
+              <button
+                type="button"
+                onClick={() => { setSubmitted(false); setOpen(true); }}
+                className="rounded-full bg-primary text-primary-foreground px-7 py-3 text-[12.5px] tracking-[0.14em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]"
+              >
+                {t("cta", l)}
+              </button>
+            </div>
           </div>
         </div>
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
       {/* Approved reviews */}
-      <section className="bg-paper/40 pt-16 md:pt-20 pb-28 md:pb-36">
+      <section className="bg-paper/40 pt-12 md:pt-16 pb-28 md:pb-36">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           {reviews.length === 0 ? (
             <p className="text-center text-ink/55 text-[14.5px]">{t("emptyApproved", l)}</p>
@@ -370,6 +370,36 @@ export function ReviewsPage() {
           )}
         </div>
       </section>
+
+      {/* Submit modal */}
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-2xl w-[calc(100vw-2rem)] max-h-[90vh] overflow-y-auto bg-cream p-0 border-border/60">
+          <div className="p-6 md:p-8">
+            {submitted ? (
+              <div className="text-center py-8">
+                <p className="font-marker text-primary text-sm tracking-[0.25em] uppercase">— thank you</p>
+                <p className="mt-4 font-serif text-2xl text-ink leading-[1.4]">{t("thanks", l)}</p>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="mt-8 rounded-full border border-border px-6 py-2.5 text-[12px] tracking-[0.14em] uppercase text-ink/70 hover:bg-paper/60 transition"
+                >
+                  {t("close", l)}
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="mb-6">
+                  <span className="text-[10.5px] tracking-[0.4em] uppercase font-medium text-primary/75">— {t("heroEyebrow", l)}</span>
+                  <h2 className="font-serif text-2xl md:text-3xl text-ink mt-2 font-medium tracking-[-0.015em]">{t("heroTitle", l)}</h2>
+                </div>
+                <SubmitForm onDone={() => setSubmitted(true)} />
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </SiteLayout>
   );
 }
+
