@@ -278,6 +278,7 @@ export function ReviewsPage() {
   const l = useLocale();
   const reviews = useReviews();
   const [submitted, setSubmitted] = useState(false);
+  const [open, setOpen] = useState(false);
   const [sortDir, setSortDir] = useState<"high" | "low">("high");
   const [tourFilter, setTourFilter] = useState<string>("all");
 
