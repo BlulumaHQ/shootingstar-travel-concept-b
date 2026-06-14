@@ -57,6 +57,8 @@ export function Footer() {
       { l: "Las Vegas & Canyons 4-Day Tour", to: lp("/tours/vegas-canyon-4-day") },
       { l: "Victoria 1-Day Tour", to: lp("/tours/victoria-1-day") },
       { l: "Seattle 2-Day Tour", to: lp("/tours/seattle-2-day") },
+      { l: "Rocky Mountain Lake Tours", to: lp("/rocky-mountain-lake-tours") },
+      { l: "Icefields Parkway & Jasper Shuttles", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
     zh: [
       { l: "美西八日遊", to: lp("/tours/western-usa-8-day") },
@@ -64,6 +66,8 @@ export function Footer() {
       { l: "拉斯維加斯與大峽谷四日遊", to: lp("/tours/vegas-canyon-4-day") },
       { l: "維多利亞一日遊", to: lp("/tours/victoria-1-day") },
       { l: "西雅圖兩日遊", to: lp("/tours/seattle-2-day") },
+      { l: "洛磯山脈湖泊之旅", to: lp("/rocky-mountain-lake-tours") },
+      { l: "冰原大道與賈斯珀接駁", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
     ko: [
       { l: "미국 서부 8일 투어", to: lp("/tours/western-usa-8-day") },
@@ -71,6 +75,8 @@ export function Footer() {
       { l: "라스베이거스 & 캐니언 4일 투어", to: lp("/tours/vegas-canyon-4-day") },
       { l: "빅토리아 1일 투어", to: lp("/tours/victoria-1-day") },
       { l: "시애틀 2일 투어", to: lp("/tours/seattle-2-day") },
+      { l: "로키 마운틴 레이크 투어", to: lp("/rocky-mountain-lake-tours") },
+      { l: "아이스필드 파크웨이 & 재스퍼 셔틀", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
   } as const;
   const popularTours = popularToursByLocale[locale];
