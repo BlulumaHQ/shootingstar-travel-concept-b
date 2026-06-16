@@ -286,7 +286,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "Boutique small-group journeys across the Canadian Rockies and the Western United States — paced for slow mornings, mountain light, and stories worth keeping.",
       primary: "Explore Tours",
       secondary: "Our Story",
-      badges: ["Small Groups", "Vancouver Departure"],
+      badges: [],
     },
     lakes: {
       eyebrow: "— Featured · Canadian Rockies",
@@ -294,7 +294,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "Lake Tours",
       sub: "Moraine Lake, Lake Louise, Emerald Lake — turquoise water and alpine air on a single, considered day across the Bow Valley.",
       primary: "Explore Lake Tours",
-      badges: ["1 Day · Banff", "Hotel Pickup"],
+      badges: [],
     },
     icefields: {
       eyebrow: "— New · Banff ⇄ Jasper",
@@ -302,7 +302,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "Shuttle & Sightseeing",
       sub: "Flexible weekday-based shuttles between Banff, Jasper, the Columbia Icefield, and Maligne Lake — with optional attractions and clear pickup points.",
       primary: "Explore Shuttle Routes",
-      badges: ["Banff ⇄ Jasper", "Columbia Icefield", "Maligne Lake"],
+      badges: [],
     },
   },
   zh: {
@@ -313,7 +313,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "加拿大洛磯山脈與美國西部的精品小團旅行 —— 緩慢的清晨、山林的光,以及值得收藏的故事。",
       primary: "探索行程",
       secondary: "關於我們",
-      badges: ["小團出發", "溫哥華出發"],
+      badges: [],
     },
     lakes: {
       eyebrow: "— 精選 · 加拿大洛磯",
@@ -321,7 +321,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "湖泊一日遊",
       sub: "夢蓮湖、露易絲湖、翡翠湖 —— 一天之內,走過 Bow Valley 的綠松石湖水與高山空氣。",
       primary: "探索湖泊行程",
-      badges: ["一日 · 班夫", "飯店接送"],
+      badges: [],
     },
     icefields: {
       eyebrow: "— 全新 · 班夫 ⇄ 賈斯珀",
@@ -329,7 +329,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "接駁與觀光行程",
       sub: "班夫、賈斯珀、哥倫比亞冰原與瑪琳湖之間的彈性接駁,依星期安排路線,可加購景點門票,接送地點清楚。",
       primary: "探索接駁路線",
-      badges: ["班夫 ⇄ 賈斯珀", "哥倫比亞冰原", "瑪琳湖"],
+      badges: [],
     },
   },
   ko: {
@@ -340,7 +340,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       sub: "캐나디안 록키와 미국 서부를 가로지르는 부티크 소그룹 여정 — 느린 아침, 산의 빛, 그리고 간직할 만한 이야기.",
       primary: "투어 둘러보기",
       secondary: "브랜드 이야기",
-      badges: ["소그룹", "밴쿠버 출발"],
+      badges: [],
     },
     lakes: {
       eyebrow: "— 추천 · 캐나디안 록키",
@@ -348,7 +348,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "레이크 투어",
       sub: "모레인 호수, 루이스 호수, 에메랄드 호수 — 보우 밸리의 터쿠아즈 빛 호수와 알파인의 공기를 하루에.",
       primary: "레이크 투어 둘러보기",
-      badges: ["1일 · 밴프", "호텔 픽업"],
+      badges: [],
     },
     icefields: {
       eyebrow: "— 신상품 · 밴프 ⇄ 재스퍼",
@@ -356,7 +356,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       h1Line2: "셔틀 & 사이트싱",
       sub: "밴프, 재스퍼, 컬럼비아 아이스필드, 멀린 호수 사이의 요일별 셔틀 — 선택형 어트랙션 티켓과 명확한 픽업 지점.",
       primary: "셔틀 노선 둘러보기",
-      badges: ["밴프 ⇄ 재스퍼", "컬럼비아 아이스필드", "멀린 호수"],
+      badges: [],
     },
   },
 };
