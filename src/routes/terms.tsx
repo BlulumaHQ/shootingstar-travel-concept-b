@@ -289,8 +289,8 @@ export function TermsPage() {
         <div className="prose prose-neutral max-w-none text-ink/80 text-[15px] leading-[1.95]">
           <p className="text-ink/60 text-sm">{t.updated}</p>
           {t.blocks.map((b, i) => {
-            if (b.type === "h2") return <h2 key={i} className="font-serif text-xl mt-10">{b.text}</h2>;
-            if (b.type === "h3") return <h3 key={i} className="font-serif text-lg mt-6">{b.text}</h3>;
+            if (b.type === "h2") return <h2 key={i} className="font-serif text-2xl md:text-3xl font-semibold mt-14 mb-4 text-ink">{b.text}</h2>;
+            if (b.type === "h3") return <h3 key={i} className="font-serif text-xl md:text-2xl font-semibold mt-8 mb-3 text-ink">{b.text}</h3>;
             if (b.type === "ul") return (
               <ul key={i} className="list-disc pl-6 space-y-1">
                 {b.items.map((it) => <li key={it}>{it}</li>)}

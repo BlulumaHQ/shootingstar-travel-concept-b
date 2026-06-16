@@ -96,7 +96,7 @@ function AlbumCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
             aria-hidden
             draggable={false}
             className="pointer-events-none absolute bottom-2 right-2 select-none"
-            style={{ width: 80, height: "auto", opacity: 0.7 }}
+            style={{ width: 54, height: "auto", opacity: 0.33 }}
           />
         )}
       </div>
