@@ -496,6 +496,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           extras: extrasPayload,
           preferredLanguage,
           pickupId,
+          pickupLocationName: pickupLocation || null,
+
           customer: { firstName, lastName, email, phone },
         }),
       });
