@@ -651,6 +651,59 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </div>
       )}
 
+      {/* Optional add-ons (Rezdy extras) */}
+      {extras.length > 0 && (
+        <div>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.addOns}</label>
+          <div className="space-y-2">
+            {extras.map((x, i) => {
+              const key = `${x.name}__${i}`;
+              const q = extraQty[key] ?? 0;
+              return (
+                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                  <div className="pr-3 min-w-0">
+                    <p className="text-[13.5px] text-ink font-medium truncate">{x.name}</p>
+                    <p className="text-[11.5px] text-ink/60">${x.price.toFixed(2)} CAD</p>
+                  </div>
+                  <div className="inline-flex items-center rounded-full border border-border shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      −
+                    </button>
+                    <span className="w-8 text-center text-sm">{q}</span>
+                    <button
+                      type="button"
+                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Preferred language (Rezdy required) */}
+      <div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.preferredLanguage}</label>
+        <select
+          required
+          value={preferredLanguage}
+          onChange={(e) => setPreferredLanguage(e.target.value)}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+        >
+          <option value="English">{B.langEnglish}</option>
+          <option value="Mandarin">{B.langMandarin}</option>
+          <option value="Korean">{B.langKorean}</option>
+        </select>
+      </div>
+
       {/* Customer form */}
       <div className="space-y-2.5 pt-1">
         <div className="grid grid-cols-2 gap-2.5">
