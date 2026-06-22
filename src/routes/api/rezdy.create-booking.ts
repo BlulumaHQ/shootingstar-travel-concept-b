@@ -104,19 +104,25 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           quantities: enrichedItems.map(({ optionLabel, value }) => ({ optionLabel, value })),
           extras: enrichedExtras.map(({ name, quantity }) => ({ name, quantity })),
         };
-        if (body.pickupId) {
-          item.pickupId = body.pickupId;
-        }
         const pickupLocationName = (body.pickupLocationName ?? "").trim();
         if (pickupLocationName) {
           item.pickupLocation = { locationName: pickupLocationName };
         }
 
+        // Compute placeholder total: tickets + extras (GST added by Rezdy;
+        // small discrepancy is OK — replaced by Square once integrated).
+        const ticketsTotal = enrichedItems.reduce(
+          (sum, q) => sum + q.optionPrice * q.value,
+          0,
+        );
+        const extrasTotal = enrichedExtras.reduce(
+          (sum, x) => sum + x.price * x.quantity,
+          0,
+        );
+        const placeholderAmount = Math.round((ticketsTotal + extrasTotal) * 100) / 100;
 
-        // Step 1: create the booking WITHOUT payments so Rezdy returns the
-        // authoritative totalAmount (tickets + extras + taxes/fees).
         const createPayload = {
-          status: "PROCESSING",
+          status: "CONFIRMED",
           customer: {
             firstName,
             lastName,
@@ -125,6 +131,15 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           },
           fields: [{ label: "Preferred language", value: preferredLanguage }],
           items: [item],
+          payments: [
+            {
+              type: "CREDITCARD",
+              amount: placeholderAmount,
+              currency: "CAD",
+              label: "Test payment (Square placeholder)",
+              date: paymentDate,
+            },
+          ],
           comments: body.notes?.trim() || "",
         };
 
@@ -158,56 +173,14 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           }
 
           const booking = data.booking ?? {};
-          const orderNumber = booking.orderNumber ?? null;
-          const totalAmount = Number(booking.totalAmount ?? 0);
-          const currency = booking.totalCurrency || "CAD";
-
-          // Step 2: record a placeholder payment for the FULL Rezdy total so
-          // BALANCE = 0. Replace with real Square payment once integrated.
-          if (orderNumber && totalAmount > 0) {
-            const payUrl = new URL(
-              `https://api.rezdy.com/v1/bookings/${encodeURIComponent(orderNumber)}/payments`,
-            );
-            payUrl.searchParams.set("apiKey", apiKey);
-            const payRes = await fetch(payUrl.toString(), {
-              method: "POST",
-              headers: { "Content-Type": "application/json", Accept: "application/json" },
-              body: JSON.stringify({
-                type: "CREDITCARD",
-                amount: totalAmount,
-                currency,
-                label: "Test payment (Square placeholder)",
-                date: paymentDate,
-              }),
-            });
-            if (!payRes.ok) {
-              const payErr = await payRes.text().catch(() => "");
-              console.error("[rezdy] add payment failed:", payRes.status, payErr);
-            } else {
-              // Step 3: flip to CONFIRMED now that balance is settled.
-              const updateUrl = new URL(
-                `https://api.rezdy.com/v1/bookings/${encodeURIComponent(orderNumber)}`,
-              );
-              updateUrl.searchParams.set("apiKey", apiKey);
-              const updRes = await fetch(updateUrl.toString(), {
-                method: "PUT",
-                headers: { "Content-Type": "application/json", Accept: "application/json" },
-                body: JSON.stringify({ status: "CONFIRMED" }),
-              });
-              if (!updRes.ok) {
-                console.error("[rezdy] confirm booking failed:", updRes.status);
-              }
-            }
-          }
-
           return Response.json({
             success: true,
             booking,
             bookingReference:
               booking.bookingReference ?? booking.reference ?? booking.orderNumber ?? null,
-            orderNumber,
-            totalAmount,
-            currency,
+            orderNumber: booking.orderNumber ?? null,
+            totalAmount: Number(booking.totalAmount ?? placeholderAmount),
+            currency: booking.totalCurrency || "CAD",
             productCode,
           });
         } catch (err) {
@@ -215,6 +188,7 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
           console.error("[rezdy] create booking error:", err);
           return Response.json({ success: false, message }, { status: 500 });
         }
+
       },
     },
   },
