@@ -251,7 +251,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
     tickets: "Tickets",
     addOns: "Optional add-ons",
+    pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
     preferredLanguage: "Preferred language",
+
     langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
     total: (n) => `Total (${n})`,
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
