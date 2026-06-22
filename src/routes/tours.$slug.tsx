@@ -231,6 +231,7 @@ const BOOKING_I18N: Record<Locale, {
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
   addOns: string;
+  pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
@@ -238,6 +239,7 @@ const BOOKING_I18N: Record<Locale, {
   disclaimer: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
 }> = {
+
   en: {
     eyebrow: "— booking", bookTitle: "Book this tour",
     contactBody: "To arrange a date for this tour, please get in touch with our team.",
