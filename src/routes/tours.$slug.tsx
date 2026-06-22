@@ -376,6 +376,10 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [extras, setExtras] = useState<RezdyExtra[]>([]);
   const [extraQty, setExtraQty] = useState<Record<string, number>>({});
   const [pickupId, setPickupId] = useState<string | null>(null);
+  type PickupOption = { locationName: string; address: string; minutesPrior: number | null };
+  const [pickups, setPickups] = useState<PickupOption[]>([]);
+  const [pickupLocation, setPickupLocation] = useState<string>("");
+
 
   const defaultLang =
     locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
