@@ -275,7 +275,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
     tickets: "票種",
     addOns: "選購加購",
+    pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
     preferredLanguage: "語言偏好",
+
     langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
     total: (n) => `總計（${n}）`,
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
