@@ -706,7 +706,29 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </div>
       )}
 
+      {/* Pickup location (only when Rezdy returns pickups for this product) */}
+      {pickups.length > 0 && (
+        <div>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.pickupLocation}</label>
+          <select
+            required
+            value={pickupLocation}
+            onChange={(e) => setPickupLocation(e.target.value)}
+            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+          >
+            <option value="">{B.pickupChoose}</option>
+            {pickups.map((p) => (
+              <option key={p.locationName} value={p.locationName}>
+                {p.locationName}
+                {p.minutesPrior != null ? ` · ${B.pickupMinutes(p.minutesPrior)}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* Preferred language (Rezdy required) */}
+
       <div>
         <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.preferredLanguage}</label>
         <select
