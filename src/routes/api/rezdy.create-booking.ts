@@ -10,6 +10,7 @@ type CreateBookingBody = {
   extras?: BookingExtra[];
   preferredLanguage?: string;
   pickupId?: string | number | null;
+  pickupLocationName?: string | null;
   customer?: {
     firstName?: string;
     lastName?: string;
@@ -18,6 +19,7 @@ type CreateBookingBody = {
   };
   notes?: string;
 };
+
 
 export const Route = createFileRoute("/api/rezdy/create-booking")({
   server: {
