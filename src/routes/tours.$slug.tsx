@@ -365,6 +365,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
+  const [extras, setExtras] = useState<RezdyExtra[]>([]);
+  const [extraQty, setExtraQty] = useState<Record<string, number>>({});
+  const [pickupId, setPickupId] = useState<string | null>(null);
+
+  const defaultLang =
+    locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
+  const [preferredLanguage, setPreferredLanguage] = useState<string>(defaultLang);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -376,6 +384,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   useEffect(() => {
     let cancelled = false;
     setStatus("loading");
+
     fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
@@ -396,6 +405,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         setLoadError(e instanceof Error ? e.message : "Network error");
         setStatus("error");
       });
+
+    fetch(`/api/rezdy/product?productCode=${encodeURIComponent(productCode)}`)
+      .then(async (r) => {
+        const json = (await r.json()) as
+          | { success: true; extras: RezdyExtra[]; pickupId: string | null }
+          | { success: false; message: string };
+        if (cancelled) return;
+        if ("success" in json && json.success) {
+          setExtras(json.extras ?? []);
+          setPickupId(json.pickupId ?? null);
+        }
+      })
+      .catch(() => {
+        /* extras are optional */
+      });
+
     return () => {
       cancelled = true;
     };
@@ -417,12 +442,17 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   }, [selectedId]);
 
   const totalQty = Object.values(quantities).reduce((a, b) => a + b, 0);
-  const totalPrice = selectedSession
+  const ticketsPrice = selectedSession
     ? selectedSession.priceOptions.reduce((sum, p, i) => {
         const q = quantities[`${p.label}__${i}`] ?? 0;
         return sum + p.price * q;
       }, 0)
     : 0;
+  const extrasPrice = extras.reduce((sum, x, i) => {
+    const q = extraQty[`${x.name}__${i}`] ?? 0;
+    return sum + x.price * q;
+  }, 0);
+  const totalPrice = ticketsPrice + extrasPrice;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -434,6 +464,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         .map((p, i) => ({ label: p.label, quantity: quantities[`${p.label}__${i}`] ?? 0 }))
         .filter((it) => it.quantity > 0);
 
+      const extrasPayload = extras
+        .map((x, i) => ({
+          name: x.name,
+          quantity: extraQty[`${x.name}__${i}`] ?? 0,
+          price: x.price,
+        }))
+        .filter((x) => x.quantity > 0);
+
       const res = await fetch("/api/rezdy/create-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -441,6 +479,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           productCode,
           startTimeLocal: selectedSession.startTimeLocal,
           items,
+          extras: extrasPayload,
+          preferredLanguage,
+          pickupId,
           customer: { firstName, lastName, email, phone },
         }),
       });
