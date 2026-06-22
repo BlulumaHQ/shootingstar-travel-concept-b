@@ -107,6 +107,11 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
         if (body.pickupId) {
           item.pickupId = body.pickupId;
         }
+        const pickupLocationName = (body.pickupLocationName ?? "").trim();
+        if (pickupLocationName) {
+          item.pickupLocation = { locationName: pickupLocationName };
+        }
+
 
         // Step 1: create the booking WITHOUT payments so Rezdy returns the
         // authoritative totalAmount (tickets + extras + taxes/fees).
