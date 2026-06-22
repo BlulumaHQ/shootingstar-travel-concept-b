@@ -49,9 +49,15 @@ export const Route = createFileRoute("/api/rezdy/product")({
           );
           rezdyUrl.searchParams.set("apiKey", apiKey);
 
-          const res = await fetch(rezdyUrl.toString(), {
-            headers: { Accept: "application/json" },
-          });
+          const pickupsUrl = new URL(
+            `https://api.rezdy.com/v1/products/${encodeURIComponent(productCode)}/pickups`,
+          );
+          pickupsUrl.searchParams.set("apiKey", apiKey);
+
+          const [res, pickupsRes] = await Promise.all([
+            fetch(rezdyUrl.toString(), { headers: { Accept: "application/json" } }),
+            fetch(pickupsUrl.toString(), { headers: { Accept: "application/json" } }),
+          ]);
 
           if (!res.ok) {
             const text = await res.text().catch(() => "");
@@ -98,12 +104,36 @@ export const Route = createFileRoute("/api/rezdy/product")({
               ? String(product.pickupId)
               : null;
 
+          type RezdyPickup = {
+            locationName?: string;
+            address?: string;
+            minutesPrior?: number;
+          };
+          let pickups: { locationName: string; address: string; minutesPrior: number | null }[] = [];
+          if (pickupsRes.ok) {
+            const pickupsData = (await pickupsRes.json().catch(() => ({}))) as {
+              pickupLocations?: RezdyPickup[];
+              requestStatus?: { success?: boolean };
+            };
+            if (pickupsData.requestStatus?.success !== false) {
+              pickups = (pickupsData.pickupLocations ?? [])
+                .map((p) => ({
+                  locationName: (p.locationName ?? "").trim(),
+                  address: (p.address ?? "").trim(),
+                  minutesPrior: typeof p.minutesPrior === "number" ? p.minutesPrior : null,
+                }))
+                .filter((p) => p.locationName);
+            }
+          }
+
           return Response.json({
             success: true,
             productCode,
             extras,
             pickupId,
+            pickups,
           });
+
         } catch (err) {
           const message = err instanceof Error ? err.message : "Unknown error";
           console.error("[rezdy] product fetch failed:", err);

@@ -231,6 +231,7 @@ const BOOKING_I18N: Record<Locale, {
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
   addOns: string;
+  pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
@@ -238,6 +239,7 @@ const BOOKING_I18N: Record<Locale, {
   disclaimer: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
 }> = {
+
   en: {
     eyebrow: "— booking", bookTitle: "Book this tour",
     contactBody: "To arrange a date for this tour, please get in touch with our team.",
@@ -249,7 +251,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
     tickets: "Tickets",
     addOns: "Optional add-ons",
+    pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
     preferredLanguage: "Preferred language",
+
     langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
     total: (n) => `Total (${n})`,
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
@@ -271,7 +275,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
     tickets: "票種",
     addOns: "選購加購",
+    pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
     preferredLanguage: "語言偏好",
+
     langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
     total: (n) => `總計（${n}）`,
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
@@ -293,7 +299,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
     tickets: "티켓",
     addOns: "선택 옵션",
+    pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
     preferredLanguage: "선호 언어",
+
     langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
     total: (n) => `합계 (${n})`,
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
@@ -368,6 +376,10 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [extras, setExtras] = useState<RezdyExtra[]>([]);
   const [extraQty, setExtraQty] = useState<Record<string, number>>({});
   const [pickupId, setPickupId] = useState<string | null>(null);
+  type PickupOption = { locationName: string; address: string; minutesPrior: number | null };
+  const [pickups, setPickups] = useState<PickupOption[]>([]);
+  const [pickupLocation, setPickupLocation] = useState<string>("");
+
 
   const defaultLang =
     locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
@@ -409,13 +421,15 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     fetch(`/api/rezdy/product?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
-          | { success: true; extras: RezdyExtra[]; pickupId: string | null }
+          | { success: true; extras: RezdyExtra[]; pickupId: string | null; pickups?: PickupOption[] }
           | { success: false; message: string };
         if (cancelled) return;
         if ("success" in json && json.success) {
           setExtras(json.extras ?? []);
           setPickupId(json.pickupId ?? null);
+          setPickups(json.pickups ?? []);
         }
+
       })
       .catch(() => {
         /* extras are optional */
@@ -482,6 +496,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           extras: extrasPayload,
           preferredLanguage,
           pickupId,
+          pickupLocationName: pickupLocation || null,
+
           customer: { firstName, lastName, email, phone },
         }),
       });
@@ -528,7 +544,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
 
   const continueDisabled =
-    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone;
+    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation);
+
 
   return (
     <form
@@ -689,7 +706,29 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </div>
       )}
 
+      {/* Pickup location (only when Rezdy returns pickups for this product) */}
+      {pickups.length > 0 && (
+        <div>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.pickupLocation}</label>
+          <select
+            required
+            value={pickupLocation}
+            onChange={(e) => setPickupLocation(e.target.value)}
+            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+          >
+            <option value="">{B.pickupChoose}</option>
+            {pickups.map((p) => (
+              <option key={p.locationName} value={p.locationName}>
+                {p.locationName}
+                {p.minutesPrior != null ? ` · ${B.pickupMinutes(p.minutesPrior)}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       {/* Preferred language (Rezdy required) */}
+
       <div>
         <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.preferredLanguage}</label>
         <select
