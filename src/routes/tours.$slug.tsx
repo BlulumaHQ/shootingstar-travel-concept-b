@@ -221,6 +221,9 @@ const BOOKING_I18N: Record<Locale, {
   from: string; chooseDate: string; liveAvail: string; loadingDates: string;
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
+  addOns: string;
+  preferredLanguage: string;
+  langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
   email: string; phone: string; requestBooking: string;
   disclaimer: string; sending: string; submitting: string; received: string;
@@ -235,14 +238,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "Unable to load availability. Please try again later.",
     noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
-    tickets: "Tickets", total: (n) => `Total (${n})`,
+    tickets: "Tickets",
+    addOns: "Optional add-ons",
+    preferredLanguage: "Preferred language",
+    langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
+    total: (n) => `Total (${n})`,
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
-    requestBooking: "Request Booking →",
-    disclaimer: "* Submits a booking request. Our team will confirm and arrange payment manually.",
-    sending: "— sending request", submitting: "Submitting your booking…",
-    received: "— request received", thanks: "Thank you! ✦",
-    thanksBody: "Your booking request has been received — we'll confirm shortly.",
-    another: "Make another request",
+    requestBooking: "Book Now →",
+    disclaimer: "* Confirms your booking instantly. Payment will be processed securely.",
+    sending: "— processing booking", submitting: "Confirming your booking…",
+    received: "— booking confirmed", thanks: "Thank you! ✦",
+    thanksBody: "Your booking has been confirmed — a confirmation email is on its way.",
+    another: "Make another booking",
   },
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
@@ -253,14 +260,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
     noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
-    tickets: "票種", total: (n) => `總計（${n}）`,
+    tickets: "票種",
+    addOns: "選購加購",
+    preferredLanguage: "語言偏好",
+    langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
+    total: (n) => `總計（${n}）`,
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
-    requestBooking: "送出預訂申請 →",
-    disclaimer: "* 此為預訂申請，我們將與您確認並協助完成付款。",
-    sending: "— 傳送中", submitting: "正在送出您的預訂申請…",
-    received: "— 已收到申請", thanks: "感謝您！✦",
-    thanksBody: "我們已收到您的預訂申請，將盡快與您確認。",
-    another: "再送出一筆申請",
+    requestBooking: "確認預訂 →",
+    disclaimer: "* 將立即完成預訂，並以安全方式處理付款。",
+    sending: "— 處理中", submitting: "正在確認您的預訂…",
+    received: "— 預訂成功", thanks: "感謝您！✦",
+    thanksBody: "您的預訂已成功，確認信件即將寄出。",
+    another: "再預訂一筆",
   },
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
@@ -271,14 +282,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
     noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
-    tickets: "티켓", total: (n) => `합계 (${n})`,
+    tickets: "티켓",
+    addOns: "선택 옵션",
+    preferredLanguage: "선호 언어",
+    langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
+    total: (n) => `합계 (${n})`,
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
-    requestBooking: "예약 요청 보내기 →",
-    disclaimer: "* 예약 요청을 보냅니다. 저희 팀이 확인 후 결제를 안내해 드립니다.",
-    sending: "— 전송 중", submitting: "예약 요청을 전송 중입니다…",
-    received: "— 요청 접수 완료", thanks: "감사합니다! ✦",
-    thanksBody: "예약 요청을 접수했습니다. 곧 확인 후 연락드리겠습니다.",
-    another: "다른 요청 보내기",
+    requestBooking: "지금 예약 →",
+    disclaimer: "* 즉시 예약이 확정되며 결제는 안전하게 처리됩니다.",
+    sending: "— 처리 중", submitting: "예약을 확정하는 중입니다…",
+    received: "— 예약 완료", thanks: "감사합니다! ✦",
+    thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
+    another: "다른 예약 만들기",
   },
 };
 
