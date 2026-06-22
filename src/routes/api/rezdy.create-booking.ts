@@ -1,11 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 type BookingItem = { label?: string; quantity?: number; optionPrice?: number };
+type BookingExtra = { name?: string; quantity?: number; price?: number };
 
 type CreateBookingBody = {
   productCode?: string;
   startTimeLocal?: string;
   items?: BookingItem[];
+  extras?: BookingExtra[];
+  preferredLanguage?: string;
+  pickupId?: string | number | null;
   customer?: {
     firstName?: string;
     lastName?: string;
@@ -77,13 +81,36 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
         }
 
         const totalGuests = enrichedItems.reduce((sum, q) => sum + q.value, 0);
-        const total = enrichedItems.reduce((sum, q) => sum + q.optionPrice * q.value, 0);
+        const ticketsTotal = enrichedItems.reduce((sum, q) => sum + q.optionPrice * q.value, 0);
+
+        const enrichedExtras = (Array.isArray(body.extras) ? body.extras : [])
+          .map((x) => ({
+            name: (x.name ?? "").trim(),
+            quantity: Math.max(0, Math.floor(Number(x.quantity ?? 0) || 0)),
+            price: Number(x.price ?? 0),
+          }))
+          .filter((x) => x.name && x.quantity > 0);
+
+        const extrasTotal = enrichedExtras.reduce((sum, x) => sum + x.price * x.quantity, 0);
+        const total = ticketsTotal + extrasTotal;
+
         const firstName = (c.firstName ?? "Guest").trim() || "Guest";
         const lastName = (c.lastName ?? "Booking").trim() || "Booking";
+        const preferredLanguage = (body.preferredLanguage ?? "English").trim() || "English";
 
         const now = new Date();
         const pad2 = (n: number) => String(n).padStart(2, "0");
         const paymentDate = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+
+        const item: Record<string, unknown> = {
+          productCode,
+          startTimeLocal,
+          quantities: enrichedItems.map(({ optionLabel, value }) => ({ optionLabel, value })),
+          extras: enrichedExtras.map(({ name, quantity }) => ({ name, quantity })),
+        };
+        if (body.pickupId) {
+          item.pickupId = body.pickupId;
+        }
 
         const payload = {
           status: "CONFIRMED",
@@ -93,14 +120,8 @@ export const Route = createFileRoute("/api/rezdy/create-booking")({
             email: c.email,
             phone: c.phone ?? "",
           },
-          items: [
-            {
-              productCode,
-              startTimeLocal,
-              quantities: enrichedItems.map(({ optionLabel, value }) => ({ optionLabel, value })),
-              extras: [],
-            },
-          ],
+          fields: [{ label: "Preferred language", value: preferredLanguage }],
+          items: [item],
           // TODO: replace test payment with real Square payment data once Square is integrated
           payments: [
             {

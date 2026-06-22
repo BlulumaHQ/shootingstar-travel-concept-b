@@ -205,6 +205,15 @@ type RezdySession = {
   priceOptions: RezdyPriceOption[];
 };
 
+type RezdyExtra = {
+  id: string | null;
+  name: string;
+  description: string;
+  price: number;
+  extraPriceType: string;
+  isOptional: boolean;
+};
+
 function formatSessionDate(startTimeLocal: string | null): string {
   if (!startTimeLocal) return "—";
   const [date, time] = startTimeLocal.replace("T", " ").split(" ");
@@ -221,6 +230,9 @@ const BOOKING_I18N: Record<Locale, {
   from: string; chooseDate: string; liveAvail: string; loadingDates: string;
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
+  addOns: string;
+  preferredLanguage: string;
+  langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
   email: string; phone: string; requestBooking: string;
   disclaimer: string; sending: string; submitting: string; received: string;
@@ -235,14 +247,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "Unable to load availability. Please try again later.",
     noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
-    tickets: "Tickets", total: (n) => `Total (${n})`,
+    tickets: "Tickets",
+    addOns: "Optional add-ons",
+    preferredLanguage: "Preferred language",
+    langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
+    total: (n) => `Total (${n})`,
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
-    requestBooking: "Request Booking →",
-    disclaimer: "* Submits a booking request. Our team will confirm and arrange payment manually.",
-    sending: "— sending request", submitting: "Submitting your booking…",
-    received: "— request received", thanks: "Thank you! ✦",
-    thanksBody: "Your booking request has been received — we'll confirm shortly.",
-    another: "Make another request",
+    requestBooking: "Book Now →",
+    disclaimer: "* Confirms your booking instantly. Payment will be processed securely.",
+    sending: "— processing booking", submitting: "Confirming your booking…",
+    received: "— booking confirmed", thanks: "Thank you! ✦",
+    thanksBody: "Your booking has been confirmed — a confirmation email is on its way.",
+    another: "Make another booking",
   },
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
@@ -253,14 +269,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
     noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
-    tickets: "票種", total: (n) => `總計（${n}）`,
+    tickets: "票種",
+    addOns: "選購加購",
+    preferredLanguage: "語言偏好",
+    langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
+    total: (n) => `總計（${n}）`,
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
-    requestBooking: "送出預訂申請 →",
-    disclaimer: "* 此為預訂申請，我們將與您確認並協助完成付款。",
-    sending: "— 傳送中", submitting: "正在送出您的預訂申請…",
-    received: "— 已收到申請", thanks: "感謝您！✦",
-    thanksBody: "我們已收到您的預訂申請，將盡快與您確認。",
-    another: "再送出一筆申請",
+    requestBooking: "確認預訂 →",
+    disclaimer: "* 將立即完成預訂，並以安全方式處理付款。",
+    sending: "— 處理中", submitting: "正在確認您的預訂…",
+    received: "— 預訂成功", thanks: "感謝您！✦",
+    thanksBody: "您的預訂已成功，確認信件即將寄出。",
+    another: "再預訂一筆",
   },
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
@@ -271,14 +291,18 @@ const BOOKING_I18N: Record<Locale, {
     loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
     noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
-    tickets: "티켓", total: (n) => `합계 (${n})`,
+    tickets: "티켓",
+    addOns: "선택 옵션",
+    preferredLanguage: "선호 언어",
+    langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
+    total: (n) => `합계 (${n})`,
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
-    requestBooking: "예약 요청 보내기 →",
-    disclaimer: "* 예약 요청을 보냅니다. 저희 팀이 확인 후 결제를 안내해 드립니다.",
-    sending: "— 전송 중", submitting: "예약 요청을 전송 중입니다…",
-    received: "— 요청 접수 완료", thanks: "감사합니다! ✦",
-    thanksBody: "예약 요청을 접수했습니다. 곧 확인 후 연락드리겠습니다.",
-    another: "다른 요청 보내기",
+    requestBooking: "지금 예약 →",
+    disclaimer: "* 즉시 예약이 확정되며 결제는 안전하게 처리됩니다.",
+    sending: "— 처리 중", submitting: "예약을 확정하는 중입니다…",
+    received: "— 예약 완료", thanks: "감사합니다! ✦",
+    thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
+    another: "다른 예약 만들기",
   },
 };
 
@@ -341,6 +365,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [quantities, setQuantities] = useState<Record<string, number>>({});
 
+  const [extras, setExtras] = useState<RezdyExtra[]>([]);
+  const [extraQty, setExtraQty] = useState<Record<string, number>>({});
+  const [pickupId, setPickupId] = useState<string | null>(null);
+
+  const defaultLang =
+    locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
+  const [preferredLanguage, setPreferredLanguage] = useState<string>(defaultLang);
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -352,6 +384,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   useEffect(() => {
     let cancelled = false;
     setStatus("loading");
+
     fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
@@ -372,6 +405,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         setLoadError(e instanceof Error ? e.message : "Network error");
         setStatus("error");
       });
+
+    fetch(`/api/rezdy/product?productCode=${encodeURIComponent(productCode)}`)
+      .then(async (r) => {
+        const json = (await r.json()) as
+          | { success: true; extras: RezdyExtra[]; pickupId: string | null }
+          | { success: false; message: string };
+        if (cancelled) return;
+        if ("success" in json && json.success) {
+          setExtras(json.extras ?? []);
+          setPickupId(json.pickupId ?? null);
+        }
+      })
+      .catch(() => {
+        /* extras are optional */
+      });
+
     return () => {
       cancelled = true;
     };
@@ -393,12 +442,17 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   }, [selectedId]);
 
   const totalQty = Object.values(quantities).reduce((a, b) => a + b, 0);
-  const totalPrice = selectedSession
+  const ticketsPrice = selectedSession
     ? selectedSession.priceOptions.reduce((sum, p, i) => {
         const q = quantities[`${p.label}__${i}`] ?? 0;
         return sum + p.price * q;
       }, 0)
     : 0;
+  const extrasPrice = extras.reduce((sum, x, i) => {
+    const q = extraQty[`${x.name}__${i}`] ?? 0;
+    return sum + x.price * q;
+  }, 0);
+  const totalPrice = ticketsPrice + extrasPrice;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -410,6 +464,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         .map((p, i) => ({ label: p.label, quantity: quantities[`${p.label}__${i}`] ?? 0 }))
         .filter((it) => it.quantity > 0);
 
+      const extrasPayload = extras
+        .map((x, i) => ({
+          name: x.name,
+          quantity: extraQty[`${x.name}__${i}`] ?? 0,
+          price: x.price,
+        }))
+        .filter((x) => x.quantity > 0);
+
       const res = await fetch("/api/rezdy/create-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -417,6 +479,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           productCode,
           startTimeLocal: selectedSession.startTimeLocal,
           items,
+          extras: extrasPayload,
+          preferredLanguage,
+          pickupId,
           customer: { firstName, lastName, email, phone },
         }),
       });
@@ -585,6 +650,59 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           )}
         </div>
       )}
+
+      {/* Optional add-ons (Rezdy extras) */}
+      {extras.length > 0 && (
+        <div>
+          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.addOns}</label>
+          <div className="space-y-2">
+            {extras.map((x, i) => {
+              const key = `${x.name}__${i}`;
+              const q = extraQty[key] ?? 0;
+              return (
+                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                  <div className="pr-3 min-w-0">
+                    <p className="text-[13.5px] text-ink font-medium truncate">{x.name}</p>
+                    <p className="text-[11.5px] text-ink/60">${x.price.toFixed(2)} CAD</p>
+                  </div>
+                  <div className="inline-flex items-center rounded-full border border-border shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      −
+                    </button>
+                    <span className="w-8 text-center text-sm">{q}</span>
+                    <button
+                      type="button"
+                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
+                      className="px-3 py-1.5 text-ink/70"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Preferred language (Rezdy required) */}
+      <div>
+        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.preferredLanguage}</label>
+        <select
+          required
+          value={preferredLanguage}
+          onChange={(e) => setPreferredLanguage(e.target.value)}
+          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
+        >
+          <option value="English">{B.langEnglish}</option>
+          <option value="Mandarin">{B.langMandarin}</option>
+          <option value="Korean">{B.langKorean}</option>
+        </select>
+      </div>
 
       {/* Customer form */}
       <div className="space-y-2.5 pt-1">
