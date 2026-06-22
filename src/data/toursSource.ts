@@ -1,5 +1,48 @@
 import type { Tour } from "./tours";
 import { tours as staticToursEn } from "./tours";
+import { tours as staticToursZh, getTour as getStaticTourZh } from "./tours.zh";
+import { tours as staticToursKo, getTour as getStaticTourKo } from "./tours.ko";
+
+export type Locale = "en" | "zh" | "ko";
+
+function staticFallback(locale: Locale): Tour[] {
+  if (locale === "zh") return staticToursZh;
+  if (locale === "ko") return staticToursKo;
+  return staticToursEn;
+}
+
+function staticFallbackBySlug(locale: Locale, slug: string): Tour | null {
+  if (locale === "zh") return getStaticTourZh(slug) ?? null;
+  if (locale === "ko") return getStaticTourKo(slug) ?? null;
+  return staticToursEn.find((t) => t.slug === slug) ?? null;
+}
+
+export async function fetchToursByLocale(locale: Locale): Promise<Tour[]> {
+  try {
+    const url = `${REST}?locale=eq.${locale}&published=eq.true&order=sort_order.asc&select=${SELECT_COLS}`;
+    const res = await fetch(url, { headers: HEADERS });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const rows = (await res.json()) as any[];
+    if (!Array.isArray(rows) || rows.length === 0) return staticFallback(locale);
+    return rows.map(mapRow);
+  } catch (e) {
+    console.error(`fetchToursByLocale(${locale}) failed, using static fallback:`, e);
+    return staticFallback(locale);
+  }
+}
+
+export async function fetchTourBySlugByLocale(locale: Locale, slug: string): Promise<Tour | null> {
+  try {
+    const url = `${REST}?locale=eq.${locale}&slug=eq.${encodeURIComponent(slug)}&limit=1&select=${SELECT_COLS}`;
+    const res = await fetch(url, { headers: HEADERS });
+    if (!res.ok) throw new Error(`status ${res.status}`);
+    const rows = (await res.json()) as any[];
+    if (Array.isArray(rows) && rows.length) return mapRow(rows[0]);
+  } catch (e) {
+    console.error(`fetchTourBySlugByLocale(${locale}, ${slug}) failed, using static fallback:`, e);
+  }
+  return staticFallbackBySlug(locale, slug);
+}
 
 const SUPABASE_URL = "https://eiblzjvjscwwfnswrltn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_SxT7OrCqFdnHhGOgXpLxAA_fTEgHD_t";
