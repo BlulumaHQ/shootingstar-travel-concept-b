@@ -205,6 +205,15 @@ type RezdySession = {
   priceOptions: RezdyPriceOption[];
 };
 
+type RezdyExtra = {
+  id: string | null;
+  name: string;
+  description: string;
+  price: number;
+  extraPriceType: string;
+  isOptional: boolean;
+};
+
 function formatSessionDate(startTimeLocal: string | null): string {
   if (!startTimeLocal) return "—";
   const [date, time] = startTimeLocal.replace("T", " ").split(" ");
