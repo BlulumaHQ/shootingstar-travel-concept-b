@@ -421,13 +421,15 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     fetch(`/api/rezdy/product?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
-          | { success: true; extras: RezdyExtra[]; pickupId: string | null }
+          | { success: true; extras: RezdyExtra[]; pickupId: string | null; pickups?: PickupOption[] }
           | { success: false; message: string };
         if (cancelled) return;
         if ("success" in json && json.success) {
           setExtras(json.extras ?? []);
           setPickupId(json.pickupId ?? null);
+          setPickups(json.pickups ?? []);
         }
+
       })
       .catch(() => {
         /* extras are optional */
