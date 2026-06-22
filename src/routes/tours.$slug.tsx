@@ -544,7 +544,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
 
   const continueDisabled =
-    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone;
+    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation);
+
 
   return (
     <form
