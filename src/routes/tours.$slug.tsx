@@ -299,7 +299,9 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
     tickets: "티켓",
     addOns: "선택 옵션",
+    pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
     preferredLanguage: "선호 언어",
+
     langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
     total: (n) => `합계 (${n})`,
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
