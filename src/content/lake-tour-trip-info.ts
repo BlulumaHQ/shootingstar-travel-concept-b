@@ -159,6 +159,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "겹쳐 입을 수 있는 옷, 편안한 신발, 물, 간식, 카메라, 자외선 차단, 새벽 출발 시 따뜻한 외투를 준비해 주세요.",
       "식사 및 음료는 포함되지 않으니 직접 준비해 주세요.",
       "권장 가이드 팁: 1인당 $15 CAD.",
+      "캐나다 국립공원 Discovery Pass — 각 게스트가 출발 전 parkscanadashop.ca에서 직접 구매해야 합니다. (2026년 9월 7일까지 국립공원 무료 입장.)",
     ],
     sunriseExtraNote:
       "본 일출 투어는 동트기 전에 출발하여 모레인 호수에 일출 전 도착, 10봉 계곡 위로 떠오르는 최고의 아침 빛을 만나도록 구성되어 있습니다.",
