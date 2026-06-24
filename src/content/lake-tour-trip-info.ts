@@ -119,6 +119,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "建議洋蔥式穿搭，攜帶舒適鞋款、飲水、點心、相機、防曬，以及一件保暖外套（清晨出發團）。",
       "餐食與飲料不含，請自行準備。",
       "建議導遊小費：每人 $15 CAD。",
+      "加拿大國家公園 Discovery Pass — 每位旅客需於出發前自行至 parkscanadashop.ca 購買。（國家公園於 2026 年 9 月 7 日前免費入場。）",
     ],
     sunriseExtraNote:
       "本日出團於天亮前出發，搶在日出前抵達夢蓮湖，享受十峰山谷上最美的晨光時刻。",
