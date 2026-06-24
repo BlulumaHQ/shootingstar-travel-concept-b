@@ -1155,9 +1155,10 @@ function LakeTourTripInfo({
         </h3>
         <div className="mt-3 h-px w-10 bg-primary/60" />
         <ol className="mt-5 space-y-3 text-[14px] text-ink/75 leading-[1.95] list-decimal pl-5 marker:text-primary marker:font-serif">
-          {pack.notes.map((n) => (
+          {notes.map((n) => (
             <li key={n}>{n}</li>
           ))}
+
         </ol>
 
         {isSunrise && (
