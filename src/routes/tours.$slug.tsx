@@ -1073,7 +1073,11 @@ function LakeTourTripInfo({
   slug: string;
 }) {
   const pack = LAKE_TOUR_TRIP_INFO[locale];
+  const extraNotes =
+    (isLakeTourSlug(slug) && LAKE_TOUR_EXTRA_NOTES[slug]?.[locale]) || [];
+  const notes = [...pack.notes, ...extraNotes];
   const isSunrise = slug === "moraine-lake-sunrise-tour";
+
 
   return (
     <section
