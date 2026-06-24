@@ -79,6 +79,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "Bring layered clothing, comfortable shoes, water, snacks, camera, sun protection, and a warm jacket for early departures.",
       "Meals and drinks are not included — please bring your own.",
       "Suggested guide gratuity: $15 CAD / person.",
+      "Parks Canada Discovery Pass — each guest must purchase their own in advance at parkscanadashop.ca. (National Parks offer free admission until September 7, 2026.)",
     ],
     sunriseExtraNote:
       "This sunrise tour departs pre-dawn to reach Moraine Lake before sunrise, for the best morning light over the Valley of the Ten Peaks.",
@@ -118,6 +119,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "建議洋蔥式穿搭，攜帶舒適鞋款、飲水、點心、相機、防曬，以及一件保暖外套（清晨出發團）。",
       "餐食與飲料不含，請自行準備。",
       "建議導遊小費：每人 $15 CAD。",
+      "加拿大國家公園 Discovery Pass — 每位旅客需於出發前自行至 parkscanadashop.ca 購買。（國家公園於 2026 年 9 月 7 日前免費入場。）",
     ],
     sunriseExtraNote:
       "本日出團於天亮前出發，搶在日出前抵達夢蓮湖，享受十峰山谷上最美的晨光時刻。",
@@ -157,6 +159,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "겹쳐 입을 수 있는 옷, 편안한 신발, 물, 간식, 카메라, 자외선 차단, 새벽 출발 시 따뜻한 외투를 준비해 주세요.",
       "식사 및 음료는 포함되지 않으니 직접 준비해 주세요.",
       "권장 가이드 팁: 1인당 $15 CAD.",
+      "캐나다 국립공원 Discovery Pass — 각 게스트가 출발 전 parkscanadashop.ca에서 직접 구매해야 합니다. (2026년 9월 7일까지 국립공원 무료 입장.)",
     ],
     sunriseExtraNote:
       "본 일출 투어는 동트기 전에 출발하여 모레인 호수에 일출 전 도착, 10봉 계곡 위로 떠오르는 최고의 아침 빛을 만나도록 구성되어 있습니다.",
