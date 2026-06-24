@@ -79,6 +79,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "Bring layered clothing, comfortable shoes, water, snacks, camera, sun protection, and a warm jacket for early departures.",
       "Meals and drinks are not included — please bring your own.",
       "Suggested guide gratuity: $15 CAD / person.",
+      "Parks Canada Discovery Pass — each guest must purchase their own in advance at parkscanadashop.ca. (National Parks offer free admission until September 7, 2026.)",
     ],
     sunriseExtraNote:
       "This sunrise tour departs pre-dawn to reach Moraine Lake before sunrise, for the best morning light over the Valley of the Ten Peaks.",
