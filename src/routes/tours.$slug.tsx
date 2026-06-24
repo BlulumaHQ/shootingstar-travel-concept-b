@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
   LAKE_TOUR_TRIP_INFO,
+  LAKE_TOUR_EXTRA_NOTES,
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
 import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
@@ -1072,7 +1073,11 @@ function LakeTourTripInfo({
   slug: string;
 }) {
   const pack = LAKE_TOUR_TRIP_INFO[locale];
+  const extraNotes =
+    (isLakeTourSlug(slug) && LAKE_TOUR_EXTRA_NOTES[slug]?.[locale]) || [];
+  const notes = [...pack.notes, ...extraNotes];
   const isSunrise = slug === "moraine-lake-sunrise-tour";
+
 
   return (
     <section
@@ -1150,9 +1155,10 @@ function LakeTourTripInfo({
         </h3>
         <div className="mt-3 h-px w-10 bg-primary/60" />
         <ol className="mt-5 space-y-3 text-[14px] text-ink/75 leading-[1.95] list-decimal pl-5 marker:text-primary marker:font-serif">
-          {pack.notes.map((n) => (
+          {notes.map((n) => (
             <li key={n}>{n}</li>
           ))}
+
         </ol>
 
         {isSunrise && (

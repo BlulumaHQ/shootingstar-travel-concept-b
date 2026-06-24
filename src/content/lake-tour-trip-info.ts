@@ -165,3 +165,15 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
       "본 일출 투어는 동트기 전에 출발하여 모레인 호수에 일출 전 도착, 10봉 계곡 위로 떠오르는 최고의 아침 빛을 만나도록 구성되어 있습니다.",
   },
 };
+
+/* Per-slug extra notes appended to the end of `notes` for specific tours only. */
+export const LAKE_TOUR_EXTRA_NOTES: Partial<
+  Record<LakeTourSlug, Record<Locale, string[]>>
+> = {
+  "moraine-lake-lake-louise-half-day": {
+    en: ["Drop-off: single stop at Mount Royal Hotel."],
+    zh: ["下車地點：僅停靠一站 Mount Royal Hotel。"],
+    ko: ["하차 장소: Mount Royal Hotel 단일 정차."],
+  },
+};
+
