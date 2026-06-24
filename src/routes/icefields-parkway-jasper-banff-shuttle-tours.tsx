@@ -241,7 +241,7 @@ function ProductRouteCard({
         </dl>
         <Link
           to={productHref(pid, locale) as never}
-          className="mt-6 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
+          className="mt-auto pt-6 w-full block text-center rounded-full bg-primary text-primary-foreground px-5 py-3 text-[13.5px] tracking-wide hover:bg-primary/90 transition"
         >
           {tx("viewAndBook", locale)}
         </Link>
