@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
   LAKE_TOUR_TRIP_INFO,
+  LAKE_TOUR_EXTRA_NOTES,
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
 import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
