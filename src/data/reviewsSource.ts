@@ -1,5 +1,5 @@
 import type { Review } from "@/components/site/ReviewCard";
-import { reviews as staticReviewsEn } from "./reviews";
+
 
 const SUPABASE_URL = "https://eiblzjvjscwwfnswrltn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_SxT7OrCqFdnHhGOgXpLxAA_fTEgHD_t";
