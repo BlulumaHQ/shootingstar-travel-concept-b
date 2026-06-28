@@ -1,5 +1,5 @@
 import type { Review } from "@/components/site/ReviewCard";
-import { reviews as staticReviewsEn } from "./reviews";
+
 
 const SUPABASE_URL = "https://eiblzjvjscwwfnswrltn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_SxT7OrCqFdnHhGOgXpLxAA_fTEgHD_t";
@@ -24,10 +24,10 @@ export async function fetchReviews(): Promise<Review[]> {
     const res = await fetch(url, { headers: HEADERS });
     if (!res.ok) throw new Error(`status ${res.status}`);
     const rows = (await res.json()) as any[];
-    if (!Array.isArray(rows) || rows.length === 0) return staticReviewsEn;
+    if (!Array.isArray(rows)) return [];
     return rows.map(mapRow);
   } catch (e) {
-    console.error("fetchReviews failed, using static fallback:", e);
-    return staticReviewsEn;
+    console.error("fetchReviews failed:", e);
+    return [];
   }
 }
