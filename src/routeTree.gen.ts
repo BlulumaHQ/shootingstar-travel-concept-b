@@ -27,6 +27,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ZhIndexRouteImport } from './routes/zh/index'
 import { Route as ToursIndexRouteImport } from './routes/tours.index'
 import { Route as KoIndexRouteImport } from './routes/ko/index'
+import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as ZhTermsRouteImport } from './routes/zh/terms'
 import { Route as ZhRockyMountainLakeToursRouteImport } from './routes/zh/rocky-mountain-lake-tours'
 import { Route as ZhReviewsRouteImport } from './routes/zh/reviews'
@@ -50,10 +51,23 @@ import { Route as KoDestinationsRouteImport } from './routes/ko/destinations'
 import { Route as KoContactRouteImport } from './routes/ko/contact'
 import { Route as KoBlogRouteImport } from './routes/ko/blog'
 import { Route as KoAboutRouteImport } from './routes/ko/about'
+import { Route as EnTermsRouteImport } from './routes/en/terms'
+import { Route as EnRockyMountainLakeToursRouteImport } from './routes/en/rocky-mountain-lake-tours'
+import { Route as EnReviewsRouteImport } from './routes/en/reviews'
+import { Route as EnPrivacyRouteImport } from './routes/en/privacy'
+import { Route as EnIcefieldsParkwayJasperBanffShuttleToursRouteImport } from './routes/en/icefields-parkway-jasper-banff-shuttle-tours'
+import { Route as EnGalleryRouteImport } from './routes/en/gallery'
+import { Route as EnFaqRouteImport } from './routes/en/faq'
+import { Route as EnDestinationsRouteImport } from './routes/en/destinations'
+import { Route as EnContactRouteImport } from './routes/en/contact'
+import { Route as EnBlogRouteImport } from './routes/en/blog'
+import { Route as EnAboutRouteImport } from './routes/en/about'
 import { Route as ZhToursIndexRouteImport } from './routes/zh/tours.index'
 import { Route as KoToursIndexRouteImport } from './routes/ko/tours.index'
+import { Route as EnToursIndexRouteImport } from './routes/en/tours.index'
 import { Route as ZhToursSlugRouteImport } from './routes/zh/tours.$slug'
 import { Route as KoToursSlugRouteImport } from './routes/ko/tours.$slug'
+import { Route as EnToursSlugRouteImport } from './routes/en/tours.$slug'
 import { Route as ApiRezdyProductRouteImport } from './routes/api/rezdy.product'
 import { Route as ApiRezdyCreateBookingRouteImport } from './routes/api/rezdy.create-booking'
 import { Route as ApiRezdyAvailabilityRouteImport } from './routes/api/rezdy.availability'
@@ -147,6 +161,11 @@ const ToursIndexRoute = ToursIndexRouteImport.update({
 const KoIndexRoute = KoIndexRouteImport.update({
   id: '/ko/',
   path: '/ko/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/en/',
+  path: '/en/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ZhTermsRoute = ZhTermsRouteImport.update({
@@ -268,6 +287,63 @@ const KoAboutRoute = KoAboutRouteImport.update({
   path: '/ko/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnTermsRoute = EnTermsRouteImport.update({
+  id: '/en/terms',
+  path: '/en/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnRockyMountainLakeToursRoute =
+  EnRockyMountainLakeToursRouteImport.update({
+    id: '/en/rocky-mountain-lake-tours',
+    path: '/en/rocky-mountain-lake-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnReviewsRoute = EnReviewsRouteImport.update({
+  id: '/en/reviews',
+  path: '/en/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnPrivacyRoute = EnPrivacyRouteImport.update({
+  id: '/en/privacy',
+  path: '/en/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIcefieldsParkwayJasperBanffShuttleToursRoute =
+  EnIcefieldsParkwayJasperBanffShuttleToursRouteImport.update({
+    id: '/en/icefields-parkway-jasper-banff-shuttle-tours',
+    path: '/en/icefields-parkway-jasper-banff-shuttle-tours',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EnGalleryRoute = EnGalleryRouteImport.update({
+  id: '/en/gallery',
+  path: '/en/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnFaqRoute = EnFaqRouteImport.update({
+  id: '/en/faq',
+  path: '/en/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnDestinationsRoute = EnDestinationsRouteImport.update({
+  id: '/en/destinations',
+  path: '/en/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnContactRoute = EnContactRouteImport.update({
+  id: '/en/contact',
+  path: '/en/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnBlogRoute = EnBlogRouteImport.update({
+  id: '/en/blog',
+  path: '/en/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnAboutRoute = EnAboutRouteImport.update({
+  id: '/en/about',
+  path: '/en/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ZhToursIndexRoute = ZhToursIndexRouteImport.update({
   id: '/zh/tours/',
   path: '/zh/tours/',
@@ -278,6 +354,11 @@ const KoToursIndexRoute = KoToursIndexRouteImport.update({
   path: '/ko/tours/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnToursIndexRoute = EnToursIndexRouteImport.update({
+  id: '/en/tours/',
+  path: '/en/tours/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ZhToursSlugRoute = ZhToursSlugRouteImport.update({
   id: '/zh/tours/$slug',
   path: '/zh/tours/$slug',
@@ -286,6 +367,11 @@ const ZhToursSlugRoute = ZhToursSlugRouteImport.update({
 const KoToursSlugRoute = KoToursSlugRouteImport.update({
   id: '/ko/tours/$slug',
   path: '/ko/tours/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnToursSlugRoute = EnToursSlugRouteImport.update({
+  id: '/en/tours/$slug',
+  path: '/en/tours/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiRezdyProductRoute = ApiRezdyProductRouteImport.update({
@@ -320,6 +406,17 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/en/about': typeof EnAboutRoute
+  '/en/blog': typeof EnBlogRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/destinations': typeof EnDestinationsRoute
+  '/en/faq': typeof EnFaqRoute
+  '/en/gallery': typeof EnGalleryRoute
+  '/en/icefields-parkway-jasper-banff-shuttle-tours': typeof EnIcefieldsParkwayJasperBanffShuttleToursRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/reviews': typeof EnReviewsRoute
+  '/en/rocky-mountain-lake-tours': typeof EnRockyMountainLakeToursRoute
+  '/en/terms': typeof EnTermsRoute
   '/ko/about': typeof KoAboutRoute
   '/ko/blog': typeof KoBlogRoute
   '/ko/contact': typeof KoContactRoute
@@ -343,14 +440,17 @@ export interface FileRoutesByFullPath {
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
+  '/en/': typeof EnIndexRoute
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
   '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/product': typeof ApiRezdyProductRoute
+  '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/en/tours/': typeof EnToursIndexRoute
   '/ko/tours/': typeof KoToursIndexRoute
   '/zh/tours/': typeof ZhToursIndexRoute
 }
@@ -369,6 +469,17 @@ export interface FileRoutesByTo {
   '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/en/about': typeof EnAboutRoute
+  '/en/blog': typeof EnBlogRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/destinations': typeof EnDestinationsRoute
+  '/en/faq': typeof EnFaqRoute
+  '/en/gallery': typeof EnGalleryRoute
+  '/en/icefields-parkway-jasper-banff-shuttle-tours': typeof EnIcefieldsParkwayJasperBanffShuttleToursRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/reviews': typeof EnReviewsRoute
+  '/en/rocky-mountain-lake-tours': typeof EnRockyMountainLakeToursRoute
+  '/en/terms': typeof EnTermsRoute
   '/ko/about': typeof KoAboutRoute
   '/ko/blog': typeof KoBlogRoute
   '/ko/contact': typeof KoContactRoute
@@ -392,14 +503,17 @@ export interface FileRoutesByTo {
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
+  '/en': typeof EnIndexRoute
   '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
   '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/product': typeof ApiRezdyProductRoute
+  '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/en/tours': typeof EnToursIndexRoute
   '/ko/tours': typeof KoToursIndexRoute
   '/zh/tours': typeof ZhToursIndexRoute
 }
@@ -420,6 +534,17 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/en/about': typeof EnAboutRoute
+  '/en/blog': typeof EnBlogRoute
+  '/en/contact': typeof EnContactRoute
+  '/en/destinations': typeof EnDestinationsRoute
+  '/en/faq': typeof EnFaqRoute
+  '/en/gallery': typeof EnGalleryRoute
+  '/en/icefields-parkway-jasper-banff-shuttle-tours': typeof EnIcefieldsParkwayJasperBanffShuttleToursRoute
+  '/en/privacy': typeof EnPrivacyRoute
+  '/en/reviews': typeof EnReviewsRoute
+  '/en/rocky-mountain-lake-tours': typeof EnRockyMountainLakeToursRoute
+  '/en/terms': typeof EnTermsRoute
   '/ko/about': typeof KoAboutRoute
   '/ko/blog': typeof KoBlogRoute
   '/ko/contact': typeof KoContactRoute
@@ -443,14 +568,17 @@ export interface FileRoutesById {
   '/zh/reviews': typeof ZhReviewsRoute
   '/zh/rocky-mountain-lake-tours': typeof ZhRockyMountainLakeToursRoute
   '/zh/terms': typeof ZhTermsRoute
+  '/en/': typeof EnIndexRoute
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
   '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
   '/api/rezdy/product': typeof ApiRezdyProductRoute
+  '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
+  '/en/tours/': typeof EnToursIndexRoute
   '/ko/tours/': typeof KoToursIndexRoute
   '/zh/tours/': typeof ZhToursIndexRoute
 }
@@ -472,6 +600,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
+    | '/en/about'
+    | '/en/blog'
+    | '/en/contact'
+    | '/en/destinations'
+    | '/en/faq'
+    | '/en/gallery'
+    | '/en/icefields-parkway-jasper-banff-shuttle-tours'
+    | '/en/privacy'
+    | '/en/reviews'
+    | '/en/rocky-mountain-lake-tours'
+    | '/en/terms'
     | '/ko/about'
     | '/ko/blog'
     | '/ko/contact'
@@ -495,14 +634,17 @@ export interface FileRouteTypes {
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
+    | '/en/'
     | '/ko/'
     | '/tours/'
     | '/zh/'
     | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/product'
+    | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
+    | '/en/tours/'
     | '/ko/tours/'
     | '/zh/tours/'
   fileRoutesByTo: FileRoutesByTo
@@ -521,6 +663,17 @@ export interface FileRouteTypes {
     | '/rocky-mountain-lake-tours'
     | '/sitemap.xml'
     | '/terms'
+    | '/en/about'
+    | '/en/blog'
+    | '/en/contact'
+    | '/en/destinations'
+    | '/en/faq'
+    | '/en/gallery'
+    | '/en/icefields-parkway-jasper-banff-shuttle-tours'
+    | '/en/privacy'
+    | '/en/reviews'
+    | '/en/rocky-mountain-lake-tours'
+    | '/en/terms'
     | '/ko/about'
     | '/ko/blog'
     | '/ko/contact'
@@ -544,14 +697,17 @@ export interface FileRouteTypes {
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
+    | '/en'
     | '/ko'
     | '/tours'
     | '/zh'
     | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/product'
+    | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
+    | '/en/tours'
     | '/ko/tours'
     | '/zh/tours'
   id:
@@ -571,6 +727,17 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
+    | '/en/about'
+    | '/en/blog'
+    | '/en/contact'
+    | '/en/destinations'
+    | '/en/faq'
+    | '/en/gallery'
+    | '/en/icefields-parkway-jasper-banff-shuttle-tours'
+    | '/en/privacy'
+    | '/en/reviews'
+    | '/en/rocky-mountain-lake-tours'
+    | '/en/terms'
     | '/ko/about'
     | '/ko/blog'
     | '/ko/contact'
@@ -594,14 +761,17 @@ export interface FileRouteTypes {
     | '/zh/reviews'
     | '/zh/rocky-mountain-lake-tours'
     | '/zh/terms'
+    | '/en/'
     | '/ko/'
     | '/tours/'
     | '/zh/'
     | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
     | '/api/rezdy/product'
+    | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
+    | '/en/tours/'
     | '/ko/tours/'
     | '/zh/tours/'
   fileRoutesById: FileRoutesById
@@ -622,6 +792,17 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
+  EnAboutRoute: typeof EnAboutRoute
+  EnBlogRoute: typeof EnBlogRoute
+  EnContactRoute: typeof EnContactRoute
+  EnDestinationsRoute: typeof EnDestinationsRoute
+  EnFaqRoute: typeof EnFaqRoute
+  EnGalleryRoute: typeof EnGalleryRoute
+  EnIcefieldsParkwayJasperBanffShuttleToursRoute: typeof EnIcefieldsParkwayJasperBanffShuttleToursRoute
+  EnPrivacyRoute: typeof EnPrivacyRoute
+  EnReviewsRoute: typeof EnReviewsRoute
+  EnRockyMountainLakeToursRoute: typeof EnRockyMountainLakeToursRoute
+  EnTermsRoute: typeof EnTermsRoute
   KoAboutRoute: typeof KoAboutRoute
   KoBlogRoute: typeof KoBlogRoute
   KoContactRoute: typeof KoContactRoute
@@ -644,13 +825,16 @@ export interface RootRouteChildren {
   ZhReviewsRoute: typeof ZhReviewsRoute
   ZhRockyMountainLakeToursRoute: typeof ZhRockyMountainLakeToursRoute
   ZhTermsRoute: typeof ZhTermsRoute
+  EnIndexRoute: typeof EnIndexRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhIndexRoute: typeof ZhIndexRoute
   ApiRezdyAvailabilityRoute: typeof ApiRezdyAvailabilityRoute
   ApiRezdyCreateBookingRoute: typeof ApiRezdyCreateBookingRoute
   ApiRezdyProductRoute: typeof ApiRezdyProductRoute
+  EnToursSlugRoute: typeof EnToursSlugRoute
   KoToursSlugRoute: typeof KoToursSlugRoute
   ZhToursSlugRoute: typeof ZhToursSlugRoute
+  EnToursIndexRoute: typeof EnToursIndexRoute
   KoToursIndexRoute: typeof KoToursIndexRoute
   ZhToursIndexRoute: typeof ZhToursIndexRoute
 }
@@ -781,6 +965,13 @@ declare module '@tanstack/react-router' {
       path: '/ko'
       fullPath: '/ko/'
       preLoaderRoute: typeof KoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/en'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/zh/terms': {
@@ -944,6 +1135,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KoAboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/terms': {
+      id: '/en/terms'
+      path: '/en/terms'
+      fullPath: '/en/terms'
+      preLoaderRoute: typeof EnTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/rocky-mountain-lake-tours': {
+      id: '/en/rocky-mountain-lake-tours'
+      path: '/en/rocky-mountain-lake-tours'
+      fullPath: '/en/rocky-mountain-lake-tours'
+      preLoaderRoute: typeof EnRockyMountainLakeToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/reviews': {
+      id: '/en/reviews'
+      path: '/en/reviews'
+      fullPath: '/en/reviews'
+      preLoaderRoute: typeof EnReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/privacy': {
+      id: '/en/privacy'
+      path: '/en/privacy'
+      fullPath: '/en/privacy'
+      preLoaderRoute: typeof EnPrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/icefields-parkway-jasper-banff-shuttle-tours': {
+      id: '/en/icefields-parkway-jasper-banff-shuttle-tours'
+      path: '/en/icefields-parkway-jasper-banff-shuttle-tours'
+      fullPath: '/en/icefields-parkway-jasper-banff-shuttle-tours'
+      preLoaderRoute: typeof EnIcefieldsParkwayJasperBanffShuttleToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/gallery': {
+      id: '/en/gallery'
+      path: '/en/gallery'
+      fullPath: '/en/gallery'
+      preLoaderRoute: typeof EnGalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/faq': {
+      id: '/en/faq'
+      path: '/en/faq'
+      fullPath: '/en/faq'
+      preLoaderRoute: typeof EnFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/destinations': {
+      id: '/en/destinations'
+      path: '/en/destinations'
+      fullPath: '/en/destinations'
+      preLoaderRoute: typeof EnDestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/contact': {
+      id: '/en/contact'
+      path: '/en/contact'
+      fullPath: '/en/contact'
+      preLoaderRoute: typeof EnContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/blog': {
+      id: '/en/blog'
+      path: '/en/blog'
+      fullPath: '/en/blog'
+      preLoaderRoute: typeof EnBlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/about': {
+      id: '/en/about'
+      path: '/en/about'
+      fullPath: '/en/about'
+      preLoaderRoute: typeof EnAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zh/tours/': {
       id: '/zh/tours/'
       path: '/zh/tours'
@@ -958,6 +1226,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KoToursIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/tours/': {
+      id: '/en/tours/'
+      path: '/en/tours'
+      fullPath: '/en/tours/'
+      preLoaderRoute: typeof EnToursIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/zh/tours/$slug': {
       id: '/zh/tours/$slug'
       path: '/zh/tours/$slug'
@@ -970,6 +1245,13 @@ declare module '@tanstack/react-router' {
       path: '/ko/tours/$slug'
       fullPath: '/ko/tours/$slug'
       preLoaderRoute: typeof KoToursSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/tours/$slug': {
+      id: '/en/tours/$slug'
+      path: '/en/tours/$slug'
+      fullPath: '/en/tours/$slug'
+      preLoaderRoute: typeof EnToursSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/rezdy/product': {
@@ -1025,6 +1307,18 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
+  EnAboutRoute: EnAboutRoute,
+  EnBlogRoute: EnBlogRoute,
+  EnContactRoute: EnContactRoute,
+  EnDestinationsRoute: EnDestinationsRoute,
+  EnFaqRoute: EnFaqRoute,
+  EnGalleryRoute: EnGalleryRoute,
+  EnIcefieldsParkwayJasperBanffShuttleToursRoute:
+    EnIcefieldsParkwayJasperBanffShuttleToursRoute,
+  EnPrivacyRoute: EnPrivacyRoute,
+  EnReviewsRoute: EnReviewsRoute,
+  EnRockyMountainLakeToursRoute: EnRockyMountainLakeToursRoute,
+  EnTermsRoute: EnTermsRoute,
   KoAboutRoute: KoAboutRoute,
   KoBlogRoute: KoBlogRoute,
   KoContactRoute: KoContactRoute,
@@ -1049,13 +1343,16 @@ const rootRouteChildren: RootRouteChildren = {
   ZhReviewsRoute: ZhReviewsRoute,
   ZhRockyMountainLakeToursRoute: ZhRockyMountainLakeToursRoute,
   ZhTermsRoute: ZhTermsRoute,
+  EnIndexRoute: EnIndexRoute,
   KoIndexRoute: KoIndexRoute,
   ZhIndexRoute: ZhIndexRoute,
   ApiRezdyAvailabilityRoute: ApiRezdyAvailabilityRoute,
   ApiRezdyCreateBookingRoute: ApiRezdyCreateBookingRoute,
   ApiRezdyProductRoute: ApiRezdyProductRoute,
+  EnToursSlugRoute: EnToursSlugRoute,
   KoToursSlugRoute: KoToursSlugRoute,
   ZhToursSlugRoute: ZhToursSlugRoute,
+  EnToursIndexRoute: EnToursIndexRoute,
   KoToursIndexRoute: KoToursIndexRoute,
   ZhToursIndexRoute: ZhToursIndexRoute,
 }
