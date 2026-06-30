@@ -324,10 +324,10 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
       badges: [],
     },
     icefields: {
-      eyebrow: "— 全新 · 班夫 ⇄ 賈斯珀",
+      eyebrow: "— 全新 · 班夫 ⇄ 賈斯伯",
       h1Line1: "冰原大道",
       h1Line2: "接駁與觀光行程",
-      sub: "班夫、賈斯珀、哥倫比亞冰原與瑪琳湖之間的彈性接駁,依星期安排路線,可加購景點門票,接送地點清楚。",
+      sub: "班夫、賈斯伯、哥倫比亞冰原與瑪琳湖之間的彈性接駁,依星期安排路線,可加購景點門票,接送地點清楚。",
       primary: "探索接駁路線",
       badges: [],
     },

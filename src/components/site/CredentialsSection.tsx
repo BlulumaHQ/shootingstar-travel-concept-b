@@ -52,7 +52,7 @@ const PACKS: Record<Locale, Pack> = {
     ],
     parksTitle: "授權商業營運商",
     parksDesc: "獲准於以下國家公園營運：",
-    parks: ["班夫國家公園", "傑士伯國家公園", "幽鶴國家公園"],
+    parks: ["班夫國家公園", "賈斯伯國家公園", "幽鶴國家公園"],
   },
   ko: {
     eyebrow: "정식 인가 · 인증 · 운영 허가",

@@ -67,7 +67,7 @@ export function Footer() {
       { l: "維多利亞一日遊", to: lp("/tours/victoria-1-day") },
       { l: "西雅圖兩日遊", to: lp("/tours/seattle-2-day") },
       { l: "洛磯山脈湖泊之旅", to: lp("/rocky-mountain-lake-tours") },
-      { l: "冰原大道與賈斯珀接駁", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
+      { l: "冰原大道與賈斯伯接駁", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
     ko: [
       { l: "미국 서부 8일 투어", to: lp("/tours/western-usa-8-day") },
