@@ -82,7 +82,7 @@ const I18N = {
   } as Record<Locale, string>,
   overviewIntro: {
     en: "Six routes across the Icefields Parkway corridor between Banff, Jasper and Maligne Lake. Pick the one that matches your travel day, then click through to the booking page.",
-    zh: "班夫、賈斯珀與瑪琳湖之間共六條冰原大道路線。依出遊日挑選最合適的一條,點入即可前往預訂頁。",
+    zh: "班夫、賈斯伯與瑪琳湖之間共六條冰原大道路線。依出遊日挑選最合適的一條,點入即可前往預訂頁。",
     ko: "밴프, 재스퍼, 말린 호수를 잇는 6개 아이스필드 파크웨이 노선. 여행 요일에 맞는 노선을 선택해 예약 페이지로 이동하세요.",
   } as Record<Locale, string>,
 } as const;

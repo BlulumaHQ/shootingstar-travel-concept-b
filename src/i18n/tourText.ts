@@ -70,7 +70,7 @@ const INCLUDED_DICT: Record<string, Tr> = {
   "Driver / tour guide": { zh: "司機／導遊", ko: "기사/가이드" },
   "Parking": { zh: "停車費", ko: "주차" },
   "Scheduled pickup/drop-off": { zh: "定點接送", ko: "지정 픽업/드롭오프" },
-  "Banff pickup": { zh: "班佛接送", ko: "밴프 픽업" },
+  "Banff pickup": { zh: "班夫接送", ko: "밴프 픽업" },
   "Moraine Lake visit": { zh: "夢蓮湖參觀", ko: "모레인 호수 방문" },
   "Lake Louise visit": { zh: "露易絲湖參觀", ko: "레이크 루이스 방문" },
 };
