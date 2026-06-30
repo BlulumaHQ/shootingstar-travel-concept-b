@@ -3,8 +3,16 @@ import type {} from "@tanstack/react-start";
 import { tours } from "@/data/tours";
 
 const BASE_URL = "https://www.shootingstartravel.ca";
-const LOCALES = ["", "/zh", "/ko"] as const;
+// "" = bare (zh, default), "/en" = English, "/ko" = Korean.
+// /zh URLs are intentionally omitted (they're a legacy alias of bare).
+const LOCALES = ["", "/en", "/ko"] as const;
 const PAGES = ["/", "/about", "/tours", "/reviews", "/blog", "/faq", "/contact", "/destinations", "/privacy", "/terms"];
+
+function hreflangFor(loc: string): "zh-Hant" | "en" | "ko" {
+  if (loc === "/en") return "en";
+  if (loc === "/ko") return "ko";
+  return "zh-Hant";
+}
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -21,19 +29,21 @@ export const Route = createFileRoute("/sitemap.xml")({
           }
         }
         const urls = entries.map((e) => {
+          // Strip any locale prefix to get the bare (default/zh) path.
+          const stripped = e.path.replace(/^\/(en|ko)/, "") || "/";
           const alts = LOCALES.map((l) => {
-            const stripped = e.path.replace(/^\/(zh|ko)/, "") || "/";
             const href = `${BASE_URL}${l}${stripped === "/" ? "" : stripped}` || `${BASE_URL}/`;
-            const hreflang = l === "" ? "en" : l === "/zh" ? "zh-Hant" : "ko";
-            return `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href || BASE_URL + "/"}"/>`;
+            return `    <xhtml:link rel="alternate" hreflang="${hreflangFor(l)}" href="${href || BASE_URL + "/"}"/>`;
           }).join("\n");
+          // x-default = bare (zh) URL
+          const xDefault = `${BASE_URL}${stripped === "/" ? "/" : stripped}`;
           return [
             `  <url>`,
             `    <loc>${BASE_URL}${e.path}</loc>`,
             `    <changefreq>weekly</changefreq>`,
             `    <priority>${e.priority}</priority>`,
             alts,
-            `    <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${e.path.replace(/^\/(zh|ko)/, "") || "/"}"/>`,
+            `    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefault}"/>`,
             `  </url>`,
           ].join("\n");
         });
