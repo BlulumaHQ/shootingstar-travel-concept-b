@@ -5,7 +5,7 @@ import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import purpleLogo from "@/assets/shootingstar-purple-logo.png.asset.json";
 import { CompassMark, StarMark, MountainMark, PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
-import { useLocale, type Locale } from "@/i18n/locale";
+import { useLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
