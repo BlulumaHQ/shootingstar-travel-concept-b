@@ -34,8 +34,8 @@ export const Route = createFileRoute("/")({
     ...seoHead({
       path: "/",
       locale: "zh",
-      title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Western US Tours",
-      description: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond. Slow travel, considered detail.",
+      title: "Shootingstar Travel｜加拿大與美西精品旅遊・洛磯山脈・西雅圖・拉斯維加斯",
+      description: "加拿大與美國西部精品小團旅遊。洛磯山脈、班夫、溫哥華、維多利亞、西雅圖、拉斯維加斯與大峽谷，提供中文、韓文、英文貼心嚮導，為您客製安心、有溫度的旅程。",
     }),
     scripts: [
       {
