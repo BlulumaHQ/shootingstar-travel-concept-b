@@ -7,7 +7,7 @@ import destJasper from "@/assets/dest-jasper.jpg";
 import heroBanff from "@/assets/hero-banff.jpg";
 import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
-import { useLocale, withLocale, type Locale } from "@/i18n/locale";
+import { useLocale, withLocale, type Locale } , hreflangLinks from "@/i18n/locale";
 import { ChatSupportNote } from "@/components/site/ChatSupport";
 import {
   getIcefieldsContent,
@@ -91,7 +91,7 @@ const tx = (key: keyof typeof I18N, locale: Locale) => I18N[key][locale] ?? I18N
 
 export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-tours")({
   head: () => {
-    const c = getIcefieldsContent("en");
+    const c = getIcefieldsContent("zh");
     return {
       meta: [
         { title: c.meta.title },
@@ -100,6 +100,8 @@ export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-to
         { property: "og:description", content: c.meta.ogDescription },
         { property: "og:image", content: heroIcefield },
       ],
+    
+      links: hreflangLinks("/icefields-parkway-jasper-banff-shuttle-tours", "zh"),
     };
   },
   component: IcefieldsShuttlePage,

@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     ...seoHead({
       path: "/",
-      locale: "en",
+      locale: "zh",
       title: "Shootingstar Travel — Boutique Canadian Rockies, Banff & Western US Tours",
       description: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond. Slow travel, considered detail.",
     }),

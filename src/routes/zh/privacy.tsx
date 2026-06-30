@@ -1,14 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { PrivacyPage } from "../privacy";
-import { hreflangLinks } from "@/i18n/locale";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// /zh/* is a legacy alias of the new default (bare) Chinese routes.
+// Permanently redirect to the bare equivalent so there are no duplicate URLs in SEO.
 export const Route = createFileRoute("/zh/privacy")({
-  head: () => ({
-    meta: [
-      { title: "隱私權政策 | Shootingstar Travel" },
-      { property: "og:locale", content: "zh_Hant" },
-    ],
-    links: hreflangLinks("/privacy", "zh"),
-  }),
-  component: PrivacyPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/privacy", replace: true });
+  },
+  component: () => null,
 });

@@ -18,7 +18,7 @@ export const Route = createFileRoute("/reviews")({
       { property: "og:title", content: "Traveler Stories — Shooting Star Travel" },
       { property: "og:description", content: "Real stories from travellers with Shooting Star Travel — share your own journey." },
     ],
-    links: hreflangLinks("/reviews", "en"),
+    links: hreflangLinks("/reviews", "zh"),
   }),
   component: ReviewsPage,
 });

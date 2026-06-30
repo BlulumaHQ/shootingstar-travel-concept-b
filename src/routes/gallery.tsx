@@ -15,7 +15,7 @@ export const Route = createFileRoute("/gallery")({
       { property: "og:title", content: "Gallery — Shooting Star Travel" },
       { property: "og:description", content: "Trip albums and journey highlights from Shooting Star Travel." },
     ],
-    links: hreflangLinks("/gallery", "en"),
+    links: hreflangLinks("/gallery", "zh"),
   }),
   component: GalleryPage,
 });

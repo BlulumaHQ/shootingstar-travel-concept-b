@@ -1,16 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ReviewsPage } from "../reviews";
-import { hreflangLinks } from "@/i18n/locale";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+// /zh/* is a legacy alias of the new default (bare) Chinese routes.
+// Permanently redirect to the bare equivalent so there are no duplicate URLs in SEO.
 export const Route = createFileRoute("/zh/reviews")({
-  head: () => ({
-    meta: [
-      { title: "旅客分享 | Shootingstar Travel" },
-      { name: "description", content: "看看旅客們與 Shooting Star Travel 一起留下的美好回憶。" },
-      { property: "og:title", content: "旅客分享 | Shootingstar Travel" },
-      { property: "og:locale", content: "zh_Hant" },
-    ],
-    links: hreflangLinks("/reviews", "zh"),
-  }),
-  component: ReviewsPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/reviews", replace: true });
+  },
+  component: () => null,
 });

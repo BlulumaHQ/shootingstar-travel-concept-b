@@ -16,7 +16,7 @@ export const Route = createFileRoute("/tours/")({
       { property: "og:description", content: "Curated small-group journeys, designed by our local team." },
       { property: "og:image", content: tours[0].img },
     ],
-    links: hreflangLinks("/tours", "en"),
+    links: hreflangLinks("/tours", "zh"),
   }),
   component: ToursIndexPage,
 });

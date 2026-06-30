@@ -18,7 +18,7 @@ export const Route = createFileRoute("/destinations")({
       { property: "og:description", content: "Banff, Jasper, Vancouver, Whistler, Victoria, Yukon and the aurora." },
       { property: "og:image", content: jasper },
     ],
-    links: hreflangLinks("/destinations", "en"),
+    links: hreflangLinks("/destinations", "zh"),
   }),
   component: DestPage,
 });
