@@ -155,8 +155,8 @@ const LABELS: Record<Locale, {
 
 export const Route = createFileRoute("/tours/$slug")({
   loader: async ({ params }) => {
-    const { fetchTourBySlugEn } = await import("@/data/toursSource");
-    const tour = await fetchTourBySlugEn(params.slug);
+    const { fetchTourBySlugByLocale } = await import("@/data/toursSource");
+    const tour = await fetchTourBySlugByLocale("zh", params.slug);
     if (!tour) throw notFound();
     return { tour };
   },

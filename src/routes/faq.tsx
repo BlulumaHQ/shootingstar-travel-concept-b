@@ -11,7 +11,7 @@ export const Route = createFileRoute("/faq")({
       { property: "og:title", content: "FAQ — Shooting Star Travel" },
       { property: "og:description", content: "Booking, payment, itineraries, cancellations, language groups, and pre-trip preparation answered." },
     ],
-    links: hreflangLinks("/faq", "en"),
+    links: hreflangLinks("/faq", "zh"),
   }),
   component: FaqPage,
 });

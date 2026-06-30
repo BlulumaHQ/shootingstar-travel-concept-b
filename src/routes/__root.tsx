@@ -113,8 +113,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  // Default to zh-Hant (the site's primary locale). The client effect in
+  // RootComponent updates this on navigation between /en, /ko and bare URLs.
   return (
-    <html lang="en">
+    <html lang="zh-Hant">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -137,6 +139,14 @@ function RootComponent() {
   const { pathname } = useLocation();
   const locale = localeFromPath(pathname);
 
+  // Keep <html lang> in sync with the current route's locale on the client.
+  if (typeof document !== "undefined") {
+    const target = locale === "zh" ? "zh-Hant" : locale === "ko" ? "ko" : "en";
+    if (document.documentElement.lang !== target) {
+      document.documentElement.lang = target;
+    }
+  }
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className={`locale-${locale}`} data-locale={locale}>
@@ -145,3 +155,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+

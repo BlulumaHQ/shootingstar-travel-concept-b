@@ -5,7 +5,7 @@ import tourBanff from "@/assets/tour-banff.webp";
 import tourRockies from "@/assets/tour-rockies.webp";
 import purpleLogo from "@/assets/shootingstar-purple-logo.png.asset.json";
 import { CompassMark, StarMark, MountainMark, PinMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
-import { useLocale, type Locale } from "@/i18n/locale";
+import { useLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -16,12 +16,8 @@ export const Route = createFileRoute("/about")({
       { property: "og:description", content: "Small-group journeys across Canada and the Western United States — rare, memorable, and made to be kept." },
       { property: "og:image", content: journal },
     ],
-    links: [
-      { rel: "canonical", href: "https://www.shootingstartravel.ca/about" },
-      { rel: "alternate", hrefLang: "en", href: "https://www.shootingstartravel.ca/about" },
-      { rel: "alternate", hrefLang: "zh-Hant", href: "https://www.shootingstartravel.ca/zh/about" },
-      { rel: "alternate", hrefLang: "ko", href: "https://www.shootingstartravel.ca/ko/about" },
-      { rel: "alternate", hrefLang: "x-default", href: "https://www.shootingstartravel.ca/about" },
+        links: [
+      ...hreflangLinks("/about", "zh"),
     ],
   }),
   component: AboutPage,
