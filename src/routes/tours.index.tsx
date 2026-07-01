@@ -71,6 +71,13 @@ const USA_ORDER = [
   "los-angeles-4-day",
 ];
 
+type PrivatePack = {
+  heading: string;
+  body: string;
+  items: string[];
+  button: string;
+};
+
 type Pack = {
   eyebrow: string;
   heading: string;
@@ -82,7 +89,9 @@ type Pack = {
   usHeading: string;
   usBody: string;
   viewTour: string;
+  private: PrivatePack;
 };
+
 
 const PACKS: Record<Locale, Pack> = {
   en: {
@@ -96,6 +105,16 @@ const PACKS: Record<Locale, Pack> = {
     usHeading: "American Journeys",
     usBody: "Seattle mornings, Pacific coastlines, neon canyons — boutique road trips across the western United States.",
     viewTour: "View tour →",
+    private: {
+      heading: "A Journey Just for Us | Private Rocky Experiences",
+      body: "Looking for a unique, personalized Rocky Mountains experience — or a tailored hiking trip with your friends, partner, or family? Contact us to arrange a private tour.",
+      items: [
+        "Half-Day Tour (6 hrs) — $1,400",
+        "Full-Day Tour (10 hrs) — $1,750",
+        "Extra hour — $150",
+      ],
+      button: "Contact Us",
+    },
   },
   zh: {
     eyebrow: "Featured Journeys",
@@ -108,6 +127,16 @@ const PACKS: Record<Locale, Pack> = {
     usHeading: "美國行程",
     usBody: "西雅圖的清晨、太平洋的海岸、霓虹與峽谷 —— 一段段橫越美國西部的精品公路旅行。",
     viewTour: "查看 →",
+    private: {
+      heading: "專屬於我們的旅程 | 洛磯山私人包團體驗",
+      body: "想要獨一無二、量身打造的洛磯山之旅，或與朋友、伴侶、家人一同規劃的專屬健行行程嗎？歡迎聯繫我們安排私人包團。",
+      items: [
+        "半日遊（6 小時）— $1,400",
+        "全日遊（10 小時）— $1,750",
+        "每加一小時 — $150",
+      ],
+      button: "聯繫我們",
+    },
   },
   ko: {
     eyebrow: "Featured Journeys",
@@ -120,8 +149,19 @@ const PACKS: Record<Locale, Pack> = {
     usHeading: "미국 여정",
     usBody: "시애틀의 아침, 태평양의 해안, 네온과 캐니언 — 미국 서부를 가로지르는 부티크 로드트립.",
     viewTour: "보기 →",
+    private: {
+      heading: "우리만을 위한 여정 | 프라이빗 로키 익스피리언스",
+      body: "특별하고 나만을 위한 로키산맥 여행, 또는 친구·연인·가족과 함께하는 맞춤 하이킹 여행을 찾고 계신가요? 프라이빗 투어를 원하시면 저희에게 문의해 주세요.",
+      items: [
+        "반일 투어 (6시간) — $1,400",
+        "종일 투어 (10시간) — $1,750",
+        "시간 추가 — $150",
+      ],
+      button: "문의하기",
+    },
   },
 };
+
 
 function orderBySlugList(toursList: typeof tours, slugOrder: string[]) {
   const bySlug = new Map(toursList.map((t) => [t.slug, t]));
@@ -204,7 +244,34 @@ export function ToursIndexPage() {
       </section>
 
       {canada.length > 0 && renderCategory(p.canadaEyebrow, p.canadaHeading, p.canadaBody, canada)}
+
+      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
+        <div className="bg-card rounded-[6px] p-8 md:p-12 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)]">
+          <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold tracking-[-0.015em] leading-snug">
+            {p.private.heading}
+          </h2>
+          <p className="mt-5 text-ink/65 max-w-2xl leading-[1.95] text-[14.5px]">{p.private.body}</p>
+          <ul className="mt-6 space-y-2 text-[14px] text-ink/75">
+            {p.private.items.map((it) => (
+              <li key={it} className="flex items-start gap-2">
+                <span className="mt-2 h-1 w-1 rounded-full bg-primary/60 shrink-0" />
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-8">
+            <Link
+              to={withLocale("/contact", locale) as never}
+              className="inline-flex items-center gap-2 rounded-[6px] bg-primary px-6 py-3 text-[13px] tracking-[0.15em] uppercase text-primary-foreground hover:bg-primary/90 transition"
+            >
+              {p.private.button}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {usa.length > 0 && renderCategory(p.usEyebrow, p.usHeading, p.usBody, usa)}
+
 
       <div className="pb-16" />
     </SiteLayout>
