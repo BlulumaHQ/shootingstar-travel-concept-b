@@ -6,7 +6,7 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { formatPrice } from "@/i18n/tourText";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
-import privateImg from "@/assets/tour-private.webp";
+import privateImg from "@/assets/rocky-private-tour.png.asset.json";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
