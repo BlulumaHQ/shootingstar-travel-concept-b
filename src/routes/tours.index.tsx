@@ -71,6 +71,13 @@ const USA_ORDER = [
   "los-angeles-4-day",
 ];
 
+type PrivatePack = {
+  heading: string;
+  body: string;
+  items: string[];
+  button: string;
+};
+
 type Pack = {
   eyebrow: string;
   heading: string;
@@ -82,7 +89,9 @@ type Pack = {
   usHeading: string;
   usBody: string;
   viewTour: string;
+  private: PrivatePack;
 };
+
 
 const PACKS: Record<Locale, Pack> = {
   en: {
