@@ -6,6 +6,7 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { formatPrice } from "@/i18n/tourText";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
+import privateImg from "@/assets/tour-private.webp";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
@@ -246,26 +247,36 @@ export function ToursIndexPage() {
       {canada.length > 0 && renderCategory(p.canadaEyebrow, p.canadaHeading, p.canadaBody, canada)}
 
       <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
-        <div className="bg-card rounded-[6px] p-8 md:p-12 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)]">
-          <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold tracking-[-0.015em] leading-snug">
-            {p.private.heading}
-          </h2>
-          <p className="mt-5 text-ink/65 max-w-2xl leading-[1.95] text-[14.5px]">{p.private.body}</p>
-          <ul className="mt-6 space-y-2 text-[14px] text-ink/75">
-            {p.private.items.map((it) => (
-              <li key={it} className="flex items-start gap-2">
-                <span className="mt-2 h-1 w-1 rounded-full bg-primary/60 shrink-0" />
-                <span>{it}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8">
-            <Link
-              to={withLocale("/contact", locale) as never}
-              className="inline-flex items-center gap-2 rounded-[6px] bg-primary px-6 py-3 text-[13px] tracking-[0.15em] uppercase text-primary-foreground hover:bg-primary/90 transition"
-            >
-              {p.private.button}
-            </Link>
+        <div className="bg-card rounded-[6px] overflow-hidden shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] flex flex-col md:flex-row">
+          <div className="md:w-[45%] aspect-[4/3] md:aspect-auto">
+            <img
+              src={privateImg}
+              alt={p.private.heading}
+              className="h-full w-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div className="p-8 md:p-10 md:w-[55%] flex flex-col justify-center">
+            <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold tracking-[-0.015em] leading-snug">
+              {p.private.heading}
+            </h2>
+            <p className="mt-5 text-ink/65 max-w-xl leading-[1.95] text-[14.5px]">{p.private.body}</p>
+            <ul className="mt-6 space-y-2 text-[14px] text-ink/75">
+              {p.private.items.map((it) => (
+                <li key={it} className="flex items-start gap-2">
+                  <span className="mt-2 h-1 w-1 rounded-full bg-primary/60 shrink-0" />
+                  <span>{it}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <Link
+                to={withLocale("/contact", locale) as never}
+                className="inline-flex items-center gap-2 rounded-[6px] bg-primary px-6 py-3 text-[13px] tracking-[0.15em] uppercase text-primary-foreground hover:bg-primary/90 transition"
+              >
+                {p.private.button}
+              </Link>
+            </div>
           </div>
         </div>
       </section>
