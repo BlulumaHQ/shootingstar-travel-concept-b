@@ -7,7 +7,7 @@ import { formatPrice } from "@/i18n/tourText";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 
-const privateImg = "/rocky-private-tour.png";
+const privateImg = "/rocky-private-tour.webp";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
