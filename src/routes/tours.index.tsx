@@ -6,7 +6,7 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { formatPrice } from "@/i18n/tourText";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
-import privateImg from "@/assets/tour-private.webp";
+import privateImg from "@/assets/rocky-private-tour.png.asset.json";
 
 export const Route = createFileRoute("/tours/")({
   head: () => ({
@@ -250,7 +250,7 @@ export function ToursIndexPage() {
         <div className="bg-card rounded-[6px] overflow-hidden shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] flex flex-col md:flex-row">
           <div className="md:w-[45%] aspect-[4/3] md:aspect-auto">
             <img
-              src={privateImg}
+              src={privateImg.url}
               alt={p.private.heading}
               className="h-full w-full object-cover"
               loading="lazy"
