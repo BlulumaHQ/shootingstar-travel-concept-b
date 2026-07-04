@@ -265,6 +265,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
     requestBooking: "Book Now →",
     disclaimer: "* Confirms your booking instantly. Payment will be processed securely.",
+    hostedNote: "* You'll be redirected to our secure Rezdy booking page to select dates and complete payment.",
     sending: "— processing booking", submitting: "Confirming your booking…",
     received: "— booking confirmed", thanks: "Thank you! ✦",
     thanksBody: "Your booking has been confirmed — a confirmation email is on its way.",
