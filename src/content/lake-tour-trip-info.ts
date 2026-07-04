@@ -69,10 +69,11 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
         linkLabel: "parkscanadashop.ca",
         href: DISCOVERY_PASS_URL,
       },
+      " (June 19 – September 7, 2026: admission is free under the Canada Strong Pass — no pass needed for departures in this period.)"
     ],
     notesTitle: "Important Travel Notes",
     notes: [
-      "Parks Canada Discovery Pass: Banff National Park entry is required and NOT included; each guest buys their own in advance at parkscanadashop.ca and brings it (printed or digital).",
+      "Parks Canada Discovery Pass: Banff National Park entry is required and NOT included; each guest buys their own in advance at parkscanadashop.ca and brings it (printed or digital). (June 19 – September 7, 2026: admission is free under the Canada Strong Pass — no pass needed for departures in this period.)",
       "Moraine Lake access depends on seasonal road rules, park regulations, weather and operations; we follow the available access schedule as closely as possible.",
       "Banff pickup point: Mount Royal Hotel parking lot.",
       "This is a lake-access & sightseeing tour with free time, not a guided hike; any walking is self-guided and optional — please return to the pickup point on time.",
@@ -109,10 +110,11 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
         linkLabel: "parkscanadashop.ca",
         href: DISCOVERY_PASS_URL,
       },
+      "（2026 年 6 月 19 日至 9 月 7 日期間依 Canada Strong Pass 政策免費入園，此期間出發無需購買。）"
     ],
     notesTitle: "重要旅行須知",
     notes: [
-      "加拿大國家公園 Discovery Pass：進入班夫國家公園必備，本行程不含。請每位旅客於出發前自行於 parkscanadashop.ca 購買，並於當日攜帶（紙本或電子皆可）。",
+      "加拿大國家公園 Discovery Pass：進入班夫國家公園必備，本行程不含。請每位旅客於出發前自行於 parkscanadashop.ca 購買，並於當日攜帶（紙本或電子皆可）。（2026 年 6 月 19 日至 9 月 7 日期間依 Canada Strong Pass 政策免費入園，此期間出發無需購買。）",
       "夢蓮湖（Moraine Lake）進場受季節性道路規定、公園管理、天氣與營運狀況影響；我們會依當日可進場時段盡量安排。",
       "班夫上車地點：Mount Royal Hotel 停車場。",
       "本行程為湖區進場 & 觀光行程並含自由時間，並非導覽健行；任何步行皆為自助、自由選擇，請務必準時回到上車地點。",
@@ -149,10 +151,11 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
         linkLabel: "parkscanadashop.ca",
         href: DISCOVERY_PASS_URL,
       },
+      " (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)"
     ],
     notesTitle: "여행 시 꼭 확인하세요",
     notes: [
-      "Parks Canada Discovery Pass: 밴프 국립공원 입장에 반드시 필요하며 투어 요금에 포함되지 않습니다. 각 게스트가 사전에 parkscanadashop.ca에서 직접 구매하여 당일 지참(인쇄 또는 모바일)해 주세요.",
+      "Parks Canada Discovery Pass: 밴프 국립공원 입장에 반드시 필요하며 투어 요금에 포함되지 않습니다. 각 게스트가 사전에 parkscanadashop.ca에서 직접 구매하여 당일 지참(인쇄 또는 모바일)해 주세요. (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)"
       "모레인 호수 진입은 시즌별 도로 규정, 공원 관리, 날씨 및 운영 상황에 따라 달라질 수 있으며, 가능한 진입 일정에 맞춰 운영합니다.",
       "밴프 픽업 장소: Mount Royal Hotel 주차장.",
       "본 투어는 자유 시간이 포함된 호수 진입·관광 투어이며 가이드 하이킹이 아닙니다. 모든 도보 이동은 자율 선택이므로, 픽업 장소로 정시 복귀해 주세요.",

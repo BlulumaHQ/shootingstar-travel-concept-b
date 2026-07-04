@@ -392,13 +392,13 @@ const EN: IcefieldsContent = {
     includedTitle: "Included",
     notIncludedTitle: "Not Included",
     included: ["Comfortable transportation","Scheduled pickup and drop-off based on selected route","Scenic highway transfer","Planned sightseeing stops for sightseeing routes","Route coordination between Banff, Jasper, Hinton, Icefields Parkway, Medicine Lake, and Maligne Lake","Booking support from Shooting Star Travel"],
-    notIncluded: ["5% GST","Meals and drinks","Personal expenses","Guide gratuity","Parks Canada Discovery Pass","Optional attraction tickets unless selected as add-ons","Travel insurance","Hotel accommodation"],
+    notIncluded: ["5% GST","Meals and drinks","Personal expenses","Guide gratuity","Parks Canada Discovery Pass (June 19 – September 7, 2026: admission is free under the Canada Strong Pass — no pass needed for departures in this period.)","Optional attraction tickets unless selected as add-ons","Travel insurance","Hotel accommodation"],
   },
   faq: {
     eyebrow: "— Travel notes",
     heading: "Important Travel Notes",
     items: [
-      { q: "Do I need a Parks Canada Discovery Pass?", a: "Yes. Guests entering Banff or Jasper National Park may need a valid Parks Canada pass. The pass is not included in the listed tour fare unless specifically stated." },
+      { q: "Do I need a Parks Canada Discovery Pass?", a: "Yes. Guests entering Banff or Jasper National Park may need a valid Parks Canada pass. The pass is not included in the listed tour fare unless specifically stated. (June 19 – September 7, 2026: admission is free under the Canada Strong Pass — no pass needed for departures in this period.)" },
       { q: "Are Columbia Icefield and Maligne Lake Cruise tickets included?", a: "No. They are optional add-ons. Columbia Icefield Ice Explorer and Maligne Lake Cruise tickets are only included if selected during booking and confirmed by Shooting Star Travel." },
       { q: "Can I book only one segment on Tuesday or Saturday?", a: "Yes. Tuesday and Saturday routes are split into independent segments. You can book one segment only or combine compatible segments for a full-day travel plan." },
       { q: "Why do Friday, Saturday, and Sunday cost more?", a: "A $20 per person weekend surcharge is automatically added to base fares on Friday, Saturday, and Sunday. The surcharge applies to the selected route or segment base fare only." },
@@ -414,7 +414,7 @@ const EN: IcefieldsContent = {
       { t: "Booking & Payment", d: "Final seat availability, route availability, attraction ticket availability, and payment instructions will be confirmed by Shooting Star Travel." },
       { t: "Cancellation", d: "Cancellation and refund terms are subject to Shooting Star Travel's official booking policy. Guests should confirm all details before payment." },
       { t: "Itinerary Adjustment", d: "Shooting Star Travel may adjust pickup time, routing, stop order, or sightseeing time due to weather, road conditions, attraction schedules, traffic, or safety concerns." },
-      { t: "Travel Responsibility", d: "Guests are responsible for arriving at pickup points on time, bringing appropriate clothing, purchasing required park passes, and carrying personal travel insurance." },
+      { t: "Travel Responsibility", d: "Guests are responsible for arriving at pickup points on time, bringing appropriate clothing, purchasing required park passes, and carrying personal travel insurance. (June 19 – September 7, 2026: admission is free under the Canada Strong Pass — no pass needed for departures in this period.)" },
     ],
   },
   finalCta: {
@@ -653,13 +653,13 @@ const ZH: IcefieldsContent = {
     includedTitle: "費用包含",
     notIncludedTitle: "費用不包含",
     included: ["舒適的交通車輛","依路線安排的上下車服務","沿途景觀公路交通","觀光路線的計畫停點","串聯班夫、賈斯伯、Hinton、冰原大道、藥湖與瑪琳湖的路線安排","流星雨假期的訂單支援"],
-    notIncluded: ["5% GST","餐飲與飲料","個人消費","司導小費","加拿大國家公園通行證","未加購的景點門票","旅遊保險","住宿"],
+    notIncluded: ["5% GST","餐飲與飲料","個人消費","司導小費","加拿大國家公園通行證（2026 年 6 月 19 日至 9 月 7 日期間依 Canada Strong Pass 政策免費入園，此期間出發無需購買。）","未加購的景點門票","旅遊保險","住宿"],
   },
   faq: {
     eyebrow: "— 旅遊提醒",
     heading: "重要旅遊資訊",
     items: [
-      { q: "需要加拿大國家公園通行證嗎？", a: "需要。進入班夫或賈斯伯國家公園的旅客可能需要有效的 Parks Canada 通行證,除非另有說明,通行證並不包含於團費內。" },
+      { q: "需要加拿大國家公園通行證嗎？", a: "需要。進入班夫或賈斯伯國家公園的旅客可能需要有效的 Parks Canada 通行證,除非另有說明,通行證並不包含於團費內。（2026 年 6 月 19 日至 9 月 7 日期間依 Canada Strong Pass 政策免費入園，此期間出發無需購買。）" },
       { q: "哥倫比亞冰原與瑪琳湖遊船門票包含嗎？", a: "不包含。皆為加購項目,僅在預訂時選擇且由流星雨假期確認後才會包含。" },
       { q: "週二或週六可以只訂單段嗎？", a: "可以。週二與週六的路線為獨立分段,可單段預訂,也可組合為全日行程。" },
       { q: "為什麼週五、週六、週日比較貴？", a: "週末基本票價將自動加收每人 $20,僅適用於該路線或分段的基本票價。" },
@@ -675,7 +675,7 @@ const ZH: IcefieldsContent = {
       { t: "預訂與付款", d: "最終座位、路線、門票供應與付款方式皆以流星雨假期確認為準。" },
       { t: "取消", d: "取消與退款依流星雨假期官方政策辦理,旅客付款前請確認所有細節。" },
       { t: "行程調整", d: "因天氣、路況、景點時刻、交通或安全考量,流星雨假期得調整接送時間、路線、停點順序與觀光時間。" },
-      { t: "旅客責任", d: "旅客需準時抵達上車地點、攜帶合適衣物、自行購買國家公園通行證,並建議自備個人旅遊保險。" },
+      { t: "旅客責任", d: "旅客需準時抵達上車地點、攜帶合適衣物、自行購買國家公園通行證,並建議自備個人旅遊保險。（2026 年 6 月 19 日至 9 月 7 日期間依 Canada Strong Pass 政策免費入園，此期間出發無需購買。）" },
     ],
   },
   finalCta: {
@@ -911,13 +911,13 @@ const KO: IcefieldsContent = {
     includedTitle: "포함",
     notIncludedTitle: "불포함",
     included: ["편안한 교통 수단","선택한 노선에 따른 예정된 픽업 및 하차","경치 좋은 고속도로 이동","관광 노선의 계획된 정차","밴프, 재스퍼, 힌튼, 아이스필드 파크웨이, 메디슨 호수, 말린 호수를 잇는 노선 운영","Shooting Star Travel 예약 지원"],
-    notIncluded: ["5% GST","식음료","개인 비용","가이드 팁","Parks Canada Discovery Pass","옵션으로 추가하지 않은 입장권","여행자 보험","호텔 숙박"],
+    notIncluded: ["5% GST","식음료","개인 비용","가이드 팁","Parks Canada Discovery Pass (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)","옵션으로 추가하지 않은 입장권","여행자 보험","호텔 숙박"],
   },
   faq: {
     eyebrow: "— 여행 안내",
     heading: "중요 여행 안내",
     items: [
-      { q: "Parks Canada Discovery Pass가 필요한가요?", a: "네. 밴프 또는 재스퍼 국립공원에 진입하는 여행자는 유효한 Parks Canada 패스가 필요할 수 있습니다. 별도 명시가 없는 한 요금에 포함되지 않습니다." },
+      { q: "Parks Canada Discovery Pass가 필요한가요?", a: "네. 밴프 또는 재스퍼 국립공원에 진입하는 여행자는 유효한 Parks Canada 패스가 필요할 수 있습니다. 별도 명시가 없는 한 요금에 포함되지 않습니다. (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)" },
       { q: "컬럼비아 아이스필드와 말린 호수 크루즈 티켓이 포함되나요?", a: "아니요. 옵션 항목입니다. 예약 시 선택하고 Shooting Star Travel이 확정한 경우에만 포함됩니다." },
       { q: "화요일이나 토요일에 한 구간만 예약할 수 있나요?", a: "네. 화요일과 토요일 노선은 독립 구간이므로 단일 구간 예약이나 호환되는 구간을 조합한 전일 일정이 가능합니다." },
       { q: "금/토/일은 왜 더 비싼가요?", a: "금/토/일에는 기본 요금에 1인당 $20의 주말 추가요금이 자동 적용됩니다. 해당 노선/구간의 기본 요금에만 적용됩니다." },
@@ -933,7 +933,7 @@ const KO: IcefieldsContent = {
       { t: "예약 및 결제", d: "최종 좌석, 노선, 입장권 재고, 결제 안내는 Shooting Star Travel이 확정합니다." },
       { t: "취소", d: "취소 및 환불은 Shooting Star Travel 공식 예약 정책을 따릅니다. 결제 전 모든 사항을 확인해 주세요." },
       { t: "일정 조정", d: "기상, 도로 상태, 관광지 일정, 교통, 안전상의 이유로 픽업 시간, 노선, 정차 순서, 관광 시간이 조정될 수 있습니다." },
-      { t: "여행자 책임", d: "여행자는 픽업 장소에 정시 도착, 적절한 복장 준비, 필요한 공원 패스 구매, 개인 여행자 보험 가입에 대한 책임이 있습니다." },
+      { t: "여행자 책임", d: "여행자는 픽업 장소에 정시 도착, 적절한 복장 준비, 필요한 공원 패스 구매, 개인 여행자 보험 가입에 대한 책임이 있습니다. (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)" },
     ],
   },
   finalCta: {
