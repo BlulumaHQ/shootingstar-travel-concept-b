@@ -329,6 +329,12 @@ const BOOKING_I18N: Record<Locale, {
     received: "— 예약 완료", thanks: "감사합니다! ✦",
     thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
     another: "다른 예약 만들기",
+    groupHint: "인원 구성은 하나만 선택하세요. 가격은 객실 공유 인원 기준입니다.",
+    selectGroup: "그룹 인원을 선택해 주세요",
+    wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
+    perPerson: (price) => `1인당 $${price} CAD`,
+    groupOf: (n) => `${n}인`,
+    groupRange: (min, max) => `${min}–${max}인`,
   },
 };
 
