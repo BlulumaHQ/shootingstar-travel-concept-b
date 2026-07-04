@@ -155,7 +155,7 @@ export const LAKE_TOUR_TRIP_INFO: Record<Locale, LakeTourTripInfoPack> = {
     ],
     notesTitle: "여행 시 꼭 확인하세요",
     notes: [
-      "Parks Canada Discovery Pass: 밴프 국립공원 입장에 반드시 필요하며 투어 요금에 포함되지 않습니다. 각 게스트가 사전에 parkscanadashop.ca에서 직접 구매하여 당일 지참(인쇄 또는 모바일)해 주세요. (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)"
+      "Parks Canada Discovery Pass: 밴프 국립공원 입장에 반드시 필요하며 투어 요금에 포함되지 않습니다. 각 게스트가 사전에 parkscanadashop.ca에서 직접 구매하여 당일 지참(인쇄 또는 모바일)해 주세요. (2026년 6월 19일~9월 7일은 Canada Strong Pass 정책에 따라 입장 무료 — 이 기간 출발 투어는 패스가 필요 없습니다.)",
       "모레인 호수 진입은 시즌별 도로 규정, 공원 관리, 날씨 및 운영 상황에 따라 달라질 수 있으며, 가능한 진입 일정에 맞춰 운영합니다.",
       "밴프 픽업 장소: Mount Royal Hotel 주차장.",
       "본 투어는 자유 시간이 포함된 호수 진입·관광 투어이며 가이드 하이킹이 아닙니다. 모든 도보 이동은 자율 선택이므로, 픽업 장소로 정시 복귀해 주세요.",
