@@ -52,6 +52,8 @@ export function Footer() {
 
   const popularToursByLocale = {
     en: [
+      { l: "Banff Tours", to: lp("/banff-tours") },
+      { l: "Jasper Tours", to: lp("/jasper-tours") },
       { l: "Western US 8-Day Tour", to: lp("/tours/western-usa-8-day") },
       { l: "Rocky Mountains 3-Day Tour", to: lp("/tours/rockies-3-day") },
       { l: "Las Vegas & Canyons 4-Day Tour", to: lp("/tours/vegas-canyon-4-day") },
@@ -61,6 +63,8 @@ export function Footer() {
       { l: "Icefields Parkway & Jasper Shuttles", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
     zh: [
+      { l: "班夫行程", to: lp("/banff-tours") },
+      { l: "賈斯珀行程", to: lp("/jasper-tours") },
       { l: "美西八日遊", to: lp("/tours/western-usa-8-day") },
       { l: "加拿大洛磯山三日遊", to: lp("/tours/rockies-3-day") },
       { l: "拉斯維加斯與大峽谷四日遊", to: lp("/tours/vegas-canyon-4-day") },
@@ -70,6 +74,8 @@ export function Footer() {
       { l: "冰原大道與賈斯伯接駁", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
     ko: [
+      { l: "밴프 투어", to: lp("/banff-tours") },
+      { l: "재스퍼 투어", to: lp("/jasper-tours") },
       { l: "미국 서부 8일 투어", to: lp("/tours/western-usa-8-day") },
       { l: "캐나다 록키 3일 투어", to: lp("/tours/rockies-3-day") },
       { l: "라스베이거스 & 캐니언 4일 투어", to: lp("/tours/vegas-canyon-4-day") },
