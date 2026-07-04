@@ -363,6 +363,24 @@ function translatePriceLabel(label: string, locale: Locale): string {
   return map[low] ?? label;
 }
 
+function isGroupBand(p: RezdyPriceOption): boolean {
+  return (
+    typeof p.maxQuantity === "number" &&
+    p.maxQuantity > 0 &&
+    (p.minQuantity ?? 0) >= 1
+  );
+}
+
+function formatGroupBandLabel(
+  min: number,
+  max: number,
+  locale: Locale,
+  B: (typeof BOOKING_I18N)[Locale],
+): string {
+  return min === max ? B.groupOf(min) : B.groupRange(min, max);
+}
+
+
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
