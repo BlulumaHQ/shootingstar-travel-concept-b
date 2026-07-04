@@ -296,6 +296,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
     requestBooking: "確認預訂 →",
     disclaimer: "* 將立即完成預訂，並以安全方式處理付款。",
+    hostedNote: "* 將前往我們的 Rezdy 安全預訂頁面，選擇日期並完成付款。",
     sending: "— 處理中", submitting: "正在確認您的預訂…",
     received: "— 預訂成功", thanks: "感謝您！✦",
     thanksBody: "您的預訂已成功，確認信件即將寄出。",
