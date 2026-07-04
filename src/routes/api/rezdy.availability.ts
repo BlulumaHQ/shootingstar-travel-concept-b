@@ -4,6 +4,9 @@ type RezdyPriceOption = {
   label?: string;
   price?: number;
   seatsUsed?: number;
+  minQuantity?: number;
+  maxQuantity?: number;
+  priceGroupType?: string;
 };
 
 type RezdySession = {
@@ -50,9 +53,15 @@ export const Route = createFileRoute("/api/rezdy/availability")({
           rezdyUrl.searchParams.set("startTimeLocal", `${fmt(start)} 00:00:00`);
           rezdyUrl.searchParams.set("endTimeLocal", `${fmt(end)} 23:59:59`);
 
-          const res = await fetch(rezdyUrl.toString(), {
-            headers: { Accept: "application/json" },
-          });
+          const productUrl = new URL(
+            `https://api.rezdy.com/v1/products/${encodeURIComponent(productCode)}`,
+          );
+          productUrl.searchParams.set("apiKey", apiKey);
+
+          const [res, productRes] = await Promise.all([
+            fetch(rezdyUrl.toString(), { headers: { Accept: "application/json" } }),
+            fetch(productUrl.toString(), { headers: { Accept: "application/json" } }),
+          ]);
 
           if (!res.ok) {
             const text = await res.text().catch(() => "");
@@ -82,6 +91,28 @@ export const Route = createFileRoute("/api/rezdy/availability")({
             );
           }
 
+          // Build product-level priceOptions map keyed by label (case-insensitive)
+          // as a fallback for min/max/priceGroupType when a session omits them.
+          const productLevelByLabel = new Map<
+            string,
+            { minQuantity?: number; maxQuantity?: number; priceGroupType?: string }
+          >();
+          if (productRes.ok) {
+            const productJson = (await productRes.json().catch(() => ({}))) as {
+              product?: { priceOptions?: RezdyPriceOption[] };
+            };
+            const opts = productJson.product?.priceOptions ?? [];
+            for (const p of opts) {
+              const key = (p.label ?? "").trim().toLowerCase();
+              if (!key) continue;
+              productLevelByLabel.set(key, {
+                minQuantity: typeof p.minQuantity === "number" ? p.minQuantity : undefined,
+                maxQuantity: typeof p.maxQuantity === "number" ? p.maxQuantity : undefined,
+                priceGroupType: p.priceGroupType,
+              });
+            }
+          }
+
           const sessions = (data.sessions ?? []).map((s) => ({
             id: s.id != null ? String(s.id) : null,
             startTimeLocal: s.startTimeLocal ?? s.startTime ?? null,
@@ -89,11 +120,20 @@ export const Route = createFileRoute("/api/rezdy/availability")({
             allDay: Boolean(s.allDay),
             seatsAvailable: typeof s.seatsAvailable === "number" ? s.seatsAvailable : null,
             priceOptions: Array.isArray(s.priceOptions)
-              ? s.priceOptions.map((p) => ({
-                  label: p.label ?? "Adult",
-                  price: typeof p.price === "number" ? p.price : 0,
-                  seatsUsed: typeof p.seatsUsed === "number" ? p.seatsUsed : 1,
-                }))
+              ? s.priceOptions.map((p) => {
+                  const fallback =
+                    productLevelByLabel.get((p.label ?? "").trim().toLowerCase()) ?? {};
+                  return {
+                    label: p.label ?? "Adult",
+                    price: typeof p.price === "number" ? p.price : 0,
+                    seatsUsed: typeof p.seatsUsed === "number" ? p.seatsUsed : 1,
+                    minQuantity:
+                      typeof p.minQuantity === "number" ? p.minQuantity : fallback.minQuantity,
+                    maxQuantity:
+                      typeof p.maxQuantity === "number" ? p.maxQuantity : fallback.maxQuantity,
+                    priceGroupType: p.priceGroupType ?? fallback.priceGroupType,
+                  };
+                })
               : [],
           }));
 
