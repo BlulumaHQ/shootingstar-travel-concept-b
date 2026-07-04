@@ -6,7 +6,7 @@ const BASE_URL = "https://www.shootingstartravel.ca";
 // "" = bare (zh, default), "/en" = English, "/ko" = Korean.
 // /zh URLs are intentionally omitted (they're a legacy alias of bare).
 const LOCALES = ["", "/en", "/ko"] as const;
-const PAGES = ["/", "/about", "/tours", "/reviews", "/blog", "/faq", "/contact", "/destinations", "/privacy", "/terms"];
+const PAGES = ["/", "/about", "/tours", "/reviews", "/blog", "/faq", "/contact", "/destinations", "/privacy", "/terms", "/banff-tours", "/jasper-tours", "/rocky-mountain-lake-tours", "/icefields-parkway-jasper-banff-shuttle-tours"];
 
 function hreflangFor(loc: string): "zh-Hant" | "en" | "ko" {
   if (loc === "/en") return "en";
