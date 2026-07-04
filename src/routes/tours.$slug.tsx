@@ -273,8 +273,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "Please select your group size",
     wrongGroup: "Please choose the correct group size for your party",
     perPerson: (price) => `$${price} CAD per person`,
-    groupOf: (n) => `Group of ${n}`,
-    groupRange: (min, max) => `Group size ${min}–${max}`,
   },
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
