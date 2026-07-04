@@ -172,10 +172,37 @@ function orderBySlugList(toursList: typeof tours, slugOrder: string[]) {
   return slugOrder.map((s) => bySlug.get(s)).filter(Boolean) as typeof tours;
 }
 
+const REGION_TABS: { value: "all" | Region; key: "nav.toursAll" | "nav.toursCanada" | "nav.toursBanff" | "nav.toursJasper" | "nav.toursUsa" }[] = [
+  { value: "all", key: "nav.toursAll" },
+  { value: "canada", key: "nav.toursCanada" },
+  { value: "banff", key: "nav.toursBanff" },
+  { value: "jasper", key: "nav.toursJasper" },
+  { value: "usa", key: "nav.toursUsa" },
+];
+
+function isRegion(v: unknown): v is Region {
+  return v === "canada" || v === "banff" || v === "jasper" || v === "usa";
+}
+
 export function ToursIndexPage() {
   const locale = useLocale();
   const tours = useTours();
+  const t = useT();
   const p = PACKS[locale];
+  const search = useSearch({ strict: false }) as { region?: string };
+  const navigate = useNavigate();
+  const activeRegion: "all" | Region = isRegion(search?.region) ? search.region : "all";
+
+  const setRegion = (r: "all" | Region) => {
+    navigate({
+      to: ".",
+      search: (prev: Record<string, unknown> | undefined) => ({
+        ...(prev ?? {}),
+        region: r === "all" ? undefined : r,
+      }),
+      replace: true,
+    } as never);
+  };
 
   const usa = orderBySlugList(
     tours.filter((t) => US_SLUGS.has(t.slug)),
@@ -185,6 +212,11 @@ export function ToursIndexPage() {
     tours.filter((t) => !US_SLUGS.has(t.slug)),
     CANADA_ORDER,
   );
+
+  const filteredList =
+    activeRegion === "all"
+      ? []
+      : tours.filter((tour) => getRegions(tour.slug).includes(activeRegion));
 
   const renderCard = (t: (typeof tours)[number]) => (
     <Link
@@ -247,45 +279,85 @@ export function ToursIndexPage() {
         <JourneyPath className="absolute -bottom-4 left-0 right-0 w-full h-24 text-primary/40 hidden md:block" variant="arc" />
       </section>
 
-      {canada.length > 0 && renderCategory(p.canadaEyebrow, p.canadaHeading, p.canadaBody, canada)}
-
-      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
-        <div className="bg-card rounded-[6px] overflow-hidden shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] flex flex-col md:flex-row">
-          <div className="md:w-[45%] aspect-[4/3] md:aspect-auto">
-            <img
-              src={privateImg}
-              alt={p.private.heading}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
-          <div className="p-8 md:p-10 md:w-[55%] flex flex-col justify-center">
-            <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold tracking-[-0.015em] leading-snug">
-              {p.private.heading}
-            </h2>
-            <p className="mt-5 text-ink/65 max-w-xl leading-[1.95] text-[14.5px]">{p.private.body}</p>
-            <ul className="mt-6 space-y-2 text-[14px] text-ink/75">
-              {p.private.items.map((it) => (
-                <li key={it} className="flex items-start gap-2">
-                  <span className="mt-2 h-1 w-1 rounded-full bg-primary/60 shrink-0" />
-                  <span>{it}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8">
-              <Link
-                to={withLocale("/contact", locale) as never}
-                className="inline-flex items-center gap-2 rounded-[6px] bg-primary px-6 py-3 text-[13px] tracking-[0.15em] uppercase text-primary-foreground hover:bg-primary/90 transition"
+      {/* Region filter tabs */}
+      <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-8 md:pb-10">
+        <p className="text-[10.5px] tracking-[0.4em] uppercase text-primary/75 mb-3">
+          {t("region.filterEyebrow")}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {REGION_TABS.map((tab) => {
+            const active = tab.value === activeRegion;
+            return (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => setRegion(tab.value)}
+                aria-pressed={active}
+                className={
+                  "rounded-full border px-4 py-2 text-[11.5px] tracking-[0.22em] uppercase transition-colors " +
+                  (active
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-cream text-ink/70 border-ink/15 hover:border-primary/40 hover:text-primary")
+                }
               >
-                {p.private.button}
-              </Link>
-            </div>
-          </div>
+                {t(tab.key)}
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      {usa.length > 0 && renderCategory(p.usEyebrow, p.usHeading, p.usBody, usa)}
+      {activeRegion === "all" ? (
+        <>
+          {canada.length > 0 && renderCategory(p.canadaEyebrow, p.canadaHeading, p.canadaBody, canada)}
 
+          <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
+            <div className="bg-card rounded-[6px] overflow-hidden shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] flex flex-col md:flex-row">
+              <div className="md:w-[45%] aspect-[4/3] md:aspect-auto">
+                <img
+                  src={privateImg}
+                  alt={p.private.heading}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-8 md:p-10 md:w-[55%] flex flex-col justify-center">
+                <h2 className="font-serif text-2xl md:text-[32px] text-ink font-semibold tracking-[-0.015em] leading-snug">
+                  {p.private.heading}
+                </h2>
+                <p className="mt-5 text-ink/65 max-w-xl leading-[1.95] text-[14.5px]">{p.private.body}</p>
+                <ul className="mt-6 space-y-2 text-[14px] text-ink/75">
+                  {p.private.items.map((it) => (
+                    <li key={it} className="flex items-start gap-2">
+                      <span className="mt-2 h-1 w-1 rounded-full bg-primary/60 shrink-0" />
+                      <span>{it}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <Link
+                    to={withLocale("/contact", locale) as never}
+                    className="inline-flex items-center gap-2 rounded-[6px] bg-primary px-6 py-3 text-[13px] tracking-[0.15em] uppercase text-primary-foreground hover:bg-primary/90 transition"
+                  >
+                    {p.private.button}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {usa.length > 0 && renderCategory(p.usEyebrow, p.usHeading, p.usBody, usa)}
+        </>
+      ) : (
+        <section className="mx-auto max-w-[1280px] px-6 md:px-12 pb-24 md:pb-28">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {filteredList.map(renderCard)}
+          </div>
+          {filteredList.length === 0 && (
+            <p className="text-ink/60 text-center py-16">—</p>
+          )}
+        </section>
+      )}
 
       <div className="pb-16" />
     </SiteLayout>
