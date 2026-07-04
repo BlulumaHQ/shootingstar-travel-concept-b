@@ -484,15 +484,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
   const selectedSession = sessions?.find((s) => s.id === selectedId) ?? null;
 
+  const allBands = Boolean(
+    selectedSession &&
+      selectedSession.priceOptions.length > 0 &&
+      selectedSession.priceOptions.every(isGroupBand),
+  );
+
   // Reset quantities when session changes
   useEffect(() => {
     if (!selectedSession) {
       setQuantities({});
       return;
     }
+    const isAllBands =
+      selectedSession.priceOptions.length > 0 &&
+      selectedSession.priceOptions.every(isGroupBand);
     const init: Record<string, number> = {};
     selectedSession.priceOptions.forEach((p, i) => {
-      init[`${p.label}__${i}`] = i === 0 ? 1 : 0;
+      // For group bands (mutually exclusive), start with nothing selected.
+      init[`${p.label}__${i}`] = isAllBands ? 0 : i === 0 ? 1 : 0;
     });
     setQuantities(init);
   }, [selectedId]);
