@@ -872,14 +872,17 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={continueDisabled}
-        className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {B.requestBooking}
-      </button>
-      <p className="text-[10.5px] text-ink/45 text-center">{B.disclaimer}</p>
+      {rezdyHostedUrl ? (
+        <a
+          href={rezdyHostedUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
+        >
+          {B.requestBooking}
+        </a>
+      ) : null}
+      <p className="text-[10.5px] text-ink/45 text-center">{B.hostedNote}</p>
     </form>
   );
 }
