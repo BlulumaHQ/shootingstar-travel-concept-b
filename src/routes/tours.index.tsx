@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
 import { useTours } from "@/data/useTours";
@@ -6,6 +6,8 @@ import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale
 import { formatPrice } from "@/i18n/tourText";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
+import { getRegions, type Region } from "@/data/tourRegions";
+import { useT } from "@/i18n/dict";
 
 const privateImg = "/rocky-private-tour.webp";
 
