@@ -595,8 +595,34 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   }
 
 
+  // Group-band validation: exactly one band > 0 and its quantity ∈ [min, max]
+  const bandEntries = selectedSession
+    ? selectedSession.priceOptions.map((p, i) => ({
+        p,
+        i,
+        key: `${p.label}__${i}`,
+        qty: quantities[`${p.label}__${i}`] ?? 0,
+      }))
+    : [];
+  const activeBand = allBands ? bandEntries.find((b) => b.qty > 0) ?? null : null;
+  const bandInvalid = Boolean(
+    allBands &&
+      activeBand &&
+      (activeBand.qty < (activeBand.p.minQuantity ?? 1) ||
+        activeBand.qty > (activeBand.p.maxQuantity ?? Infinity)),
+  );
+  const bandError = allBands
+    ? !activeBand
+      ? B.selectGroup
+      : bandInvalid
+      ? B.wrongGroup
+      : null
+    : null;
+
   const continueDisabled =
-    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation);
+    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation) || Boolean(bandError);
+
+
 
 
   return (
