@@ -195,6 +195,9 @@ type RezdyPriceOption = {
   label: string;
   price: number;
   seatsUsed: number;
+  minQuantity?: number;
+  maxQuantity?: number;
+  priceGroupType?: string;
 };
 
 type RezdySession = {
