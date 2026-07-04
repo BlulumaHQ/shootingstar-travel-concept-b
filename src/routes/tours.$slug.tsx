@@ -768,11 +768,25 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             {extras.map((x, i) => {
               const key = `${x.name}__${i}`;
               const q = extraQty[key] ?? 0;
+              const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
+                adult: { en: "Adult", zh: "成人", ko: "성인" },
+                child: { en: "Child", zh: "兒童", ko: "어린이" },
+                senior: { en: "Senior", zh: "長者", ko: "경로" },
+                youth: { en: "Youth", zh: "青少年", ko: "청소년" },
+                infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+              };
+              const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
+              const baseName = m ? m[1].trim() : x.name;
+              const variantKey = m ? m[2].toLowerCase() : null;
+              const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
+              const priceStr = `$${x.price.toFixed(2)} CAD`;
               return (
                 <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
-                  <div className="pr-3 min-w-0">
-                    <p className="text-[13.5px] text-ink font-medium truncate">{x.name}</p>
-                    <p className="text-[11.5px] text-ink/60">${x.price.toFixed(2)} CAD</p>
+                  <div className="pr-3 min-w-0 flex-1">
+                    <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
+                    <p className="text-[11.5px] text-ink/60">
+                      {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
+                    </p>
                   </div>
                   <div className="inline-flex items-center rounded-full border border-border shrink-0">
                     <button
