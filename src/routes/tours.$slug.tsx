@@ -243,7 +243,6 @@ const BOOKING_I18N: Record<Locale, {
   disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
-  groupOf: (n: number) => string; groupRange: (min: number, max: number) => string;
 }> = {
 
   en: {
@@ -274,8 +273,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "Please select your group size",
     wrongGroup: "Please choose the correct group size for your party",
     perPerson: (price) => `$${price} CAD per person`,
-    groupOf: (n) => `Group of ${n}`,
-    groupRange: (min, max) => `Group size ${min}–${max}`,
   },
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
@@ -305,8 +302,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "請選擇您的人數組合",
     wrongGroup: "請選擇符合您人數的正確組合",
     perPerson: (price) => `每人 $${price} CAD`,
-    groupOf: (n) => `${n}人成行`,
-    groupRange: (min, max) => `${min}–${max}人`,
   },
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
@@ -336,8 +331,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "그룹 인원을 선택해 주세요",
     wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
     perPerson: (price) => `1인당 $${price} CAD`,
-    groupOf: (n) => `${n}인`,
-    groupRange: (min, max) => `${min}–${max}인`,
   },
 };
 
@@ -374,13 +367,14 @@ function isGroupBand(p: RezdyPriceOption): boolean {
   );
 }
 
-function formatGroupBandLabel(
-  min: number,
-  max: number,
-  locale: Locale,
-  B: (typeof BOOKING_I18N)[Locale],
-): string {
-  return min === max ? B.groupOf(min) : B.groupRange(min, max);
+function formatGroupBandLabel(min: number, max: number, locale: Locale): string {
+  if (locale === "zh") {
+    return min === max ? `${min}人` : `${min}–${max}人`;
+  }
+  if (locale === "ko") {
+    return min === max ? `${min}인` : `${min}–${max}인`;
+  }
+  return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
 }
 
 
@@ -453,7 +447,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           setStatus("error");
           return;
         }
-        const usable = (json.sessions ?? []).filter((s) => s.id && s.startTimeLocal);
+        const usable = (json.sessions ?? [])
+          .filter((s) => s.id && s.startTimeLocal)
+          .map((s) => ({
+            ...s,
+            priceOptions: [...s.priceOptions].sort(
+              (a, b) => (a.minQuantity ?? 0) - (b.minQuantity ?? 0),
+            ),
+          }));
         setSessions(usable);
         setStatus("ready");
       })
@@ -667,7 +668,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
               const min = p.minQuantity ?? 1;
               const max = p.maxQuantity ?? Infinity;
               const displayLabel = band
-                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale, B)
+                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale)
                 : translatePriceLabel(p.label, locale);
               const priceStr = p.price.toFixed(2);
               const priceLine = band
