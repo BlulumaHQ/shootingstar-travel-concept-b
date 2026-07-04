@@ -1,7 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, withLocale, locales, localeLabels, type Locale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
@@ -63,20 +63,154 @@ function BrandWordmark({ locale, className = "" }: { locale: Locale; className?:
   );
 }
 
+function ChevronDown({ open = false, size = 12 }: { open?: boolean; size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      className={"transition-transform " + (open ? "rotate-180" : "")}
+      aria-hidden
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
+function ToursDropdown({
+  locale,
+  label,
+  active,
+}: {
+  locale: Locale;
+  label: string;
+  active: boolean;
+}) {
+  const t = useT();
+  const [open, setOpen] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const localized = (p: string) => withLocale(p, locale);
+
+  const items = [
+    { to: localized("/tours"), label: t("nav.toursAll") },
+    { to: localized("/banff-tours"), label: t("nav.toursBanff") },
+    { to: localized("/jasper-tours"), label: t("nav.toursJasper") },
+    { to: `${localized("/tours")}?region=canada`, label: t("nav.toursCanada") },
+    { to: `${localized("/tours")}?region=usa`, label: t("nav.toursUsa") },
+  ];
+
+  const openNow = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setOpen(true);
+  };
+  const closeSoon = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setOpen(false), 120);
+  };
+
+  useEffect(() => () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, []);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={openNow}
+      onMouseLeave={closeSoon}
+      onFocus={openNow}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) closeSoon();
+      }}
+    >
+      <div className="flex items-center gap-1.5">
+        <Link
+          to={localized("/tours") as never}
+          className={
+            "relative text-[14.5px] tracking-wide transition-colors py-2 " +
+            (active ? "text-primary" : "text-ink/75 hover:text-primary")
+          }
+          aria-haspopup="true"
+          aria-expanded={open}
+        >
+          <span className="relative">
+            {label}
+            {active && (
+              <span className="pointer-events-none absolute -bottom-0 left-1 right-1 h-[1.5px] bg-primary/70" />
+            )}
+          </span>
+        </Link>
+        <button
+          type="button"
+          aria-label="Tour regions"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className={
+            "p-1 -ml-0.5 transition-colors " +
+            (active ? "text-primary" : "text-ink/60 hover:text-primary")
+          }
+        >
+          <ChevronDown open={open} />
+        </button>
+      </div>
+
+      {open && (
+        <div
+          className="absolute left-0 top-full pt-3 z-50 min-w-[220px]"
+          role="menu"
+        >
+          <div className="rounded-[6px] border border-ink/10 bg-cream shadow-[0_10px_30px_-12px_rgba(70,80,75,0.28)] py-2">
+            {items.map((i) => (
+              <Link
+                key={i.to + i.label}
+                to={i.to as never}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block px-5 py-2.5 text-[13.5px] text-ink/80 tracking-wide hover:bg-primary/5 hover:text-primary transition-colors"
+              >
+                {i.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [mobileToursOpen, setMobileToursOpen] = useState(false);
+  const { pathname } = useLocation();
   const t = useT();
   const locale: Locale = useLocale();
   const localized = (path: string) => withLocale(path, locale);
 
-  const nav: { to: string; label: string }[] = [
-    { to: localized("/"), label: t("nav.home") },
-    { to: localized("/about"), label: t("nav.about") },
-    { to: localized("/tours"), label: t("nav.tours") },
-    { to: localized("/gallery"), label: t("nav.gallery") },
-    { to: localized("/reviews"), label: t("nav.reviews") },
-    { to: localized("/faq"), label: t("nav.faq") },
-    { to: localized("/contact"), label: t("nav.contact") },
+  const toursHref = localized("/tours");
+  const isToursActive =
+    pathname === toursHref ||
+    pathname.startsWith(toursHref + "/") ||
+    pathname === localized("/banff-tours") ||
+    pathname === localized("/jasper-tours");
+
+  const nav: { to: string; label: string; key: string }[] = [
+    { to: localized("/"), label: t("nav.home"), key: "home" },
+    { to: localized("/about"), label: t("nav.about"), key: "about" },
+    { to: toursHref, label: t("nav.tours"), key: "tours" },
+    { to: localized("/gallery"), label: t("nav.gallery"), key: "gallery" },
+    { to: localized("/reviews"), label: t("nav.reviews"), key: "reviews" },
+    { to: localized("/faq"), label: t("nav.faq"), key: "faq" },
+    { to: localized("/contact"), label: t("nav.contact"), key: "contact" },
+  ];
+
+  const mobileToursSub = [
+    { to: localized("/tours"), label: t("nav.toursAll") },
+    { to: localized("/banff-tours"), label: t("nav.toursBanff") },
+    { to: localized("/jasper-tours"), label: t("nav.toursJasper") },
+    { to: `${localized("/tours")}?region=canada`, label: t("nav.toursCanada") },
+    { to: `${localized("/tours")}?region=usa`, label: t("nav.toursUsa") },
   ];
 
   useEffect(() => {
@@ -111,17 +245,21 @@ export function Header() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-8">
-            {nav.map((n) => (
-              <Link
-                key={n.to + n.label}
-                to={n.to as never}
-                className="relative text-[14.5px] tracking-wide text-ink/75 hover:text-primary transition-colors py-2"
-                activeProps={{ className: "text-primary [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0 [&]:after:left-1 [&]:after:right-1 [&]:after:h-[1.5px] [&]:after:bg-primary/70" }}
-                activeOptions={{ exact: n.to === localized("/") }}
-              >
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n) =>
+              n.key === "tours" ? (
+                <ToursDropdown key="tours" locale={locale} label={n.label} active={isToursActive} />
+              ) : (
+                <Link
+                  key={n.to + n.label}
+                  to={n.to as never}
+                  className="relative text-[14.5px] tracking-wide text-ink/75 hover:text-primary transition-colors py-2"
+                  activeProps={{ className: "text-primary [&]:after:content-[''] [&]:after:absolute [&]:after:-bottom-0 [&]:after:left-1 [&]:after:right-1 [&]:after:h-[1.5px] [&]:after:bg-primary/70" }}
+                  activeOptions={{ exact: n.to === localized("/") }}
+                >
+                  {n.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           {/* Desktop right: book button only */}
@@ -186,19 +324,59 @@ export function Header() {
             </button>
           </div>
           <nav className="px-8 pt-8 pb-16 flex flex-col bg-cream">
-            {nav.map((n, i) => (
-              <Link
-                key={n.to + n.label}
-                to={n.to as never}
-                onClick={() => setOpen(false)}
-                className="font-serif text-[26px] text-ink py-4 border-b border-ink/10 tracking-tight"
-                activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: n.to === localized("/") }}
-              >
-                <span className="text-primary/40 text-[11px] tracking-[0.3em] mr-3 align-middle">0{i + 1}</span>
-                {n.label}
-              </Link>
-            ))}
+            {nav.map((n, i) =>
+              n.key === "tours" ? (
+                <div key="tours" className="border-b border-ink/10">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to={n.to as never}
+                      onClick={() => setOpen(false)}
+                      className="flex-1 font-serif text-[26px] text-ink py-4 tracking-tight"
+                      activeProps={{ className: "text-primary" }}
+                    >
+                      <span className="text-primary/40 text-[11px] tracking-[0.3em] mr-3 align-middle">0{i + 1}</span>
+                      {n.label}
+                    </Link>
+                    <button
+                      type="button"
+                      aria-label="Toggle tour regions"
+                      aria-expanded={mobileToursOpen}
+                      onClick={() => setMobileToursOpen((v) => !v)}
+                      className="p-3 text-ink/60"
+                    >
+                      <ChevronDown open={mobileToursOpen} size={16} />
+                    </button>
+                  </div>
+                  {mobileToursOpen && (
+                    <ul className="pb-4 pl-10 space-y-1">
+                      {mobileToursSub.map((s) => (
+                        <li key={s.to + s.label}>
+                          <Link
+                            to={s.to as never}
+                            onClick={() => setOpen(false)}
+                            className="block py-2.5 text-[15px] text-ink/75 tracking-wide hover:text-primary transition-colors"
+                          >
+                            {s.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={n.to + n.label}
+                  to={n.to as never}
+                  onClick={() => setOpen(false)}
+                  className="font-serif text-[26px] text-ink py-4 border-b border-ink/10 tracking-tight"
+                  activeProps={{ className: "text-primary" }}
+                  activeOptions={{ exact: n.to === localized("/") }}
+                >
+                  <span className="text-primary/40 text-[11px] tracking-[0.3em] mr-3 align-middle">0{i + 1}</span>
+                  {n.label}
+                </Link>
+              ),
+            )}
             <Link
               to={localized("/contact") as never}
               onClick={() => setOpen(false)}
