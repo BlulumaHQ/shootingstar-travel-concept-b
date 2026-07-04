@@ -299,6 +299,12 @@ const BOOKING_I18N: Record<Locale, {
     received: "— 預訂成功", thanks: "感謝您！✦",
     thanksBody: "您的預訂已成功，確認信件即將寄出。",
     another: "再預訂一筆",
+    groupHint: "僅能選擇一種人數組合，價格依共用房間人數計算。",
+    selectGroup: "請選擇您的人數組合",
+    wrongGroup: "請選擇符合您人數的正確組合",
+    perPerson: (price) => `每人 $${price} CAD`,
+    groupOf: (n) => `${n}人成行`,
+    groupRange: (min, max) => `${min}–${max}人`,
   },
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
