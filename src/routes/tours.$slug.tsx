@@ -302,8 +302,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "請選擇您的人數組合",
     wrongGroup: "請選擇符合您人數的正確組合",
     perPerson: (price) => `每人 $${price} CAD`,
-    groupOf: (n) => `${n}人成行`,
-    groupRange: (min, max) => `${min}–${max}人`,
   },
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
