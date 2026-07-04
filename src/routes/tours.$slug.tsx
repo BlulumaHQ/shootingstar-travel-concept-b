@@ -694,21 +694,53 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       {selectedSession && selectedSession.priceOptions.length > 0 && (
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.tickets}</label>
+          {allBands && (
+            <p className="mb-2 text-[12px] text-ink/60 leading-[1.7] italic">{B.groupHint}</p>
+          )}
           <div className="space-y-2">
             {selectedSession.priceOptions.map((p, i) => {
               const key = `${p.label}__${i}`;
               const q = quantities[key] ?? 0;
+              const band = isGroupBand(p);
+              const min = p.minQuantity ?? 1;
+              const max = p.maxQuantity ?? Infinity;
+              const displayLabel = band
+                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale, B)
+                : translatePriceLabel(p.label, locale);
+              const priceStr = p.price.toFixed(2);
+              const priceLine = band
+                ? B.perPerson(priceStr)
+                : `$${priceStr} CAD`;
+              const isActiveBand = allBands && activeBand?.key === key;
+              const isInactiveBand = allBands && activeBand && !isActiveBand;
               return (
-                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                <div
+                  key={key}
+                  className={`flex items-center justify-between rounded-md border bg-cream px-3 py-2 transition ${
+                    isActiveBand ? "border-primary" : "border-border"
+                  } ${isInactiveBand ? "opacity-60" : ""}`}
+                >
                   <div>
-                    <p className="text-[13.5px] text-ink font-medium">{translatePriceLabel(p.label, locale)}</p>
-                    <p className="text-[11.5px] text-ink/60">${p.price.toFixed(2)} CAD</p>
+                    <p className="text-[13.5px] text-ink font-medium">{displayLabel}</p>
+                    <p className="text-[11.5px] text-ink/60">{priceLine}</p>
                   </div>
 
                   <div className="inline-flex items-center rounded-full border border-border">
                     <button
                       type="button"
-                      onClick={() => setQuantities((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                      onClick={() =>
+                        setQuantities((qs) => {
+                          const cur = qs[key] ?? 0;
+                          if (band) {
+                            if (cur <= 0) return qs;
+                            const nextVal = cur - 1;
+                            // Drop below min → deactivate this band entirely.
+                            if (nextVal < min) return { ...qs, [key]: 0 };
+                            return { ...qs, [key]: nextVal };
+                          }
+                          return { ...qs, [key]: Math.max(0, cur - 1) };
+                        })
+                      }
                       className="px-3 py-1.5 text-ink/70"
                     >
                       −
@@ -718,14 +750,29 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
                       type="button"
                       onClick={() =>
                         setQuantities((qs) => {
-                          const next = (qs[key] ?? 0) + 1;
+                          const seats = selectedSession.seatsAvailable ?? Infinity;
+                          if (band) {
+                            const cur = qs[key] ?? 0;
+                            // Activating this band → zero all others, set to min.
+                            if (cur <= 0) {
+                              const cleared: Record<string, number> = {};
+                              Object.keys(qs).forEach((k) => (cleared[k] = 0));
+                              const startVal = Math.min(min, max, seats);
+                              if (startVal < min) return qs;
+                              return { ...cleared, [key]: startVal };
+                            }
+                            const nextVal = cur + 1;
+                            if (nextVal > max) return qs;
+                            if (nextVal > seats) return qs;
+                            return { ...qs, [key]: nextVal };
+                          }
+                          const nextVal = (qs[key] ?? 0) + 1;
                           const others = Object.entries(qs).reduce(
                             (sum, [k, v]) => (k === key ? sum : sum + v),
                             0,
                           );
-                          const max = selectedSession.seatsAvailable ?? Infinity;
-                          if (others + next > max) return qs;
-                          return { ...qs, [key]: next };
+                          if (others + nextVal > seats) return qs;
+                          return { ...qs, [key]: nextVal };
                         })
                       }
                       className="px-3 py-1.5 text-ink/70"
@@ -737,6 +784,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
               );
             })}
           </div>
+          {bandError && (
+            <p className="mt-2 text-[12px] text-red-600">{bandError}</p>
+          )}
           {totalQty > 0 && (
             <div className="mt-3 rounded-xl bg-[var(--sand)] p-3 text-[13px] text-ink/80 flex justify-between font-serif">
               <span>{B.total(totalQty)}</span>
@@ -745,6 +795,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           )}
         </div>
       )}
+
 
       {/* Optional add-ons (Rezdy extras) */}
       {extras.length > 0 && (
