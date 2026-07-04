@@ -327,6 +327,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
     requestBooking: "지금 예약 →",
     disclaimer: "* 즉시 예약이 확정되며 결제는 안전하게 처리됩니다.",
+    hostedNote: "* 안전한 Rezdy 예약 페이지로 이동하여 날짜 선택 및 결제를 완료합니다.",
     sending: "— 처리 중", submitting: "예약을 확정하는 중입니다…",
     received: "— 예약 완료", thanks: "감사합니다! ✦",
     thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
