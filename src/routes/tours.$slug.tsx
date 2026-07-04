@@ -520,53 +520,12 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   }, 0);
   const totalPrice = ticketsPrice + extrasPrice;
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedSession || !selectedSession.startTimeLocal || totalQty < 1) return;
-    setBookingError(null);
-    setStage("loading");
-    try {
-      const items = selectedSession.priceOptions
-        .map((p, i) => ({ label: p.label, quantity: quantities[`${p.label}__${i}`] ?? 0 }))
-        .filter((it) => it.quantity > 0);
+  // Direct booking submission is disabled. Bookings must complete on the
+  // Rezdy hosted checkout page (see the CTA anchor below).
+  const rezdyHostedUrl = productCode
+    ? `https://shootingstartravel.rezdy.com/${encodeURIComponent(productCode)}`
+    : null;
 
-      const extrasPayload = extras
-        .map((x, i) => ({
-          name: x.name,
-          quantity: extraQty[`${x.name}__${i}`] ?? 0,
-          price: x.price,
-        }))
-        .filter((x) => x.quantity > 0);
-
-      const res = await fetch("/api/rezdy/create-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productCode,
-          startTimeLocal: selectedSession.startTimeLocal,
-          items,
-          extras: extrasPayload,
-          preferredLanguage,
-          pickupId,
-          pickupLocationName: pickupLocation || null,
-
-          customer: { firstName, lastName, email, phone },
-        }),
-      });
-      const json = (await res.json()) as
-        | { success: true }
-        | { success: false; message: string };
-      if (!("success" in json) || !json.success) {
-        setBookingError(("message" in json && json.message) || "Booking failed.");
-        setStage("form");
-        return;
-      }
-      setStage("done");
-    } catch (err) {
-      setBookingError(err instanceof Error ? err.message : "Network error");
-      setStage("form");
-    }
-  };
 
   if (stage === "loading") {
     return (
