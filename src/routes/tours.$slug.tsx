@@ -240,7 +240,7 @@ const BOOKING_I18N: Record<Locale, {
   langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
   email: string; phone: string; requestBooking: string;
-  disclaimer: string; sending: string; submitting: string; received: string;
+  disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
   groupOf: (n: number) => string; groupRange: (min: number, max: number) => string;
@@ -265,6 +265,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
     requestBooking: "Book Now →",
     disclaimer: "* Confirms your booking instantly. Payment will be processed securely.",
+    hostedNote: "* You'll be redirected to our secure Rezdy booking page to select dates and complete payment.",
     sending: "— processing booking", submitting: "Confirming your booking…",
     received: "— booking confirmed", thanks: "Thank you! ✦",
     thanksBody: "Your booking has been confirmed — a confirmation email is on its way.",
@@ -295,6 +296,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
     requestBooking: "確認預訂 →",
     disclaimer: "* 將立即完成預訂，並以安全方式處理付款。",
+    hostedNote: "* 將前往我們的 Rezdy 安全預訂頁面，選擇日期並完成付款。",
     sending: "— 處理中", submitting: "正在確認您的預訂…",
     received: "— 預訂成功", thanks: "感謝您！✦",
     thanksBody: "您的預訂已成功，確認信件即將寄出。",
@@ -325,6 +327,7 @@ const BOOKING_I18N: Record<Locale, {
     firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
     requestBooking: "지금 예약 →",
     disclaimer: "* 즉시 예약이 확정되며 결제는 안전하게 처리됩니다.",
+    hostedNote: "* 안전한 Rezdy 예약 페이지로 이동하여 날짜 선택 및 결제를 완료합니다.",
     sending: "— 처리 중", submitting: "예약을 확정하는 중입니다…",
     received: "— 예약 완료", thanks: "감사합니다! ✦",
     thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
@@ -520,53 +523,12 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   }, 0);
   const totalPrice = ticketsPrice + extrasPrice;
 
-  const submit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedSession || !selectedSession.startTimeLocal || totalQty < 1) return;
-    setBookingError(null);
-    setStage("loading");
-    try {
-      const items = selectedSession.priceOptions
-        .map((p, i) => ({ label: p.label, quantity: quantities[`${p.label}__${i}`] ?? 0 }))
-        .filter((it) => it.quantity > 0);
+  // Direct booking submission is disabled. Bookings must complete on the
+  // Rezdy hosted checkout page (see the CTA anchor below).
+  const rezdyHostedUrl = productCode
+    ? `https://shootingstartravel.rezdy.com/${encodeURIComponent(productCode)}`
+    : null;
 
-      const extrasPayload = extras
-        .map((x, i) => ({
-          name: x.name,
-          quantity: extraQty[`${x.name}__${i}`] ?? 0,
-          price: x.price,
-        }))
-        .filter((x) => x.quantity > 0);
-
-      const res = await fetch("/api/rezdy/create-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          productCode,
-          startTimeLocal: selectedSession.startTimeLocal,
-          items,
-          extras: extrasPayload,
-          preferredLanguage,
-          pickupId,
-          pickupLocationName: pickupLocation || null,
-
-          customer: { firstName, lastName, email, phone },
-        }),
-      });
-      const json = (await res.json()) as
-        | { success: true }
-        | { success: false; message: string };
-      if (!("success" in json) || !json.success) {
-        setBookingError(("message" in json && json.message) || "Booking failed.");
-        setStage("form");
-        return;
-      }
-      setStage("done");
-    } catch (err) {
-      setBookingError(err instanceof Error ? err.message : "Network error");
-      setStage("form");
-    }
-  };
 
   if (stage === "loading") {
     return (
@@ -628,7 +590,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   return (
     <form
       id={`${idPrefix}booking-form`}
-      onSubmit={submit}
+      onSubmit={(e) => e.preventDefault()}
       className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-5"
     >
       <div className="flex items-center justify-between border-b border-border/60 pb-4">
@@ -913,14 +875,17 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={continueDisabled}
-        className="w-full rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)] disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {B.requestBooking}
-      </button>
-      <p className="text-[10.5px] text-ink/45 text-center">{B.disclaimer}</p>
+      {rezdyHostedUrl ? (
+        <a
+          href={rezdyHostedUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
+        >
+          {B.requestBooking}
+        </a>
+      ) : null}
+      <p className="text-[10.5px] text-ink/45 text-center">{B.hostedNote}</p>
     </form>
   );
 }
