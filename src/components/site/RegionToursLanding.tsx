@@ -122,7 +122,7 @@ export function RegionToursLanding({
             <DottedLine length={36} className="text-cream/60" />
             <span className="text-[11px] tracking-[0.4em] uppercase">{content.heroEyebrow}</span>
           </div>
-          <h1 className="font-serif text-4xl md:text-[56px] mt-5 font-medium tracking-[-0.015em] leading-[1.1]">
+          <h1 className="font-serif text-4xl md:text-[56px] mt-5 font-medium tracking-[-0.015em] leading-[1.1] !text-cream">
             {content.heroHeading}
           </h1>
           <p className="mt-6 max-w-2xl text-cream/85 leading-[1.9] text-[15px]">{content.heroIntro}</p>
