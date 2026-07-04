@@ -243,7 +243,6 @@ const BOOKING_I18N: Record<Locale, {
   disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
-  groupOf: (n: number) => string; groupRange: (min: number, max: number) => string;
 }> = {
 
   en: {
