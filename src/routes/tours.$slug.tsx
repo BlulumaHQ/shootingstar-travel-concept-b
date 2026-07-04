@@ -587,7 +587,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   return (
     <form
       id={`${idPrefix}booking-form`}
-      onSubmit={submit}
+      onSubmit={(e) => e.preventDefault()}
       className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-5"
     >
       <div className="flex items-center justify-between border-b border-border/60 pb-4">
