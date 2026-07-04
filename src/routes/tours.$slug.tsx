@@ -240,7 +240,7 @@ const BOOKING_I18N: Record<Locale, {
   langEnglish: string; langMandarin: string; langKorean: string;
   total: (n: number) => string; firstName: string; lastName: string;
   email: string; phone: string; requestBooking: string;
-  disclaimer: string; sending: string; submitting: string; received: string;
+  disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
   thanks: string; thanksBody: string; another: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
   groupOf: (n: number) => string; groupRange: (min: number, max: number) => string;
