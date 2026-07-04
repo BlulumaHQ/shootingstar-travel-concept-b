@@ -331,8 +331,6 @@ const BOOKING_I18N: Record<Locale, {
     selectGroup: "그룹 인원을 선택해 주세요",
     wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
     perPerson: (price) => `1인당 $${price} CAD`,
-    groupOf: (n) => `${n}인`,
-    groupRange: (min, max) => `${min}–${max}인`,
   },
 };
 
