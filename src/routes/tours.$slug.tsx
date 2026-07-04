@@ -367,13 +367,14 @@ function isGroupBand(p: RezdyPriceOption): boolean {
   );
 }
 
-function formatGroupBandLabel(
-  min: number,
-  max: number,
-  locale: Locale,
-  B: (typeof BOOKING_I18N)[Locale],
-): string {
-  return min === max ? B.groupOf(min) : B.groupRange(min, max);
+function formatGroupBandLabel(min: number, max: number, locale: Locale): string {
+  if (locale === "zh") {
+    return min === max ? `${min}人` : `${min}–${max}人`;
+  }
+  if (locale === "ko") {
+    return min === max ? `${min}인` : `${min}–${max}인`;
+  }
+  return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
 }
 
 
@@ -446,7 +447,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           setStatus("error");
           return;
         }
-        const usable = (json.sessions ?? []).filter((s) => s.id && s.startTimeLocal);
+        const usable = (json.sessions ?? [])
+          .filter((s) => s.id && s.startTimeLocal)
+          .map((s) => ({
+            ...s,
+            priceOptions: [...s.priceOptions].sort(
+              (a, b) => (a.minQuantity ?? 0) - (b.minQuantity ?? 0),
+            ),
+          }));
         setSessions(usable);
         setStatus("ready");
       })
@@ -660,7 +668,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
               const min = p.minQuantity ?? 1;
               const max = p.maxQuantity ?? Infinity;
               const displayLabel = band
-                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale, B)
+                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale)
                 : translatePriceLabel(p.label, locale);
               const priceStr = p.price.toFixed(2);
               const priceLine = band
