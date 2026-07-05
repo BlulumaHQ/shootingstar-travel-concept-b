@@ -859,50 +859,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </select>
       </div>
 
-      {/* Customer form */}
-      <div className="space-y-2.5 pt-1">
-        <div className="grid grid-cols-2 gap-2.5">
-          <input
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder={B.firstName}
-            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-          />
-          <input
-            required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder={B.lastName}
-            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-          />
-        </div>
-        <input
-          required
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={B.email}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-        />
-        <input
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder={B.phone}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-        />
-      </div>
-
-      {bookingError && (
-        <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-[12.5px] text-red-700">
-          {bookingError}
-        </div>
-      )}
-
-      {rezdyHostedUrl ? (
+      {checkoutHref ? (
         <a
-          href={rezdyHostedUrl}
+          href={checkoutHref}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
@@ -910,7 +869,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           {B.requestBooking}
         </a>
       ) : null}
-      <p className="text-[10.5px] text-ink/45 text-center">{B.hostedNote}</p>
+      <p className="text-[11px] text-ink/55 text-center leading-[1.6]">{B.hostedNote}</p>
+
     </form>
   );
 }
