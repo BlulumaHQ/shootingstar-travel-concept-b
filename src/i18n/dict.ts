@@ -14,7 +14,7 @@ export const dict: Dict = {
   "nav.contact": { en: "Contact", zh: "聯絡我們", ko: "문의" },
   "nav.toursAll": { en: "All Tours", zh: "全部行程", ko: "전체 투어" },
   "nav.toursBanff": { en: "Banff Tours", zh: "班夫行程", ko: "밴프 투어" },
-  "nav.toursJasper": { en: "Jasper Tours", zh: "賈斯珀行程", ko: "재스퍼 투어" },
+  "nav.toursJasper": { en: "Jasper Tours", zh: "賈斯伯行程", ko: "재스퍼 투어" },
   "nav.toursCanada": { en: "Canada Tours", zh: "加拿大行程", ko: "캐나다 투어" },
   "nav.toursUsa": { en: "USA Tours", zh: "美國行程", ko: "미국 투어" },
   "region.filterEyebrow": { en: "Filter by region", zh: "依區域篩選", ko: "지역별 필터" },
