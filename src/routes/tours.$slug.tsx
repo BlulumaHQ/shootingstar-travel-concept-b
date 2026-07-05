@@ -1060,6 +1060,9 @@ export function TourDetailPage() {
                 <div className="mt-6 rounded-[6px] border border-border/70 bg-cream p-5">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{T.tourRate}</p>
                   <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{formatPrice(tour.price, locale)}</p>
+                  {hasAdultChildPricing(tour) && (
+                    <p className="mt-2 text-[12.5px] text-ink/60 leading-[1.7]">{t("priceAgeNote")}</p>
+                  )}
                 </div>
               )}
               {tour.gratuity && (
