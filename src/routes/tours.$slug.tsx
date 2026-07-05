@@ -239,10 +239,9 @@ const BOOKING_I18N: Record<Locale, {
   pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
-  total: (n: number) => string; firstName: string; lastName: string;
-  email: string; phone: string; requestBooking: string;
-  disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
-  thanks: string; thanksBody: string; another: string;
+  total: (n: number) => string;
+  requestBooking: string;
+  hostedNote: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
 }> = {
 
