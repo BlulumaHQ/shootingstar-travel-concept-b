@@ -234,7 +234,7 @@ const BOOKING_I18N: Record<Locale, {
   from: string; chooseDate: string; liveAvail: string; loadingDates: string;
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
-  addOns: string;
+  addOns: string; addOnHint: string; addOnMissing: (guests: number, tickets: number) => string;
   pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
@@ -256,6 +256,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
     tickets: "Tickets",
     addOns: "Optional add-ons",
+    addOnHint: "Add-on tickets are per person — please select adult tickets for adults and child tickets for children. Guests without an add-on ticket will be considered as not joining that activity.",
+    addOnMissing: (guests, tickets) => `You have ${guests} guests but only ${tickets} ticket${tickets > 1 ? 's' : ''} for this add-on — guests without a ticket will not join this activity.`,
     pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
     preferredLanguage: "Preferred language",
 
@@ -285,6 +287,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
     tickets: "票種",
     addOns: "選購加購",
+    addOnHint: "加購票券為每人一張：成人請選成人票，兒童請選兒童票。未加購票券者，當日將視為不參加該項活動。",
+    addOnMissing: (guests, tickets) => `您選擇了 ${guests} 位旅客，但此加購僅選了 ${tickets} 張 — 未加購的旅客將不參加此活動。`,
     pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
     preferredLanguage: "語言偏好",
 
@@ -314,6 +318,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
     tickets: "티켓",
     addOns: "선택 옵션",
+    addOnHint: "추가 옵션 티켓은 1인 1매입니다. 성인은 성인 티켓, 어린이는 어린이 티켓을 선택해 주세요. 티켓을 구매하지 않은 분은 해당 활동에 참여하지 않는 것으로 간주됩니다.",
+    addOnMissing: (guests, tickets) => `${guests}명 중 ${tickets}매만 선택하셨습니다 — 티켓이 없는 분은 해당 활동에 참여하지 않습니다.`,
     pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
     preferredLanguage: "선호 언어",
 
@@ -764,50 +770,76 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       {extras.length > 0 && (
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.addOns}</label>
+          <p className="mb-3 text-[11.5px] text-destructive/90 leading-[1.7]">
+            {B.addOnHint}
+          </p>
           <div className="space-y-2">
-            {extras.map((x, i) => {
-              const key = `${x.name}__${i}`;
-              const q = extraQty[key] ?? 0;
-              const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
-                adult: { en: "Adult", zh: "成人", ko: "성인" },
-                child: { en: "Child", zh: "兒童", ko: "어린이" },
-                senior: { en: "Senior", zh: "長者", ko: "경로" },
-                youth: { en: "Youth", zh: "青少年", ko: "청소년" },
-                infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
-              };
-              const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
-              const baseName = m ? m[1].trim() : x.name;
-              const variantKey = m ? m[2].toLowerCase() : null;
-              const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
-              const priceStr = `$${x.price.toFixed(2)} CAD`;
-              return (
-                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
-                  <div className="pr-3 min-w-0 flex-1">
-                    <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
-                    <p className="text-[11.5px] text-ink/60">
-                      {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
-                    </p>
+            {(() => {
+              const extraGroups: Record<string, number[]> = {};
+              extras.forEach((x, i) => {
+                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
+                const baseName = m ? m[1].trim() : x.name;
+                if (!extraGroups[baseName]) extraGroups[baseName] = [];
+                extraGroups[baseName].push(i);
+              });
+              return extras.map((x, i) => {
+                const key = `${x.name}__${i}`;
+                const q = extraQty[key] ?? 0;
+                const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
+                  adult: { en: "Adult", zh: "成人", ko: "성인" },
+                  child: { en: "Child", zh: "兒童", ko: "어린이" },
+                  senior: { en: "Senior", zh: "長者", ko: "경로" },
+                  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
+                  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+                };
+                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
+                const baseName = m ? m[1].trim() : x.name;
+                const variantKey = m ? m[2].toLowerCase() : null;
+                const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
+                const priceStr = `$${x.price.toFixed(2)} CAD`;
+                const groupIndices = extraGroups[baseName];
+                const isLastInGroup = groupIndices[groupIndices.length - 1] === i;
+                const groupTotal = groupIndices.reduce(
+                  (sum, idx) => sum + (extraQty[`${extras[idx].name}__${idx}`] ?? 0),
+                  0,
+                );
+                const showMissing = isLastInGroup && groupTotal > 0 && groupTotal < totalQty;
+                return (
+                  <div key={key}>
+                    <div className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                      <div className="pr-3 min-w-0 flex-1">
+                        <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
+                        <p className="text-[11.5px] text-ink/60">
+                          {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
+                        </p>
+                      </div>
+                      <div className="inline-flex items-center rounded-full border border-border shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                          className="px-3 py-1.5 text-ink/70"
+                        >
+                          −
+                        </button>
+                        <span className="w-8 text-center text-sm">{q}</span>
+                        <button
+                          type="button"
+                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
+                          className="px-3 py-1.5 text-ink/70"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    {showMissing && (
+                      <p className="mt-1.5 text-[11px] text-destructive/90 leading-[1.6]">
+                        {B.addOnMissing(totalQty, groupTotal)}
+                      </p>
+                    )}
                   </div>
-                  <div className="inline-flex items-center rounded-full border border-border shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      −
-                    </button>
-                    <span className="w-8 text-center text-sm">{q}</span>
-                    <button
-                      type="button"
-                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
         </div>
       )}
