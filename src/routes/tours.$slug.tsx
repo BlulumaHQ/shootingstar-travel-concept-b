@@ -297,7 +297,9 @@ export function TourDetailPage() {
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
   const t = useT();
-
+  const B = BOOKING_I18N[locale];
+  const contactHref = withLocale("/contact", locale);
+  const rezdyBookingUrl = tour?.rezdyBookingUrl ?? null;
 
   return (
     <SiteLayout>
@@ -333,11 +335,6 @@ export function TourDetailPage() {
                 <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
               )}
             </header>
-
-            {/* Mobile booking panel */}
-            <div className="lg:hidden">
-              <BookingWidget tour={tour} idPrefix="m-" />
-            </div>
 
             {/* Shared Trip Information — only on the five Rocky Mountain Lake tours */}
             {isLakeTourSlug(slug) && <LakeTourTripInfo locale={locale} slug={slug} />}
@@ -524,20 +521,26 @@ export function TourDetailPage() {
 
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
-        <div>
-          <p className="text-[10.5px] text-ink/55 tracking-[0.2em] uppercase">From</p>
+        <div className="shrink-0">
           <p className="font-serif text-primary text-lg font-semibold leading-tight">{formatPrice(tour.price, locale)}</p>
         </div>
-        <a
-          href="#m-booking-form"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("m-booking-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }}
-          className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
-        >
-          Book now →
-        </a>
+        {rezdyBookingUrl ? (
+          <a
+            href={rezdyBookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
+          >
+            {B.requestBooking}
+          </a>
+        ) : (
+          <Link
+            to={contactHref as never}
+            className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
+          >
+            {B.contactCta}
+          </Link>
+        )}
       </div>
     </SiteLayout>
   );
