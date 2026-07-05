@@ -72,6 +72,7 @@ function mapRow(r: any): Tour {
     notes: r.notes ?? [],
     bookingCta: r.booking_cta ?? undefined,
     rezdyProductCode: r.rezdy_product_code ?? null,
+    rezdyBookingUrl: r.rezdy_booking_url ?? null,
   };
 }
 

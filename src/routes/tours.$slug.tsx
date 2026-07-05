@@ -279,7 +279,7 @@ const BOOKING_I18N: Record<Locale, {
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
     contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "聯絡我們預訂 →",
+    contactCta: "請聯絡我們預訂 →",
     from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
     loadingDates: "正在載入可訂日期…",
     loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
@@ -310,7 +310,7 @@ const BOOKING_I18N: Record<Locale, {
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
     contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의하기 →",
+    contactCta: "예약 문의 →",
     from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
     loadingDates: "예약 가능 날짜를 불러오는 중…",
     loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
@@ -404,12 +404,13 @@ function parseExtraName(name: string, locale: Locale) {
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
+  const rezdyBookingUrl = (tour as Tour | undefined)?.rezdyBookingUrl ?? null;
   const locale = useLocale();
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
-  // No Rezdy product code → contact-only CTA, no booking UI
-  if (!productCode) {
+  // No direct Rezdy booking URL → contact-only CTA, no booking UI
+  if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <div>
@@ -458,6 +459,12 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   useEffect(() => {
     let cancelled = false;
     setStatus("loading");
+
+    if (!productCode) {
+      setSessions([]);
+      setStatus("ready");
+      return () => { cancelled = true; };
+    }
 
     fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
@@ -549,9 +556,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
   // Direct booking submission is disabled. Bookings must complete on the
   // Rezdy hosted checkout page (see the CTA anchor below).
-  const rezdyHostedUrl = productCode
-    ? `https://shootingstartravel.rezdy.com/${encodeURIComponent(productCode)}`
-    : null;
+  const rezdyHostedUrl = rezdyBookingUrl;
 
 
   if (stage === "loading") {
