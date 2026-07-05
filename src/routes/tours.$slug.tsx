@@ -226,24 +226,26 @@ const BOOKING_I18N: Record<Locale, {
   },
 };
 
-export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined; idPrefix?: string }) {
+export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   const rezdyBookingUrl = (tour as Tour | undefined)?.rezdyBookingUrl ?? null;
   const locale = useLocale();
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
-  // No direct Rezdy booking URL → contact-only CTA, no booking UI
+  const priceMatch = tour?.price?.match(/From\s+(\$[\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
+  const priceAmount = priceMatch ? `${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
+
   if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
+        <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+        <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
+          <p className="text-[11px] text-ink/55">{B.from}</p>
+          <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
         </div>
-        <p className="text-[13.5px] text-ink/70 leading-[1.85]">{B.contactBody}</p>
         <Link
           to={contactHref as never}
-          id={`${idPrefix}contact-cta`}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
         >
           {B.contactCta}
@@ -253,19 +255,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined;
   }
 
   return (
-    <form
-      id={`${idPrefix}booking-form`}
-      onSubmit={(e) => e.preventDefault()}
-      className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-5"
-    >
-      <div className="flex items-center justify-between border-b border-border/60 pb-4">
-        <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
-        </div>
-        <span className="text-[11px] text-ink/55">
-          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{formatPrice(tour?.price, locale)}</span>
-        </span>
+    <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
+      <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+      <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
+      <div>
+        <p className="text-[11px] text-ink/55">{B.from}</p>
+        <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
+        <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
       </div>
       <a
         href={rezdyBookingUrl}
@@ -276,7 +272,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined;
         {B.requestBooking}
       </a>
       <p className="text-[11px] text-ink/55 text-center leading-[1.6]">{B.hostedNote}</p>
-    </form>
+    </div>
   );
 }
 
