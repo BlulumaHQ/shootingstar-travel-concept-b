@@ -383,7 +383,24 @@ function formatGroupBandLabel(min: number, max: number, locale: Locale): string 
   return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
 }
 
+const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
+  adult: { en: "Adult", zh: "成人", ko: "성인" },
+  child: { en: "Child", zh: "兒童", ko: "어린이" },
+  senior: { en: "Senior", zh: "長者", ko: "경로" },
+  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
+  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+};
 
+function parseExtraName(name: string, locale: Locale) {
+  const m = name.match(/\((Adult|Child|Senior|Youth|Infant)([^)]*)\)\s*$/i);
+  if (!m) return { baseName: name, variantLabel: null as string | null };
+  const baseName = name.slice(0, name.length - m[0].length).trim();
+  const variantKey = m[1].toLowerCase();
+  const suffix = m[2];
+  const label = EXTRA_VARIANT_I18N[variantKey][locale];
+  const variantLabel = suffix ? `${label}${suffix.startsWith(" ") ? suffix : " " + suffix}` : label;
+  return { baseName, variantLabel };
+}
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
