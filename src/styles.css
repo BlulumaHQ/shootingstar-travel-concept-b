@@ -121,7 +121,10 @@
   html, body {
     width: 100%;
     max-width: 100%;
-    overflow-x: hidden;
+    /* Use `clip` instead of `hidden` so it does NOT create a scroll container —
+       otherwise position: sticky inside the page (e.g. the tour booking widget)
+       breaks and scrolls away with the content. */
+    overflow-x: clip;
   }
   html { scroll-behavior: smooth; }
   /* Larger base font size across the site (cards, sections, paragraphs).
