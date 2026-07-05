@@ -1,12 +1,11 @@
 import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { TourGallery } from "@/components/site/TourGallery";
-import { getTour, type Tour } from "@/data/tours";
+import { type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
-import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
   LAKE_TOUR_TRIP_INFO,
@@ -192,205 +191,44 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
-type RezdyPriceOption = {
-  label: string;
-  price: number;
-  seatsUsed: number;
-  minQuantity?: number;
-  maxQuantity?: number;
-  priceGroupType?: string;
-};
-
-type RezdySession = {
-  id: string | null;
-  startTimeLocal: string | null;
-  endTimeLocal: string | null;
-  allDay: boolean;
-  seatsAvailable: number | null;
-  priceOptions: RezdyPriceOption[];
-};
-
-type RezdyExtra = {
-  id: string | null;
-  name: string;
-  description: string;
-  price: number;
-  extraPriceType: string;
-  isOptional: boolean;
-};
-
-function formatSessionDate(startTimeLocal: string | null): string {
-  if (!startTimeLocal) return "—";
-  const [date, time] = startTimeLocal.replace("T", " ").split(" ");
-  const d = new Date(`${date}T${(time ?? "00:00:00").slice(0, 8)}`);
-  if (Number.isNaN(d.getTime())) return startTimeLocal;
-  const dateStr = d.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
-  if (!time || time.startsWith("00:00")) return dateStr;
-  const timeStr = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-  return `${dateStr} · ${timeStr}`;
-}
-
-const BOOKING_I18N: Record<Locale, {
-  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
-  from: string; chooseDate: string; liveAvail: string; loadingDates: string;
-  loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
-  soldOut: string; seatsLeft: (n: number) => string; tickets: string;
-  addOns: string; addOnHint: string; addOnMissing: (guests: number, tickets: number) => string;
-  pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
-  preferredLanguage: string;
-  langEnglish: string; langMandarin: string; langKorean: string;
-  total: (n: number) => string;
-  requestBooking: string;
-  hostedNote: string;
-  groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
-}> = {
-
-  en: {
-    eyebrow: "— booking", bookTitle: "Book this tour",
-    contactBody: "To arrange a date for this tour, please get in touch with our team.",
-    contactCta: "Contact us to book →",
-    from: "from", chooseDate: "Choose a date", liveAvail: "· live availability",
-    loadingDates: "Loading available dates…",
-    loadErrFallback: "Unable to load availability. Please try again later.",
-    noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
-    soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
-    tickets: "Tickets",
-    addOns: "Optional add-ons",
-    addOnHint: "Add-on tickets are per person — please select adult tickets for adults and child tickets for children. Guests without an add-on ticket will be considered as not joining that activity.",
-    addOnMissing: (guests, tickets) => `You have ${guests} guests but only ${tickets} ticket${tickets > 1 ? 's' : ''} for this add-on — guests without a ticket will not join this activity.`,
-    pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
-    preferredLanguage: "Preferred language",
-
-    langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
-    total: (n) => `Total (${n})`,
-    requestBooking: "Proceed to secure checkout →",
-    hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
-    groupHint: "Select one group size only. Pricing is based on shared room occupancy.",
-    selectGroup: "Please select your group size",
-    wrongGroup: "Please choose the correct group size for your party",
-    perPerson: (price) => `$${price} CAD per person`,
-  },
-  zh: {
-    eyebrow: "— 預訂", bookTitle: "預訂此行程",
-    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "請聯絡我們預訂 →",
-    from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
-    loadingDates: "正在載入可訂日期…",
-    loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
-    noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
-    soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
-    tickets: "票種",
-    addOns: "選購加購",
-    addOnHint: "加購票券為每人一張：成人請選成人票，兒童請選兒童票。未加購票券者，當日將視為不參加該項活動。",
-    addOnMissing: (guests, tickets) => `您選擇了 ${guests} 位旅客，但此加購僅選了 ${tickets} 張 — 未加購的旅客將不參加此活動。`,
-    pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
-    preferredLanguage: "語言偏好",
-
-    langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
-    total: (n) => `總計（${n}）`,
-    requestBooking: "前往安全結帳 →",
-    hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
-    groupHint: "僅能選擇一種人數組合，價格依共用房間人數計算。",
-    selectGroup: "請選擇您的人數組合",
-    wrongGroup: "請選擇符合您人數的正確組合",
-    perPerson: (price) => `每人 $${price} CAD`,
-  },
-  ko: {
-    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
-    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의 →",
-    from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
-    loadingDates: "예약 가능 날짜를 불러오는 중…",
-    loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
-    noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
-    soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
-    tickets: "티켓",
-    addOns: "선택 옵션",
-    addOnHint: "추가 옵션 티켓은 1인 1매입니다. 성인은 성인 티켓, 어린이는 어린이 티켓을 선택해 주세요. 티켓을 구매하지 않은 분은 해당 활동에 참여하지 않는 것으로 간주됩니다.",
-    addOnMissing: (guests, tickets) => `${guests}명 중 ${tickets}매만 선택하셨습니다 — 티켓이 없는 분은 해당 활동에 참여하지 않습니다.`,
-    pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
-    preferredLanguage: "선호 언어",
-
-    langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
-    total: (n) => `합계 (${n})`,
-    requestBooking: "안전한 결제로 진행 →",
-    hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
-    groupHint: "인원 구성은 하나만 선택하세요. 가격은 객실 공유 인원 기준입니다.",
-    selectGroup: "그룹 인원을 선택해 주세요",
-    wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
-    perPerson: (price) => `1인당 $${price} CAD`,
-  },
-};
-
-function translatePriceLabel(label: string, locale: Locale): string {
-  if (locale === "en") return label;
-  const t = label.trim();
-  const groupNum =
-    t.match(/group of\s*(\d+)/i)?.[1] ??
-    t.match(/\(\s*(\d+)\s*(?:people|persons|pax)\s*\)/i)?.[1] ??
-    null;
-  if (groupNum) {
-    return locale === "zh"
-      ? `每人（${groupNum}人成行）`
-      : `${groupNum}인 그룹 (1인당)`;
-  }
-  const low = t.toLowerCase();
-  const ZH: Record<string, string> = {
-    "per person": "每人", adult: "成人", child: "兒童",
-    solo: "單人", "solo (1 person)": "單人",
-  };
-  const KO: Record<string, string> = {
-    "per person": "1인당", adult: "성인", child: "어린이",
-    solo: "1인", "solo (1 person)": "1인",
-  };
-  const map = locale === "zh" ? ZH : KO;
-  return map[low] ?? label;
-}
-
-function isGroupBand(p: RezdyPriceOption): boolean {
-  return (
-    typeof p.maxQuantity === "number" &&
-    p.maxQuantity > 0 &&
-    (p.minQuantity ?? 0) >= 1
-  );
-}
-
-function formatGroupBandLabel(min: number, max: number, locale: Locale): string {
-  if (locale === "zh") {
-    return min === max ? `${min}人` : `${min}–${max}人`;
-  }
-  if (locale === "ko") {
-    return min === max ? `${min}인` : `${min}–${max}인`;
-  }
-  return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
-}
-
 function hasAdultChildPricing(tour: Tour | undefined): boolean {
   if (!tour?.price) return false;
   return tour.price.toLowerCase().includes("adult");
 }
 
-const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
-  adult: { en: "Adult", zh: "成人", ko: "성인" },
-  child: { en: "Child", zh: "兒童", ko: "어린이" },
-  senior: { en: "Senior", zh: "長者", ko: "경로" },
-  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
-  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+const BOOKING_I18N: Record<Locale, {
+  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
+  from: string;
+  requestBooking: string;
+  hostedNote: string;
+}> = {
+  en: {
+    eyebrow: "— booking", bookTitle: "Book this tour",
+    contactBody: "To arrange a date for this tour, please get in touch with our team.",
+    contactCta: "Contact us to book →",
+    from: "from",
+    requestBooking: "Check Availability & Book →",
+    hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
+  },
+  zh: {
+    eyebrow: "— 預訂", bookTitle: "預訂此行程",
+    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
+    contactCta: "請聯絡我們預訂 →",
+    from: "起價",
+    requestBooking: "查看日期並預訂 →",
+    hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
+  },
+  ko: {
+    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
+    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
+    contactCta: "예약 문의 →",
+    from: "최저가",
+    requestBooking: "날짜 확인 및 예약 →",
+    hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
+  },
 };
 
-function parseExtraName(name: string, locale: Locale) {
-  const m = name.match(/\((Adult|Child|Senior|Youth|Infant)([^)]*)\)\s*$/i);
-  if (!m) return { baseName: name, variantLabel: null as string | null };
-  const baseName = name.slice(0, name.length - m[0].length).trim();
-  const variantKey = m[1].toLowerCase();
-  const suffix = m[2];
-  const label = EXTRA_VARIANT_I18N[variantKey][locale];
-  const variantLabel = suffix ? `${label}${suffix.startsWith(" ") ? suffix : " " + suffix}` : label;
-  return { baseName, variantLabel };
-}
-
-export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
-  const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
+export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined; idPrefix?: string }) {
   const rezdyBookingUrl = (tour as Tour | undefined)?.rezdyBookingUrl ?? null;
   const locale = useLocale();
   const B = BOOKING_I18N[locale];
@@ -416,173 +254,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     );
   }
 
-
-  const [sessions, setSessions] = useState<RezdySession[] | null>(null);
-  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [quantities, setQuantities] = useState<Record<string, number>>({});
-
-  const [extras, setExtras] = useState<RezdyExtra[]>([]);
-  const [extraQty, setExtraQty] = useState<Record<string, number>>({});
-  const [pickupId, setPickupId] = useState<string | null>(null);
-  type PickupOption = { locationName: string; address: string; minutesPrior: number | null };
-  const [pickups, setPickups] = useState<PickupOption[]>([]);
-  const [pickupLocation, setPickupLocation] = useState<string>("");
-
-
-  const defaultLang =
-    locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
-  const [preferredLanguage, setPreferredLanguage] = useState<string>(defaultLang);
-
-
-  useEffect(() => {
-    let cancelled = false;
-    setStatus("loading");
-
-    if (!productCode) {
-      setSessions([]);
-      setStatus("ready");
-      return () => { cancelled = true; };
-    }
-
-    fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
-      .then(async (r) => {
-        const json = (await r.json()) as
-          | { success: true; sessions: RezdySession[] }
-          | { success: false; message: string };
-        if (cancelled) return;
-        if (!("success" in json) || json.success === false) {
-          setLoadError(("message" in json && json.message) || "Unable to load availability.");
-          setStatus("error");
-          return;
-        }
-        const usable = (json.sessions ?? [])
-          .filter((s) => s.id && s.startTimeLocal)
-          .map((s) => ({
-            ...s,
-            priceOptions: [...s.priceOptions].sort(
-              (a, b) => (a.minQuantity ?? 0) - (b.minQuantity ?? 0),
-            ),
-          }));
-        setSessions(usable);
-        setStatus("ready");
-      })
-      .catch((e: unknown) => {
-        if (cancelled) return;
-        setLoadError(e instanceof Error ? e.message : "Network error");
-        setStatus("error");
-      });
-
-    fetch(`/api/rezdy/product?productCode=${encodeURIComponent(productCode)}`)
-      .then(async (r) => {
-        const json = (await r.json()) as
-          | { success: true; extras: RezdyExtra[]; pickupId: string | null; pickups?: PickupOption[] }
-          | { success: false; message: string };
-        if (cancelled) return;
-        if ("success" in json && json.success) {
-          setExtras(json.extras ?? []);
-          setPickupId(json.pickupId ?? null);
-          setPickups(json.pickups ?? []);
-        }
-
-      })
-      .catch(() => {
-        /* extras are optional */
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [productCode]);
-
-  const selectedSession = sessions?.find((s) => s.id === selectedId) ?? null;
-
-  const allBands = Boolean(
-    selectedSession &&
-      selectedSession.priceOptions.length > 0 &&
-      selectedSession.priceOptions.every(isGroupBand),
-  );
-
-  // Reset quantities when session changes
-  useEffect(() => {
-    if (!selectedSession) {
-      setQuantities({});
-      return;
-    }
-    const isAllBands =
-      selectedSession.priceOptions.length > 0 &&
-      selectedSession.priceOptions.every(isGroupBand);
-    const init: Record<string, number> = {};
-    selectedSession.priceOptions.forEach((p, i) => {
-      // For group bands (mutually exclusive), start with nothing selected.
-      init[`${p.label}__${i}`] = isAllBands ? 0 : i === 0 ? 1 : 0;
-    });
-    setQuantities(init);
-  }, [selectedId]);
-
-  const totalQty = Object.values(quantities).reduce((a, b) => a + b, 0);
-  const ticketsPrice = selectedSession
-    ? selectedSession.priceOptions.reduce((sum, p, i) => {
-        const q = quantities[`${p.label}__${i}`] ?? 0;
-        return sum + p.price * q;
-      }, 0)
-    : 0;
-  const extrasPrice = extras.reduce((sum, x, i) => {
-    const q = extraQty[`${x.name}__${i}`] ?? 0;
-    return sum + x.price * q;
-  }, 0);
-  const totalPrice = ticketsPrice + extrasPrice;
-
-  // Direct booking submission is disabled. Bookings must complete on the
-  // Rezdy hosted checkout page (see the CTA anchor below).
-  const rezdyHostedUrl = rezdyBookingUrl;
-
-
-  // Group-band validation: exactly one band > 0 and its quantity ∈ [min, max]
-  const bandEntries = selectedSession
-    ? selectedSession.priceOptions.map((p, i) => ({
-        p,
-        i,
-        key: `${p.label}__${i}`,
-        qty: quantities[`${p.label}__${i}`] ?? 0,
-      }))
-    : [];
-  const activeBand = allBands ? bandEntries.find((b) => b.qty > 0) ?? null : null;
-  const bandInvalid = Boolean(
-    allBands &&
-      activeBand &&
-      (activeBand.qty < (activeBand.p.minQuantity ?? 1) ||
-        activeBand.qty > (activeBand.p.maxQuantity ?? Infinity)),
-  );
-  const bandError = allBands
-    ? !activeBand
-      ? B.selectGroup
-      : bandInvalid
-      ? B.wrongGroup
-      : null
-    : null;
-
-  // Build the Rezdy hosted checkout URL, appending selection hints when possible.
-  const checkoutHref = (() => {
-    const base = rezdyHostedUrl;
-    if (!base) return base;
-    try {
-      const url = new URL(base);
-      if (selectedSession?.id) url.searchParams.set("sessionId", String(selectedSession.id));
-      if (selectedSession?.startTimeLocal) url.searchParams.set("startTimeLocal", selectedSession.startTimeLocal);
-      if (totalQty > 0) url.searchParams.set("participants", String(totalQty));
-      return url.toString();
-    } catch {
-      return base;
-    }
-  })();
-
-
-
-
-
-
   return (
     <form
       id={`${idPrefix}booking-form`}
@@ -598,279 +269,15 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{formatPrice(tour?.price, locale)}</span>
         </span>
       </div>
-
-      {/* Date selector */}
-      <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">
-          {B.chooseDate}
-          {status === "ready" && <span className="ml-2 text-[10px] text-primary/70 normal-case tracking-normal">{B.liveAvail}</span>}
-        </label>
-
-        {status === "loading" && <p className="text-[12px] text-ink/55">{B.loadingDates}</p>}
-        {status === "error" && (
-          <p className="text-[12px] text-red-600">{loadError ?? B.loadErrFallback}</p>
-        )}
-        {status === "ready" && sessions && sessions.length === 0 && (
-          <p className="text-[12.5px] text-ink/65 leading-[1.85]">
-            {B.noDates1}
-            <Link to={contactHref as never} className="text-primary underline underline-offset-4">
-              {B.noDates2}
-            </Link>
-            {B.noDates3}
-          </p>
-        )}
-        {status === "ready" && sessions && sessions.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 max-h-[180px] overflow-y-auto">
-            {sessions.map((s) => {
-              const isSel = s.id === selectedId;
-              const soldOut = (s.seatsAvailable ?? 0) <= 0;
-              return (
-                <button
-                  type="button"
-                  key={s.id}
-                  disabled={soldOut}
-                  onClick={() => setSelectedId(s.id)}
-                  className={`rounded-full px-3 py-1.5 text-[12px] border transition ${
-                    isSel
-                      ? "bg-primary text-primary-foreground border-primary"
-                      : "border-border text-ink/70 hover:border-primary/50"
-                  } ${soldOut ? "opacity-40 cursor-not-allowed line-through" : ""}`}
-                  title={soldOut ? B.soldOut : B.seatsLeft(s.seatsAvailable ?? 0)}
-                >
-                  {formatSessionDate(s.startTimeLocal)}
-                  {typeof s.seatsAvailable === "number" && !soldOut && (
-                    <span className="ml-1.5 text-[10px] opacity-70">({s.seatsAvailable})</span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* Price options + quantity steppers */}
-      {selectedSession && selectedSession.priceOptions.length > 0 && (
-        <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.tickets}</label>
-          {allBands && (
-            <p className="mb-2 text-[12px] text-ink/60 leading-[1.7] italic">{B.groupHint}</p>
-          )}
-          <div className="space-y-2">
-            {selectedSession.priceOptions.map((p, i) => {
-              const key = `${p.label}__${i}`;
-              const q = quantities[key] ?? 0;
-              const band = isGroupBand(p);
-              const min = p.minQuantity ?? 1;
-              const max = p.maxQuantity ?? Infinity;
-              const displayLabel = band
-                ? formatGroupBandLabel(min, Number.isFinite(max) ? max : min, locale)
-                : translatePriceLabel(p.label, locale);
-              const priceStr = p.price.toFixed(2);
-              const priceLine = band
-                ? B.perPerson(priceStr)
-                : `$${priceStr} CAD`;
-              const isActiveBand = allBands && activeBand?.key === key;
-              const isInactiveBand = allBands && activeBand && !isActiveBand;
-              return (
-                <div
-                  key={key}
-                  className={`flex items-center justify-between rounded-md border bg-cream px-3 py-2 transition ${
-                    isActiveBand ? "border-primary" : "border-border"
-                  } ${isInactiveBand ? "opacity-60" : ""}`}
-                >
-                  <div>
-                    <p className="text-[13.5px] text-ink font-medium">{displayLabel}</p>
-                    <p className="text-[11.5px] text-ink/60">{priceLine}</p>
-                  </div>
-
-                  <div className="inline-flex items-center rounded-full border border-border">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setQuantities((qs) => {
-                          const cur = qs[key] ?? 0;
-                          if (band) {
-                            if (cur <= 0) return qs;
-                            const nextVal = cur - 1;
-                            // Drop below min → deactivate this band entirely.
-                            if (nextVal < min) return { ...qs, [key]: 0 };
-                            return { ...qs, [key]: nextVal };
-                          }
-                          return { ...qs, [key]: Math.max(0, cur - 1) };
-                        })
-                      }
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      −
-                    </button>
-                    <span className="w-8 text-center text-sm">{q}</span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setQuantities((qs) => {
-                          const seats = selectedSession.seatsAvailable ?? Infinity;
-                          if (band) {
-                            const cur = qs[key] ?? 0;
-                            // Activating this band → zero all others, set to min.
-                            if (cur <= 0) {
-                              const cleared: Record<string, number> = {};
-                              Object.keys(qs).forEach((k) => (cleared[k] = 0));
-                              const startVal = Math.min(min, max, seats);
-                              if (startVal < min) return qs;
-                              return { ...cleared, [key]: startVal };
-                            }
-                            const nextVal = cur + 1;
-                            if (nextVal > max) return qs;
-                            if (nextVal > seats) return qs;
-                            return { ...qs, [key]: nextVal };
-                          }
-                          const nextVal = (qs[key] ?? 0) + 1;
-                          const others = Object.entries(qs).reduce(
-                            (sum, [k, v]) => (k === key ? sum : sum + v),
-                            0,
-                          );
-                          if (others + nextVal > seats) return qs;
-                          return { ...qs, [key]: nextVal };
-                        })
-                      }
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          {bandError && (
-            <p className="mt-2 text-[12px] text-red-600">{bandError}</p>
-          )}
-          {totalQty > 0 && (
-            <div className="mt-3 rounded-xl bg-[var(--sand)] p-3 text-[13px] text-ink/80 flex justify-between font-serif">
-              <span>{B.total(totalQty)}</span>
-              <span className="font-semibold text-ink">${totalPrice.toFixed(2)} CAD</span>
-            </div>
-          )}
-        </div>
-      )}
-
-
-      {/* Optional add-ons (Rezdy extras) */}
-      {extras.length > 0 && (
-        <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.addOns}</label>
-          <p className="mb-3 text-[11.5px] text-destructive/90 leading-[1.7]">
-            {B.addOnHint}
-          </p>
-          <div className="space-y-2">
-            {(() => {
-              const extraGroups: Record<string, number[]> = {};
-              extras.forEach((x, i) => {
-                const { baseName } = parseExtraName(x.name, locale);
-                if (!extraGroups[baseName]) extraGroups[baseName] = [];
-                extraGroups[baseName].push(i);
-              });
-              return extras.map((x, i) => {
-                const key = `${x.name}__${i}`;
-                const q = extraQty[key] ?? 0;
-                const { baseName, variantLabel } = parseExtraName(x.name, locale);
-                const priceStr = `$${x.price.toFixed(2)} CAD`;
-                const groupIndices = extraGroups[baseName];
-                const isLastInGroup = groupIndices[groupIndices.length - 1] === i;
-                const groupTotal = groupIndices.reduce(
-                  (sum, idx) => sum + (extraQty[`${extras[idx].name}__${idx}`] ?? 0),
-                  0,
-                );
-                const showMissing = isLastInGroup && groupTotal > 0 && groupTotal < totalQty;
-                return (
-                  <div key={key}>
-                    <div className="flex items-start justify-between rounded-md border border-border bg-cream px-3 py-2">
-                      <div className="pr-3 min-w-0 flex-1">
-                        <p className="text-[13.5px] text-ink font-medium">{baseName}</p>
-                        <p className="text-[11.5px] text-ink/60">
-                          {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
-                        </p>
-                      </div>
-                      <div className="inline-flex items-center rounded-full border border-border shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
-                          className="px-3 py-1.5 text-ink/70"
-                        >
-                          −
-                        </button>
-                        <span className="w-8 text-center text-sm">{q}</span>
-                        <button
-                          type="button"
-                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
-                          className="px-3 py-1.5 text-ink/70"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    {showMissing && (
-                      <p className="mt-1.5 text-[11px] text-destructive/90 leading-[1.6]">
-                        {B.addOnMissing(totalQty, groupTotal)}
-                      </p>
-                    )}
-                  </div>
-                );
-              });
-            })()}
-          </div>
-        </div>
-      )}
-
-      {/* Pickup location (only when Rezdy returns pickups for this product) */}
-      {pickups.length > 0 && (
-        <div>
-          <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.pickupLocation}</label>
-          <select
-            required
-            value={pickupLocation}
-            onChange={(e) => setPickupLocation(e.target.value)}
-            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-          >
-            <option value="">{B.pickupChoose}</option>
-            {pickups.map((p) => (
-              <option key={p.locationName} value={p.locationName}>
-                {p.locationName}
-                {p.minutesPrior != null ? ` · ${B.pickupMinutes(p.minutesPrior)}` : ""}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
-
-      {/* Preferred language (Rezdy required) */}
-
-      <div>
-        <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.preferredLanguage}</label>
-        <select
-          required
-          value={preferredLanguage}
-          onChange={(e) => setPreferredLanguage(e.target.value)}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-        >
-          <option value="English">{B.langEnglish}</option>
-          <option value="Mandarin">{B.langMandarin}</option>
-          <option value="Korean">{B.langKorean}</option>
-        </select>
-      </div>
-
-      {checkoutHref ? (
-        <a
-          href={checkoutHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
-        >
-          {B.requestBooking}
-        </a>
-      ) : null}
+      <a
+        href={rezdyBookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
+      >
+        {B.requestBooking}
+      </a>
       <p className="text-[11px] text-ink/55 text-center leading-[1.6]">{B.hostedNote}</p>
-
     </form>
   );
 }
