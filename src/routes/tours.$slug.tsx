@@ -460,6 +460,12 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     let cancelled = false;
     setStatus("loading");
 
+    if (!productCode) {
+      setSessions([]);
+      setStatus("ready");
+      return () => { cancelled = true; };
+    }
+
     fetch(`/api/rezdy/availability?productCode=${encodeURIComponent(productCode)}`)
       .then(async (r) => {
         const json = (await r.json()) as
