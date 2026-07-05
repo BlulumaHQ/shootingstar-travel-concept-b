@@ -253,7 +253,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined;
       </div>
     );
   }
-  }
 
   return (
     <form
