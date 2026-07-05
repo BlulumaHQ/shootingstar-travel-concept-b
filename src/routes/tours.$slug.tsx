@@ -384,6 +384,11 @@ function formatGroupBandLabel(min: number, max: number, locale: Locale): string 
   return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
 }
 
+function hasAdultChildPricing(tour: Tour | undefined): boolean {
+  if (!tour?.price) return false;
+  return tour.price.toLowerCase().includes("adult");
+}
+
 const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
   adult: { en: "Adult", zh: "成人", ko: "성인" },
   child: { en: "Child", zh: "兒童", ko: "어린이" },
