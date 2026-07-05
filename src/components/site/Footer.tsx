@@ -64,7 +64,7 @@ export function Footer() {
     ],
     zh: [
       { l: "班夫行程", to: lp("/banff-tours") },
-      { l: "賈斯珀行程", to: lp("/jasper-tours") },
+      { l: "賈斯伯行程", to: lp("/jasper-tours") },
       { l: "美西八日遊", to: lp("/tours/western-usa-8-day") },
       { l: "加拿大洛磯山三日遊", to: lp("/tours/rockies-3-day") },
       { l: "拉斯維加斯與大峽谷四日遊", to: lp("/tours/vegas-canyon-4-day") },

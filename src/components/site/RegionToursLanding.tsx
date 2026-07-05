@@ -37,7 +37,7 @@ export const REGION_LANDING_CONTENT: Record<"banff" | "jasper", Record<Locale, R
       heroEyebrow: "班夫 · 亞伯達",
       heroHeading: "班夫一日遊 & 接駁行程",
       heroIntro:
-        "從班夫出發，跟著 Shooting Star Travel 走進加拿大洛磯山脈。小團一日遊帶你走訪露易絲湖、夢蓮湖、冰原大道，並提供班夫與賈斯珀之間的可靠接駁服務。",
+        "從班夫出發，跟著 Shooting Star Travel 走進加拿大洛磯山脈。小團一日遊帶你走訪露易絲湖、夢蓮湖、冰原大道，並提供班夫與賈斯伯之間的可靠接駁服務。",
       gridEyebrow: "班夫行程",
       gridHeading: "探索班夫",
       viewTour: "查看行程 →",
@@ -72,15 +72,15 @@ export const REGION_LANDING_CONTENT: Record<"banff" | "jasper", Record<Locale, R
       ctaButton: "Contact us",
     },
     zh: {
-      heroEyebrow: "賈斯珀 · 亞伯達",
-      heroHeading: "賈斯珀一日遊 & 接駁行程",
+      heroEyebrow: "賈斯伯 · 亞伯達",
+      heroHeading: "賈斯伯一日遊 & 接駁行程",
       heroIntro:
-        "跟著 Shooting Star Travel 走進賈斯珀的北國原野。小團一日遊帶你前往瑪琳湖與精靈島，並提供每日冰原大道班夫–賈斯珀接駁。",
-      gridEyebrow: "賈斯珀行程",
-      gridHeading: "探索賈斯珀",
+        "跟著 Shooting Star Travel 走進賈斯伯的北國原野。小團一日遊帶你前往瑪琳湖與精靈島，並提供每日冰原大道班夫–賈斯伯接駁。",
+      gridEyebrow: "賈斯伯行程",
+      gridHeading: "探索賈斯伯",
       viewTour: "查看行程 →",
-      ctaHeading: "規劃你的賈斯珀旅程",
-      ctaBody: "想把賈斯珀一日遊和班夫接駁組合起來？我們為你安排最合適的路線。",
+      ctaHeading: "規劃你的賈斯伯旅程",
+      ctaBody: "想把賈斯伯一日遊和班夫接駁組合起來？我們為你安排最合適的路線。",
       ctaButton: "聯絡我們",
     },
     ko: {

@@ -9,9 +9,9 @@ export const Route = createFileRoute("/banff-tours")({
   head: () => ({
     meta: [
       { title: "班夫一日遊 & 接駁行程 — Shooting Star Travel" },
-      { name: "description", content: "從班夫出發的小團一日遊與班夫–賈斯珀接駁行程：露易絲湖、夢蓮湖、冰原大道等。" },
+      { name: "description", content: "從班夫出發的小團一日遊與班夫–賈斯伯接駁行程：露易絲湖、夢蓮湖、冰原大道等。" },
       { property: "og:title", content: "班夫一日遊 & 接駁行程 — Shooting Star Travel" },
-      { property: "og:description", content: "從班夫出發的小團一日遊與班夫–賈斯珀接駁行程。" },
+      { property: "og:description", content: "從班夫出發的小團一日遊與班夫–賈斯伯接駁行程。" },
       { property: "og:image", content: heroImg },
     ],
     links: hreflangLinks("/banff-tours", "zh"),
