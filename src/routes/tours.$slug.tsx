@@ -256,6 +256,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
     tickets: "Tickets",
     addOns: "Optional add-ons",
+    addOnHint: "Add-on tickets are per person — please select adult tickets for adults and child tickets for children. Guests without an add-on ticket will be considered as not joining that activity.",
+    addOnMissing: (guests, tickets) => `You have ${guests} guests but only ${tickets} ticket${tickets > 1 ? 's' : ''} for this add-on — guests without a ticket will not join this activity.`,
     pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
     preferredLanguage: "Preferred language",
 
@@ -285,6 +287,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
     tickets: "票種",
     addOns: "選購加購",
+    addOnHint: "加購票券為每人一張：成人請選成人票，兒童請選兒童票。未加購票券者，當日將視為不參加該項活動。",
+    addOnMissing: (guests, tickets) => `您選擇了 ${guests} 位旅客，但此加購僅選了 ${tickets} 張 — 未加購的旅客將不參加此活動。`,
     pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
     preferredLanguage: "語言偏好",
 
@@ -314,6 +318,8 @@ const BOOKING_I18N: Record<Locale, {
     soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
     tickets: "티켓",
     addOns: "선택 옵션",
+    addOnHint: "추가 옵션 티켓은 1인 1매입니다. 성인은 성인 티켓, 어린이는 어린이 티켓을 선택해 주세요. 티켓을 구매하지 않은 분은 해당 활동에 참여하지 않는 것으로 간주됩니다.",
+    addOnMissing: (guests, tickets) => `${guests}명 중 ${tickets}매만 선택하셨습니다 — 티켓이 없는 분은 해당 활동에 참여하지 않습니다.`,
     pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
     preferredLanguage: "선호 언어",
 
