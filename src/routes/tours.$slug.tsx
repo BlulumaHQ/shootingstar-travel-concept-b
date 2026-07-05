@@ -232,8 +232,8 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
-  const priceMatch = tour?.price?.match(/From\s+(\$[\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
-  const priceAmount = priceMatch ? `${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
+  const priceMatch = tour?.price?.match(/\$([\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
+  const priceAmount = priceMatch ? `$${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
 
   if (!rezdyBookingUrl) {
     return (
