@@ -59,6 +59,8 @@ export type Tour = {
   bookingCta?: string;
   /** Rezdy product code linking this tour to live availability/booking (null = contact-only). */
   rezdyProductCode?: string | null;
+  /** Direct Rezdy hosted booking page URL (overrides productCode-based URL construction). */
+  rezdyBookingUrl?: string | null;
   /** Legacy fields kept optional for compatibility with existing UI. */
   bring?: string[];
   faq?: { q: string; a: string }[];
