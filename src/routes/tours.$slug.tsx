@@ -239,10 +239,9 @@ const BOOKING_I18N: Record<Locale, {
   pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
-  total: (n: number) => string; firstName: string; lastName: string;
-  email: string; phone: string; requestBooking: string;
-  disclaimer: string; hostedNote: string; sending: string; submitting: string; received: string;
-  thanks: string; thanksBody: string; another: string;
+  total: (n: number) => string;
+  requestBooking: string;
+  hostedNote: string;
   groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
 }> = {
 
@@ -264,14 +263,8 @@ const BOOKING_I18N: Record<Locale, {
 
     langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
     total: (n) => `Total (${n})`,
-    firstName: "First name", lastName: "Last name", email: "Email", phone: "Phone",
-    requestBooking: "Book Now →",
-    disclaimer: "* Confirms your booking instantly. Payment will be processed securely.",
-    hostedNote: "* You'll be redirected to our secure Rezdy booking page to select dates and complete payment.",
-    sending: "— processing booking", submitting: "Confirming your booking…",
-    received: "— booking confirmed", thanks: "Thank you! ✦",
-    thanksBody: "Your booking has been confirmed — a confirmation email is on its way.",
-    another: "Make another booking",
+    requestBooking: "Proceed to secure checkout →",
+    hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
     groupHint: "Select one group size only. Pricing is based on shared room occupancy.",
     selectGroup: "Please select your group size",
     wrongGroup: "Please choose the correct group size for your party",
@@ -295,14 +288,8 @@ const BOOKING_I18N: Record<Locale, {
 
     langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
     total: (n) => `總計（${n}）`,
-    firstName: "名字", lastName: "姓氏", email: "電子郵件", phone: "電話",
-    requestBooking: "確認預訂 →",
-    disclaimer: "* 將立即完成預訂，並以安全方式處理付款。",
-    hostedNote: "* 將前往我們的 Rezdy 安全預訂頁面，選擇日期並完成付款。",
-    sending: "— 處理中", submitting: "正在確認您的預訂…",
-    received: "— 預訂成功", thanks: "感謝您！✦",
-    thanksBody: "您的預訂已成功，確認信件即將寄出。",
-    another: "再預訂一筆",
+    requestBooking: "前往安全結帳 →",
+    hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
     groupHint: "僅能選擇一種人數組合，價格依共用房間人數計算。",
     selectGroup: "請選擇您的人數組合",
     wrongGroup: "請選擇符合您人數的正確組合",
@@ -326,14 +313,8 @@ const BOOKING_I18N: Record<Locale, {
 
     langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
     total: (n) => `합계 (${n})`,
-    firstName: "이름", lastName: "성", email: "이메일", phone: "전화번호",
-    requestBooking: "지금 예약 →",
-    disclaimer: "* 즉시 예약이 확정되며 결제는 안전하게 처리됩니다.",
-    hostedNote: "* 안전한 Rezdy 예약 페이지로 이동하여 날짜 선택 및 결제를 완료합니다.",
-    sending: "— 처리 중", submitting: "예약을 확정하는 중입니다…",
-    received: "— 예약 완료", thanks: "감사합니다! ✦",
-    thanksBody: "예약이 완료되었습니다. 확인 이메일이 곧 발송됩니다.",
-    another: "다른 예약 만들기",
+    requestBooking: "안전한 결제로 진행 →",
+    hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
     groupHint: "인원 구성은 하나만 선택하세요. 가격은 객실 공유 인원 기준입니다.",
     selectGroup: "그룹 인원을 선택해 주세요",
     wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
@@ -454,13 +435,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
   const [preferredLanguage, setPreferredLanguage] = useState<string>(defaultLang);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const [stage, setStage] = useState<"form" | "loading" | "done">("form");
-  const [bookingError, setBookingError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -565,33 +539,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const rezdyHostedUrl = rezdyBookingUrl;
 
 
-  if (stage === "loading") {
-    return (
-      <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
-        <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.sending}</p>
-        <p className="mt-2 text-ink/65 text-[14px]">{B.submitting}</p>
-      </div>
-    );
-  }
-
-  if (stage === "done") {
-    return (
-      <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.received}</p>
-        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">{B.thanks}</h3>
-        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">{B.thanksBody}</p>
-        <button
-          onClick={() => setStage("form")}
-          className="mt-5 text-primary text-sm underline underline-offset-4"
-        >
-          {B.another}
-        </button>
-      </div>
-    );
-  }
-
-
   // Group-band validation: exactly one band > 0 and its quantity ∈ [min, max]
   const bandEntries = selectedSession
     ? selectedSession.priceOptions.map((p, i) => ({
@@ -616,8 +563,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       : null
     : null;
 
-  const continueDisabled =
-    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation) || Boolean(bandError);
+  // Build the Rezdy hosted checkout URL, appending selection hints when possible.
+  const checkoutHref = (() => {
+    const base = rezdyHostedUrl;
+    if (!base) return base;
+    try {
+      const url = new URL(base);
+      if (selectedSession?.id) url.searchParams.set("sessionId", String(selectedSession.id));
+      if (selectedSession?.startTimeLocal) url.searchParams.set("startTimeLocal", selectedSession.startTimeLocal);
+      if (totalQty > 0) url.searchParams.set("participants", String(totalQty));
+      return url.toString();
+    } catch {
+      return base;
+    }
+  })();
+
+
 
 
 
@@ -898,50 +859,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
         </select>
       </div>
 
-      {/* Customer form */}
-      <div className="space-y-2.5 pt-1">
-        <div className="grid grid-cols-2 gap-2.5">
-          <input
-            required
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            placeholder={B.firstName}
-            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-          />
-          <input
-            required
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            placeholder={B.lastName}
-            className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-          />
-        </div>
-        <input
-          required
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={B.email}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-        />
-        <input
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder={B.phone}
-          className="w-full rounded-md border border-border bg-cream px-3 py-2.5 text-sm"
-        />
-      </div>
-
-      {bookingError && (
-        <div className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-[12.5px] text-red-700">
-          {bookingError}
-        </div>
-      )}
-
-      {rezdyHostedUrl ? (
+      {checkoutHref ? (
         <a
-          href={rezdyHostedUrl}
+          href={checkoutHref}
           target="_blank"
           rel="noopener noreferrer"
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
@@ -949,7 +869,8 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
           {B.requestBooking}
         </a>
       ) : null}
-      <p className="text-[10.5px] text-ink/45 text-center">{B.hostedNote}</p>
+      <p className="text-[11px] text-ink/55 text-center leading-[1.6]">{B.hostedNote}</p>
+
     </form>
   );
 }
