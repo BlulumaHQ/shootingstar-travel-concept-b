@@ -974,6 +974,7 @@ export function TourDetailPage() {
 
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
+  const t = useT();
 
 
   return (
