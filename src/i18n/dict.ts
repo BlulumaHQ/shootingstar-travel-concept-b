@@ -115,6 +115,13 @@ export const dict: Dict = {
   // Destinations
   "dest.eyebrow": { en: "Destinations", zh: "Destinations", ko: "Destinations" },
   "dest.heading": { en: "Iconic places we love", zh: "我們最愛的目的地", ko: "우리가 사랑하는 목적지" },
+
+  // Pricing age note
+  "priceAgeNote": {
+    en: "Ages 12 and over are charged the adult fare.",
+    zh: "12 歲（含）以上以成人票計價",
+    ko: "만 12세 이상은 성인 요금이 적용됩니다.",
+  },
 };
 
 export function useT() {

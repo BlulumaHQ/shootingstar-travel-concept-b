@@ -4,6 +4,7 @@ import { TourGallery } from "@/components/site/TourGallery";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
+import { useT } from "@/i18n/dict";
 import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
 import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
@@ -381,6 +382,11 @@ function formatGroupBandLabel(min: number, max: number, locale: Locale): string 
     return min === max ? `${min}인` : `${min}–${max}인`;
   }
   return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
+}
+
+function hasAdultChildPricing(tour: Tour | undefined): boolean {
+  if (!tour?.price) return false;
+  return tour.price.toLowerCase().includes("adult");
 }
 
 const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
@@ -968,6 +974,7 @@ export function TourDetailPage() {
 
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
+  const t = useT();
 
 
   return (
@@ -1053,6 +1060,9 @@ export function TourDetailPage() {
                 <div className="mt-6 rounded-[6px] border border-border/70 bg-cream p-5">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{T.tourRate}</p>
                   <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{formatPrice(tour.price, locale)}</p>
+                  {hasAdultChildPricing(tour) && (
+                    <p className="mt-2 text-[12.5px] text-ink/60 leading-[1.7]">{t("priceAgeNote")}</p>
+                  )}
                 </div>
               )}
               {tour.gratuity && (
