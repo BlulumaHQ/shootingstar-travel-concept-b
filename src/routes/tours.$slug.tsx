@@ -435,13 +435,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
     locale === "zh" ? "Mandarin" : locale === "ko" ? "Korean" : "English";
   const [preferredLanguage, setPreferredLanguage] = useState<string>(defaultLang);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
-  const [stage, setStage] = useState<"form" | "loading" | "done">("form");
-  const [bookingError, setBookingError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
