@@ -197,55 +197,55 @@ function hasAdultChildPricing(tour: Tour | undefined): boolean {
 }
 
 const BOOKING_I18N: Record<Locale, {
-  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
-  from: string;
-  requestBooking: string;
-  hostedNote: string;
+  eyebrow: string; from: string; perPerson: string;
+  requestBooking: string; hostedNote: string; contactCta: string;
 }> = {
   en: {
-    eyebrow: "— booking", bookTitle: "Book this tour",
-    contactBody: "To arrange a date for this tour, please get in touch with our team.",
-    contactCta: "Contact us to book →",
+    eyebrow: "— booking",
     from: "from",
+    perPerson: "per person",
     requestBooking: "Check Availability & Book →",
     hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
+    contactCta: "Contact us to book →",
   },
   zh: {
-    eyebrow: "— 預訂", bookTitle: "預訂此行程",
-    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "請聯絡我們預訂 →",
-    from: "起價",
+    eyebrow: "— 預訂",
+    from: "起",
+    perPerson: "每位",
     requestBooking: "查看日期並預訂 →",
     hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
+    contactCta: "請聯絡我們預訂 →",
   },
   ko: {
-    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
-    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의 →",
-    from: "최저가",
+    eyebrow: "— 예약",
+    from: "부터",
+    perPerson: "1인",
     requestBooking: "날짜 확인 및 예약 →",
     hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
+    contactCta: "예약 문의 →",
   },
 };
 
-export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined; idPrefix?: string }) {
+export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   const rezdyBookingUrl = (tour as Tour | undefined)?.rezdyBookingUrl ?? null;
   const locale = useLocale();
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
-  // No direct Rezdy booking URL → contact-only CTA, no booking UI
+  const priceMatch = tour?.price?.match(/\$([\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
+  const priceAmount = priceMatch ? `$${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
+
   if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
+        <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+        <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
         <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
+          <p className="text-[11px] text-ink/55">{B.from}</p>
+          <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
         </div>
-        <p className="text-[13.5px] text-ink/70 leading-[1.85]">{B.contactBody}</p>
         <Link
           to={contactHref as never}
-          id={`${idPrefix}contact-cta`}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
         >
           {B.contactCta}
@@ -255,19 +255,13 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined;
   }
 
   return (
-    <form
-      id={`${idPrefix}booking-form`}
-      onSubmit={(e) => e.preventDefault()}
-      className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-5"
-    >
-      <div className="flex items-center justify-between border-b border-border/60 pb-4">
-        <div>
-          <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
-          <h3 className="font-serif text-xl text-ink mt-1 font-semibold">{B.bookTitle}</h3>
-        </div>
-        <span className="text-[11px] text-ink/55">
-          {B.from} <span className="text-primary font-serif text-[15px] font-semibold">{formatPrice(tour?.price, locale)}</span>
-        </span>
+    <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
+      <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
+      <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
+      <div>
+        <p className="text-[11px] text-ink/55">{B.from}</p>
+        <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
+        <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
       </div>
       <a
         href={rezdyBookingUrl}
@@ -278,7 +272,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: Tour | undefined;
         {B.requestBooking}
       </a>
       <p className="text-[11px] text-ink/55 text-center leading-[1.6]">{B.hostedNote}</p>
-    </form>
+    </div>
   );
 }
 
@@ -303,7 +297,9 @@ export function TourDetailPage() {
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
   const t = useT();
-
+  const B = BOOKING_I18N[locale];
+  const contactHref = withLocale("/contact", locale);
+  const rezdyBookingUrl = tour?.rezdyBookingUrl ?? null;
 
   return (
     <SiteLayout>
@@ -339,11 +335,6 @@ export function TourDetailPage() {
                 <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
               )}
             </header>
-
-            {/* Mobile booking panel */}
-            <div className="lg:hidden">
-              <BookingWidget tour={tour} idPrefix="m-" />
-            </div>
 
             {/* Shared Trip Information — only on the five Rocky Mountain Lake tours */}
             {isLakeTourSlug(slug) && <LakeTourTripInfo locale={locale} slug={slug} />}
@@ -530,20 +521,26 @@ export function TourDetailPage() {
 
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
-        <div>
-          <p className="text-[10.5px] text-ink/55 tracking-[0.2em] uppercase">From</p>
+        <div className="shrink-0">
           <p className="font-serif text-primary text-lg font-semibold leading-tight">{formatPrice(tour.price, locale)}</p>
         </div>
-        <a
-          href="#m-booking-form"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("m-booking-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }}
-          className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
-        >
-          Book now →
-        </a>
+        {rezdyBookingUrl ? (
+          <a
+            href={rezdyBookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
+          >
+            {B.requestBooking}
+          </a>
+        ) : (
+          <Link
+            to={contactHref as never}
+            className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
+          >
+            {B.contactCta}
+          </Link>
+        )}
       </div>
     </SiteLayout>
   );
