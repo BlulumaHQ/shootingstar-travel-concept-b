@@ -191,202 +191,42 @@ export const Route = createFileRoute("/tours/$slug")({
   component: TourDetailPage,
 });
 
-type RezdyPriceOption = {
-  label: string;
-  price: number;
-  seatsUsed: number;
-  minQuantity?: number;
-  maxQuantity?: number;
-  priceGroupType?: string;
-};
-
-type RezdySession = {
-  id: string | null;
-  startTimeLocal: string | null;
-  endTimeLocal: string | null;
-  allDay: boolean;
-  seatsAvailable: number | null;
-  priceOptions: RezdyPriceOption[];
-};
-
-type RezdyExtra = {
-  id: string | null;
-  name: string;
-  description: string;
-  price: number;
-  extraPriceType: string;
-  isOptional: boolean;
-};
-
-function formatSessionDate(startTimeLocal: string | null): string {
-  if (!startTimeLocal) return "—";
-  const [date, time] = startTimeLocal.replace("T", " ").split(" ");
-  const d = new Date(`${date}T${(time ?? "00:00:00").slice(0, 8)}`);
-  if (Number.isNaN(d.getTime())) return startTimeLocal;
-  const dateStr = d.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
-  if (!time || time.startsWith("00:00")) return dateStr;
-  const timeStr = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-  return `${dateStr} · ${timeStr}`;
-}
-
-const BOOKING_I18N: Record<Locale, {
-  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
-  from: string; chooseDate: string; liveAvail: string; loadingDates: string;
-  loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
-  soldOut: string; seatsLeft: (n: number) => string; tickets: string;
-  addOns: string; addOnHint: string; addOnMissing: (guests: number, tickets: number) => string;
-  pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
-  preferredLanguage: string;
-  langEnglish: string; langMandarin: string; langKorean: string;
-  total: (n: number) => string;
-  requestBooking: string;
-  hostedNote: string;
-  groupHint: string; selectGroup: string; wrongGroup: string; perPerson: (price: string) => string;
-}> = {
-
-  en: {
-    eyebrow: "— booking", bookTitle: "Book this tour",
-    contactBody: "To arrange a date for this tour, please get in touch with our team.",
-    contactCta: "Contact us to book →",
-    from: "from", chooseDate: "Choose a date", liveAvail: "· live availability",
-    loadingDates: "Loading available dates…",
-    loadErrFallback: "Unable to load availability. Please try again later.",
-    noDates1: "No scheduled dates yet — please ", noDates2: "contact us", noDates3: " to arrange a date.",
-    soldOut: "Sold out", seatsLeft: (n) => `${n} seats left`,
-    tickets: "Tickets",
-    addOns: "Optional add-ons",
-    addOnHint: "Add-on tickets are per person — please select adult tickets for adults and child tickets for children. Guests without an add-on ticket will be considered as not joining that activity.",
-    addOnMissing: (guests, tickets) => `You have ${guests} guests but only ${tickets} ticket${tickets > 1 ? 's' : ''} for this add-on — guests without a ticket will not join this activity.`,
-    pickupLocation: "Pickup location", pickupChoose: "Select a pickup location", pickupMinutes: (n) => `${n} min before departure`,
-    preferredLanguage: "Preferred language",
-
-    langEnglish: "English", langMandarin: "Mandarin", langKorean: "Korean",
-    total: (n) => `Total (${n})`,
-    requestBooking: "Proceed to secure checkout →",
-    hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
-    groupHint: "Select one group size only. Pricing is based on shared room occupancy.",
-    selectGroup: "Please select your group size",
-    wrongGroup: "Please choose the correct group size for your party",
-    perPerson: (price) => `$${price} CAD per person`,
-  },
-  zh: {
-    eyebrow: "— 預訂", bookTitle: "預訂此行程",
-    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "請聯絡我們預訂 →",
-    from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
-    loadingDates: "正在載入可訂日期…",
-    loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
-    noDates1: "目前尚無預定日期 — 請", noDates2: "聯絡我們", noDates3: "安排日期。",
-    soldOut: "已售完", seatsLeft: (n) => `剩餘 ${n} 個名額`,
-    tickets: "票種",
-    addOns: "選購加購",
-    addOnHint: "加購票券為每人一張：成人請選成人票，兒童請選兒童票。未加購票券者，當日將視為不參加該項活動。",
-    addOnMissing: (guests, tickets) => `您選擇了 ${guests} 位旅客，但此加購僅選了 ${tickets} 張 — 未加購的旅客將不參加此活動。`,
-    pickupLocation: "上車地點", pickupChoose: "請選擇上車地點", pickupMinutes: (n) => `出發前 ${n} 分鐘`,
-    preferredLanguage: "語言偏好",
-
-    langEnglish: "英文", langMandarin: "中文", langKorean: "韓文",
-    total: (n) => `總計（${n}）`,
-    requestBooking: "前往安全結帳 →",
-    hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
-    groupHint: "僅能選擇一種人數組合，價格依共用房間人數計算。",
-    selectGroup: "請選擇您的人數組合",
-    wrongGroup: "請選擇符合您人數的正確組合",
-    perPerson: (price) => `每人 $${price} CAD`,
-  },
-  ko: {
-    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
-    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의 →",
-    from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
-    loadingDates: "예약 가능 날짜를 불러오는 중…",
-    loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
-    noDates1: "아직 일정이 등록되지 않았습니다 — ", noDates2: "문의해 주시면", noDates3: " 날짜를 안내해 드립니다.",
-    soldOut: "매진", seatsLeft: (n) => `${n}석 남음`,
-    tickets: "티켓",
-    addOns: "선택 옵션",
-    addOnHint: "추가 옵션 티켓은 1인 1매입니다. 성인은 성인 티켓, 어린이는 어린이 티켓을 선택해 주세요. 티켓을 구매하지 않은 분은 해당 활동에 참여하지 않는 것으로 간주됩니다.",
-    addOnMissing: (guests, tickets) => `${guests}명 중 ${tickets}매만 선택하셨습니다 — 티켓이 없는 분은 해당 활동에 참여하지 않습니다.`,
-    pickupLocation: "픽업 장소", pickupChoose: "픽업 장소를 선택하세요", pickupMinutes: (n) => `출발 ${n}분 전`,
-    preferredLanguage: "선호 언어",
-
-    langEnglish: "영어", langMandarin: "중국어", langKorean: "한국어",
-    total: (n) => `합계 (${n})`,
-    requestBooking: "안전한 결제로 진행 →",
-    hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
-    groupHint: "인원 구성은 하나만 선택하세요. 가격은 객실 공유 인원 기준입니다.",
-    selectGroup: "그룹 인원을 선택해 주세요",
-    wrongGroup: "일행 인원에 맞는 그룹을 선택해 주세요",
-    perPerson: (price) => `1인당 $${price} CAD`,
-  },
-};
-
-function translatePriceLabel(label: string, locale: Locale): string {
-  if (locale === "en") return label;
-  const t = label.trim();
-  const groupNum =
-    t.match(/group of\s*(\d+)/i)?.[1] ??
-    t.match(/\(\s*(\d+)\s*(?:people|persons|pax)\s*\)/i)?.[1] ??
-    null;
-  if (groupNum) {
-    return locale === "zh"
-      ? `每人（${groupNum}人成行）`
-      : `${groupNum}인 그룹 (1인당)`;
-  }
-  const low = t.toLowerCase();
-  const ZH: Record<string, string> = {
-    "per person": "每人", adult: "成人", child: "兒童",
-    solo: "單人", "solo (1 person)": "單人",
-  };
-  const KO: Record<string, string> = {
-    "per person": "1인당", adult: "성인", child: "어린이",
-    solo: "1인", "solo (1 person)": "1인",
-  };
-  const map = locale === "zh" ? ZH : KO;
-  return map[low] ?? label;
-}
-
-function isGroupBand(p: RezdyPriceOption): boolean {
-  return (
-    typeof p.maxQuantity === "number" &&
-    p.maxQuantity > 0 &&
-    (p.minQuantity ?? 0) >= 1
-  );
-}
-
-function formatGroupBandLabel(min: number, max: number, locale: Locale): string {
-  if (locale === "zh") {
-    return min === max ? `${min}人` : `${min}–${max}人`;
-  }
-  if (locale === "ko") {
-    return min === max ? `${min}인` : `${min}–${max}인`;
-  }
-  return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
-}
-
 function hasAdultChildPricing(tour: Tour | undefined): boolean {
   if (!tour?.price) return false;
   return tour.price.toLowerCase().includes("adult");
 }
 
-const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
-  adult: { en: "Adult", zh: "成人", ko: "성인" },
-  child: { en: "Child", zh: "兒童", ko: "어린이" },
-  senior: { en: "Senior", zh: "長者", ko: "경로" },
-  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
-  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+const BOOKING_I18N: Record<Locale, {
+  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
+  from: string;
+  requestBooking: string;
+  hostedNote: string;
+}> = {
+  en: {
+    eyebrow: "— booking", bookTitle: "Book this tour",
+    contactBody: "To arrange a date for this tour, please get in touch with our team.",
+    contactCta: "Contact us to book →",
+    from: "from",
+    requestBooking: "Check Availability & Book →",
+    hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
+  },
+  zh: {
+    eyebrow: "— 預訂", bookTitle: "預訂此行程",
+    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
+    contactCta: "請聯絡我們預訂 →",
+    from: "起價",
+    requestBooking: "查看日期並預訂 →",
+    hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
+  },
+  ko: {
+    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
+    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
+    contactCta: "예약 문의 →",
+    from: "최저가",
+    requestBooking: "날짜 확인 및 예약 →",
+    hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
+  },
 };
-
-function parseExtraName(name: string, locale: Locale) {
-  const m = name.match(/\((Adult|Child|Senior|Youth|Infant)([^)]*)\)\s*$/i);
-  if (!m) return { baseName: name, variantLabel: null as string | null };
-  const baseName = name.slice(0, name.length - m[0].length).trim();
-  const variantKey = m[1].toLowerCase();
-  const suffix = m[2];
-  const label = EXTRA_VARIANT_I18N[variantKey][locale];
-  const variantLabel = suffix ? `${label}${suffix.startsWith(" ") ? suffix : " " + suffix}` : label;
-  return { baseName, variantLabel };
-}
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
