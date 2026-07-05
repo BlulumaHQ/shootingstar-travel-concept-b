@@ -539,33 +539,6 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
   const rezdyHostedUrl = rezdyBookingUrl;
 
 
-  if (stage === "loading") {
-    return (
-      <div className="rounded-2xl bg-cream p-10 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)] text-center">
-        <div className="mx-auto h-10 w-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
-        <p className="mt-5 font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.sending}</p>
-        <p className="mt-2 text-ink/65 text-[14px]">{B.submitting}</p>
-      </div>
-    );
-  }
-
-  if (stage === "done") {
-    return (
-      <div className="rounded-2xl bg-cream p-7 border border-border shadow-[0_20px_50px_-30px_rgba(60,80,70,0.4)]">
-        <p className="font-marker text-primary text-[13px] tracking-[0.25em] uppercase">{B.received}</p>
-        <h3 className="font-serif text-2xl text-ink mt-3 font-semibold">{B.thanks}</h3>
-        <p className="mt-5 text-ink/75 leading-[2] text-[13.5px]">{B.thanksBody}</p>
-        <button
-          onClick={() => setStage("form")}
-          className="mt-5 text-primary text-sm underline underline-offset-4"
-        >
-          {B.another}
-        </button>
-      </div>
-    );
-  }
-
-
   // Group-band validation: exactly one band > 0 and its quantity ∈ [min, max]
   const bandEntries = selectedSession
     ? selectedSession.priceOptions.map((p, i) => ({
@@ -590,8 +563,22 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       : null
     : null;
 
-  const continueDisabled =
-    status !== "ready" || !selectedSession || totalQty < 1 || !firstName || !lastName || !email || !phone || (pickups.length > 0 && !pickupLocation) || Boolean(bandError);
+  // Build the Rezdy hosted checkout URL, appending selection hints when possible.
+  const checkoutHref = (() => {
+    const base = rezdyHostedUrl;
+    if (!base) return base;
+    try {
+      const url = new URL(base);
+      if (selectedSession?.id) url.searchParams.set("sessionId", String(selectedSession.id));
+      if (selectedSession?.startTimeLocal) url.searchParams.set("startTimeLocal", selectedSession.startTimeLocal);
+      if (totalQty > 0) url.searchParams.set("participants", String(totalQty));
+      return url.toString();
+    } catch {
+      return base;
+    }
+  })();
+
+
 
 
 
