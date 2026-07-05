@@ -234,7 +234,7 @@ const BOOKING_I18N: Record<Locale, {
   from: string; chooseDate: string; liveAvail: string; loadingDates: string;
   loadErrFallback: string; noDates1: string; noDates2: string; noDates3: string;
   soldOut: string; seatsLeft: (n: number) => string; tickets: string;
-  addOns: string;
+  addOns: string; addOnHint: string; addOnMissing: (guests: number, tickets: number) => string;
   pickupLocation: string; pickupChoose: string; pickupMinutes: (n: number) => string;
   preferredLanguage: string;
   langEnglish: string; langMandarin: string; langKorean: string;
