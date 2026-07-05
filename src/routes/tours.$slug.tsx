@@ -279,7 +279,7 @@ const BOOKING_I18N: Record<Locale, {
   zh: {
     eyebrow: "— 預訂", bookTitle: "預訂此行程",
     contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "聯絡我們預訂 →",
+    contactCta: "請聯絡我們預訂 →",
     from: "起價", chooseDate: "選擇日期", liveAvail: "· 即時可訂",
     loadingDates: "正在載入可訂日期…",
     loadErrFallback: "目前無法載入可訂日期，請稍後再試。",
