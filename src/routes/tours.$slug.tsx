@@ -197,34 +197,32 @@ function hasAdultChildPricing(tour: Tour | undefined): boolean {
 }
 
 const BOOKING_I18N: Record<Locale, {
-  eyebrow: string; bookTitle: string; contactBody: string; contactCta: string;
-  from: string;
-  requestBooking: string;
-  hostedNote: string;
+  eyebrow: string; from: string; perPerson: string;
+  requestBooking: string; hostedNote: string; contactCta: string;
 }> = {
   en: {
-    eyebrow: "— booking", bookTitle: "Book this tour",
-    contactBody: "To arrange a date for this tour, please get in touch with our team.",
-    contactCta: "Contact us to book →",
+    eyebrow: "— booking",
     from: "from",
+    perPerson: "per person",
     requestBooking: "Check Availability & Book →",
     hostedNote: "You'll complete your booking and payment securely on our booking partner's page.",
+    contactCta: "Contact us to book →",
   },
   zh: {
-    eyebrow: "— 預訂", bookTitle: "預訂此行程",
-    contactBody: "請與我們的團隊聯繫，以安排您的出發日期。",
-    contactCta: "請聯絡我們預訂 →",
-    from: "起價",
+    eyebrow: "— 預訂",
+    from: "起",
+    perPerson: "每位",
     requestBooking: "查看日期並預訂 →",
     hostedNote: "您將在我們的預訂系統頁面完成預訂與安全付款。",
+    contactCta: "請聯絡我們預訂 →",
   },
   ko: {
-    eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
-    contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의 →",
-    from: "최저가",
+    eyebrow: "— 예약",
+    from: "부터",
+    perPerson: "1인",
     requestBooking: "날짜 확인 및 예약 →",
     hostedNote: "예약과 결제는 예약 파트너 페이지에서 안전하게 완료됩니다.",
+    contactCta: "예약 문의 →",
   },
 };
 
