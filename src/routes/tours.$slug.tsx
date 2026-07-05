@@ -404,12 +404,13 @@ function parseExtraName(name: string, locale: Locale) {
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
+  const rezdyBookingUrl = (tour as Tour | undefined)?.rezdyBookingUrl ?? null;
   const locale = useLocale();
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
-  // No Rezdy product code → contact-only CTA, no booking UI
-  if (!productCode) {
+  // No direct Rezdy booking URL → contact-only CTA, no booking UI
+  if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <div>
