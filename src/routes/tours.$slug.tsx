@@ -383,7 +383,24 @@ function formatGroupBandLabel(min: number, max: number, locale: Locale): string 
   return min === max ? `Group size ${min}` : `Group size ${min}–${max}`;
 }
 
+const EXTRA_VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
+  adult: { en: "Adult", zh: "成人", ko: "성인" },
+  child: { en: "Child", zh: "兒童", ko: "어린이" },
+  senior: { en: "Senior", zh: "長者", ko: "경로" },
+  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
+  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+};
 
+function parseExtraName(name: string, locale: Locale) {
+  const m = name.match(/\((Adult|Child|Senior|Youth|Infant)([^)]*)\)\s*$/i);
+  if (!m) return { baseName: name, variantLabel: null as string | null };
+  const baseName = name.slice(0, name.length - m[0].length).trim();
+  const variantKey = m[1].toLowerCase();
+  const suffix = m[2];
+  const label = EXTRA_VARIANT_I18N[variantKey][locale];
+  const variantLabel = suffix ? `${label}${suffix.startsWith(" ") ? suffix : " " + suffix}` : label;
+  return { baseName, variantLabel };
+}
 
 export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof getTour>; idPrefix?: string }) {
   const productCode = (tour as Tour | undefined)?.rezdyProductCode ?? null;
@@ -777,25 +794,14 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
             {(() => {
               const extraGroups: Record<string, number[]> = {};
               extras.forEach((x, i) => {
-                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
-                const baseName = m ? m[1].trim() : x.name;
+                const { baseName } = parseExtraName(x.name, locale);
                 if (!extraGroups[baseName]) extraGroups[baseName] = [];
                 extraGroups[baseName].push(i);
               });
               return extras.map((x, i) => {
                 const key = `${x.name}__${i}`;
                 const q = extraQty[key] ?? 0;
-                const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
-                  adult: { en: "Adult", zh: "成人", ko: "성인" },
-                  child: { en: "Child", zh: "兒童", ko: "어린이" },
-                  senior: { en: "Senior", zh: "長者", ko: "경로" },
-                  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
-                  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
-                };
-                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
-                const baseName = m ? m[1].trim() : x.name;
-                const variantKey = m ? m[2].toLowerCase() : null;
-                const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
+                const { baseName, variantLabel } = parseExtraName(x.name, locale);
                 const priceStr = `$${x.price.toFixed(2)} CAD`;
                 const groupIndices = extraGroups[baseName];
                 const isLastInGroup = groupIndices[groupIndices.length - 1] === i;
@@ -806,9 +812,9 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
                 const showMissing = isLastInGroup && groupTotal > 0 && groupTotal < totalQty;
                 return (
                   <div key={key}>
-                    <div className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                    <div className="flex items-start justify-between rounded-md border border-border bg-cream px-3 py-2">
                       <div className="pr-3 min-w-0 flex-1">
-                        <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
+                        <p className="text-[13.5px] text-ink font-medium">{baseName}</p>
                         <p className="text-[11.5px] text-ink/60">
                           {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
                         </p>
