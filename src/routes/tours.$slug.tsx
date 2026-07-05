@@ -4,6 +4,7 @@ import { TourGallery } from "@/components/site/TourGallery";
 import { getTour, type Tour } from "@/data/tours";
 import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
+import { useT } from "@/i18n/dict";
 import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
 import { useEffect, useState } from "react";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
