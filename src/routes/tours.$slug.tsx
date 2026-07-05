@@ -310,7 +310,7 @@ const BOOKING_I18N: Record<Locale, {
   ko: {
     eyebrow: "— 예약", bookTitle: "이 투어 예약하기",
     contactBody: "투어 일정을 잡으시려면 저희 팀으로 문의해 주세요.",
-    contactCta: "예약 문의하기 →",
+    contactCta: "예약 문의 →",
     from: "최저가", chooseDate: "날짜 선택", liveAvail: "· 실시간 예약 가능",
     loadingDates: "예약 가능 날짜를 불러오는 중…",
     loadErrFallback: "예약 가능 날짜를 불러올 수 없습니다. 잠시 후 다시 시도해 주세요.",
