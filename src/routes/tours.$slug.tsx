@@ -770,50 +770,76 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
       {extras.length > 0 && (
         <div>
           <label className="block text-[11px] tracking-[0.2em] uppercase text-ink/55 mb-2">{B.addOns}</label>
+          <p className="mb-3 text-[11.5px] text-destructive/90 leading-[1.7]">
+            {B.addOnHint}
+          </p>
           <div className="space-y-2">
-            {extras.map((x, i) => {
-              const key = `${x.name}__${i}`;
-              const q = extraQty[key] ?? 0;
-              const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
-                adult: { en: "Adult", zh: "成人", ko: "성인" },
-                child: { en: "Child", zh: "兒童", ko: "어린이" },
-                senior: { en: "Senior", zh: "長者", ko: "경로" },
-                youth: { en: "Youth", zh: "青少年", ko: "청소년" },
-                infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
-              };
-              const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
-              const baseName = m ? m[1].trim() : x.name;
-              const variantKey = m ? m[2].toLowerCase() : null;
-              const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
-              const priceStr = `$${x.price.toFixed(2)} CAD`;
-              return (
-                <div key={key} className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
-                  <div className="pr-3 min-w-0 flex-1">
-                    <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
-                    <p className="text-[11.5px] text-ink/60">
-                      {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
-                    </p>
+            {(() => {
+              const extraGroups: Record<string, number[]> = {};
+              extras.forEach((x, i) => {
+                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
+                const baseName = m ? m[1].trim() : x.name;
+                if (!extraGroups[baseName]) extraGroups[baseName] = [];
+                extraGroups[baseName].push(i);
+              });
+              return extras.map((x, i) => {
+                const key = `${x.name}__${i}`;
+                const q = extraQty[key] ?? 0;
+                const VARIANT_I18N: Record<string, { en: string; zh: string; ko: string }> = {
+                  adult: { en: "Adult", zh: "成人", ko: "성인" },
+                  child: { en: "Child", zh: "兒童", ko: "어린이" },
+                  senior: { en: "Senior", zh: "長者", ko: "경로" },
+                  youth: { en: "Youth", zh: "青少年", ko: "청소년" },
+                  infant: { en: "Infant", zh: "嬰兒", ko: "유아" },
+                };
+                const m = x.name.match(/^(.+?)\s*\((Adult|Child|Senior|Youth|Infant)\)\s*$/i);
+                const baseName = m ? m[1].trim() : x.name;
+                const variantKey = m ? m[2].toLowerCase() : null;
+                const variantLabel = variantKey ? VARIANT_I18N[variantKey][locale] : null;
+                const priceStr = `$${x.price.toFixed(2)} CAD`;
+                const groupIndices = extraGroups[baseName];
+                const isLastInGroup = groupIndices[groupIndices.length - 1] === i;
+                const groupTotal = groupIndices.reduce(
+                  (sum, idx) => sum + (extraQty[`${extras[idx].name}__${idx}`] ?? 0),
+                  0,
+                );
+                const showMissing = isLastInGroup && groupTotal > 0 && groupTotal < totalQty;
+                return (
+                  <div key={key}>
+                    <div className="flex items-center justify-between rounded-md border border-border bg-cream px-3 py-2">
+                      <div className="pr-3 min-w-0 flex-1">
+                        <p className="text-[13.5px] text-ink font-medium line-clamp-2">{baseName}</p>
+                        <p className="text-[11.5px] text-ink/60">
+                          {variantLabel ? `${variantLabel} · ${priceStr}` : priceStr}
+                        </p>
+                      </div>
+                      <div className="inline-flex items-center rounded-full border border-border shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
+                          className="px-3 py-1.5 text-ink/70"
+                        >
+                          −
+                        </button>
+                        <span className="w-8 text-center text-sm">{q}</span>
+                        <button
+                          type="button"
+                          onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
+                          className="px-3 py-1.5 text-ink/70"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    {showMissing && (
+                      <p className="mt-1.5 text-[11px] text-destructive/90 leading-[1.6]">
+                        {B.addOnMissing(totalQty, groupTotal)}
+                      </p>
+                    )}
                   </div>
-                  <div className="inline-flex items-center rounded-full border border-border shrink-0">
-                    <button
-                      type="button"
-                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: Math.max(0, (qs[key] ?? 0) - 1) }))}
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      −
-                    </button>
-                    <span className="w-8 text-center text-sm">{q}</span>
-                    <button
-                      type="button"
-                      onClick={() => setExtraQty((qs) => ({ ...qs, [key]: (qs[key] ?? 0) + 1 }))}
-                      className="px-3 py-1.5 text-ink/70"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
         </div>
       )}
