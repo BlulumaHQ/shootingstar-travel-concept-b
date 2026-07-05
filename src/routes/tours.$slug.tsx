@@ -556,9 +556,7 @@ export function BookingWidget({ tour, idPrefix = "" }: { tour: ReturnType<typeof
 
   // Direct booking submission is disabled. Bookings must complete on the
   // Rezdy hosted checkout page (see the CTA anchor below).
-  const rezdyHostedUrl = productCode
-    ? `https://shootingstartravel.rezdy.com/${encodeURIComponent(productCode)}`
-    : null;
+  const rezdyHostedUrl = rezdyBookingUrl;
 
 
   if (stage === "loading") {
