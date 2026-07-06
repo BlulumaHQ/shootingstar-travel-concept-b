@@ -192,6 +192,18 @@ export const LAKE_TOURS_EN: LakeToursContent = {
       bestFor: "Sunrise photographers",
       fallbackImg: lake009,
     },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "Moraine Lake & Lake Louise — Calgary Departure",
+      short: "Skip the Banff transfer — depart directly from Calgary for Moraine Lake and Lake Louise in one full day. Now 20% off during the Calgary Stampede.",
+      priceFromLabel: "From $115 CAD",
+      duration: "Full day",
+      departure: "Calgary AM",
+      highlights: "Moraine Lake, Lake Louise, Calgary round-trip",
+      bestFor: "Travelers based in Calgary",
+      fallbackImg: lake014,
+    },
   ],
 };
 
