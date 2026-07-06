@@ -7,7 +7,8 @@ import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
-import calgaryStampede from "@/assets/calgary-stampede.webp";
+
+const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 
@@ -19,28 +20,31 @@ const STAMPEDE_PROMO: Record<Locale, {
   secondary: string;
 }> = {
   en: {
-    badge: "🔥 Limited Time Only",
-    headline: "Calgary Stampede Special",
-    subheadline: "Save 20% on our Calgary Departure Tours",
+    badge: "🔥 Limited time offer",
+    headline: "Stampede season special · Save 20%",
+    subheadline:
+      "During the excitement of Calgary Stampede season, enjoy our limited-time Calgary departure day tour to Moraine Lake × Lake Louise.",
     cta: "Book Now",
     secondary:
-      "Experience the world-famous Calgary Stampede together with Moraine Lake, Lake Louise and Banff in one unforgettable Rocky Mountain adventure.",
+      "Beyond the Stampede, let the unforgettable lake views of the Rockies add one more beautiful memory to your journey.",
   },
   zh: {
     badge: "🔥 限時優惠",
-    headline: "卡加立牛仔節限定特惠",
-    subheadline: "卡加立出發行程即刻享 20% 折扣",
+    headline: "牛仔節季限定優惠 · 立省 20%",
+    subheadline:
+      "趁著卡加立牛仔節的熱鬧季節,我們推出卡加立出發的夢蓮湖 × 露易絲湖雙湖一日遊限時優惠。",
     cta: "立即預訂",
     secondary:
-      "世界聞名的卡加立牛仔節，加上夢蓮湖、露易絲湖與班夫 —— 一趟難忘的洛磯山脈盛夏之旅。",
+      "牛仔節之外,讓洛磯山的絕美湖景為你的旅程再添一筆難忘回憶。",
   },
   ko: {
-    badge: "🔥 한정 프로모션",
-    headline: "캘거리 스탬피드 스페셜",
-    subheadline: "캘거리 출발 투어를 20% 할인가로 만나보세요",
+    badge: "🔥 기간 한정 특가",
+    headline: "스탬피드 시즌 한정 · 20% 할인",
+    subheadline:
+      "캘거리 스탬피드의 활기찬 시즌을 맞아 캘거리 출발 모레인 호수 × 레이크 루이스 두 호수 일일 투어를 기간 한정 특가로 선보입니다.",
     cta: "지금 예약",
     secondary:
-      "세계적으로 유명한 캘거리 스탬피드와 함께 모레인 호수, 레이크 루이스, 밴프까지 잊지 못할 로키 마운틴 여정.",
+      "스탬피드와 더불어 로키 산맥의 아름다운 호수 풍경이 여행에 잊지 못할 추억을 더해드립니다.",
   },
 };
 
@@ -94,7 +98,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       {/* ============ HERO — Calgary Stampede Special ============ */}
       <section className="relative overflow-hidden bg-ink">
         <img
-          src={calgaryStampede}
+          src={CALGARY_STAMPEDE_IMAGE}
           alt="Calgary Stampede rodeo action"
           className="absolute inset-0 h-full w-full object-cover object-[70%_center] md:object-center"
         />
