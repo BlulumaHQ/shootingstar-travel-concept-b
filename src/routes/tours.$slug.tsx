@@ -533,7 +533,7 @@ export function TourDetailPage() {
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
         <div className="shrink-0">
-          <p className="font-serif text-primary text-lg font-semibold leading-tight">{formatPrice(tour.price, locale)}</p>
+          <SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="font-serif text-primary text-lg font-semibold leading-tight" />
         </div>
         {rezdyBookingUrl ? (
           <a
