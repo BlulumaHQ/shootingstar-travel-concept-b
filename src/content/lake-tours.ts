@@ -456,5 +456,17 @@ export const LAKE_TOURS_KO: LakeToursContent = {
       bestFor: "일출 사진가",
       fallbackImg: lake009,
     },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "모레인 호수 & 레이크 루이스 — 캘거리 출발",
+      short: "밴프까지 이동할 필요 없이 캘거리에서 바로 출발해 하루에 모레인 호수와 레이크 루이스를 만나는 투어. 캘거리 스탬피드 기간 20% 할인.",
+      priceFromLabel: "$115 CAD 부터",
+      duration: "종일",
+      departure: "캘거리 오전",
+      highlights: "모레인 호수, 레이크 루이스, 캘거리 왕복",
+      bestFor: "캘거리에서 출발하는 여행자",
+      fallbackImg: lake014,
+    },
   ],
 };
