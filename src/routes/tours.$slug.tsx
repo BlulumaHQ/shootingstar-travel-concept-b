@@ -92,6 +92,8 @@ const LABELS: Record<Locale, {
     included: "費用包含", notIncluded: "費用不含", optional: "選購體驗",
     notesEyebrow: "旅行須知", notes: "旅行須知", faq: "常見問題",
     termsEyebrow: "預訂條款", terms: "Shooting Star Travel 旅遊預訂條款與細則",
+    agePolicyEyebrow: "注意事項", agePolicyTitle: "【年齡規定】", agePolicyBody:
+      "兒童票適用於未滿 12 歲（不含 12 歲）之孩童。\n12 歲（含）以上即以成人票計價。",
     termsSections: [
       {
         title: "1. 預訂與付款規定",
