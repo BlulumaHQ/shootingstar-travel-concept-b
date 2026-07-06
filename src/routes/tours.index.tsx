@@ -132,10 +132,6 @@ const PACKS: Record<Locale, Pack> = {
 };
 
 
-function orderBySlugList(toursList: typeof tours, slugOrder: string[]) {
-  const bySlug = new Map(toursList.map((t) => [t.slug, t]));
-  return slugOrder.map((s) => bySlug.get(s)).filter(Boolean) as typeof tours;
-}
 
 const REGION_TABS: { value: "all" | Region; key: "nav.toursAll" | "nav.toursCanada" | "nav.toursBanff" | "nav.toursJasper" | "nav.toursUsa" }[] = [
   { value: "all", key: "nav.toursAll" },
