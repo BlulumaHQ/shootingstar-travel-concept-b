@@ -27,7 +27,7 @@ import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import lakeHero from "@/assets/lake-tours/lake-009.webp";
-import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+import calgaryStampede from "@/assets/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const STAMPEDE_HERO: Record<Locale, {
