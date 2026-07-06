@@ -401,6 +401,11 @@ export function TourDetailPage() {
                   <p className="text-[13px] text-ink/75 leading-[1.85]">{tour.language}</p>
                 </div>
               )}
+              <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
+                <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.agePolicyEyebrow}</p>
+                <p className="text-[13px] text-ink/80 font-medium leading-[1.85]">{T.agePolicyTitle}</p>
+                <p className="text-[13px] text-ink/75 leading-[1.85] whitespace-pre-line mt-1">{T.agePolicyBody}</p>
+              </div>
               {tour.pickup && (
                 <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
               )}
