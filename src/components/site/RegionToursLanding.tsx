@@ -158,7 +158,7 @@ export function RegionToursLanding({
                 <h3 className="tour-title font-serif text-[16px] text-ink leading-snug font-semibold mt-1.5">{t.title}</h3>
                 <p className="mt-1.5 text-[12px] text-ink/55 leading-relaxed">{t.desc}</p>
                 <div className="mt-auto pt-3 flex items-center justify-between">
-                  <p className="font-serif text-[13.5px] text-primary font-semibold">{formatPrice(t.price, locale)}</p>
+                  <SalePrice price={t.price} locale={locale} size="sm" fallbackClassName="font-serif text-[13.5px] text-primary font-semibold" />
                   <span className="text-[11.5px] text-primary tracking-wide">{content.viewTour}</span>
                 </div>
               </div>
