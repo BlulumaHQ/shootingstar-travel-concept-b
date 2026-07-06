@@ -85,8 +85,6 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const contactHref = withLocale("/contact", locale);
   const toursIndexHref = withLocale("/tours", locale);
 
-  const scrollToCards = () =>
-    document.getElementById("tour-cards")?.scrollIntoView({ behavior: "smooth" });
 
   const promo = STAMPEDE_PROMO[locale];
   const stampedeHref = withLocale(`/tours/${STAMPEDE_SLUG}`, locale);
