@@ -130,6 +130,8 @@ const LABELS: Record<Locale, {
     included: "포함 사항", notIncluded: "불포함 사항", optional: "선택 옵션",
     notesEyebrow: "여행 안내", notes: "여행 안내", faq: "자주 묻는 질문",
     termsEyebrow: "예약 약관", terms: "Shooting Star Travel 여행 예약 약관 및 세부 규정",
+    agePolicyEyebrow: "안내 사항", agePolicyTitle: "[연령 규정]", agePolicyBody:
+      "아동 요금은 만 12세 미만(12세 미포함) 어린이에게 적용됩니다.\n만 12세 이상은 성인 요금이 적용됩니다.",
     termsSections: [
       {
         title: "1. 예약 및 결제 규정",
