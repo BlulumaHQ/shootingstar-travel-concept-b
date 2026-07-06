@@ -469,7 +469,7 @@ export function HomePage() {
                   <h3 className="tour-title font-serif text-[16px] md:text-[17px] text-ink leading-snug font-semibold">{t.title}</h3>
                   <p className="mt-2 text-[12.5px] text-ink/70 leading-[1.85]">{t.desc}</p>
                   <div className="mt-auto pt-4 flex items-center justify-between">
-                    <p className="font-serif text-[14px] text-primary font-semibold">{formatPrice(t.price, locale)}</p>
+                    <SalePrice price={t.price} locale={locale} size="sm" fallbackClassName="font-serif text-[14px] text-primary font-semibold" />
                     <span className="text-[11px] text-primary tracking-[0.18em] uppercase">{p.viewTour}</span>
                   </div>
                 </div>
