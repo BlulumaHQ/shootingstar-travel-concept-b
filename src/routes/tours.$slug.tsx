@@ -231,7 +231,12 @@ const BOOKING_I18N: Record<Locale, {
 const CALGARY_STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const REZDY_PLUGIN_SRC = "https://shootingstartravel.rezdy.com/pluginJs";
 
-export function RezdyBookingIframe({ url, className = "" }: { url: string; className?: string }) {
+function extractRezdyId(url: string): string | null {
+  const m = url.match(/rezdy\.com\/(\d+)\//);
+  return m ? m[1] : null;
+}
+
+export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: string; calendarId?: string; className?: string }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src="${REZDY_PLUGIN_SRC}"]`)) return;
@@ -241,7 +246,13 @@ export function RezdyBookingIframe({ url, className = "" }: { url: string; class
     s.type = "text/javascript";
     document.body.appendChild(s);
   }, []);
-  const src = url.includes("?") ? `${url}&iframe=true` : `${url}?iframe=true`;
+  const src = calendarId
+    ? `https://shootingstartravel.rezdy.com/calendarWidget/${calendarId}?iframe=true`
+    : url
+    ? url.includes("?")
+      ? `${url}&iframe=true`
+      : `${url}?iframe=true`
+    : "";
   return (
     <iframe
       seamless
@@ -299,12 +310,13 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   }
 
   const isCalgaryStampede = tour?.slug === CALGARY_STAMPEDE_SLUG;
+  const rezdyId = isCalgaryStampede ? extractRezdyId(rezdyBookingUrl) : null;
   if (isCalgaryStampede) {
     return (
       <div id="rezdy-book" className="rounded-2xl bg-cream p-4 md:p-5 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-3">
         <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
         <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-        <RezdyBookingIframe url={rezdyBookingUrl} />
+        <RezdyBookingIframe calendarId={rezdyId ?? undefined} />
       </div>
     );
   }
