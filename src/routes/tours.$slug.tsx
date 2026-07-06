@@ -236,6 +236,18 @@ const BOOKING_I18N: Record<Locale, {
 };
 
 const CALGARY_STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
+const REZDY_IFRAME_SLUGS = new Set<string>([
+  CALGARY_STAMPEDE_SLUG,
+  "jet-johnston-emerald-takakkaw",
+  "5-lakes-tour",
+  "moraine-lake-lake-louise-half-day",
+  "moraine-lake-sunrise-tour",
+  "rockies-signature-columbia-icefield",
+  "banff-to-jasper-sightseeing-shuttle",
+  "jasper-to-banff-express-shuttle",
+  "banff-to-jasper-express-shuttle",
+  "icefields-parkway-southbound-sightseeing-shuttle",
+]);
 const REZDY_PLUGIN_SRC = "https://shootingstartravel.rezdy.com/pluginJs";
 
 function extractRezdyId(url: string): string | null {
