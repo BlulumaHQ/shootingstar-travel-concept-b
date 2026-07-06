@@ -334,7 +334,7 @@ export function TourDetailPage() {
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
-                <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{formatPrice(tour.price, locale)}</span></div>
+                <div className="flex items-baseline gap-2"><span className="text-ink/50">{T.price} </span><SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="text-primary font-semibold" /></div>
               </div>
               {tour.language && (
                 <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
