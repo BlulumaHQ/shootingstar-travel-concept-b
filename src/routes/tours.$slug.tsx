@@ -595,8 +595,8 @@ export function TourDetailPage() {
             {/* Shuttle-only extras — appended below standard content for the 6 Icefields shuttle products */}
             {isShuttleSlug(slug) && <ShuttleExtras slug={slug} locale={locale} />}
 
-            {/* Mobile-only inline booking (Calgary Stampede tour uses embedded Rezdy iframe) */}
-            {slug === CALGARY_STAMPEDE_SLUG && rezdyBookingUrl && (
+            {/* Mobile-only inline booking (tours with embedded Rezdy iframe) */}
+            {REZDY_IFRAME_SLUGS.has(slug) && rezdyBookingUrl && (
               <div id="rezdy-book-mobile" className="lg:hidden">
                 <BookingWidget tour={tour} />
               </div>
@@ -605,7 +605,7 @@ export function TourDetailPage() {
 
           {/* RIGHT — sticky booking */}
           <aside className="hidden lg:block lg:col-span-4">
-            <div className={slug === CALGARY_STAMPEDE_SLUG ? "" : "sticky top-[110px]"}>
+            <div className={REZDY_IFRAME_SLUGS.has(slug) ? "" : "sticky top-[110px]"}>
               <BookingWidget tour={tour} />
             </div>
           </aside>
@@ -619,7 +619,7 @@ export function TourDetailPage() {
         <div className="shrink-0">
           <SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="font-serif text-primary text-lg font-semibold leading-tight" />
         </div>
-        {slug === CALGARY_STAMPEDE_SLUG && rezdyBookingUrl ? (
+        {REZDY_IFRAME_SLUGS.has(slug) && rezdyBookingUrl ? (
           <a
             href="#rezdy-book-mobile"
             className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
