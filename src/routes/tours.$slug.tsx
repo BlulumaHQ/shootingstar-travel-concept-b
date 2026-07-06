@@ -43,6 +43,7 @@ const LABELS: Record<Locale, {
   included: string; notIncluded: string; optional: string;
   notesEyebrow: string; notes: string; faq: string;
   termsEyebrow: string; terms: string;
+  agePolicyEyebrow: string; agePolicyTitle: string; agePolicyBody: string;
   termsSections: TermsSection[];
 }> = {
   en: {
@@ -53,6 +54,8 @@ const LABELS: Record<Locale, {
     included: "Included", notIncluded: "Not Included", optional: "Optional Experiences",
     notesEyebrow: "travel notes", notes: "Travel Notes", faq: "Frequently asked",
     termsEyebrow: "terms & conditions", terms: "Shooting Star Travel Booking Terms & Conditions",
+    agePolicyEyebrow: "notes", agePolicyTitle: "[Age Policy]", agePolicyBody:
+      "The child fare applies to children under 12 years old (12 not included).\nGuests aged 12 and over are charged the adult fare.",
     termsSections: [
       {
         title: "1. Booking & Payment",
@@ -89,6 +92,8 @@ const LABELS: Record<Locale, {
     included: "費用包含", notIncluded: "費用不含", optional: "選購體驗",
     notesEyebrow: "旅行須知", notes: "旅行須知", faq: "常見問題",
     termsEyebrow: "預訂條款", terms: "Shooting Star Travel 旅遊預訂條款與細則",
+    agePolicyEyebrow: "注意事項", agePolicyTitle: "【年齡規定】", agePolicyBody:
+      "兒童票適用於未滿 12 歲（不含 12 歲）之孩童。\n12 歲（含）以上即以成人票計價。",
     termsSections: [
       {
         title: "1. 預訂與付款規定",
@@ -125,6 +130,8 @@ const LABELS: Record<Locale, {
     included: "포함 사항", notIncluded: "불포함 사항", optional: "선택 옵션",
     notesEyebrow: "여행 안내", notes: "여행 안내", faq: "자주 묻는 질문",
     termsEyebrow: "예약 약관", terms: "Shooting Star Travel 여행 예약 약관 및 세부 규정",
+    agePolicyEyebrow: "안내 사항", agePolicyTitle: "[연령 규정]", agePolicyBody:
+      "아동 요금은 만 12세 미만(12세 미포함) 어린이에게 적용됩니다.\n만 12세 이상은 성인 요금이 적용됩니다.",
     termsSections: [
       {
         title: "1. 예약 및 결제 규정",
@@ -394,6 +401,11 @@ export function TourDetailPage() {
                   <p className="text-[13px] text-ink/75 leading-[1.85]">{tour.language}</p>
                 </div>
               )}
+              <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
+                <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.agePolicyEyebrow}</p>
+                <p className="text-[13px] text-ink/80 font-medium leading-[1.85]">{T.agePolicyTitle}</p>
+                <p className="text-[13px] text-ink/75 leading-[1.85] whitespace-pre-line mt-1">{T.agePolicyBody}</p>
+              </div>
               {tour.pickup && (
                 <p className="mt-4 text-[13px] text-ink/70 leading-[1.85] border-l-2 border-primary/40 pl-3">{tour.pickup}</p>
               )}
