@@ -231,7 +231,12 @@ const BOOKING_I18N: Record<Locale, {
 const CALGARY_STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const REZDY_PLUGIN_SRC = "https://shootingstartravel.rezdy.com/pluginJs";
 
-export function RezdyBookingIframe({ url, className = "" }: { url: string; className?: string }) {
+function extractRezdyId(url: string): string | null {
+  const m = url.match(/rezdy\.com\/(\d+)\//);
+  return m ? m[1] : null;
+}
+
+export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: string; calendarId?: string; className?: string }) {
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src="${REZDY_PLUGIN_SRC}"]`)) return;
@@ -241,7 +246,13 @@ export function RezdyBookingIframe({ url, className = "" }: { url: string; class
     s.type = "text/javascript";
     document.body.appendChild(s);
   }, []);
-  const src = url.includes("?") ? `${url}&iframe=true` : `${url}?iframe=true`;
+  const src = calendarId
+    ? `https://shootingstartravel.rezdy.com/calendarWidget/${calendarId}?iframe=true`
+    : url
+    ? url.includes("?")
+      ? `${url}&iframe=true`
+      : `${url}?iframe=true`
+    : "";
   return (
     <iframe
       seamless
