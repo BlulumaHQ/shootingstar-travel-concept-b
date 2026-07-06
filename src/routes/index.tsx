@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
-import { formatPrice } from "@/i18n/tourText";
+import { SalePrice } from "@/components/site/SalePrice";
 import { seoHead } from "@/i18n/seo";
 import hero from "@/assets/hero-mountains.jpg";
 import journal from "@/assets/about-collage.png";
