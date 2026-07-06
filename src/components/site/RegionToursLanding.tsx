@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useTours } from "@/data/useTours";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { getRegions, type Region } from "@/data/tourRegions";
-import { formatPrice } from "@/i18n/tourText";
+import { SalePrice } from "@/components/site/SalePrice";
 import { BusMark, DottedLine, PinMark } from "@/components/site/BrandMarks";
 
 export type RegionLandingContent = {
