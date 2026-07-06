@@ -27,31 +27,29 @@ import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import lakeHero from "@/assets/lake-tours/lake-009.webp";
-import calgaryStampede from "@/assets/calgary-stampede.webp";
+
+const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const STAMPEDE_HERO: Record<Locale, {
-  eyebrow: string; h1Line1: string; h1Line2: string; sub: string; primary: string;
+  eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
 }> = {
   en: {
-    eyebrow: "🔥 Limited Time · Calgary Stampede",
-    h1Line1: "Calgary Stampede",
-    h1Line2: "Special · Save 20%",
-    sub: "Experience the world-famous Calgary Stampede together with Moraine Lake, Lake Louise and Banff in one unforgettable Rocky Mountain adventure.",
+    eyebrow: "🔥 Limited time offer",
+    h1Line1: "Stampede season special · Save 20%",
+    sub: "During the excitement of Calgary Stampede season, enjoy our limited-time Calgary departure day tour to Moraine Lake × Lake Louise. Beyond the Stampede, let the unforgettable lake views of the Rockies add one more beautiful memory to your journey.",
     primary: "Book Now",
   },
   zh: {
-    eyebrow: "🔥 限時 · 卡加立牛仔節",
-    h1Line1: "卡加立牛仔節",
-    h1Line2: "限定特惠 · 立省 20%",
-    sub: "世界聞名的卡加立牛仔節，加上夢蓮湖、露易絲湖與班夫 —— 一趟難忘的洛磯山脈盛夏之旅。",
+    eyebrow: "🔥 限時優惠",
+    h1Line1: "牛仔節季限定優惠 · 立省 20%",
+    sub: "趁著卡加立牛仔節的熱鬧季節,我們推出卡加立出發的夢蓮湖 × 露易絲湖雙湖一日遊限時優惠。牛仔節之外,讓洛磯山的絕美湖景為你的旅程再添一筆難忘回憶。",
     primary: "立即預訂",
   },
   ko: {
-    eyebrow: "🔥 한정 · 캘거리 스탬피드",
-    h1Line1: "캘거리 스탬피드",
-    h1Line2: "스페셜 · 20% 할인",
-    sub: "세계적으로 유명한 캘거리 스탬피드와 함께 모레인 호수, 레이크 루이스, 밴프까지 잊지 못할 로키 마운틴 여정.",
+    eyebrow: "🔥 기간 한정 특가",
+    h1Line1: "스탬피드 시즌 한정 · 20% 할인",
+    sub: "캘거리 스탬피드의 활기찬 시즌을 맞아 캘거리 출발 모레인 호수 × 레이크 루이스 두 호수 일일 투어를 기간 한정 특가로 선보입니다. 스탬피드와 더불어 로키 산맥의 아름다운 호수 풍경이 여행에 잊지 못할 추억을 더해드립니다.",
     primary: "지금 예약",
   },
 };
@@ -395,7 +393,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   return [
     {
       id: "stampede",
-      image: calgaryStampede,
+      image: CALGARY_STAMPEDE_IMAGE,
       eyebrow: s.eyebrow,
       h1Line1: s.h1Line1,
       h1Line2: s.h1Line2,
