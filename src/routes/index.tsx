@@ -447,7 +447,7 @@ export function HomePage() {
   const p = PACKS[locale];
   const tours = useTours();
   
-  const featured = useMemo(() => [...tours].sort(() => Math.random() - 0.5).slice(0, 6), [tours]);
+  const featured = useMemo(() => sortToursByCategory(tours).slice(0, 6), [tours]);
   const link = (path: string) => withLocale(path, locale);
 
   return (
