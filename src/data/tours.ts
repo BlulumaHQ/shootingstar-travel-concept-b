@@ -69,7 +69,7 @@ export type Tour = {
 };
 
 const LANGUAGE_NOTE =
-  "Guide language is assigned based on the composition of each group. We do our best to accommodate guests' preferred language (English, Chinese, or Korean), but a single-language tour cannot be guaranteed.";
+  "[Guide & Language Service] This tour is primarily supported by trilingual (English, Chinese, and Korean) audio commentary, complemented by on-the-spot highlights from your driver-guide. The spoken language used by the driver will be adjusted flexibly based on the overall composition of guests on the day. We will do our best to accommodate your language preference, but we are unable to guarantee a single-language private tour. Thank you for your understanding.";
 const ROOM_NOTE =
   "When traveling with more guests, the per-person price becomes more affordable as accommodation costs are shared.";
 
