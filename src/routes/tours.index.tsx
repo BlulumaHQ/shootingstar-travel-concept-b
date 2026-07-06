@@ -37,45 +37,8 @@ const US_SLUGS = new Set([
   "oregon-coast-3-day",
 ]);
 
-// Explicit display order for Canadian Journeys
-const CANADA_ORDER = [
-  "victoria-1-day",
-  "whistler-1-day",
-  "rockies-3-day",
-  "kelowna-2-day",
-  "fruit-upick-crab-catching",
-  "vancouver-city-tour",
-  "victoria-nanaimo-2-day",
-  "eastern-canada-luxury-5-day",
-  "eastern-canada-5-day",
-  // Remaining Canadian tours (rocky lake + jasper + others) appended
-  "banff-two-lake-1-day",
-  "jet-johnston-emerald-takakkaw",
-  "5-lakes-tour",
-  "moraine-lake-lake-louise-half-day",
-  "moraine-lake-lake-louise-calgary-departure",
-  "moraine-lake-sunrise-tour",
-  "rockies-signature-columbia-icefield",
-  "icefields-parkway-jasper-banff-shuttle",
-  "banff-to-jasper-sightseeing-shuttle",
-  "jasper-maligne-lake-spirit-island-day-tour",
-  "jasper-to-banff-express-shuttle",
-  "banff-to-jasper-express-shuttle",
-  "jasper-medicine-lake-maligne-lake-half-day-tour",
-  "icefields-parkway-southbound-sightseeing-shuttle",
-];
 
-// Explicit display order for American Journeys
-const USA_ORDER = [
-  "seattle-1-day",
-  "seattle-2-day",
-  "seattle-tech-tour",
-  "oregon-coast-3-day",
-  "western-usa-8-day",
-  "vegas-canyon-4-day",
-  "los-angeles-3-day",
-  "los-angeles-4-day",
-];
+
 
 type PrivatePack = {
   heading: string;
