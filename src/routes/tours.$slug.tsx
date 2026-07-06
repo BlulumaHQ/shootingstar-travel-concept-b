@@ -43,6 +43,7 @@ const LABELS: Record<Locale, {
   included: string; notIncluded: string; optional: string;
   notesEyebrow: string; notes: string; faq: string;
   termsEyebrow: string; terms: string;
+  agePolicyEyebrow: string; agePolicyTitle: string; agePolicyBody: string;
   termsSections: TermsSection[];
 }> = {
   en: {
