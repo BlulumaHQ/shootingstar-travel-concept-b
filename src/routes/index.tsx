@@ -17,6 +17,7 @@ import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
 import { Heart as HeartFill } from "lucide-react";
 import { useTours } from "@/data/useTours";
+import { sortToursByCategory } from "@/data/sortTours";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon,
 } from "@/components/site/DoodleIcons";
