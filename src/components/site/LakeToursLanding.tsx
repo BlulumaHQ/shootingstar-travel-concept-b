@@ -94,7 +94,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
       {/* ============ HERO — Calgary Stampede Special ============ */}
       <section className="relative overflow-hidden bg-ink">
         <img
-          src={calgaryStampede.url}
+          src={calgaryStampede}
           alt="Calgary Stampede rodeo action"
           className="absolute inset-0 h-full w-full object-cover object-[70%_center] md:object-center"
         />
