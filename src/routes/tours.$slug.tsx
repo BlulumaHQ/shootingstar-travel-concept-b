@@ -6,6 +6,7 @@ import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
+import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
   LAKE_TOUR_TRIP_INFO,
@@ -232,18 +233,32 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
+  const sale = parseSalePrice(tour?.price);
   const priceMatch = tour?.price?.match(/\$([\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
   const priceAmount = priceMatch ? `$${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
+
+  const priceBlock = sale ? (
+    <div>
+      <p className="text-[11px] text-ink/55">{B.from}</p>
+      <div className="mt-1">
+        <SalePrice price={tour?.price} locale={locale} size="lg" />
+      </div>
+      <p className="text-[11px] text-ink/55 mt-1.5">{B.perPerson}</p>
+    </div>
+  ) : (
+    <div>
+      <p className="text-[11px] text-ink/55">{B.from}</p>
+      <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
+      <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
+    </div>
+  );
 
   if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
         <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-        <div>
-          <p className="text-[11px] text-ink/55">{B.from}</p>
-          <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
-        </div>
+        {priceBlock}
         <Link
           to={contactHref as never}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
@@ -258,11 +273,7 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
       <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-      <div>
-        <p className="text-[11px] text-ink/55">{B.from}</p>
-        <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
-        <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
-      </div>
+      {priceBlock}
       <a
         href={rezdyBookingUrl}
         target="_blank"
@@ -323,7 +334,7 @@ export function TourDetailPage() {
               <p className="mt-4 text-ink/70 leading-[1.95] text-[15px]">{tour.intro}</p>
               <div className="mt-5 flex flex-wrap gap-x-7 gap-y-2 text-[13px]">
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
-                <div><span className="text-ink/50">{T.price} </span><span className="text-primary font-semibold">{formatPrice(tour.price, locale)}</span></div>
+                <div className="flex items-baseline gap-2"><span className="text-ink/50">{T.price} </span><SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="text-primary font-semibold" /></div>
               </div>
               {tour.language && (
                 <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
@@ -378,7 +389,7 @@ export function TourDetailPage() {
               ) : (
                 <div className="mt-6 rounded-[6px] border border-border/70 bg-cream p-5">
                   <p className="text-[11px] tracking-[0.2em] uppercase text-ink/55">{T.tourRate}</p>
-                  <p className="mt-1 font-serif text-primary text-[20px] font-semibold">{formatPrice(tour.price, locale)}</p>
+                  <div className="mt-1"><SalePrice price={tour.price} locale={locale} size="lg" fallbackClassName="font-serif text-primary text-[20px] font-semibold" /></div>
                   {hasAdultChildPricing(tour) && (
                     <p className="mt-2 text-[12.5px] text-ink/60 leading-[1.7]">{t("priceAgeNote")}</p>
                   )}
@@ -522,7 +533,7 @@ export function TourDetailPage() {
       {/* Mobile sticky bottom CTA */}
       <div className="lg:hidden sticky bottom-0 z-40 bg-cream/95 backdrop-blur border-t border-border px-5 py-3 flex items-center justify-between gap-3 shadow-[0_-10px_30px_-15px_rgba(60,80,70,0.3)]">
         <div className="shrink-0">
-          <p className="font-serif text-primary text-lg font-semibold leading-tight">{formatPrice(tour.price, locale)}</p>
+          <SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="font-serif text-primary text-lg font-semibold leading-tight" />
         </div>
         {rezdyBookingUrl ? (
           <a

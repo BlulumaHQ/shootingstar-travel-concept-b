@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { formatPrice } from "@/i18n/tourText";
+import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent, LakeTourCard } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
@@ -97,10 +98,10 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
             {c.tours.map((t) => {
               const live = liveBySlug[t.slug];
               const img = live?.img ?? t.fallbackImg;
-              const priceLine = formatPrice(
-                typeof live?.price === "string" && live.price ? live.price : t.priceFromLabel,
-                locale,
-              );
+              const rawPrice =
+                typeof live?.price === "string" && live.price ? live.price : t.priceFromLabel;
+              const isSale = !!parseSalePrice(rawPrice);
+              const priceLine = formatPrice(rawPrice, locale);
               return (
                 <article
                   key={t.slug}
@@ -118,9 +119,13 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                     </h3>
                     <p className="mt-3 text-[14px] text-ink/70 leading-[1.85] flex-1">{t.short}</p>
                     <div className="mt-5 pt-5 border-t border-border/60 flex items-baseline justify-between">
-                      <span className="font-serif text-primary text-[18px] font-semibold">
-                        {priceLine}
-                      </span>
+                      {isSale ? (
+                        <SalePrice price={rawPrice} locale={locale} size="md" />
+                      ) : (
+                        <span className="font-serif text-primary text-[18px] font-semibold">
+                          {priceLine}
+                        </span>
+                      )}
                     </div>
                     <Link
                       to={tourHref(t.slug) as never}
