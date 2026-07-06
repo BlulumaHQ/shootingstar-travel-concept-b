@@ -54,6 +54,8 @@ const LABELS: Record<Locale, {
     included: "Included", notIncluded: "Not Included", optional: "Optional Experiences",
     notesEyebrow: "travel notes", notes: "Travel Notes", faq: "Frequently asked",
     termsEyebrow: "terms & conditions", terms: "Shooting Star Travel Booking Terms & Conditions",
+    agePolicyEyebrow: "notes", agePolicyTitle: "[Age Policy]", agePolicyBody:
+      "The child fare applies to children under 12 years old (12 not included).\nGuests aged 12 and over are charged the adult fare.",
     termsSections: [
       {
         title: "1. Booking & Payment",
