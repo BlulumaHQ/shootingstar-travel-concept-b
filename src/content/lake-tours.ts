@@ -5,7 +5,7 @@
  * ============================================================ */
 
 export type LakeTourCard = {
-  letter: "A" | "B" | "C" | "D" | "E";
+  letter: "A" | "B" | "C" | "D" | "E" | "F";
   slug: string;
   name: string;
   short: string;          // one-line card description
