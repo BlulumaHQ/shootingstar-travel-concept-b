@@ -27,7 +27,7 @@ import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import lakeHero from "@/assets/lake-tours/lake-009.webp";
-import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+import calgaryStampede from "@/assets/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const STAMPEDE_HERO: Record<Locale, {
@@ -395,7 +395,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   return [
     {
       id: "stampede",
-      image: calgaryStampede.url,
+      image: calgaryStampede,
       eyebrow: s.eyebrow,
       h1Line1: s.h1Line1,
       h1Line2: s.h1Line2,
