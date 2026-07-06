@@ -22,7 +22,7 @@ import { whistlerHero, whistlerGallery } from "./whistler-gallery";
 import type { Tour } from "./tours";
 
 const LANGUAGE_NOTE =
-  "導遊語言將依當團旅客組成安排。我們會盡量配合旅客的語言需求（中文、英文或韓文），但無法保證安排單一語言團。";
+  "【導覽與語言服務】本行程主要提供中、英、韓三語語音導覽，並搭配司機兼導遊的現場重點補充。司機實際使用的解說語言，將視當天全車旅客的組成彈性調整。我們會盡力配合您的語言需求，但恕無法保證為單一語言專車，敬請見諒。";
 const ROOM_NOTE = "多人同行時，由於住宿費用可共同分攤，因此每位旅客價格會更優惠。";
 
 export const tours: Tour[] = [
