@@ -391,7 +391,19 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
 
 function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
+  const s = STAMPEDE_HERO[locale];
   return [
+    {
+      id: "stampede",
+      image: calgaryStampede.url,
+      eyebrow: s.eyebrow,
+      h1Line1: s.h1Line1,
+      h1Line2: s.h1Line2,
+      sub: s.sub,
+      badges: [],
+      primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
+      durationMs: 7000,
+    },
     {
       id: "intro",
       image: heroBgMoraine,
