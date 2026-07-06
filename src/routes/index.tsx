@@ -395,7 +395,7 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   return [
     {
       id: "stampede",
-      image: calgaryStampede.url,
+      image: calgaryStampede,
       eyebrow: s.eyebrow,
       h1Line1: s.h1Line1,
       h1Line2: s.h1Line2,
