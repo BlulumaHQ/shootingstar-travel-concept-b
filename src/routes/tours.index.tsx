@@ -52,6 +52,7 @@ const CANADA_ORDER = [
   "jet-johnston-emerald-takakkaw",
   "5-lakes-tour",
   "moraine-lake-lake-louise-half-day",
+  "moraine-lake-lake-louise-calgary-departure",
   "moraine-lake-sunrise-tour",
   "rockies-signature-columbia-icefield",
   "icefields-parkway-jasper-banff-shuttle",
