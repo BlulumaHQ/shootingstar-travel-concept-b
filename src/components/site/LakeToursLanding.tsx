@@ -7,7 +7,7 @@ import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
-import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+import calgaryStampede from "@/assets/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 
