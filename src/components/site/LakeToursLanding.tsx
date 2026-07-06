@@ -4,7 +4,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { formatPrice } from "@/i18n/tourText";
 import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
-import type { LakeToursContent, LakeTourCard } from "@/content/lake-tours";
+import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
 import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
