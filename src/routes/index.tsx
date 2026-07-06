@@ -36,19 +36,19 @@ const STAMPEDE_HERO: Record<Locale, {
 }> = {
   en: {
     eyebrow: "🔥 Limited time offer",
-    h1Line1: "Stampede season special · Save 20%",
+    h1Line1: "Stampede season special · Save 30%",
     sub: "During the excitement of Calgary Stampede season, enjoy our limited-time Calgary departure day tour to Moraine Lake × Lake Louise. Beyond the Stampede, let the unforgettable lake views of the Rockies add one more beautiful memory to your journey.",
     primary: "Book Now",
   },
   zh: {
     eyebrow: "🔥 限時優惠",
-    h1Line1: "牛仔節季限定優惠 · 立省 20%",
+    h1Line1: "牛仔節季限定優惠 · 立省 30%",
     sub: "趁著卡加立牛仔節的熱鬧季節,我們推出卡加立出發的夢蓮湖 × 露易絲湖雙湖一日遊限時優惠。牛仔節之外,讓洛磯山的絕美湖景為你的旅程再添一筆難忘回憶。",
     primary: "立即預訂",
   },
   ko: {
     eyebrow: "🔥 기간 한정 특가",
-    h1Line1: "스탬피드 시즌 한정 · 20% 할인",
+    h1Line1: "스탬피드 시즌 한정 · 30% 할인",
     sub: "캘거리 스탬피드의 활기찬 시즌을 맞아 캘거리 출발 모레인 호수 × 레이크 루이스 두 호수 일일 투어를 기간 한정 특가로 선보입니다. 스탬피드와 더불어 로키 산맥의 아름다운 호수 풍경이 여행에 잊지 못할 추억을 더해드립니다.",
     primary: "지금 예약",
   },

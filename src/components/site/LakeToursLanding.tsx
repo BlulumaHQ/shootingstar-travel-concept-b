@@ -21,7 +21,7 @@ const STAMPEDE_PROMO: Record<Locale, {
 }> = {
   en: {
     badge: "🔥 Limited time offer",
-    headline: "Stampede season special · Save 20%",
+    headline: "Stampede season special · Save 30%",
     subheadline:
       "During the excitement of Calgary Stampede season, enjoy our limited-time Calgary departure day tour to Moraine Lake × Lake Louise.",
     cta: "Book Now",
@@ -30,7 +30,7 @@ const STAMPEDE_PROMO: Record<Locale, {
   },
   zh: {
     badge: "🔥 限時優惠",
-    headline: "牛仔節季限定優惠 · 立省 20%",
+    headline: "牛仔節季限定優惠 · 立省 30%",
     subheadline:
       "趁著卡加立牛仔節的熱鬧季節,我們推出卡加立出發的夢蓮湖 × 露易絲湖雙湖一日遊限時優惠。",
     cta: "立即預訂",
@@ -39,7 +39,7 @@ const STAMPEDE_PROMO: Record<Locale, {
   },
   ko: {
     badge: "🔥 기간 한정 특가",
-    headline: "스탬피드 시즌 한정 · 20% 할인",
+    headline: "스탬피드 시즌 한정 · 30% 할인",
     subheadline:
       "캘거리 스탬피드의 활기찬 시즌을 맞아 캘거리 출발 모레인 호수 × 레이크 루이스 두 호수 일일 투어를 기간 한정 특가로 선보입니다.",
     cta: "지금 예약",
