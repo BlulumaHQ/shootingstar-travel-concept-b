@@ -4,6 +4,7 @@ import { SiteLayout } from "@/components/site/Layout";
 import { useTours } from "@/data/useTours";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { getRegions, type Region } from "@/data/tourRegions";
+import { sortToursByCategory } from "@/data/sortTours";
 import { SalePrice } from "@/components/site/SalePrice";
 import { BusMark, DottedLine, PinMark } from "@/components/site/BrandMarks";
 
@@ -109,7 +110,7 @@ export function RegionToursLanding({
 }) {
   const locale = useLocale();
   const tours = useTours();
-  const list = tours.filter((t) => getRegions(t.slug).includes(region));
+  const list = sortToursByCategory(tours.filter((t) => getRegions(t.slug).includes(region)));
 
   return (
     <SiteLayout>

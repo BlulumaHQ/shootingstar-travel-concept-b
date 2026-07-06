@@ -7,6 +7,7 @@ import { SalePrice } from "@/components/site/SalePrice";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 import { getRegions, type Region } from "@/data/tourRegions";
+import { sortToursByCategory } from "@/data/sortTours";
 import { useT } from "@/i18n/dict";
 
 const privateImg = "/rocky-private-tour.webp";
@@ -36,45 +37,8 @@ const US_SLUGS = new Set([
   "oregon-coast-3-day",
 ]);
 
-// Explicit display order for Canadian Journeys
-const CANADA_ORDER = [
-  "victoria-1-day",
-  "whistler-1-day",
-  "rockies-3-day",
-  "kelowna-2-day",
-  "fruit-upick-crab-catching",
-  "vancouver-city-tour",
-  "victoria-nanaimo-2-day",
-  "eastern-canada-luxury-5-day",
-  "eastern-canada-5-day",
-  // Remaining Canadian tours (rocky lake + jasper + others) appended
-  "banff-two-lake-1-day",
-  "jet-johnston-emerald-takakkaw",
-  "5-lakes-tour",
-  "moraine-lake-lake-louise-half-day",
-  "moraine-lake-lake-louise-calgary-departure",
-  "moraine-lake-sunrise-tour",
-  "rockies-signature-columbia-icefield",
-  "icefields-parkway-jasper-banff-shuttle",
-  "banff-to-jasper-sightseeing-shuttle",
-  "jasper-maligne-lake-spirit-island-day-tour",
-  "jasper-to-banff-express-shuttle",
-  "banff-to-jasper-express-shuttle",
-  "jasper-medicine-lake-maligne-lake-half-day-tour",
-  "icefields-parkway-southbound-sightseeing-shuttle",
-];
 
-// Explicit display order for American Journeys
-const USA_ORDER = [
-  "seattle-1-day",
-  "seattle-2-day",
-  "seattle-tech-tour",
-  "oregon-coast-3-day",
-  "western-usa-8-day",
-  "vegas-canyon-4-day",
-  "los-angeles-3-day",
-  "los-angeles-4-day",
-];
+
 
 type PrivatePack = {
   heading: string;
@@ -168,10 +132,6 @@ const PACKS: Record<Locale, Pack> = {
 };
 
 
-function orderBySlugList(toursList: typeof tours, slugOrder: string[]) {
-  const bySlug = new Map(toursList.map((t) => [t.slug, t]));
-  return slugOrder.map((s) => bySlug.get(s)).filter(Boolean) as typeof tours;
-}
 
 const REGION_TABS: { value: "all" | Region; key: "nav.toursAll" | "nav.toursCanada" | "nav.toursBanff" | "nav.toursJasper" | "nav.toursUsa" }[] = [
   { value: "all", key: "nav.toursAll" },
@@ -205,19 +165,13 @@ export function ToursIndexPage() {
     } as never);
   };
 
-  const usa = orderBySlugList(
-    tours.filter((t) => US_SLUGS.has(t.slug)),
-    USA_ORDER,
-  );
-  const canada = orderBySlugList(
-    tours.filter((t) => !US_SLUGS.has(t.slug)),
-    CANADA_ORDER,
-  );
+  const usa = sortToursByCategory(tours.filter((t) => US_SLUGS.has(t.slug)));
+  const canada = sortToursByCategory(tours.filter((t) => !US_SLUGS.has(t.slug)));
 
   const filteredList =
     activeRegion === "all"
       ? []
-      : tours.filter((tour) => getRegions(tour.slug).includes(activeRegion));
+      : sortToursByCategory(tours.filter((tour) => getRegions(tour.slug).includes(activeRegion)));
 
   const renderCard = (t: (typeof tours)[number]) => (
     <Link
