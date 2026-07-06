@@ -4,6 +4,7 @@ import { tours } from "@/data/tours";
 import { useTours } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { formatPrice } from "@/i18n/tourText";
+import { SalePrice } from "@/components/site/SalePrice";
 import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 import { getRegions, type Region } from "@/data/tourRegions";
