@@ -233,18 +233,32 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
 
+  const sale = parseSalePrice(tour?.price);
   const priceMatch = tour?.price?.match(/\$([\d,]+(?:\.\d+)?)\s*([A-Z]{3})/i);
   const priceAmount = priceMatch ? `$${priceMatch[1]} ${priceMatch[2]}` : (tour?.price ?? "");
+
+  const priceBlock = sale ? (
+    <div>
+      <p className="text-[11px] text-ink/55">{B.from}</p>
+      <div className="mt-1">
+        <SalePrice price={tour?.price} locale={locale} size="lg" />
+      </div>
+      <p className="text-[11px] text-ink/55 mt-1.5">{B.perPerson}</p>
+    </div>
+  ) : (
+    <div>
+      <p className="text-[11px] text-ink/55">{B.from}</p>
+      <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
+      <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
+    </div>
+  );
 
   if (!rezdyBookingUrl) {
     return (
       <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
         <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
         <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-        <div>
-          <p className="text-[11px] text-ink/55">{B.from}</p>
-          <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
-        </div>
+        {priceBlock}
         <Link
           to={contactHref as never}
           className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
@@ -259,11 +273,7 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
       <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-      <div>
-        <p className="text-[11px] text-ink/55">{B.from}</p>
-        <p className="font-serif text-primary text-[22px] font-semibold leading-tight">{priceAmount}</p>
-        <p className="text-[11px] text-ink/55 mt-0.5">{B.perPerson}</p>
-      </div>
+      {priceBlock}
       <a
         href={rezdyBookingUrl}
         target="_blank"
