@@ -1,12 +1,48 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useLocale, withLocale } from "@/i18n/locale";
+import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { formatPrice } from "@/i18n/tourText";
 import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent, LakeTourCard } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
+import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+
+const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
+
+const STAMPEDE_PROMO: Record<Locale, {
+  badge: string;
+  headline: string;
+  subheadline: string;
+  cta: string;
+  secondary: string;
+}> = {
+  en: {
+    badge: "🔥 Limited Time Only",
+    headline: "Calgary Stampede Special",
+    subheadline: "Save 20% on our Calgary Departure Tours",
+    cta: "Book Now",
+    secondary:
+      "Experience the world-famous Calgary Stampede together with Moraine Lake, Lake Louise and Banff in one unforgettable Rocky Mountain adventure.",
+  },
+  zh: {
+    badge: "🔥 限時優惠",
+    headline: "卡加立牛仔節限定特惠",
+    subheadline: "卡加立出發行程即刻享 20% 折扣",
+    cta: "立即預訂",
+    secondary:
+      "世界聞名的卡加立牛仔節，加上夢蓮湖、露易絲湖與班夫 —— 一趟難忘的洛磯山脈盛夏之旅。",
+  },
+  ko: {
+    badge: "🔥 한정 프로모션",
+    headline: "캘거리 스탬피드 스페셜",
+    subheadline: "캘거리 출발 투어를 20% 할인가로 만나보세요",
+    cta: "지금 예약",
+    secondary:
+      "세계적으로 유명한 캘거리 스탬피드와 함께 모레인 호수, 레이크 루이스, 밴프까지 잊지 못할 로키 마운틴 여정.",
+  },
+};
 
 /**
  * Rocky Mountain Lake Tours — landing page.
