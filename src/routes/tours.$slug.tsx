@@ -328,7 +328,6 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     );
   }
 
-  const isCalgaryStampede = tour?.slug === CALGARY_STAMPEDE_SLUG;
   const useRezdyIframe = tour?.slug ? REZDY_IFRAME_SLUGS.has(tour.slug) : false;
   const rezdyId = useRezdyIframe ? extractRezdyId(rezdyBookingUrl) : null;
   if (useRezdyIframe && rezdyId) {
