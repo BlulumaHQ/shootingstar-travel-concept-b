@@ -27,6 +27,34 @@ import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import lakeHero from "@/assets/lake-tours/lake-009.webp";
+import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+
+const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
+const STAMPEDE_HERO: Record<Locale, {
+  eyebrow: string; h1Line1: string; h1Line2: string; sub: string; primary: string;
+}> = {
+  en: {
+    eyebrow: "🔥 Limited Time · Calgary Stampede",
+    h1Line1: "Calgary Stampede",
+    h1Line2: "Special · Save 20%",
+    sub: "Experience the world-famous Calgary Stampede together with Moraine Lake, Lake Louise and Banff in one unforgettable Rocky Mountain adventure.",
+    primary: "Book Now",
+  },
+  zh: {
+    eyebrow: "🔥 限時 · 卡加立牛仔節",
+    h1Line1: "卡加立牛仔節",
+    h1Line2: "限定特惠 · 立省 20%",
+    sub: "世界聞名的卡加立牛仔節，加上夢蓮湖、露易絲湖與班夫 —— 一趟難忘的洛磯山脈盛夏之旅。",
+    primary: "立即預訂",
+  },
+  ko: {
+    eyebrow: "🔥 한정 · 캘거리 스탬피드",
+    h1Line1: "캘거리 스탬피드",
+    h1Line2: "스페셜 · 20% 할인",
+    sub: "세계적으로 유명한 캘거리 스탬피드와 함께 모레인 호수, 레이크 루이스, 밴프까지 잊지 못할 로키 마운틴 여정.",
+    primary: "지금 예약",
+  },
+};
 
 
 export const Route = createFileRoute("/")({
@@ -363,7 +391,19 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
 
 function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
+  const s = STAMPEDE_HERO[locale];
   return [
+    {
+      id: "stampede",
+      image: calgaryStampede.url,
+      eyebrow: s.eyebrow,
+      h1Line1: s.h1Line1,
+      h1Line2: s.h1Line2,
+      sub: s.sub,
+      badges: [],
+      primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
+      durationMs: 7000,
+    },
     {
       id: "intro",
       image: heroBgMoraine,

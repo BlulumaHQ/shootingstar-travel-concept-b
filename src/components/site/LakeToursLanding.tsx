@@ -1,12 +1,48 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useLocale, withLocale } from "@/i18n/locale";
+import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { formatPrice } from "@/i18n/tourText";
 import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
-import type { LakeToursContent, LakeTourCard } from "@/content/lake-tours";
+import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
+import calgaryStampede from "@/assets/calgary-stampede.webp.asset.json";
+
+const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
+
+const STAMPEDE_PROMO: Record<Locale, {
+  badge: string;
+  headline: string;
+  subheadline: string;
+  cta: string;
+  secondary: string;
+}> = {
+  en: {
+    badge: "🔥 Limited Time Only",
+    headline: "Calgary Stampede Special",
+    subheadline: "Save 20% on our Calgary Departure Tours",
+    cta: "Book Now",
+    secondary:
+      "Experience the world-famous Calgary Stampede together with Moraine Lake, Lake Louise and Banff in one unforgettable Rocky Mountain adventure.",
+  },
+  zh: {
+    badge: "🔥 限時優惠",
+    headline: "卡加立牛仔節限定特惠",
+    subheadline: "卡加立出發行程即刻享 20% 折扣",
+    cta: "立即預訂",
+    secondary:
+      "世界聞名的卡加立牛仔節，加上夢蓮湖、露易絲湖與班夫 —— 一趟難忘的洛磯山脈盛夏之旅。",
+  },
+  ko: {
+    badge: "🔥 한정 프로모션",
+    headline: "캘거리 스탬피드 스페셜",
+    subheadline: "캘거리 출발 투어를 20% 할인가로 만나보세요",
+    cta: "지금 예약",
+    secondary:
+      "세계적으로 유명한 캘거리 스탬피드와 함께 모레인 호수, 레이크 루이스, 밴프까지 잊지 못할 로키 마운틴 여정.",
+  },
+};
 
 /**
  * Rocky Mountain Lake Tours — landing page.
@@ -49,44 +85,53 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const contactHref = withLocale("/contact", locale);
   const toursIndexHref = withLocale("/tours", locale);
 
-  const scrollToCards = () =>
-    document.getElementById("tour-cards")?.scrollIntoView({ behavior: "smooth" });
+
+  const promo = STAMPEDE_PROMO[locale];
+  const stampedeHref = withLocale(`/tours/${STAMPEDE_SLUG}`, locale);
 
   return (
     <SiteLayout>
-      {/* ============ HERO ============ */}
+      {/* ============ HERO — Calgary Stampede Special ============ */}
       <section className="relative overflow-hidden bg-ink">
         <img
-          src={LAKE_TOURS_HERO_IMG}
-          alt="Canadian Rockies lake at sunrise"
-          className="absolute inset-0 h-full w-full object-cover"
+          src={calgaryStampede.url}
+          alt="Calgary Stampede rodeo action"
+          className="absolute inset-0 h-full w-full object-cover object-[70%_center] md:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/35 to-ink/70" />
-        <div className="relative mx-auto max-w-[1100px] px-5 md:px-10 py-28 md:py-40 text-center text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.7)]">
-          <p className="font-marker text-cream/90 text-[13px] tracking-[0.3em] uppercase">
-            {c.hero.eyebrow}
-          </p>
-          <h1 className="mt-5 font-serif text-[40px] md:text-[64px] leading-[1.05] font-semibold text-cream">
-            {c.hero.title}
-          </h1>
-          <p className="mt-7 mx-auto max-w-2xl text-cream/95 text-[15.5px] md:text-[17px] leading-[1.9]">
-            {c.hero.tagline}
-          </p>
-          <div className="mt-10">
-            <button
-              onClick={scrollToCards}
-              className="rounded-full bg-cream text-ink px-8 py-4 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.55)]"
-            >
-              {c.hero.cta}
-            </button>
+        {/* Dark gradient for legibility while keeping the photo visible */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+        <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-24 md:py-36 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.75)]">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center rounded-full bg-cream/95 text-ink px-4 py-1.5 text-[11px] md:text-[12px] font-semibold tracking-[0.22em] uppercase shadow-[0_8px_24px_-8px_rgba(0,0,0,0.55)] [text-shadow:none]">
+              {promo.badge}
+            </span>
+            <h1 className="mt-6 font-serif text-[38px] sm:text-[48px] md:text-[68px] leading-[1.05] font-semibold text-cream">
+              {promo.headline}
+            </h1>
+            <p className="mt-5 font-serif italic text-cream/95 text-[18px] md:text-[22px] leading-snug">
+              {promo.subheadline}
+            </p>
+            <p className="mt-6 max-w-xl text-cream/90 text-[14.5px] md:text-[16px] leading-[1.9]">
+              {promo.secondary}
+            </p>
+            <div className="mt-9">
+              <Link
+                to={stampedeHref as never}
+                className="inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 text-[14px] font-semibold tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.6)] [text-shadow:none]"
+              >
+                {promo.cta} <span aria-hidden>→</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ TOUR CARDS (A–E) ============ */}
+      {/* ============ TOUR CARDS ============ */}
       <section id="tour-cards" className="py-20 md:py-28">
         <div className="mx-auto max-w-[1240px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
+
             {c.cards.eyebrow}
           </p>
           <h2 className="mt-3 font-serif text-3xl md:text-[40px] text-ink font-semibold">

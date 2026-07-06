@@ -11,6 +11,7 @@ export const TOUR_REGIONS: Record<string, Region[]> = {
   "jet-johnston-emerald-takakkaw": ["banff"],
   "5-lakes-tour": ["banff"],
   "moraine-lake-lake-louise-half-day": ["banff"],
+  "moraine-lake-lake-louise-calgary-departure": ["banff", "canada"],
   "moraine-lake-sunrise-tour": ["banff"],
   "rockies-signature-columbia-icefield": ["banff"],
 

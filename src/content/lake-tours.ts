@@ -5,7 +5,7 @@
  * ============================================================ */
 
 export type LakeTourCard = {
-  letter: "A" | "B" | "C" | "D" | "E";
+  letter: "A" | "B" | "C" | "D" | "E" | "F";
   slug: string;
   name: string;
   short: string;          // one-line card description
@@ -192,6 +192,18 @@ export const LAKE_TOURS_EN: LakeToursContent = {
       bestFor: "Sunrise photographers",
       fallbackImg: lake009,
     },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "Moraine Lake & Lake Louise — Calgary Departure",
+      short: "Skip the Banff transfer — depart directly from Calgary for Moraine Lake and Lake Louise in one full day. Now 20% off during the Calgary Stampede.",
+      priceFromLabel: "From $115 CAD",
+      duration: "Full day",
+      departure: "Calgary AM",
+      highlights: "Moraine Lake, Lake Louise, Calgary round-trip",
+      bestFor: "Travelers based in Calgary",
+      fallbackImg: lake014,
+    },
   ],
 };
 
@@ -312,6 +324,18 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
       bestFor: "日出攝影愛好者",
       fallbackImg: lake009,
     },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "夢蓮湖 & 露易絲湖 — 卡加立出發",
+      short: "免去到班夫的接駁，直接從卡加立出發，一日走訪夢蓮湖與露易絲湖。卡加立牛仔節期間 20% 折扣。",
+      priceFromLabel: "$115 CAD 起",
+      duration: "一日",
+      departure: "卡加立上午",
+      highlights: "夢蓮湖、露易絲湖、卡加立往返",
+      bestFor: "從卡加立出發的旅客",
+      fallbackImg: lake014,
+    },
   ],
 };
 
@@ -431,6 +455,18 @@ export const LAKE_TOURS_KO: LakeToursContent = {
       highlights: "모레인 호수 일출, 10봉 계곡",
       bestFor: "일출 사진가",
       fallbackImg: lake009,
+    },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "모레인 호수 & 레이크 루이스 — 캘거리 출발",
+      short: "밴프까지 이동할 필요 없이 캘거리에서 바로 출발해 하루에 모레인 호수와 레이크 루이스를 만나는 투어. 캘거리 스탬피드 기간 20% 할인.",
+      priceFromLabel: "$115 CAD 부터",
+      duration: "종일",
+      departure: "캘거리 오전",
+      highlights: "모레인 호수, 레이크 루이스, 캘거리 왕복",
+      bestFor: "캘거리에서 출발하는 여행자",
+      fallbackImg: lake014,
     },
   ],
 };
