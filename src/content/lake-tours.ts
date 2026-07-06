@@ -324,6 +324,18 @@ export const LAKE_TOURS_ZH: LakeToursContent = {
       bestFor: "日出攝影愛好者",
       fallbackImg: lake009,
     },
+    {
+      letter: "F",
+      slug: "moraine-lake-lake-louise-calgary-departure",
+      name: "夢蓮湖 & 露易絲湖 — 卡加立出發",
+      short: "免去到班夫的接駁，直接從卡加立出發，一日走訪夢蓮湖與露易絲湖。卡加立牛仔節期間 20% 折扣。",
+      priceFromLabel: "$115 CAD 起",
+      duration: "一日",
+      departure: "卡加立上午",
+      highlights: "夢蓮湖、露易絲湖、卡加立往返",
+      bestFor: "從卡加立出發的旅客",
+      fallbackImg: lake014,
+    },
   ],
 };
 
