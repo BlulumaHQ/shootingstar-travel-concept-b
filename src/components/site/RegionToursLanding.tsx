@@ -110,7 +110,7 @@ export function RegionToursLanding({
 }) {
   const locale = useLocale();
   const tours = useTours();
-  const list = tours.filter((t) => getRegions(t.slug).includes(region));
+  const list = sortToursByCategory(tours.filter((t) => getRegions(t.slug).includes(region)));
 
   return (
     <SiteLayout>
