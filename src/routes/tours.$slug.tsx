@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { TourGallery } from "@/components/site/TourGallery";
