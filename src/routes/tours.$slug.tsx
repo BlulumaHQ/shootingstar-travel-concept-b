@@ -329,13 +329,14 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
   }
 
   const isCalgaryStampede = tour?.slug === CALGARY_STAMPEDE_SLUG;
-  const rezdyId = isCalgaryStampede ? extractRezdyId(rezdyBookingUrl) : null;
-  if (isCalgaryStampede) {
+  const useRezdyIframe = tour?.slug ? REZDY_IFRAME_SLUGS.has(tour.slug) : false;
+  const rezdyId = useRezdyIframe ? extractRezdyId(rezdyBookingUrl) : null;
+  if (useRezdyIframe && rezdyId) {
     return (
       <div id="rezdy-book" className="rounded-2xl bg-cream p-4 md:p-5 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-3">
         <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
         <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
-        <RezdyBookingIframe calendarId={rezdyId ?? undefined} />
+        <RezdyBookingIframe calendarId={rezdyId} />
       </div>
     );
   }
