@@ -205,19 +205,13 @@ export function ToursIndexPage() {
     } as never);
   };
 
-  const usa = orderBySlugList(
-    tours.filter((t) => US_SLUGS.has(t.slug)),
-    USA_ORDER,
-  );
-  const canada = orderBySlugList(
-    tours.filter((t) => !US_SLUGS.has(t.slug)),
-    CANADA_ORDER,
-  );
+  const usa = sortToursByCategory(tours.filter((t) => US_SLUGS.has(t.slug)));
+  const canada = sortToursByCategory(tours.filter((t) => !US_SLUGS.has(t.slug)));
 
   const filteredList =
     activeRegion === "all"
       ? []
-      : tours.filter((tour) => getRegions(tour.slug).includes(activeRegion));
+      : sortToursByCategory(tours.filter((tour) => getRegions(tour.slug).includes(activeRegion)));
 
   const renderCard = (t: (typeof tours)[number]) => (
     <Link
