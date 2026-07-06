@@ -6,6 +6,7 @@ import { useGetTour } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { formatPrice, isInternalDevNote, translateIncludedItem, translateNotIncludedItem } from "@/i18n/tourText";
+import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import {
   LAKE_TOUR_TRIP_INFO,
