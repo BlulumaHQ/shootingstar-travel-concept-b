@@ -32,7 +32,7 @@ const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const STAMPEDE_HERO: Record<Locale, {
-  eyebrow: string; h1Line1: string; h1Line2: string; sub: string; primary: string;
+  eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
 }> = {
   en: {
     eyebrow: "🔥 Limited time offer",
