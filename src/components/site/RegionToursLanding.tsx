@@ -6,6 +6,7 @@ import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
 import { SalePrice } from "@/components/site/SalePrice";
+import { FeaturedBadge } from "@/components/site/FeaturedBadge";
 import { BusMark, DottedLine, PinMark } from "@/components/site/BrandMarks";
 
 export type RegionLandingContent = {
