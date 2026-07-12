@@ -419,6 +419,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
 function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
   const s = STAMPEDE_HERO[locale];
+  const f = FEATURED_HERO[locale];
   return [
     {
       id: "stampede",
@@ -430,6 +431,17 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       badges: [],
       primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
       durationMs: 7000,
+    },
+    {
+      id: "featured-half-day",
+      image: heroBgMoraine,
+      eyebrow: f.eyebrow,
+      h1Line1: f.h1Line1,
+      h1Line2: f.h1Line2,
+      sub: f.sub,
+      badges: [],
+      primary: { label: f.primary, to: link(`/tours/${FEATURED_SLUG}`) },
+      durationMs: 6500,
     },
     {
       id: "intro",
