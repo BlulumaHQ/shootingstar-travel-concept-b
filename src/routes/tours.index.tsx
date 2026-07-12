@@ -8,6 +8,7 @@ import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
+import { FeaturedBadge } from "@/components/site/FeaturedBadge";
 import { useT } from "@/i18n/dict";
 
 const privateImg = "/rocky-private-tour.webp";
