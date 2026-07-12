@@ -18,6 +18,7 @@ import logoSeal from "@/assets/logo-seal.png";
 import { Heart as HeartFill } from "lucide-react";
 import { useTours } from "@/data/useTours";
 import { sortToursByCategory } from "@/data/sortTours";
+import { FeaturedBadge } from "@/components/site/FeaturedBadge";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon,
 } from "@/components/site/DoodleIcons";
@@ -32,6 +33,33 @@ import lakeHero from "@/assets/lake-tours/lake-009.webp";
 const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
+const FEATURED_SLUG = "moraine-lake-lake-louise-half-day";
+const FEATURED_HERO: Record<Locale, {
+  eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
+}> = {
+  en: {
+    eyebrow: "★ Editor's Pick · Half-Day",
+    h1Line1: "Moraine Lake &",
+    h1Line2: "Lake Louise · Half-Day",
+    sub: "Our most-loved Rockies tour — a light half-day from Banff to the two most iconic turquoise lakes. Small group, easy pace, unforgettable water.",
+    primary: "See This Tour",
+  },
+  zh: {
+    eyebrow: "★ 編輯精選 · 半日遊",
+    h1Line1: "夢蓮湖 &",
+    h1Line2: "露易絲湖 · 半日遊",
+    sub: "我們最受歡迎的洛磯山行程 —— 從班夫出發的輕鬆半日遊，一次收藏兩座最經典的綠松石湖。小團出發、節奏舒適、湖景難忘。",
+    primary: "查看此團",
+  },
+  ko: {
+    eyebrow: "★ 에디터 추천 · 반일 투어",
+    h1Line1: "모레인 호수 &",
+    h1Line2: "레이크 루이스 · 반일",
+    sub: "가장 사랑받는 로키 투어 — 밴프에서 출발해 가장 상징적인 두 터쿠아즈 호수를 여유롭게 담아오는 반일 여정. 소그룹, 편안한 페이스, 잊지 못할 호수.",
+    primary: "투어 보기",
+  },
+};
+
 const STAMPEDE_HERO: Record<Locale, {
   eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
 }> = {
@@ -391,6 +419,7 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
 function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
   const s = STAMPEDE_HERO[locale];
+  const f = FEATURED_HERO[locale];
   return [
     {
       id: "stampede",
@@ -402,6 +431,17 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       badges: [],
       primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
       durationMs: 7000,
+    },
+    {
+      id: "featured-half-day",
+      image: heroBgMoraine,
+      eyebrow: f.eyebrow,
+      h1Line1: f.h1Line1,
+      h1Line2: f.h1Line2,
+      sub: f.sub,
+      badges: [],
+      primary: { label: f.primary, to: link(`/tours/${FEATURED_SLUG}`) },
+      durationMs: 6500,
     },
     {
       id: "intro",
@@ -500,6 +540,7 @@ export function HomePage() {
               >
                 <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
                   <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
+                  <FeaturedBadge slug={t.slug} />
                   <button aria-label="Save" onClick={(e) => e.preventDefault()} className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/90 text-primary backdrop-blur-sm hover:bg-cream transition">
                     <HeartFill size={13} strokeWidth={1.8} />
                   </button>

@@ -8,6 +8,7 @@ import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
+import { FeaturedBadge } from "@/components/site/FeaturedBadge";
 import { useT } from "@/i18n/dict";
 
 const privateImg = "/rocky-private-tour.webp";
@@ -181,6 +182,7 @@ export function ToursIndexPage() {
     >
       <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
         <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
+        <FeaturedBadge slug={t.slug} />
         <button aria-label="Save" onClick={(e) => e.preventDefault()} className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/90 text-primary backdrop-blur-sm hover:bg-cream transition">
           <Heart size={13} strokeWidth={1.8} />
         </button>

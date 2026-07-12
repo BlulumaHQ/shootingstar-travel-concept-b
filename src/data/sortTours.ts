@@ -16,6 +16,10 @@ import type { Tour } from "./tours";
  * which respects any custom `sort_order` already applied upstream.
  */
 
+/** Top-priority featured tour(s) — always shown first across the whole site. */
+export const FEATURED_TOUR_SLUG = "moraine-lake-lake-louise-half-day";
+const FEATURED_SLUGS = new Set<string>([FEATURED_TOUR_SLUG]);
+
 const CALGARY_SLUGS = new Set<string>([
   "moraine-lake-lake-louise-calgary-departure",
 ]);
@@ -66,6 +70,7 @@ const USA_SLUGS = new Set<string>([
 ]);
 
 export function tourCategoryRank(slug: string): number {
+  if (FEATURED_SLUGS.has(slug)) return 0;
   if (CALGARY_SLUGS.has(slug)) return 1;
   if (CANADIAN_ROCKIES_SLUGS.has(slug)) return 2;
   if (BANFF_JASPER_SLUGS.has(slug)) return 3;
