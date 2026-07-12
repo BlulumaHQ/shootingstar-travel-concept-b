@@ -659,20 +659,20 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-lake-louise-half-day",
     img: heroBgMoraine,
-    title: "모레인 호수 & 레이크 루이스 반일 투어",
-    desc: "모레인 호수와 레이크 루이스를 방문하는 밴프 호수 반일 투어.",
-    intro: "밴프에서 출발하여 모레인 호수와 레이크 루이스를 둘러보는 반일 투어로, 하루를 다 쓰지 않고도 편안하게 호수를 즐기고 싶은 여행자에게 적합합니다.",
+    title: "모레인 호수 & 레이크 루이스 탐험 투어",
+    desc: "모레인 호수와 레이크 루이스를 방문하는 밴프 호수 탐험 투어.",
+    intro: "밴프에서 출발하여 모레인 호수와 레이크 루이스를 둘러보는 탐험 투어로, 하루를 다 쓰지 않고도 편안하게 호수를 즐기고 싶은 여행자에게 적합합니다.",
     duration: "5시간",
     language: LANGUAGE_NOTE,
     price: "From $130 CAD / adult",
     itinerary: [
-      { stop: "Day 1", title: "Moraine Lake & Lake Louise Half-Day Tour", body: "Guided visit / stop at Moraine Lake & Lake Louise Half-Day Tour." }
+      { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
     included: ["Transportation", "Banff pickup", "Moraine Lake visit", "Lake Louise visit"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Canoe rental", "Optional hikes", "Suggested guide gratuity"],
     optional: ["Canoe rental"],
     notes: [],
-    bookingCta: "Book Your Moraine Lake & Lake Louise Half-Day Tour",
+    bookingCta: "Book Your Moraine Lake & Lake Louise Exploration",
   },
   {
     slug: "moraine-lake-sunrise-tour",

@@ -662,20 +662,20 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-lake-louise-half-day",
     img: heroBgMoraine,
-    title: "夢蓮湖與露易絲湖 半日遊",
-    desc: "半日班夫湖區行程，前往夢蓮湖與露易絲湖。",
-    intro: "從班夫出發的半日遊，造訪夢蓮湖與露易絲湖，適合想輕鬆飽覽湖光美景、又不想花上一整天的旅客。",
+    title: "夢蓮湖與露易絲湖探索之旅",
+    desc: "輕鬆班夫湖區行程，前往夢蓮湖與露易絲湖。",
+    intro: "從班夫出發的輕鬆旅程，造訪夢蓮湖與露易絲湖，適合想輕鬆飽覽湖光美景、又不想花上一整天的旅客。",
     duration: "5 小時",
     language: LANGUAGE_NOTE,
     price: "From $130 CAD / adult",
     itinerary: [
-      { stop: "Day 1", title: "Moraine Lake & Lake Louise Half-Day Tour", body: "Guided visit / stop at Moraine Lake & Lake Louise Half-Day Tour." }
+      { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
     included: ["Transportation", "Banff pickup", "Moraine Lake visit", "Lake Louise visit"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Canoe rental", "Optional hikes", "Suggested guide gratuity"],
     optional: ["Canoe rental"],
     notes: [],
-    bookingCta: "Book Your Moraine Lake & Lake Louise Half-Day Tour",
+    bookingCta: "Book Your Moraine Lake & Lake Louise Exploration",
   },
   {
     slug: "moraine-lake-sunrise-tour",

@@ -710,20 +710,20 @@ export const tours: Tour[] = [
   {
     slug: "moraine-lake-lake-louise-half-day",
     img: heroBgMoraine,
-    title: "Moraine Lake & Lake Louise Half-Day Tour",
-    desc: "Half-day Banff lake access to Moraine Lake and Lake Louise.",
-    intro: "Half-day tour from Banff to Moraine Lake and Lake Louise for guests who want a comfortable lake experience without a full-day commitment.",
+    title: "Moraine Lake & Lake Louise Exploration",
+    desc: "A relaxed Banff lake journey to Moraine Lake and Lake Louise.",
+    intro: "A relaxed journey from Banff to Moraine Lake and Lake Louise, ideal for guests who want a comfortable lake experience without a full-day commitment.",
     duration: "5 hours",
     language: LANGUAGE_NOTE,
     price: "From $130 CAD / adult",
     itinerary: [
-      { stop: "Day 1", title: "Moraine Lake & Lake Louise Half-Day Tour", body: "Guided visit / stop at Moraine Lake & Lake Louise Half-Day Tour." }
+      { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
     included: ["Transportation", "Banff pickup", "Moraine Lake visit", "Lake Louise visit"],
     notIncluded: ["GST", "Meals and drinks", "Personal expenses", "Canoe rental", "Optional hikes", "Suggested guide gratuity"],
     optional: ["Canoe rental"],
     notes: ["From Banff CSV product B."],
-    bookingCta: "Book Your Moraine Lake & Lake Louise Half-Day Tour",
+    bookingCta: "Book Your Moraine Lake & Lake Louise Exploration",
   },
   {
     slug: "moraine-lake-sunrise-tour",
