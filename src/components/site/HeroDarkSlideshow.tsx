@@ -13,6 +13,12 @@ export type HeroDarkSlide = {
   secondary?: { label: string; to: string };
   /** ms this slide is shown before advancing */
   durationMs?: number;
+  /** Optional big circular promo badge (e.g. "45% OFF") shown top-left of the text column */
+  promoBadge?: { percent: string; caption: string };
+  /** Optional short highlight chips shown between the subtitle and CTA */
+  highlights?: string[];
+  /** Visual variant for the primary CTA button */
+  primaryVariant?: "default" | "promo";
 };
 
 type Props = {
