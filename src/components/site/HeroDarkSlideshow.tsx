@@ -13,6 +13,12 @@ export type HeroDarkSlide = {
   secondary?: { label: string; to: string };
   /** ms this slide is shown before advancing */
   durationMs?: number;
+  /** Optional big circular promo badge (e.g. "45% OFF") shown top-left of the text column */
+  promoBadge?: { percent: string; caption: string };
+  /** Optional short highlight chips shown between the subtitle and CTA */
+  highlights?: string[];
+  /** Visual variant for the primary CTA button */
+  primaryVariant?: "default" | "promo";
 };
 
 type Props = {
@@ -67,14 +73,30 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-ink/10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/10 to-ink/60 md:from-transparent md:via-transparent md:to-ink/45" />
 
           <div className="relative h-full mx-auto max-w-[1240px] px-5 md:px-10 flex items-center">
             <div className="max-w-2xl text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
+              {s.promoBadge && (
+                <div className="mb-5 md:mb-6 flex items-center gap-4">
+                  <div
+                    aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
+                    className="relative shrink-0 flex flex-col items-center justify-center rounded-full text-cream [text-shadow:none] h-[124px] w-[124px] md:h-[168px] md:w-[168px] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
+                    style={{ backgroundColor: "#C94C3C" }}
+                  >
+                    <span className="font-serif font-bold leading-none tracking-tight text-[56px] md:text-[78px]">
+                      {s.promoBadge.percent}
+                    </span>
+                    <span className="mt-1 md:mt-1.5 text-[11px] md:text-[13px] tracking-[0.28em] uppercase font-medium">
+                      {s.promoBadge.caption}
+                    </span>
+                  </div>
+                </div>
+              )}
               <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
                 {s.eyebrow}
               </p>
-              <h1 className="mt-4 font-serif text-cream text-[36px] md:text-[58px] leading-[1.05] font-semibold">
+              <h1 className="mt-4 font-serif text-cream text-[30px] md:text-[52px] leading-[1.08] font-semibold">
                 {s.h1Line1}
                 {s.h1Line2 && (
                   <>
@@ -86,13 +108,33 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
               <p className="mt-5 max-w-xl text-cream/95 text-[15.5px] leading-[1.95]">
                 {s.sub}
               </p>
+              {s.highlights && s.highlights.length > 0 && (
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  {s.highlights.map((h, hi) => (
+                    <span key={h} className="inline-flex items-center gap-2 text-[13px] md:text-[14px] text-cream/95">
+                      {hi > 0 && <span aria-hidden className="h-1 w-1 rounded-full bg-cream/60" />}
+                      <span className="font-medium tracking-wide">{h}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
               <div className="mt-7 flex flex-wrap gap-3">
-                <Link
-                  to={s.primary.to as never}
-                  className="rounded-full bg-cream text-ink px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]"
-                >
-                  {s.primary.label} →
-                </Link>
+                {s.primaryVariant === "promo" ? (
+                  <Link
+                    to={s.primary.to as never}
+                    className="rounded-full text-cream px-7 py-3.5 text-[14px] md:text-[15px] font-medium tracking-wide transition-transform duration-200 hover:scale-[1.04] shadow-[0_14px_36px_-10px_rgba(201,76,60,0.65)] ring-1 ring-white/15"
+                    style={{ backgroundColor: "#C94C3C" }}
+                  >
+                    {s.primary.label} →
+                  </Link>
+                ) : (
+                  <Link
+                    to={s.primary.to as never}
+                    className="rounded-full bg-cream text-ink px-7 py-3.5 text-[14px] tracking-wide hover:bg-cream/90 transition shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)]"
+                  >
+                    {s.primary.label} →
+                  </Link>
+                )}
                 {s.secondary && (
                   <Link
                     to={s.secondary.to as never}
@@ -113,6 +155,7 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
               )}
             </div>
           </div>
+
         </div>
       ))}
 

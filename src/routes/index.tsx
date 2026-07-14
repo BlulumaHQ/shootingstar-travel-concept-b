@@ -39,27 +39,34 @@ const FEATURED_SLUG = "moraine-lake-lake-louise-half-day";
 const SHOW_STAMPEDE_HERO = false;
 const FEATURED_HERO: Record<Locale, {
   eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
+  badgeCaption: string; highlights: string[];
 }> = {
   en: {
-    eyebrow: "★ Special Offer",
+    eyebrow: "Limited Offer · Save 45% Now",
     h1Line1: "Moraine Lake &",
     h1Line2: "Lake Louise Exploration",
-    sub: "Our most-loved Rockies tour — a light journey from Banff to the two most iconic turquoise lakes. Small group, easy pace, unforgettable water.",
-    primary: "See This Tour",
+    sub: "Two iconic Canadian Rockies lakes in one relaxed small-group journey — an easy way to experience Moraine Lake and Lake Louise together.",
+    primary: "See the 45% Offer",
+    badgeCaption: "Limited Offer",
+    highlights: ["45% Off", "Signature Route", "Small Group", "Seasonal"],
   },
   zh: {
-    eyebrow: "★ 優惠活動",
+    eyebrow: "限時優惠｜立即享 45% OFF",
     h1Line1: "夢蓮湖 &",
     h1Line2: "露易絲湖探索之旅",
-    sub: "我們最受歡迎的洛磯山行程 —— 從班夫出發的輕鬆旅程，一次收藏兩座最經典的綠松石湖。小團出發、節奏舒適、湖景難忘。",
-    primary: "查看此團",
+    sub: "一次收藏加拿大洛磯山脈兩座經典湖泊，小團出發，輕鬆探索夢蓮湖與露易絲湖。",
+    primary: "立即查看 45% 優惠行程",
+    badgeCaption: "限時優惠",
+    highlights: ["45% 折扣", "精華行程", "小團出發", "季節限定"],
   },
   ko: {
-    eyebrow: "★ 특별 할인",
+    eyebrow: "기간 한정 · 지금 45% 할인",
     h1Line1: "모레인 호수 &",
     h1Line2: "레이크 루이스 탐험",
-    sub: "가장 사랑받는 로키 투어 — 밴프에서 출발해 가장 상징적인 두 터쿠아즈 호수를 여유롭게 담아오는 여정. 소그룹, 편안한 페이스, 잊지 못할 호수.",
-    primary: "투어 보기",
+    sub: "캐나다 로키의 상징적인 두 호수를 소그룹으로 여유롭게 담아오는 여정 — 모레인 호수와 레이크 루이스를 함께 편하게 경험하세요.",
+    primary: "45% 특가 상품 보기",
+    badgeCaption: "기간 한정",
+    highlights: ["45% 할인", "핵심 코스", "소그룹 출발", "시즌 한정"],
   },
 };
 
@@ -447,7 +454,10 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       h1Line2: f.h1Line2,
       sub: f.sub,
       badges: [],
+      highlights: f.highlights,
+      promoBadge: { percent: "45% OFF", caption: f.badgeCaption },
       primary: { label: f.primary, to: link(`/tours/${FEATURED_SLUG}`) },
+      primaryVariant: "promo",
       durationMs: 6500,
     },
     {
