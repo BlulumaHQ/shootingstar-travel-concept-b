@@ -26,6 +26,13 @@ type Props = {
   defaultDurationMs?: number;
 };
 
+function splitPromoLabel(label: string) {
+  const match = label.trim().match(/^(.*?)(\s+OFF)$/i);
+  return match
+    ? { value: match[1].trim(), suffix: match[2].trim().toUpperCase() }
+    : { value: label.trim(), suffix: "" };
+}
+
 export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -77,22 +84,32 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
 
           <div className="relative h-full mx-auto max-w-[1240px] px-5 md:px-10 flex items-center">
             <div className="max-w-2xl text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
-              {s.promoBadge && (
+              {s.promoBadge && (() => {
+                const promo = splitPromoLabel(s.promoBadge.percent);
+                return (
                 <div className="mb-5 md:mb-6 flex items-center gap-4">
                   <div
                     aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
-                    className="relative shrink-0 flex flex-col items-center justify-center rounded-full text-cream [text-shadow:none] h-[152px] w-[152px] md:h-[200px] md:w-[200px] shadow-[0_20px_48px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
+                    className="relative shrink-0 grid place-items-center overflow-hidden rounded-full text-cream [text-shadow:none] h-[180px] w-[180px] md:h-[240px] md:w-[240px] shadow-[0_22px_54px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
                     style={{ backgroundColor: "#C94C3C" }}
                   >
-                    <span className="font-serif font-bold leading-none tracking-tight text-[44px] md:text-[64px]">
-                      {s.promoBadge.percent}
-                    </span>
-                    <span className="mt-1.5 md:mt-2 text-[11px] md:text-[13px] tracking-[0.28em] uppercase font-medium">
-                      {s.promoBadge.caption}
+                    <span className="flex max-w-[82%] flex-col items-center justify-center text-center leading-none">
+                      <span className="block whitespace-nowrap font-serif text-[76px] font-bold leading-[0.86] tracking-normal md:text-[108px]">
+                        {promo.value}
+                      </span>
+                      {promo.suffix && (
+                        <span className="mt-2 block whitespace-nowrap text-[25px] font-black leading-none tracking-[0.08em] md:mt-3 md:text-[34px]">
+                          {promo.suffix}
+                        </span>
+                      )}
+                      <span className="mt-3 block whitespace-nowrap text-[12px] font-semibold uppercase leading-none tracking-[0.22em] md:mt-4 md:text-[14px]">
+                        {s.promoBadge.caption}
+                      </span>
                     </span>
                   </div>
                 </div>
-              )}
+                );
+              })()}
               <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
                 {s.eyebrow}
               </p>
