@@ -81,13 +81,13 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
                 <div className="mb-5 md:mb-6 flex items-center gap-4">
                   <div
                     aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
-                    className="relative shrink-0 flex flex-col items-center justify-center rounded-full text-cream [text-shadow:none] h-[124px] w-[124px] md:h-[168px] md:w-[168px] shadow-[0_18px_40px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
+                    className="relative shrink-0 flex flex-col items-center justify-center rounded-full text-cream [text-shadow:none] h-[152px] w-[152px] md:h-[200px] md:w-[200px] shadow-[0_20px_48px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
                     style={{ backgroundColor: "#C94C3C" }}
                   >
-                    <span className="font-serif font-bold leading-none tracking-tight text-[56px] md:text-[78px]">
+                    <span className="font-serif font-bold leading-none tracking-tight text-[44px] md:text-[64px]">
                       {s.promoBadge.percent}
                     </span>
-                    <span className="mt-1 md:mt-1.5 text-[11px] md:text-[13px] tracking-[0.28em] uppercase font-medium">
+                    <span className="mt-1.5 md:mt-2 text-[11px] md:text-[13px] tracking-[0.28em] uppercase font-medium">
                       {s.promoBadge.caption}
                     </span>
                   </div>
