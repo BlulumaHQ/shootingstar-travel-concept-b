@@ -424,17 +424,21 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   const s = STAMPEDE_HERO[locale];
   const f = FEATURED_HERO[locale];
   return [
-    {
-      id: "stampede",
-      image: CALGARY_STAMPEDE_IMAGE,
-      eyebrow: s.eyebrow,
-      h1Line1: s.h1Line1,
-      h1Line2: s.h1Line2,
-      sub: s.sub,
-      badges: [],
-      primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
-      durationMs: 7000,
-    },
+    ...(SHOW_STAMPEDE_HERO
+      ? [
+          {
+            id: "stampede",
+            image: CALGARY_STAMPEDE_IMAGE,
+            eyebrow: s.eyebrow,
+            h1Line1: s.h1Line1,
+            h1Line2: s.h1Line2,
+            sub: s.sub,
+            badges: [],
+            primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
+            durationMs: 7000,
+          },
+        ]
+      : []),
     {
       id: "featured-half-day",
       image: heroBgMoraine,
