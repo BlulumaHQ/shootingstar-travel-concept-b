@@ -34,6 +34,9 @@ const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const FEATURED_SLUG = "moraine-lake-lake-louise-half-day";
+
+// Toggle to re-enable the Calgary Stampede promotional hero slide next season.
+const SHOW_STAMPEDE_HERO = false;
 const FEATURED_HERO: Record<Locale, {
   eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
 }> = {
@@ -421,17 +424,21 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   const s = STAMPEDE_HERO[locale];
   const f = FEATURED_HERO[locale];
   return [
-    {
-      id: "stampede",
-      image: CALGARY_STAMPEDE_IMAGE,
-      eyebrow: s.eyebrow,
-      h1Line1: s.h1Line1,
-      h1Line2: s.h1Line2,
-      sub: s.sub,
-      badges: [],
-      primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
-      durationMs: 7000,
-    },
+    ...(SHOW_STAMPEDE_HERO
+      ? [
+          {
+            id: "stampede",
+            image: CALGARY_STAMPEDE_IMAGE,
+            eyebrow: s.eyebrow,
+            h1Line1: s.h1Line1,
+            h1Line2: s.h1Line2,
+            sub: s.sub,
+            badges: [],
+            primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
+            durationMs: 7000,
+          },
+        ]
+      : []),
     {
       id: "featured-half-day",
       image: heroBgMoraine,
