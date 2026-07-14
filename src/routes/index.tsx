@@ -454,7 +454,10 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       h1Line2: f.h1Line2,
       sub: f.sub,
       badges: [],
+      highlights: f.highlights,
+      promoBadge: { percent: "45% OFF", caption: f.badgeCaption },
       primary: { label: f.primary, to: link(`/tours/${FEATURED_SLUG}`) },
+      primaryVariant: "promo",
       durationMs: 6500,
     },
     {
