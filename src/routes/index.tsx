@@ -34,6 +34,9 @@ const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
 const FEATURED_SLUG = "moraine-lake-lake-louise-half-day";
+
+// Toggle to re-enable the Calgary Stampede promotional hero slide next season.
+const SHOW_STAMPEDE_HERO = false;
 const FEATURED_HERO: Record<Locale, {
   eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
 }> = {
