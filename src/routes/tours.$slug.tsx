@@ -346,13 +346,14 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     );
   }
 
+  const bookingHref = buildRezdyUrl(rezdyBookingUrl, locale).url;
   return (
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
       <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
       {priceBlock}
       <a
-        href={rezdyBookingUrl}
+        href={bookingHref}
         target="_blank"
         rel="noopener noreferrer"
         className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
