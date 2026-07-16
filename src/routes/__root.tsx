@@ -140,6 +140,10 @@ function RootComponent() {
   const { pathname } = useLocation();
   const locale = localeFromPath(pathname);
 
+  // Sync URL locale prefix with the visitor's saved localStorage preference
+  // (and seed it from browser language on first visit).
+  useLanguagePreferenceSync();
+
   // Keep <html lang> in sync with the current route's locale on the client.
   if (typeof document !== "undefined") {
     const target = locale === "zh" ? "zh-Hant" : locale === "ko" ? "ko" : "en";
