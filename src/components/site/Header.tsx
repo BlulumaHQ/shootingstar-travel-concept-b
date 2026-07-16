@@ -28,7 +28,10 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
             {i > 0 && <span className="text-ink/25">·</span>}
             <Link
               to={target as never}
-              onClick={onNavigate}
+              onClick={() => {
+                setSavedLocale(l);
+                onNavigate?.();
+              }}
               aria-current={isActive ? "true" : undefined}
               className={
                 "uppercase transition " +
