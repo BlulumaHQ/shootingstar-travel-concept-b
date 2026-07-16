@@ -15,6 +15,7 @@ import {
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
 import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
+import { buildRezdyUrl } from "@/lib/rezdy";
 
 const SHUTTLE_SLUG_TO_PRODUCT: Record<string, ProductId> = {
   "banff-to-jasper-sightseeing-shuttle": "P1",
@@ -256,6 +257,7 @@ function extractRezdyId(url: string): string | null {
 }
 
 export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: string; calendarId?: string; className?: string }) {
+  const locale = useLocale();
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src="${REZDY_PLUGIN_SRC}"]`)) return;
@@ -265,13 +267,17 @@ export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: 
     s.type = "text/javascript";
     document.body.appendChild(s);
   }, []);
-  const src = calendarId
+  const rawSrc = calendarId
     ? `https://shootingstartravel.rezdy.com/calendarWidget/${calendarId}?iframe=true`
     : url
     ? url.includes("?")
       ? `${url}&iframe=true`
       : `${url}?iframe=true`
     : "";
+  // Route through the centralized Rezdy language builder. Today this is a
+  // pass-through (Rezdy exposes no supported public URL language param);
+  // when Rezdy adds one, every embed picks it up automatically.
+  const src = rawSrc ? buildRezdyUrl(rawSrc, locale).url : "";
   return (
     <iframe
       seamless
@@ -340,13 +346,14 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     );
   }
 
+  const bookingHref = buildRezdyUrl(rezdyBookingUrl, locale).url;
   return (
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
       <h3 className="font-serif text-lg text-ink font-semibold truncate">{tour?.title ?? ""}</h3>
       {priceBlock}
       <a
-        href={rezdyBookingUrl}
+        href={bookingHref}
         target="_blank"
         rel="noopener noreferrer"
         className="block w-full text-center rounded-full bg-primary text-primary-foreground py-3 text-[14.5px] tracking-wide hover:bg-primary/90 transition shadow-[0_10px_24px_-12px_oklch(0.585_0.04_155/0.7)]"
@@ -627,7 +634,7 @@ export function TourDetailPage() {
           </a>
         ) : rezdyBookingUrl ? (
           <a
-            href={rezdyBookingUrl}
+            href={buildRezdyUrl(rezdyBookingUrl, locale).url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"

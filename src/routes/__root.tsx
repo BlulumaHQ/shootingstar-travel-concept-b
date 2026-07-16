@@ -11,6 +11,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { localeFromPath } from "@/i18n/locale";
+import { useLanguagePreferenceSync } from "@/lib/language-preference";
 import { fetchToursEn, fetchToursByLocale } from "@/data/toursSource";
 import { fetchReviews } from "@/data/reviewsSource";
 
@@ -138,6 +139,10 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { pathname } = useLocation();
   const locale = localeFromPath(pathname);
+
+  // Sync URL locale prefix with the visitor's saved localStorage preference
+  // (and seed it from browser language on first visit).
+  useLanguagePreferenceSync();
 
   // Keep <html lang> in sync with the current route's locale on the client.
   if (typeof document !== "undefined") {

@@ -4,6 +4,7 @@ import tornEdge from "@/assets/header-torn-edge.png";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, withLocale, locales, localeLabels, type Locale } from "@/i18n/locale";
+import { setSavedLocale } from "@/lib/language-preference";
 import { useT } from "@/i18n/dict";
 
 function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNavigate?: () => void }) {
@@ -27,7 +28,10 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
             {i > 0 && <span className="text-ink/25">·</span>}
             <Link
               to={target as never}
-              onClick={onNavigate}
+              onClick={() => {
+                setSavedLocale(l);
+                onNavigate?.();
+              }}
               aria-current={isActive ? "true" : undefined}
               className={
                 "uppercase transition " +
