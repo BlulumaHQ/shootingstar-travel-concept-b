@@ -257,6 +257,7 @@ function extractRezdyId(url: string): string | null {
 }
 
 export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: string; calendarId?: string; className?: string }) {
+  const locale = useLocale();
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src="${REZDY_PLUGIN_SRC}"]`)) return;
@@ -266,13 +267,17 @@ export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: 
     s.type = "text/javascript";
     document.body.appendChild(s);
   }, []);
-  const src = calendarId
+  const rawSrc = calendarId
     ? `https://shootingstartravel.rezdy.com/calendarWidget/${calendarId}?iframe=true`
     : url
     ? url.includes("?")
       ? `${url}&iframe=true`
       : `${url}?iframe=true`
     : "";
+  // Route through the centralized Rezdy language builder. Today this is a
+  // pass-through (Rezdy exposes no supported public URL language param);
+  // when Rezdy adds one, every embed picks it up automatically.
+  const src = rawSrc ? buildRezdyUrl(rawSrc, locale).url : "";
   return (
     <iframe
       seamless
