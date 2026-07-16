@@ -634,7 +634,7 @@ export function TourDetailPage() {
           </a>
         ) : rezdyBookingUrl ? (
           <a
-            href={rezdyBookingUrl}
+            href={buildRezdyUrl(rezdyBookingUrl, locale).url}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"
