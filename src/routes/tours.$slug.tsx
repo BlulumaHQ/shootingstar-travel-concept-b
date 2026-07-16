@@ -15,6 +15,7 @@ import {
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
 import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
+import { buildRezdyUrl } from "@/lib/rezdy";
 
 const SHUTTLE_SLUG_TO_PRODUCT: Record<string, ProductId> = {
   "banff-to-jasper-sightseeing-shuttle": "P1",
