@@ -15,7 +15,8 @@ import {
   isLakeTourSlug,
 } from "@/content/lake-tour-trip-info";
 import { getIcefieldsContent, type ProductId } from "@/content/icefields-i18n";
-import { buildRezdyUrl } from "@/lib/rezdy";
+// buildRezdyUrl intentionally not imported: Rezdy has no supported public
+// URL language control, so we never rewrite Rezdy URLs based on website locale.
 
 const SHUTTLE_SLUG_TO_PRODUCT: Record<string, ProductId> = {
   "banff-to-jasper-sightseeing-shuttle": "P1",
@@ -257,7 +258,10 @@ function extractRezdyId(url: string): string | null {
 }
 
 export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: string; calendarId?: string; className?: string }) {
-  const locale = useLocale();
+  // Rezdy has no documented public URL parameter for language control, so we
+  // build the src from the original URL only — never from the website locale.
+  // This guarantees the iframe never reloads when the visitor switches the
+  // website language, preserving their selected dates, guests, and pickup.
   useEffect(() => {
     if (typeof document === "undefined") return;
     if (document.querySelector(`script[src="${REZDY_PLUGIN_SRC}"]`)) return;
@@ -267,17 +271,13 @@ export function RezdyBookingIframe({ url, calendarId, className = "" }: { url?: 
     s.type = "text/javascript";
     document.body.appendChild(s);
   }, []);
-  const rawSrc = calendarId
+  const src = calendarId
     ? `https://shootingstartravel.rezdy.com/calendarWidget/${calendarId}?iframe=true`
     : url
     ? url.includes("?")
       ? `${url}&iframe=true`
       : `${url}?iframe=true`
     : "";
-  // Route through the centralized Rezdy language builder. Today this is a
-  // pass-through (Rezdy exposes no supported public URL language param);
-  // when Rezdy adds one, every embed picks it up automatically.
-  const src = rawSrc ? buildRezdyUrl(rawSrc, locale).url : "";
   return (
     <iframe
       seamless
@@ -346,7 +346,9 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     );
   }
 
-  const bookingHref = buildRezdyUrl(rezdyBookingUrl, locale).url;
+  // Rezdy exposes no supported public URL language parameter, so we always
+  // link to the original booking URL. Website locale does not affect Rezdy.
+  const bookingHref = rezdyBookingUrl;
   return (
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
@@ -634,7 +636,7 @@ export function TourDetailPage() {
           </a>
         ) : rezdyBookingUrl ? (
           <a
-            href={buildRezdyUrl(rezdyBookingUrl, locale).url}
+            href={rezdyBookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center rounded-full bg-primary text-primary-foreground py-3 text-[14px] tracking-wide"

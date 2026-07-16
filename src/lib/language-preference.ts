@@ -66,32 +66,28 @@ export function useLanguagePreferenceSync(): void {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Only run this reconciliation ONCE per full page load. After the
+    // initial mount we trust the URL — internal Links are locale-aware,
+    // and the switcher writes localStorage BEFORE navigating.
+    if (initializedRef.current) return;
+    initializedRef.current = true;
 
     const currentUrlLocale = localeFromPath(pathname);
-    let saved = getSavedLocale();
 
-    // First visit: seed the saved value from browser language.
-    if (!saved && !initializedRef.current) {
+    // Priority:
+    //   1. Manually saved localStorage value (if valid).
+    //   2. Browser Preferred Language — first visit only.
+    //   3. English fallback (handled inside detectBrowserLocale).
+    let saved = getSavedLocale();
+    if (!saved) {
       saved = detectBrowserLocale();
       setSavedLocale(saved);
     }
-    initializedRef.current = true;
 
-    if (import.meta.env.DEV) {
-      console.debug("[lang-pref]", {
-        currentUrlLocale,
-        savedLocale: saved,
-        detectedBrowserLocale: detectBrowserLocale(),
-        pathname,
-      });
+    if (saved !== currentUrlLocale) {
+      const target = withLocale(stripLocale(pathname), saved);
+      if (target !== pathname) navigate({ to: target as never, replace: true });
     }
-
-    if (saved && saved !== currentUrlLocale) {
-      const bare = stripLocale(pathname);
-      const target = withLocale(bare, saved);
-      if (target !== pathname) {
-        navigate({ to: target as never, replace: true });
-      }
-    }
-  }, [pathname, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
