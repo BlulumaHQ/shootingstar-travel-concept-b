@@ -66,6 +66,11 @@ export function useLanguagePreferenceSync(): void {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    // Only run this reconciliation ONCE per full page load. After the
+    // initial mount we trust the URL — internal Links are locale-aware,
+    // and the switcher writes localStorage BEFORE navigating.
+    if (initializedRef.current) return;
+    initializedRef.current = true;
 
     const currentUrlLocale = localeFromPath(pathname);
 
@@ -74,19 +79,12 @@ export function useLanguagePreferenceSync(): void {
     //   2. Browser Preferred Language — first visit only.
     //   3. English fallback (handled inside detectBrowserLocale).
     let saved = getSavedLocale();
-    const isFirstVisit = !saved && !initializedRef.current;
-    if (isFirstVisit) {
+    if (!saved) {
       saved = detectBrowserLocale();
       setSavedLocale(saved);
     }
-    initializedRef.current = true;
 
-    // Only redirect on the very first mount when the saved (or freshly
-    // detected) preference disagrees with the URL. After that, we trust
-    // the URL — every internal Link is already locale-aware, and the
-    // language switcher writes to localStorage BEFORE navigating.
-    if (!isFirstVisit) return;
-    if (saved && saved !== currentUrlLocale) {
+    if (saved !== currentUrlLocale) {
       const target = withLocale(stripLocale(pathname), saved);
       if (target !== pathname) navigate({ to: target as never, replace: true });
     }
