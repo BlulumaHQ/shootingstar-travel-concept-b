@@ -345,7 +345,9 @@ export function BookingWidget({ tour }: { tour: Tour | undefined }) {
     );
   }
 
-  const bookingHref = buildRezdyUrl(rezdyBookingUrl, locale).url;
+  // Rezdy exposes no supported public URL language parameter, so we always
+  // link to the original booking URL. Website locale does not affect Rezdy.
+  const bookingHref = rezdyBookingUrl;
   return (
     <div className="rounded-2xl bg-cream p-6 border-2 border-accent/40 shadow-[0_20px_50px_-30px_rgba(60,80,70,0.45)] space-y-4">
       <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{B.eyebrow}</p>
