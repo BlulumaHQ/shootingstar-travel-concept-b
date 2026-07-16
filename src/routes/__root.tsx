@@ -11,6 +11,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { localeFromPath } from "@/i18n/locale";
+import { useLanguagePreferenceSync } from "@/lib/language-preference";
 import { fetchToursEn, fetchToursByLocale } from "@/data/toursSource";
 import { fetchReviews } from "@/data/reviewsSource";
 
