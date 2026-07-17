@@ -3,12 +3,10 @@ import { SiteLayout } from "@/components/site/Layout";
 import { tours } from "@/data/tours";
 import { useTours } from "@/data/useTours";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
-import { SalePrice } from "@/components/site/SalePrice";
-import { Heart } from "lucide-react";
 import { BusMark, DottedLine, JourneyPath, PinMark } from "@/components/site/BrandMarks";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
-import { FeaturedBadge } from "@/components/site/FeaturedBadge";
+import { TourCard } from "@/components/site/TourCard";
 import { useT } from "@/i18n/dict";
 
 const privateImg = "/rocky-private-tour.webp";
@@ -175,29 +173,9 @@ export function ToursIndexPage() {
       : sortToursByCategory(tours.filter((tour) => getRegions(tour.slug).includes(activeRegion)));
 
   const renderCard = (t: (typeof tours)[number]) => (
-    <Link
-      to={withLocale(t.href ?? `/tours/${t.slug}`, locale) as never}
-      key={t.slug}
-      className="group relative bg-card rounded-[6px] p-3 pb-5 shadow-[0_2px_4px_-2px_rgba(70,80,75,0.06),0_18px_36px_-22px_rgba(70,80,75,0.22)] hover:-translate-y-1 transition-all duration-500 flex flex-col h-full"
-    >
-      <div className="relative aspect-[5/4] overflow-hidden rounded-[4px]">
-        <img src={t.img} alt={t.title} loading="lazy" className="h-full w-full object-cover group-hover:scale-105 transition duration-[1200ms]" />
-        <FeaturedBadge slug={t.slug} />
-        <button aria-label="Save" onClick={(e) => e.preventDefault()} className="absolute top-2 right-2 grid h-7 w-7 place-items-center rounded-full bg-cream/90 text-primary backdrop-blur-sm hover:bg-cream transition">
-          <Heart size={13} strokeWidth={1.8} />
-        </button>
-      </div>
-      <div className="px-1 pt-4 flex flex-col flex-1">
-        <p className="text-[11px] tracking-[0.2em] uppercase text-ink/50">{t.duration}</p>
-        <h3 className="tour-title font-serif text-[16px] text-ink leading-snug font-semibold mt-1.5">{t.title}</h3>
-        <p className="mt-1.5 text-[12px] text-ink/55 leading-relaxed">{t.desc}</p>
-        <div className="mt-auto pt-3 flex items-center justify-between">
-          <SalePrice price={t.price} locale={locale} size="sm" fallbackClassName="font-serif text-[13.5px] text-primary font-semibold" />
-          <span className="text-[11.5px] text-primary tracking-wide">{p.viewTour}</span>
-        </div>
-      </div>
-    </Link>
+    <TourCard key={t.slug} tour={t} locale={locale} />
   );
+
 
   const renderCategory = (
     eyebrow: string,
