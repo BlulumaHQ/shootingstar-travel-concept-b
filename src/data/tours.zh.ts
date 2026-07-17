@@ -36,7 +36,8 @@ export const tours: Tour[] = [
       "西雅圖因終年長青的環繞森林，被譽為「翡翠之城 (Emerald City)」。在這裡，大自然的清新底色與尖端科技、百年人文完美交織。我們為您精心策劃的精華行程，將帶您穿梭於經典的城市天際線、充滿煙火氣的百年市集，以及如魔法般的歷史校園。由專業導遊帶路、專車接送，讓您告別交通與停車煩惱，在一天之內，優雅且深刻地感受西雅圖獨一無二的城市靈魂。",
     duration: "1 日",
     language: LANGUAGE_NOTE,
-    price: "$140 CAD 起 / 每位",
+    price: "$170 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$20 USD / 每位",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park 凱里公園", body: "捕捉明信片等級的城市天際線。這裡是全西雅圖最著名的觀景點，當太空針塔、普吉特海灣與遠方的雷尼爾雪山同框出現，這就是全球攝影師夢寐以求的經典畫面。" },
@@ -78,6 +79,7 @@ export const tours: Tour[] = [
     duration: "2 日 1 夜",
     language: LANGUAGE_NOTE,
     price: "$370 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$40 USD / 每位（兩日，每日 $20 USD）",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park 凱里公園", body: "絕佳視野！將太空針塔與雷尼爾雪山的完美天際線盡收眼底。" },
@@ -131,6 +133,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "$170 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$20 CAD / 每位",
     itinerary: [
       { stop: "Day 1", title: "BC Ferries 絕美海峽航行", body: "搭乘平穩舒適的大型渡輪穿梭於喬治亞海峽與海灣群島之間，享受約 1.5 小時的海上觀光與悠閒時光。" },
@@ -169,7 +172,8 @@ export const tours: Tour[] = [
       "沿著世界知名的「海天公路 (Sea-to-Sky Highway)」向北駛去，一邊是波光粼粼的太平洋海灣，另一邊是高聳入雲的雄偉群山。這趟旅程將帶您遠離城市喧囂，沐浴在卑詩省最純粹的森林芬多精中。從磅礡的雙瀑布奇景、戶外聖地史高米甚 (Squamish)，一路玩到 2010 年冬季奧運的主辦地——惠斯勒小鎮。將蜿蜒山路的駕駛疲勞與高昂的停車費交給我們，您只需舒心享受這趟大自然與歐洲小鎮完美交織的避世之旅。",
     duration: "1 日",
     language: LANGUAGE_NOTE,
-    price: "$130 CAD 起 / 每位",
+    price: "$150 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$20 CAD / 每位",
     itinerary: [
       { stop: "Day 1", title: "Porteau Cove 波特灣", body: "海天公路上的第一顆明珠！走上深入海灣的木棧橋，飽覽豪灣 (Howe Sound) 的深藍海水與壯麗的峽灣風光。" },
@@ -208,6 +212,7 @@ export const tours: Tour[] = [
     duration: "3 日 2 夜",
     language: LANGUAGE_NOTE,
     price: "$830 CAD 起 / 每位",
+    season: "summer",
     gratuity: "建議導遊小費：$60 CAD / 每位（三日，每日 $20 CAD）",
     pickup: "出發：第一日上午於卡加立機場 (YYC) 接機。返程：第三日約下午 5:00 抵達卡加立機場 (YYC) 送機。",
     itinerary: [
@@ -268,6 +273,7 @@ export const tours: Tour[] = [
     duration: "2 日 1 夜",
     language: LANGUAGE_NOTE,
     price: "$390 CAD 起 / 每位",
+    season: "summer",
     gratuity: "建議導遊小費：$40 CAD / 每位（兩日，每日 $20 CAD）",
     itinerary: [
       { stop: "Day 1", title: "Bridal Falls 新娘面紗瀑布", body: "漫步於綠意盎然的森林步道，欣賞如新娘面紗般優雅滑落的瀑布景觀。" },
@@ -314,7 +320,8 @@ export const tours: Tour[] = [
       "為您完美串聯美西最經典的地標與自然奇觀。專屬車隊為您解決長途跨州跋涉的疲勞與複雜的路線規劃，包含優質住宿、交通與專業導覽，讓這趟長達 8 天的旅程充滿驚嘆與享受。",
     duration: "8 日 7 夜",
     language: LANGUAGE_NOTE,
-    price: "$999 CAD 起 / 每位",
+    price: "$1780 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$160 USD / 每位（八日，每日 $20 USD）",
     pickup: "出發：第一日上午 10:30 於舊金山國際機場 (SFO) 接機。返程：第八日下午 3:00 抵達洛杉磯機場 (LAX) 送機。",
     itinerary: [
@@ -371,7 +378,8 @@ export const tours: Tour[] = [
       "從拉斯維加斯的繁華夜生活，一路深入布萊斯峽谷與大峽谷的紅岩壯麗景觀。我們為您提供舒適的交通接駁與優質住宿，讓您在沙漠與峽谷間輕鬆穿梭，享受一趟震撼視覺的旅程。",
     duration: "4 日 3 夜",
     language: LANGUAGE_NOTE,
-    price: "$999 CAD 起 / 每位",
+    price: "$990 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$80 USD / 每位（四日，每日 $20 USD）",
     pickup: "出發：第一日下午 4:00 於拉斯維加斯巴黎酒店接駁。返程：第四日下午 3:00 抵達洛杉磯機場 (LAX) 送機。",
     itinerary: [
@@ -416,7 +424,8 @@ export const tours: Tour[] = [
       "三大主題樂園與市區經典地標一次滿足。為您省下在洛杉磯複雜車流中找路與停車的煩惱，包含舒適接駁與住宿，落地後即刻開啟專屬的加州度假時光。",
     duration: "3 日 2 夜",
     language: LANGUAGE_NOTE,
-    price: "$999 CAD 起 / 每位",
+    price: "$650 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$60 USD / 每位（三日，每日 $20 USD）",
     pickup: "出發：第一日上午 11:50 於洛杉磯機場 (LAX) 接機。返程：第三日下午 5:00 抵達洛杉磯機場 (LAX) 送機。",
     itinerary: [
@@ -460,7 +469,8 @@ export const tours: Tour[] = [
       "本行程帶您走訪西雅圖經典市場，穿越華盛頓州直達俄勒岡州的壯麗海岸線，再到波特蘭享受免稅血拚的樂趣。兼顧自然美景與城市購物，包含交通與住宿，是週末跨州旅行的完美選擇。",
     duration: "3 日 2 夜",
     language: LANGUAGE_NOTE,
-    price: "$999 CAD 起 / 每位",
+    price: "$750 CAD 起 / 每位",
+    season: "all_season",
     gratuity: "建議導遊小費：$60 USD / 每位（三日，每日 $20 USD）",
     itinerary: [
       { stop: "Day 1", title: "Pike Place Market 西雅圖派克市場", body: "走訪著名的派克市場，感受西雅圖獨特的咖啡文化與熱鬧的海鮮市集。" },
@@ -496,69 +506,6 @@ export const tours: Tour[] = [
     bookingCta: "預訂俄勒岡三日遊",
   },
   {
-    slug: "banff-two-lake-1-day",
-    href: "/rocky-mountain-lake-tours",
-    img: banffTwoLakeFeature,
-    title: "Banff 雙湖一日遊｜露易絲湖 × 夢蓮湖",
-    desc: "一天悠閒走訪洛磯山最具代表性的兩座湖泊 —— 鏡面般的露易絲湖與十峰山下的夢蓮湖。",
-    intro: "專為慢遊規劃的一日行程，前往洛磯山最受攝影師喜愛的兩座湖。",
-    duration: "1 天",
-    language: LANGUAGE_NOTE,
-    price: "From $155 CAD / 人",
-    itinerary: [
-      { stop: "Day 1", title: "露易絲湖", body: "上午來到露易絲湖，欣賞維多利亞冰川下的翡翠湖水。" },
-      { stop: "Day 1", title: "夢蓮湖", body: "下午前往夢蓮湖與十峰山經典景觀。" },
-    ],
-    included: ["舒適專車交通", "專業司導"],
-    notIncluded: [
-      "5% 稅金",
-      "餐食與個人消費",
-      "建議司導小費",
-      { text: "加拿大國家公園 Discovery Pass（須由旅客本人提前購買）", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "進入 Banff 國家公園需持有 Parks Canada Discovery Pass。請每位旅客提前於 parkscanadashop.ca 以本人名字購買，並於行程當日攜帶。",
-      "湖區開放時間依季節調整，行程將視路況與天氣彈性安排。",
-      "洛磯山高海拔天氣變化快速，建議洋蔥式穿搭並備防風保暖外套。",
-    ],
-    bookingCta: "預訂 Banff 雙湖一日遊",
-  },
-  {
-    slug: "icefields-parkway-jasper-banff-shuttle",
-    href: "/icefields-parkway-jasper-banff-shuttle-tours",
-    img: tourIcefield,
-    title: "Icefields Parkway・Jasper・Banff・Maligne Lake 接駁觀光行程",
-    desc: "依星期靈活安排的洛磯山接駁與觀光行程，串連 Banff、Jasper、Hinton、哥倫比亞冰原、Medicine Lake 與 Maligne Lake，並可加購景點門票。",
-    intro: "依星期分流的接駁與觀光行程，部分行程可單段或合併預訂，並可加購哥倫比亞冰原與 Maligne Lake 遊船。",
-    duration: "5 – 10 小時",
-    language: LANGUAGE_NOTE,
-    price: "From $130 CAD / 人",
-    itinerary: [
-      { stop: "週一 / 週五", title: "Banff → Jasper 觀光接駁", body: "沿 Icefields Parkway 北上的全日觀光行程,可加購哥倫比亞冰原體驗。" },
-      { stop: "週二 / 週六", title: "分段式 Jasper 與 Maligne Lake 行程", body: "可自由組合的 5 小時分段行程,串連 Banff、Jasper、Medicine Lake 與 Maligne Lake。" },
-      { stop: "週三 / 週日", title: "Jasper → Banff 南下觀光接駁", body: "全日南下接駁,沿途停留 Athabasca Falls、哥倫比亞冰原、Peyto Lake 與 Bow Lake。" },
-    ],
-    included: [
-      "舒適接駁交通",
-      "依所選路線之指定接送點",
-      "觀光行程之既定停留點",
-      "Shooting Star Travel 預訂協助",
-    ],
-    notIncluded: [
-      "5% GST",
-      "餐食與飲品",
-      "建議司導小費",
-      "未加購之選配景點門票",
-      { text: "加拿大國家公園 Discovery Pass(須由旅客本人提前購買)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "不同星期運行不同路線:週一/週五、週二/週六、週三/週日各有對應產品。",
-      "週五、週六、週日基本票價自動加收每人 $20 週末附加費。",
-      "時間為預估安排,實際以山區天氣與路況為準。",
-    ],
-    bookingCta: "立即預訂路線",
-  },
-  {
     slug: "fruit-upick-crab-catching",
     img: tourVancouver,
     title: "採果 & 抓蟹體驗",
@@ -567,6 +514,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "summer",
     itinerary: [
       { "stop": "第 1 站", "title": "採果農場", "body": "於在地農場現採當季新鮮水果。" },
       { "stop": "第 2 站", "title": "蘭里堡 Fort Langley", "body": "探訪卑詩省的歷史發源地。" },
@@ -587,6 +535,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "all_season",
     itinerary: [
       { "stop": "第 1 站", "title": "加拿大廣場", "body": "溫哥華地標,船帆造型的濱海建築。" },
       { "stop": "第 2 站", "title": "蓋斯鎮 Gastown", "body": "歷史老城區與著名的蒸汽鐘。" },
@@ -611,6 +560,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
+    season: "all_season",
     itinerary: [
       { "stop": "第 1 站", "title": "微軟參訪中心", "body": "認識微軟背後的故事與創新。" },
       { "stop": "第 2 站", "title": "華盛頓大學", "body": "漫步哥德式校園與蘇札羅圖書館。" },
@@ -632,6 +582,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls", body: "Guided visit / stop at JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls." }
     ],
@@ -650,6 +601,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "5 Lakes 1-Day Tour", body: "Guided visit / stop at 5 Lakes 1-Day Tour." }
     ],
@@ -667,7 +619,8 @@ export const tours: Tour[] = [
     intro: "從班夫出發的輕鬆旅程，造訪夢蓮湖與露易絲湖，適合想輕鬆飽覽湖光美景、又不想花上一整天的旅客。",
     duration: "5 小時",
     language: LANGUAGE_NOTE,
-    price: "From $130 CAD / adult",
+    price: "特價 $71.50 CAD 起 / 每位（原價 $130）· 45% OFF",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
@@ -686,6 +639,7 @@ export const tours: Tour[] = [
     duration: "1 日",
     language: LANGUAGE_NOTE,
     price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake Sunrise Tour", body: "Guided visit / stop at Moraine Lake Sunrise Tour." }
     ],
@@ -703,7 +657,8 @@ export const tours: Tour[] = [
     intro: "行程：鴉爪冰川、佩托湖、薩斯喀徹溫河匯流口、哥倫比亞冰原冰川探索中心、弓湖。",
     duration: "1 日",
     language: LANGUAGE_NOTE,
-    price: "From $230 CAD / adult",
+    price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway", body: "Guided visit / stop at Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway." }
     ],
@@ -722,6 +677,7 @@ export const tours: Tour[] = [
     duration: "9~10 小時",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Sightseeing Shuttle", body: "Guided visit / stop at Banff to Jasper Sightseeing Shuttle." }
     ],
@@ -740,6 +696,7 @@ export const tours: Tour[] = [
     duration: "5~6 小時",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper & Maligne Lake Spirit Island Day Tour", body: "Guided visit / stop at Jasper & Maligne Lake Spirit Island Day Tour." }
     ],
@@ -758,6 +715,7 @@ export const tours: Tour[] = [
     duration: "約 5 小時",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Jasper to Banff Express Shuttle", body: "Guided visit / stop at Jasper to Banff Express Shuttle." }
     ],
@@ -776,6 +734,7 @@ export const tours: Tour[] = [
     duration: "約 5 小時",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Express Shuttle", body: "Guided visit / stop at Banff to Jasper Express Shuttle." }
     ],
@@ -794,6 +753,7 @@ export const tours: Tour[] = [
     duration: "5~6 小時",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper Medicine Lake & Maligne Lake Half-Day Tour", body: "Guided visit / stop at Jasper Medicine Lake & Maligne Lake Half-Day Tour." }
     ],
@@ -811,7 +771,8 @@ export const tours: Tour[] = [
     intro: "結合維多利亞與納奈莫精華的溫哥華島兩日遊行程。",
     duration: "2 日 1 夜",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "$390 CAD 起 / 每位",
+    season: "all_season",
     itinerary: [
       { "stop": "第 1 天", "title": "維多利亞", "body": "渡輪碼頭；布查特花園；漁人碼頭；零哩紀念碑；內港、BC 省議會大廈與費爾蒙帝后飯店；Munro's 書店；哈特利城堡。" },
       { "stop": "第 2 天", "title": "納奈莫與考迪夫", "body": "Chemainus 壁畫小鎮；WildPlay 冒險樂園（視成行人數而定）；MacMillan 省立公園（大教堂樹林）；屋頂山羊 Goats on the Roof。" }
@@ -830,7 +791,8 @@ export const tours: Tour[] = [
     intro: "第 1 天：LAX 中午 12 點接機、In-N-Out 午餐、農夫市集、比佛利山莊、好萊塢、Urban Lights。第 2 天：環球影城、葛瑞菲斯天文台。第 3 天：迪士尼樂園。第 4 天：聖塔莫尼卡海灘、UCLA、蓋蒂中心、下午 3:30 送 LAX。",
     duration: "4 日 3 夜",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "$870 CAD 起 / 每位",
+    season: "all_season",
     itinerary: [
       { "stop": "第 1 天", "title": "抵達與好萊塢", "body": "LAX 中午 12 點接機；In-N-Out 漢堡午餐；農夫市集；比佛利山莊；好萊塢；Urban Lights 路燈藝術。" },
       { "stop": "第 2 天", "title": "主題樂園與景觀", "body": "環球影城；葛瑞菲斯天文台。" },
@@ -851,6 +813,7 @@ export const tours: Tour[] = [
     duration: "5 日 4 夜",
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
+    season: "fall",
     itinerary: [
       { "stop": "第 1 天", "title": "多倫多", "body": "多倫多機場下午 2:30 接機；CN 塔；多倫多市政廳。住宿：尼加拉景觀飯店。" },
       { "stop": "第 2 天", "title": "尼加拉", "body": "尼加拉瀑布；桌岩觀景台與花鐘；湖濱小鎮 Niagara-on-the-Lake；酒莊。" },
@@ -872,6 +835,7 @@ export const tours: Tour[] = [
     duration: "5 日 4 夜",
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
+    season: "fall",
     itinerary: [
       { "stop": "第 1 天", "title": "多倫多", "body": "多倫多機場下午 2:30 接機；CN 塔；多倫多市政廳；多倫多大學；唐人街。" },
       { "stop": "第 2 天", "title": "渥太華與蒙特婁", "body": "渥太華；加拿大國會大廈；麗都廳；麗都運河；蒙特婁——聖約瑟夫大教堂。" },
@@ -894,6 +858,7 @@ export const tours: Tour[] = [
     duration: "約 10 小時",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Icefields Parkway Southbound Sightseeing Shuttle", body: "Guided visit / stop at Icefields Parkway Southbound Sightseeing Shuttle." }
     ],
