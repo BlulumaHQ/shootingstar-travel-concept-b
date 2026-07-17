@@ -18,6 +18,8 @@ import logoSeal from "@/assets/logo-seal.png";
 import { useTours } from "@/data/useTours";
 import { sortToursByCategory } from "@/data/sortTours";
 import { TourCard } from "@/components/site/TourCard";
+import { CategoryCarousel } from "@/components/site/CategoryCarousel";
+import { tourInRegion, type Region } from "@/data/tourRegions";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon,
 } from "@/components/site/DoodleIcons";
