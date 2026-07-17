@@ -111,7 +111,7 @@ export function SalePrice({
       </span>
       <span className={s.original}>{info.original}</span>
       <span
-        className={`inline-flex items-center rounded-full bg-primary text-primary-foreground font-medium uppercase ${s.badge}`}
+        className={`inline-flex items-center rounded-full bg-destructive text-destructive-foreground font-medium uppercase ${s.badge}`}
       >
         {saleBadgeLabel(info.percent, locale)}
       </span>
