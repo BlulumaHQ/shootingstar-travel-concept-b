@@ -834,4 +834,8 @@ function ShuttleExtras({ slug, locale }: { slug: string; locale: Locale }) {
       {/* Booking Terms (cancellation/refund) intentionally hidden from public
           tour detail pages. Source data in icefields-i18n.ts (`terms` block) is
           preserved; the checkout on Rezdy still shows all required terms. */}
+    </>
+  );
+}
+
 
