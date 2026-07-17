@@ -1,12 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Heart } from "lucide-react";
 import { SiteLayout } from "@/components/site/Layout";
 import { useTours } from "@/data/useTours";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
-import { SalePrice } from "@/components/site/SalePrice";
-import { FeaturedBadge } from "@/components/site/FeaturedBadge";
+import { TourCard } from "@/components/site/TourCard";
 import { BusMark, DottedLine, PinMark } from "@/components/site/BrandMarks";
 
 export type RegionLandingContent = {
