@@ -15,10 +15,9 @@ import tourAurora from "@/assets/tour-aurora.webp";
 import tourGroup from "@/assets/tour-group.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
-import { Heart as HeartFill } from "lucide-react";
 import { useTours } from "@/data/useTours";
 import { sortToursByCategory } from "@/data/sortTours";
-import { FeaturedBadge } from "@/components/site/FeaturedBadge";
+import { TourCard } from "@/components/site/TourCard";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon,
 } from "@/components/site/DoodleIcons";
