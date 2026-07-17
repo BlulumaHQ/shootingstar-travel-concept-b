@@ -22,16 +22,21 @@ const LABELS: Record<Locale, { bookNow: string }> = {
 };
 
 /**
- * Season badge — optional. Currently no `season` field exists on Tour,
- * so this is a no-op placeholder that automatically hides itself. When a
- * `season` field is added upstream, this component will render it at the
- * top-right of the card image, visually balanced with the promotion badge.
+ * Season badge — renders the localized season label at the top-right of the
+ * card image. Hidden when the tour has no `season` value or the value is not
+ * one of the supported database keys.
  */
 function SeasonBadge({ season }: { season?: string | null }) {
+  const locale = useLocale();
   if (!season) return null;
+
+  const key = season.toLowerCase() as SeasonKey;
+  const label = SEASON_LABELS[key]?.[locale];
+  if (!label) return null;
+
   return (
     <span className="absolute top-2 right-2 z-10 inline-flex items-center rounded-full bg-cream/90 px-2.5 py-1 text-[10px] font-medium tracking-[0.16em] uppercase text-ink/75 backdrop-blur-sm">
-      {season}
+      {label}
     </span>
   );
 }
