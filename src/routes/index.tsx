@@ -576,7 +576,7 @@ export function HomePage() {
                   </h3>
                   <Link
                     to={link(row.key === "canada" || row.key === "usa" ? "/tours" : `/${row.key}-tours`) as never}
-                    search={row.key === "usa" ? { region: "usa" } : undefined}
+                    search={row.key === "usa" ? ({ region: "usa" } as never) : undefined}
                     className="hidden sm:inline-flex items-center gap-2 text-primary text-[11px] tracking-[0.22em] uppercase hover:text-primary/80 transition"
                   >
                     {p.viewAll} <span aria-hidden>→</span>
