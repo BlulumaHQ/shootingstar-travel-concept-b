@@ -82,37 +82,50 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-ink/10" />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/10 to-ink/60 md:from-transparent md:via-transparent md:to-ink/45" />
 
-          {/* Promotion badge — absolutely positioned so it never affects Hero text/CTA flow */}
+          {/* Promotion badge — absolutely positioned on the right; independent from Hero content flow */}
           {s.promoBadge && (() => {
             const promo = splitPromoLabel(s.promoBadge.percent);
             return (
               <div
                 aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
-                className="absolute z-20 rounded-full text-cream [text-shadow:none] shadow-[0_22px_54px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20 flex flex-col items-center justify-center text-center box-border"
+                className="absolute z-20 flex flex-col items-center justify-center text-center text-white [text-shadow:none] box-border"
                 style={{
-                  backgroundColor: "#C94C3C",
-                  width: "clamp(100px, 14vw, 160px)",
-                  height: "clamp(100px, 14vw, 160px)",
-                  padding: "12%",
-                  top: "clamp(88px, 10vw, 120px)",
-                  left: "clamp(16px, 4vw, 56px)",
+                  backgroundColor: "#D84A3D",
+                  width: "clamp(88px, 9.5vw, 132px)",
+                  aspectRatio: "1 / 1",
+                  borderRadius: "9999px",
+                  border: "1px solid rgba(255,255,255,0.35)",
+                  boxShadow: "0 8px 20px -8px rgba(0,0,0,0.35)",
+                  padding: "10%",
+                  top: "12%",
+                  right: "7%",
                   lineHeight: 1,
                 }}
               >
-                <span className="block whitespace-nowrap font-serif font-bold leading-[0.86]" style={{ fontSize: "clamp(30px, 4.4vw, 52px)" }}>
+                <span
+                  className="block font-sans font-bold leading-none"
+                  style={{ fontSize: "clamp(28px, 3.2vw, 44px)", letterSpacing: "-0.01em" }}
+                >
                   {promo.value}
                 </span>
                 {promo.suffix && (
-                  <span className="block whitespace-nowrap font-black tracking-[0.08em] leading-none" style={{ marginTop: "6%", fontSize: "clamp(11px, 1.4vw, 16px)" }}>
+                  <span
+                    className="block font-sans font-bold uppercase leading-none"
+                    style={{ marginTop: "6%", fontSize: "clamp(13px, 1.45vw, 20px)", letterSpacing: "0.12em" }}
+                  >
                     {promo.suffix}
                   </span>
                 )}
-                <span className="block whitespace-nowrap font-semibold uppercase leading-none tracking-[0.18em]" style={{ marginTop: "8%", fontSize: "clamp(7.5px, 0.85vw, 10px)" }}>
+                <span
+                  className="block font-sans font-medium uppercase leading-none"
+                  style={{ marginTop: "10%", fontSize: "clamp(7px, 0.72vw, 10px)", letterSpacing: "0.16em" }}
+                >
                   {s.promoBadge.caption}
                 </span>
               </div>
             );
           })()}
+
 
           <div className="relative h-full mx-auto max-w-[1240px] px-5 md:px-10 flex items-center">
             <div className="max-w-2xl text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
