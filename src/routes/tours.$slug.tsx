@@ -831,22 +831,7 @@ function ShuttleExtras({ slug, locale }: { slug: string; locale: Locale }) {
         </div>
       </section>
 
-      {/* Booking Terms (collapsible) */}
-      <details className="group rounded-2xl bg-[var(--sand)] open:bg-cream open:shadow-[0_10px_30px_-18px_rgba(60,80,70,0.3)] border border-border/60 px-6 py-4">
-        <summary className="flex items-center justify-between cursor-pointer list-none gap-6">
-          <span className="font-serif text-[17px] text-ink font-semibold">{c.terms.heading}</span>
-          <span className="text-primary text-xl group-open:rotate-45 transition shrink-0">+</span>
-        </summary>
-        <div className="mt-5 space-y-5 text-[13.5px] text-ink/70 leading-[1.9]">
-          {c.terms.blocks.map((b) => (
-            <div key={b.t}>
-              <h4 className="font-serif text-[15px] text-ink font-semibold">{b.t}</h4>
-              <p className="mt-1.5">{b.d}</p>
-            </div>
-          ))}
-        </div>
-      </details>
-    </>
-  );
-}
+      {/* Booking Terms (cancellation/refund) intentionally hidden from public
+          tour detail pages. Source data in icefields-i18n.ts (`terms` block) is
+          preserved; the checkout on Rezdy still shows all required terms. */}
 
