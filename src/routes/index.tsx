@@ -16,8 +16,11 @@ import tourGroup from "@/assets/tour-group.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
 import { useTours } from "@/data/useTours";
+import type { Tour } from "@/data/tours";
 import { sortToursByCategory } from "@/data/sortTours";
 import { TourCard } from "@/components/site/TourCard";
+import { CategoryCarousel } from "@/components/site/CategoryCarousel";
+import { tourInRegion, type Region } from "@/data/tourRegions";
 import {
   CameraMapIcon, GroupRoadIcon, MountainFlagIcon, ShieldHeartIcon, CupSuitcaseIcon,
 } from "@/components/site/DoodleIcons";
@@ -504,6 +507,22 @@ export function HomePage() {
   const tours = useTours();
   
   const featured = useMemo(() => sortToursByCategory(tours).slice(0, 6), [tours]);
+
+  // Rows for the Featured Tours section. Each row is an independent carousel.
+  // Uses the existing region mapping (src/data/tourRegions.ts) — no data changes.
+  const ROW_LABELS: Record<Locale, Record<"banff" | "jasper" | "canada", string>> = {
+    en: { banff: "Banff Tours", jasper: "Jasper Tours", canada: "Canada Tours" },
+    zh: { banff: "班夫行程", jasper: "賈斯伯行程", canada: "加拿大行程" },
+    ko: { banff: "밴프 투어", jasper: "재스퍼 투어", canada: "캐나다 투어" },
+  };
+  const sorted = useMemo(() => sortToursByCategory(tours), [tours]);
+  const rows: { key: "banff" | "jasper" | "canada"; region: Region; tours: Tour[] }[] = [
+    { key: "banff", region: "banff", tours: sorted.filter((t) => tourInRegion(t.slug, "banff")) },
+    { key: "jasper", region: "jasper", tours: sorted.filter((t) => tourInRegion(t.slug, "jasper")) },
+    { key: "canada", region: "canada", tours: sorted.filter((t) => tourInRegion(t.slug, "canada")) },
+  ];
+  // suppress unused warning for the legacy single-grid `featured`
+  void featured;
   const link = (path: string) => withLocale(path, locale);
 
   return (
@@ -547,9 +566,26 @@ export function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {featured.map((t) => (
-              <TourCard key={t.slug} tour={t} locale={locale} />
+          <div className="space-y-16 md:space-y-20">
+            {rows.map((row) => (
+              <div key={row.key}>
+                <div className="flex items-end justify-between mb-6 md:mb-8 gap-4">
+                  <h3 className="font-serif text-[22px] md:text-[28px] text-ink font-semibold tracking-[-0.01em]">
+                    {ROW_LABELS[locale][row.key]}
+                  </h3>
+                  <Link
+                    to={link(row.key === "canada" ? "/tours" : `/${row.key}-tours`) as never}
+                    className="hidden sm:inline-flex items-center gap-2 text-primary text-[11px] tracking-[0.22em] uppercase hover:text-primary/80 transition"
+                  >
+                    {p.viewAll} <span aria-hidden>→</span>
+                  </Link>
+                </div>
+                <CategoryCarousel
+                  tours={row.tours}
+                  locale={locale}
+                  ariaLabel={ROW_LABELS[locale][row.key]}
+                />
+              </div>
             ))}
           </div>
 
