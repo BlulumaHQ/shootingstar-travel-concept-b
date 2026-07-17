@@ -118,7 +118,16 @@ export function TourCard({
           ) : (
             <span />
           )}
-          <BookNowButton to={href} ariaLabel={tour.title} />
+          <BookNowButton
+            to={href}
+            ariaLabel={tour.title}
+            variant={
+              (tour as Tour & { promotionBadge?: string | null; discountPercent?: number | null }).promotionBadge ||
+              typeof (tour as Tour & { discountPercent?: number | null }).discountPercent === "number"
+                ? "promo"
+                : "default"
+            }
+          />
 
         </div>
       </div>
