@@ -91,9 +91,11 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
                   className="hero-promo-badge"
                   aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
                 >
-                  <div className="hero-promo-percent">{promo.value}</div>
-                  {promo.suffix && <div className="hero-promo-off">{promo.suffix}</div>}
-                  <div className="hero-promo-label">{s.promoBadge.caption}</div>
+                  <div className="hero-promo-inner">
+                    <div className="hero-promo-percent">{promo.value}</div>
+                    {promo.suffix && <div className="hero-promo-off">{promo.suffix}</div>}
+                    <div className="hero-promo-label">{s.promoBadge.caption}</div>
+                  </div>
                 </div>
               </div>
             );
