@@ -16,6 +16,8 @@ import tourGroup from "@/assets/tour-group.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
 import { useTours } from "@/data/useTours";
+import { useReviews } from "@/data/useReviews";
+import { ReviewCard } from "@/components/site/ReviewCard";
 import type { Tour } from "@/data/tours";
 import { sortToursByCategory } from "@/data/sortTours";
 import { TourCard } from "@/components/site/TourCard";
@@ -505,6 +507,8 @@ export function HomePage() {
   const locale = useLocale();
   const p = PACKS[locale];
   const tours = useTours();
+  const allReviews = useReviews();
+  const latestReviews = useMemo(() => allReviews.slice(0, 3), [allReviews]);
   
   const featured = useMemo(() => sortToursByCategory(tours).slice(0, 6), [tours]);
 
@@ -671,6 +675,46 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* TRAVELER RATINGS — latest 3 reviews */}
+      {latestReviews.length > 0 && (
+        <section className="bg-paper/40 py-20 md:py-28">
+          <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+            <div className="flex items-end justify-between flex-wrap gap-6 mb-12 md:mb-14">
+              <div className="max-w-xl">
+                <div className="flex items-center gap-3 text-primary/75">
+                  <StarMark size={16} className="text-primary/65" />
+                  <DottedLine length={32} className="text-primary/45" />
+                  <span className="text-[11px] tracking-[0.4em] uppercase">
+                    {locale === "zh" ? "Traveler Ratings" : locale === "ko" ? "Traveler Ratings" : "Traveler Ratings"}
+                  </span>
+                </div>
+                <h2 className="font-serif text-3xl md:text-[40px] text-ink mt-5 font-medium tracking-[-0.012em]">
+                  {locale === "zh" ? "旅客評分" : locale === "ko" ? "여행자 평가" : "Traveler Ratings"}
+                </h2>
+                <p className="mt-4 text-ink/60 leading-[2] text-[15px]">
+                  {locale === "zh"
+                    ? "來自最近旅客的真實分享。"
+                    : locale === "ko"
+                    ? "최근 여행자들이 남긴 진솔한 이야기."
+                    : "The latest words from travellers who journeyed with us."}
+                </p>
+              </div>
+              <Link
+                to={link("/reviews") as never}
+                className="text-primary text-[12px] tracking-[0.18em] uppercase underline decoration-primary/40 underline-offset-[8px] hover:decoration-primary"
+              >
+                {locale === "zh" ? "更多分享 →" : locale === "ko" ? "더 많은 이야기 →" : "More stories →"}
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+              {latestReviews.map((r, i) => (
+                <ReviewCard key={i} r={r} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="bg-cream">
