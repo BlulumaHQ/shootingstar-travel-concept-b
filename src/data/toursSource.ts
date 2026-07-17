@@ -73,6 +73,7 @@ function mapRow(r: any): Tour {
     bookingCta: r.booking_cta ?? undefined,
     rezdyProductCode: r.rezdy_product_code ?? null,
     rezdyBookingUrl: r.rezdy_booking_url ?? null,
+    season: r.season ?? null,
   };
 }
 
