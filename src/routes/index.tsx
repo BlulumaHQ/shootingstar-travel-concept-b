@@ -16,6 +16,8 @@ import tourGroup from "@/assets/tour-group.webp";
 import bgLake from "@/assets/bg-lake-louise.webp";
 import logoSeal from "@/assets/logo-seal.png";
 import { useTours } from "@/data/useTours";
+import { useReviews } from "@/data/useReviews";
+import { ReviewCard } from "@/components/site/ReviewCard";
 import type { Tour } from "@/data/tours";
 import { sortToursByCategory } from "@/data/sortTours";
 import { TourCard } from "@/components/site/TourCard";
