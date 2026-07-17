@@ -62,7 +62,6 @@ export function TourCard({
         <SeasonBadge season={season} />
       </Link>
 
-
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <Link to={href as never} className="block">
           <h3 className="tour-title font-serif text-[17px] md:text-[18px] font-semibold leading-snug text-ink transition-colors group-hover:text-primary">
