@@ -5,10 +5,10 @@ import { withLocale, type Locale } from "@/i18n/locale";
 import { SalePrice } from "@/components/site/SalePrice";
 import { PromotionBadge } from "@/components/site/PromotionBadge";
 
-const LABELS: Record<Locale, { viewTour: string; bookNow: string }> = {
-  en: { viewTour: "View Tour", bookNow: "Book Now" },
-  zh: { viewTour: "查看行程", bookNow: "立即預訂" },
-  ko: { viewTour: "투어 보기", bookNow: "지금 예약" },
+const LABELS: Record<Locale, { bookNow: string }> = {
+  en: { bookNow: "Book Now" },
+  zh: { bookNow: "立即預訂" },
+  ko: { bookNow: "지금 예약" },
 };
 
 /**
