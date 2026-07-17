@@ -510,16 +510,17 @@ export function HomePage() {
 
   // Rows for the Featured Tours section. Each row is an independent carousel.
   // Uses the existing region mapping (src/data/tourRegions.ts) — no data changes.
-  const ROW_LABELS: Record<Locale, Record<"banff" | "jasper" | "canada", string>> = {
-    en: { banff: "Banff Tours", jasper: "Jasper Tours", canada: "Canada Tours" },
-    zh: { banff: "班夫行程", jasper: "賈斯伯行程", canada: "加拿大行程" },
-    ko: { banff: "밴프 투어", jasper: "재스퍼 투어", canada: "캐나다 투어" },
+  const ROW_LABELS: Record<Locale, Record<"banff" | "jasper" | "canada" | "usa", string>> = {
+    en: { banff: "Banff Tours", jasper: "Jasper Tours", canada: "Canada Tours", usa: "USA Tours" },
+    zh: { banff: "班夫行程", jasper: "賈斯伯行程", canada: "加拿大行程", usa: "美國行程" },
+    ko: { banff: "밴프 투어", jasper: "재스퍼 투어", canada: "캐나다 투어", usa: "미국 투어" },
   };
   const sorted = useMemo(() => sortToursByCategory(tours), [tours]);
-  const rows: { key: "banff" | "jasper" | "canada"; region: Region; tours: Tour[] }[] = [
+  const rows: { key: "banff" | "jasper" | "canada" | "usa"; region: Region; tours: Tour[] }[] = [
     { key: "banff", region: "banff", tours: sorted.filter((t) => tourInRegion(t.slug, "banff")) },
     { key: "jasper", region: "jasper", tours: sorted.filter((t) => tourInRegion(t.slug, "jasper")) },
     { key: "canada", region: "canada", tours: sorted.filter((t) => tourInRegion(t.slug, "canada")) },
+    { key: "usa", region: "usa", tours: sorted.filter((t) => tourInRegion(t.slug, "usa")) },
   ];
   // suppress unused warning for the legacy single-grid `featured`
   void featured;
@@ -574,7 +575,8 @@ export function HomePage() {
                     {ROW_LABELS[locale][row.key]}
                   </h3>
                   <Link
-                    to={link(row.key === "canada" ? "/tours" : `/${row.key}-tours`) as never}
+                    to={link(row.key === "canada" || row.key === "usa" ? "/tours" : `/${row.key}-tours`) as never}
+                    search={row.key === "usa" ? ({ region: "usa" } as never) : undefined}
                     className="hidden sm:inline-flex items-center gap-2 text-primary text-[11px] tracking-[0.22em] uppercase hover:text-primary/80 transition"
                   >
                     {p.viewAll} <span aria-hidden>→</span>
