@@ -74,6 +74,8 @@ function mapRow(r: any): Tour {
     rezdyProductCode: r.rezdy_product_code ?? null,
     rezdyBookingUrl: r.rezdy_booking_url ?? null,
     season: r.season ?? null,
+    discountPercent: r.discount_percent ?? null,
+    promotionBadge: r.promotion_badge ?? null,
   };
 }
 

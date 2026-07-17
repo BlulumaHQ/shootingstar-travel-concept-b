@@ -37,7 +37,8 @@ export const tours: Tour[] = [
       "사계절 푸르른 숲으로 둘러싸인 시애틀은 \"에메랄드 시티(Emerald City)\"라는 별칭으로 잘 알려져 있습니다. 신선한 자연과 첨단 기술, 100년 역사의 인문이 완벽하게 어우러진 도시입니다. 정성껏 설계된 하이라이트 일정으로 상징적인 스카이라인, 활기 넘치는 100년 전통의 공공 시장, 마법 같은 캠퍼스를 누비며, 전문 가이드와 전용 차량으로 교통과 주차 걱정 없이 시애틀의 매력을 단 하루에 깊이 있게 만끽하실 수 있습니다.",
     duration: "1일",
     language: LANGUAGE_NOTE,
-    price: "$140 CAD부터 / 1인",
+    price: "$170 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $20 USD / 1인",
     itinerary: [
       { stop: "1일차", title: "케리 파크 (Kerry Park)", body: "엽서 같은 시애틀 스카이라인을 담아보세요. 스페이스 니들, 퓨젯 사운드, 멀리 레이니어 산까지 한 프레임에 들어오는 시애틀 최고의 뷰포인트입니다." },
@@ -79,6 +80,7 @@ export const tours: Tour[] = [
     duration: "1박 2일",
     language: LANGUAGE_NOTE,
     price: "$370 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $40 USD / 1인 (1일 $20 USD × 2일)",
     itinerary: [
       { stop: "1일차", title: "케리 파크 (Kerry Park)", body: "최고의 뷰포인트! 스페이스 니들과 레이니어 산이 완벽하게 어우러지는 스카이라인을 한눈에 담습니다." },
@@ -132,6 +134,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "$170 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $20 CAD / 1인",
     itinerary: [
       { stop: "1일차", title: "BC Ferries 해상 크루즈", body: "조지아 해협과 걸프 제도 사이를 가로지르는 약 1.5시간의 여유로운 해상 여행을 즐기실 수 있습니다." },
@@ -170,7 +173,8 @@ export const tours: Tour[] = [
       "세계적으로 유명한 \"시 투 스카이 하이웨이(Sea-to-Sky Highway)\"를 따라 북쪽으로 향하는 여행. 한쪽은 반짝이는 태평양, 다른 한쪽은 웅장한 산맥이 펼쳐집니다. 장엄한 폭포부터 캐나다 아웃도어의 수도 스쿼미시, 2010 동계올림픽 개최지 휘슬러까지 — 구불구불한 산길 운전과 비싼 주차비의 부담 없이 자연과 유럽풍 알파인 마을의 매력을 만끽하실 수 있습니다.",
     duration: "1일",
     language: LANGUAGE_NOTE,
-    price: "$130 CAD부터 / 1인",
+    price: "$150 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $20 CAD / 1인",
     itinerary: [
       { stop: "1일차", title: "포르토 코브 (Porteau Cove)", body: "시 투 스카이 하이웨이의 첫 보석! 하우 사운드의 깊은 푸른 바다와 피요르드 풍경을 감상하실 수 있습니다." },
@@ -209,6 +213,7 @@ export const tours: Tour[] = [
     duration: "2박 3일",
     language: LANGUAGE_NOTE,
     price: "$830 CAD부터 / 1인",
+    season: "summer",
     gratuity: "권장 가이드 팁: $60 CAD / 1인 (1일 $20 CAD × 3일)",
     pickup: "픽업: 1일차 오전 캘거리 국제공항(YYC). 드롭오프: 3일차 오후 5:00경 캘거리 국제공항(YYC).",
     itinerary: [
@@ -269,6 +274,7 @@ export const tours: Tour[] = [
     duration: "1박 2일",
     language: "한국어 / English / 中文",
     price: "1인당 $390 CAD부터",
+    season: "summer",
     gratuity: "권장 가이드 팁: $40 CAD / 1인 (1일 $20 CAD × 2일)",
     itinerary: [
       { stop: "1일차", title: "Bridal Falls 브라이들 폭포", body: "싱그러운 숲속 산책로를 걸으며 신부의 면사포처럼 우아하게 떨어지는 폭포를 감상해 보세요." },
@@ -314,7 +320,8 @@ export const tours: Tour[] = [
       "샌프란시스코, 라스베이거스, 신비로운 협곡들, 그리고 로스앤젤레스까지 아우르는 최고의 로드트립! 미서부를 대표하는 랜드마크와 대자연의 경이로움을 완벽한 동선으로 연결했습니다. 장거리 주(State) 간 이동의 피로와 복잡한 루트 계획은 저희에게 맡기세요. 쾌적한 숙박과 교통, 알찬 일정, 감성 가득한 별찌아리 가이드의 설명과 함께하는 8일간의 여정에서 끊임없는 감동을 느껴보세요.",
     duration: "7박 8일",
     language: "한국어 / English / 中文",
-    price: "$999 CAD부터 / 1인",
+    price: "$1780 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $160 USD / 1인 (1일 $20 USD × 8일)",
     pickup: "픽업: 1일차 오전 10:30 샌프란시스코 국제공항(SFO). 드롭오프: 8일차 오후 3:00 로스앤젤레스 국제공항(LAX).",
     itinerary: [
@@ -371,7 +378,8 @@ export const tours: Tour[] = [
       "인간이 만든 엔터테인먼트의 정점과 대자연의 경이로운 마스터피스를 완벽하게 결합했습니다. 라스베이거스의 화려한 나이트라이프부터 브라이스 캐년과 그랜드 캐년의 붉은 암석 절경까지, 사막과 협곡을 넘나드는 이 장대한 여정안에 조용히 앉아 고요히 캐년멍을 해보세요.",
     duration: "3박 4일",
     language: "한국어 / English / 中文",
-    price: "$999 CAD부터 / 1인",
+    price: "$990 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $80 USD / 1인 (1일 $20 USD × 4일)",
     pickup: "픽업: 1일차 오후 4:00 라스베이거스 파리 호텔. 드롭오프: 4일차 오후 3:00 로스앤젤레스 국제공항(LAX).",
     itinerary: [
@@ -415,7 +423,8 @@ export const tours: Tour[] = [
       "시간이 부족한 여행객을 위해 LA의 핵심만 알차게 모았습니다! 양대 테마파크와 시내 주요 랜드마크를 한 번에 즐길 수 있는 일정입니다. 복잡한 LA의 교통체증 속에서 길을 찾거나 주차할 걱정 없이, 공항 도착 직후부터 제공되는 편안한 픽업 서비스와 숙박으로 캘리포니아 휴가를 바로 시작해 보세요.",
     duration: "2박 3일",
     language: "한국어 / English / 中文",
-    price: "$999 CAD부터 / 1인",
+    price: "$650 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $60 USD / 1인 (1일 $20 USD × 3일)",
     pickup: "픽업: 1일차 오전 11:50 로스앤젤레스 국제공항(LAX). 드롭오프: 3일차 오후 5:00 LAX.",
     itinerary: [
@@ -458,7 +467,8 @@ export const tours: Tour[] = [
       "남쪽으로 달려 미 서북부 해안만의 독특한 매력을 발견해 보세요. 시애틀의 상징적인 파이크 플레이스 마켓을 시작으로 워싱턴주를 지나 오리건주의 장엄한 해안선을 감상하고, 포틀랜드에서 세금 없는(Tax-Free) 쇼핑의 즐거움까지 누릴 수 있습니다. 아름다운 자연과 힙한 도시 포틀랜드, 쇼핑까지 모두 충족시키는 완벽한 주말 여행을 제안합니다.",
     duration: "2박 3일",
     language: "한국어 / English / 中文",
-    price: "$999 CAD부터 / 1인",
+    price: "$750 CAD부터 / 1인",
+    season: "all_season",
     gratuity: "권장 가이드 팁: $60 USD / 1인 (1일 $20 USD × 3일)",
     itinerary: [
       { stop: "1일차", title: "Pike Place Market (파이크 플레이스 마켓)", body: "시애틀의 독특한 커피 문화와 활기찬 수산시장의 에너지가 가득한 파이크 플레이스 마켓을 방문합니다." },
@@ -493,69 +503,6 @@ export const tours: Tour[] = [
     bookingCta: "오리건 3일 투어 예약하기",
   },
   {
-    slug: "banff-two-lake-1-day",
-    href: "/rocky-mountain-lake-tours",
-    img: banffTwoLakeFeature,
-    title: "밴프 투 레이크 1일 투어｜레이크 루이스 & 모레인 레이크",
-    desc: "캐나디안 로키의 가장 상징적인 두 호수, 레이크 루이스와 모레인 레이크를 하루에 천천히 둘러봅니다.",
-    intro: "로키에서 가장 사랑받는 두 호수를 여유롭게 즐기는 1일 일정.",
-    duration: "1일",
-    language: LANGUAGE_NOTE,
-    price: "From $155 CAD / 인",
-    itinerary: [
-      { stop: "Day 1", title: "레이크 루이스", body: "빅토리아 빙하 아래 에메랄드 빛 호수를 만나는 오전." },
-      { stop: "Day 1", title: "모레인 레이크", body: "텐 픽스 계곡 아래 모레인 레이크에서의 오후." },
-    ],
-    included: ["편안한 전용 차량", "전문 가이드 겸 드라이버"],
-    notIncluded: [
-      "5% 세금",
-      "식사 및 개인 비용",
-      "가이드 팁(권장)",
-      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "밴프 국립공원 입장에는 Parks Canada Discovery Pass가 필요합니다. 각 게스트가 parkscanadashop.ca에서 본인 명의로 사전에 구매하시고 투어 당일 지참해 주세요.",
-      "호수 개방은 계절에 따라 달라지며, 일정은 도로 및 날씨 상황에 따라 조정될 수 있습니다.",
-      "로키 산맥 고지대는 날씨 변화가 빠르므로 레이어드 의류와 방풍·보온 자켓을 준비해 주세요.",
-    ],
-    bookingCta: "밴프 투 레이크 1일 투어 예약",
-  },
-  {
-    slug: "icefields-parkway-jasper-banff-shuttle",
-    href: "/icefields-parkway-jasper-banff-shuttle-tours",
-    img: tourIcefield,
-    title: "아이스필드 파크웨이・재스퍼・밴프・말린 레이크 셔틀 투어",
-    desc: "요일별로 운영되는 로키 셔틀 & 관광 투어로 밴프, 재스퍼, 힌튼, 컬럼비아 아이스필드, 메디슨 레이크, 말린 레이크를 연결합니다. 선택형 입장권 추가도 가능합니다.",
-    intro: "요일별로 다른 셔틀 및 관광 루트를 운영하며, 일부 상품은 단일 구간 또는 풀데이 조합으로 예약할 수 있습니다.",
-    duration: "5 – 10시간",
-    language: LANGUAGE_NOTE,
-    price: "From $130 CAD / 인",
-    itinerary: [
-      { stop: "월 / 금", title: "밴프 → 재스퍼 관광 셔틀", body: "아이스필드 파크웨이를 따라 북쪽으로 향하는 풀데이 관광. 컬럼비아 아이스필드 옵션 추가 가능." },
-      { stop: "화 / 토", title: "재스퍼 & 말린 레이크 분할 구간 상품", body: "밴프, 재스퍼, 메디슨 레이크, 말린 레이크를 잇는 5시간 단위 자유 조합 구간." },
-      { stop: "수 / 일", title: "재스퍼 → 밴프 남행 관광 셔틀", body: "아타바스카 폭포, 컬럼비아 아이스필드, 페이토 레이크, 보우 레이크를 경유하는 풀데이 남행." },
-    ],
-    included: [
-      "편안한 셔틀 차량",
-      "선택한 루트의 지정 픽업·드롭오프",
-      "관광 루트의 예정된 정차 지점",
-      "Shooting Star Travel 예약 지원",
-    ],
-    notIncluded: [
-      "5% GST",
-      "식사 및 음료",
-      "가이드 팁(권장)",
-      "옵션으로 선택하지 않은 명소 입장권",
-      { text: "Parks Canada Discovery Pass (각 게스트가 사전에 직접 구매 필요)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "요일별로 다른 루트가 운영됩니다 — 월/금, 화/토, 수/일 각각 다른 상품이 운행됩니다.",
-      "금·토·일 출발 시 기본 요금에 1인당 $20 주말 추가 요금이 자동 적용됩니다.",
-      "시간은 예상 일정이며 산악 날씨와 도로 상황에 따라 변경될 수 있습니다.",
-    ],
-    bookingCta: "루트 예약하기",
-  },
-  {
     slug: "fruit-upick-crab-catching",
     img: tourVancouver,
     title: "과일 따기 & 게 잡기 체험",
@@ -564,6 +511,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "summer",
     itinerary: [
       { "stop": "1번째", "title": "과일 따기 농장", "body": "현지 농장에서 제철 신선 과일을 직접 수확." },
       { "stop": "2번째", "title": "포트 랭리", "body": "브리티시컬럼비아의 역사적 발상지 탐방." },
@@ -584,6 +532,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "all_season",
     itinerary: [
       { "stop": "1번째", "title": "캐나다 플레이스", "body": "돛 모양의 밴쿠버 워터프론트 랜드마크." },
       { "stop": "2번째", "title": "개스타운", "body": "역사적인 지구와 유명한 증기시계." },
@@ -608,6 +557,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
+    season: "all_season",
     itinerary: [
       { "stop": "1번째", "title": "마이크로소프트 비지터 센터", "body": "마이크로소프트의 이야기와 혁신을 만나다." },
       { "stop": "2번째", "title": "워싱턴 대학교", "body": "고딕 양식 캠퍼스와 수잘로 도서관 산책." },
@@ -629,6 +579,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls", body: "Guided visit / stop at JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls." }
     ],
@@ -647,6 +598,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "5 Lakes 1-Day Tour", body: "Guided visit / stop at 5 Lakes 1-Day Tour." }
     ],
@@ -664,7 +616,8 @@ export const tours: Tour[] = [
     intro: "밴프에서 출발하여 모레인 호수와 레이크 루이스를 둘러보는 탐험 투어로, 하루를 다 쓰지 않고도 편안하게 호수를 즐기고 싶은 여행자에게 적합합니다.",
     duration: "5시간",
     language: LANGUAGE_NOTE,
-    price: "From $130 CAD / adult",
+    price: "특가 $71.50 CAD 부터 / 1인 (정가 $130) · 45% OFF",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
@@ -683,6 +636,7 @@ export const tours: Tour[] = [
     duration: "1일",
     language: LANGUAGE_NOTE,
     price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake Sunrise Tour", body: "Guided visit / stop at Moraine Lake Sunrise Tour." }
     ],
@@ -700,7 +654,8 @@ export const tours: Tour[] = [
     intro: "일정: 크로우풋 빙하, 페이토 호수, 서스캐처원 리버 크로싱, 컬럼비아 아이스필드 빙하 디스커버리 센터, 보우 호수.",
     duration: "1일",
     language: LANGUAGE_NOTE,
-    price: "From $230 CAD / adult",
+    price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway", body: "Guided visit / stop at Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway." }
     ],
@@ -719,6 +674,7 @@ export const tours: Tour[] = [
     duration: "9~10시간",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Sightseeing Shuttle", body: "Guided visit / stop at Banff to Jasper Sightseeing Shuttle." }
     ],
@@ -737,6 +693,7 @@ export const tours: Tour[] = [
     duration: "5~6시간",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper & Maligne Lake Spirit Island Day Tour", body: "Guided visit / stop at Jasper & Maligne Lake Spirit Island Day Tour." }
     ],
@@ -755,6 +712,7 @@ export const tours: Tour[] = [
     duration: "약 5시간",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Jasper to Banff Express Shuttle", body: "Guided visit / stop at Jasper to Banff Express Shuttle." }
     ],
@@ -773,6 +731,7 @@ export const tours: Tour[] = [
     duration: "약 5시간",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Express Shuttle", body: "Guided visit / stop at Banff to Jasper Express Shuttle." }
     ],
@@ -791,6 +750,7 @@ export const tours: Tour[] = [
     duration: "5~6시간",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper Medicine Lake & Maligne Lake Half-Day Tour", body: "Guided visit / stop at Jasper Medicine Lake & Maligne Lake Half-Day Tour." }
     ],
@@ -808,7 +768,8 @@ export const tours: Tour[] = [
     intro: "빅토리아와 나나이모의 핵심 명소를 결합한 밴쿠버 아일랜드 2일 투어입니다.",
     duration: "2일 1박",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "$390 CAD부터 / 1인",
+    season: "all_season",
     itinerary: [
       { "stop": "1일차", "title": "빅토리아", "body": "페리 터미널; 부차트 가든; 피셔맨스 워프; 마일 제로; 이너 하버, BC 주의사당, 페어몬트 엠프레스; 먼로스 북스; 햇리 캐슬." },
       { "stop": "2일차", "title": "나나이모 & 카우찬", "body": "셰마이너스 벽화 마을; 와일드플레이 어드벤처 파크(최소 인원에 따라 운영); 맥밀란 주립공원(캐시드럴 그로브); 지붕 위의 염소(Goats on the Roof)." }
@@ -827,7 +788,8 @@ export const tours: Tour[] = [
     intro: "1일차: LAX 정오 12시 픽업, In-N-Out 점심, 파머스 마켓, 베벌리힐스, 할리우드, 어반 라이트. 2일차: 유니버설 스튜디오, 그리피스 천문대. 3일차: 디즈니랜드. 4일차: 산타모니카 해변, UCLA, 게티 센터, 오후 3시 30분 LAX 드롭오프.",
     duration: "4일 3박",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "$870 CAD부터 / 1인",
+    season: "all_season",
     itinerary: [
       { "stop": "1일차", "title": "도착 & 할리우드", "body": "LAX 정오 12시 픽업; In-N-Out 버거 점심; 파머스 마켓; 베벌리힐스; 할리우드; 어반 라이트." },
       { "stop": "2일차", "title": "테마파크 & 전망", "body": "유니버설 스튜디오; 그리피스 천문대." },
@@ -848,6 +810,7 @@ export const tours: Tour[] = [
     duration: "5일 4박",
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
+    season: "fall",
     itinerary: [
       { "stop": "1일차", "title": "토론토", "body": "토론토 공항 오후 2시 30분 픽업; CN 타워; 토론토 시청. 숙박: 나이아가라 뷰 호텔." },
       { "stop": "2일차", "title": "나이아가라", "body": "나이아가라 폭포; 테이블 록 전망대 & 플로럴 클락; 나이아가라온더레이크; 와이너리." },
@@ -869,6 +832,7 @@ export const tours: Tour[] = [
     duration: "5일 4박",
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
+    season: "fall",
     itinerary: [
       { "stop": "1일차", "title": "토론토", "body": "토론토 공항 오후 2시 30분 픽업; CN 타워; 토론토 시청; 토론토 대학교; 차이나타운." },
       { "stop": "2일차", "title": "오타와 & 몬트리올", "body": "오타와; 캐나다 국회의사당; 리도 홀; 리도 운하; 몬트리올 — 성 요셉 성당." },
@@ -891,6 +855,7 @@ export const tours: Tour[] = [
     duration: "약 10시간",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Icefields Parkway Southbound Sightseeing Shuttle", body: "Guided visit / stop at Icefields Parkway Southbound Sightseeing Shuttle." }
     ],

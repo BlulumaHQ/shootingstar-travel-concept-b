@@ -27,9 +27,15 @@ export function PromotionBadge({
   className?: string;
 }) {
   const locale = useLocale();
-  const promotion = (tour as Tour & { promotion?: string | null }).promotion;
+  const t = tour as Tour & {
+    promotion?: string | null;
+    promotionBadge?: string | null;
+    discountPercent?: number | null;
+  };
+  const explicit = t.promotionBadge ?? t.promotion;
+  const pct = typeof t.discountPercent === "number" ? `${t.discountPercent}% OFF` : null;
 
-  const label = promotion ?? (tour.slug === FEATURED_TOUR_SLUG ? LABELS[locale] ?? LABELS.en : null);
+  const label = explicit ?? pct ?? (tour.slug === FEATURED_TOUR_SLUG ? LABELS[locale] ?? LABELS.en : null);
   if (!label) return null;
 
   return (

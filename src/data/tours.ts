@@ -63,6 +63,10 @@ export type Tour = {
   rezdyBookingUrl?: string | null;
   /** Season classification: spring | summer | fall | winter | all_season. */
   season?: string | null;
+  /** Optional numeric discount percentage (e.g. 45). Renders as a "N% OFF" promo badge. */
+  discountPercent?: number | null;
+  /** Optional explicit promotion label (e.g. "Summer Sale", "Limited Time"). */
+  promotionBadge?: string | null;
   /** Legacy fields kept optional for compatibility with existing UI. */
   bring?: string[];
   faq?: { q: string; a: string }[];
@@ -86,7 +90,8 @@ export const tours: Tour[] = [
       "Surrounded year-round by lush evergreen forests, Seattle is famously known as the \"Emerald City.\" Here, fresh nature, cutting-edge technology, and a century of culture weave together seamlessly. Our thoughtfully curated highlight tour takes you through Seattle's iconic skyline viewpoints, the lively century-old public market, and a fairytale-like historic campus. With a professional guide and private vehicle, you can leave traffic and parking behind and feel the unique soul of Seattle in just one elegant day.",
     duration: "1 day",
     language: LANGUAGE_NOTE,
-    price: "From $140 CAD / person",
+    price: "From $170 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $20 USD / person",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park", body: "Capture Seattle's postcard-perfect skyline. The city's most famous viewpoint frames the Space Needle, Puget Sound, and distant Mount Rainier in one shot — a scene every photographer dreams of." },
@@ -128,6 +133,7 @@ export const tours: Tour[] = [
     duration: "2 days, 1 night",
     language: LANGUAGE_NOTE,
     price: "From $370 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $40 USD / person ($20 USD per day, 2 days)",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park", body: "A perfect vantage point — the Space Needle and Mount Rainier framed in one classic skyline view." },
@@ -181,6 +187,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $20 CAD / person",
     itinerary: [
       { stop: "Day 1", title: "BC Ferries Scenic Cruise", body: "Glide across the Georgia Strait and Gulf Islands aboard a smooth, comfortable ferry — about 1.5 hours of relaxed scenic cruising." },
@@ -219,7 +226,8 @@ export const tours: Tour[] = [
       "Head north along the world-famous Sea-to-Sky Highway, with the shimmering Pacific on one side and towering mountains on the other. This journey takes you away from city noise and into the freshest forests of British Columbia. From magnificent waterfalls to the outdoor mecca of Squamish, all the way to Whistler — host of the 2010 Winter Olympics. Leave the winding mountain drive and pricey parking to us; just relax and enjoy this perfect blend of nature and European-style alpine charm.",
     duration: "1 day",
     language: LANGUAGE_NOTE,
-    price: "From $130 CAD / person",
+    price: "From $150 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $20 CAD / person",
     itinerary: [
       { stop: "Day 1", title: "Porteau Cove", body: "The first jewel on the Sea-to-Sky Highway! Walk out on the wooden pier extending into the bay for sweeping fjord views of Howe Sound's deep blue waters." },
@@ -258,6 +266,7 @@ export const tours: Tour[] = [
     duration: "3 days, 2 nights",
     language: LANGUAGE_NOTE,
     price: "From $830 CAD / person",
+    season: "summer",
     gratuity: "Suggested guide gratuity: $60 CAD / person ($20 CAD per day, 3 days)",
     pickup: "Departure: Day 1 morning pickup at Calgary International Airport (YYC). Return: Day 3 approximately 5:00 PM drop-off at Calgary International Airport (YYC).",
     itinerary: [
@@ -318,6 +327,7 @@ export const tours: Tour[] = [
     duration: "2 days, 1 night",
     language: LANGUAGE_NOTE,
     price: "From $390 CAD / person",
+    season: "summer",
     gratuity: "Suggested guide gratuity: $40 CAD / person ($20 CAD per day, 2 days)",
     itinerary: [
       { stop: "Day 1", title: "Bridal Falls", body: "Walk through lush forest trails to admire the graceful, veil-like waterfall." },
@@ -364,7 +374,8 @@ export const tours: Tour[] = [
       "We've perfectly connected the most iconic landmarks and natural wonders of the American West. Our dedicated fleet takes care of long-distance interstate driving and complex route planning. With premium accommodations, transportation, and professional guiding included, this 8-day journey is filled with awe and ease.",
     duration: "8 days, 7 nights",
     language: LANGUAGE_NOTE,
-    price: "From $999 CAD / person",
+    price: "From $1780 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $160 USD / person ($20 USD per day, 8 days)",
     pickup: "Departure: Day 1 at 10:30 AM pickup at San Francisco International Airport (SFO). Return: Day 8 at 3:00 PM drop-off at Los Angeles International Airport (LAX).",
     itinerary: [
@@ -421,7 +432,8 @@ export const tours: Tour[] = [
       "From the bustling nightlife of Las Vegas, journey deep into the red-rock grandeur of Bryce Canyon and the Grand Canyon. We provide comfortable transportation and quality accommodations, making it easy to shuttle between desert and canyon on a visually stunning journey.",
     duration: "4 days, 3 nights",
     language: LANGUAGE_NOTE,
-    price: "From $999 CAD / person",
+    price: "From $990 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $80 USD / person ($20 USD per day, 4 days)",
     pickup: "Departure: Day 1 at 4:00 PM pickup at Paris Hotel Las Vegas. Return: Day 4 at 3:00 PM drop-off at Los Angeles International Airport (LAX).",
     itinerary: [
@@ -466,7 +478,8 @@ export const tours: Tour[] = [
       "Three major theme parks and the city's iconic landmarks all in one trip. We save you the trouble of navigating LA's complex traffic and parking — comfortable transportation and accommodations included. Land and instantly start your private California holiday.",
     duration: "3 days, 2 nights",
     language: LANGUAGE_NOTE,
-    price: "From $999 CAD / person",
+    price: "From $650 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $60 USD / person ($20 USD per day, 3 days)",
     pickup: "Departure: Day 1 at 11:50 AM pickup at Los Angeles International Airport (LAX). Return: Day 3 at 5:00 PM drop-off at LAX.",
     itinerary: [
@@ -510,7 +523,8 @@ export const tours: Tour[] = [
       "This tour takes you through Seattle's iconic market, across Washington State to Oregon's stunning coastline, and into Portland for tax-free shopping fun. Combining natural beauty with urban shopping, with transportation and accommodation included — it's the perfect weekend cross-state escape.",
     duration: "3 days, 2 nights",
     language: LANGUAGE_NOTE,
-    price: "From $999 CAD / person",
+    price: "From $750 CAD / person",
+    season: "all_season",
     gratuity: "Suggested guide gratuity: $60 USD / person ($20 USD per day, 3 days)",
     itinerary: [
       { stop: "Day 1", title: "Pike Place Market", body: "Visit Seattle's famous Pike Place Market and feel the distinctive coffee culture and lively seafood scene." },
@@ -546,69 +560,6 @@ export const tours: Tour[] = [
     bookingCta: "Book Your Oregon Coast 3-Day Tour",
   },
   {
-    slug: "banff-two-lake-1-day",
-    href: "/rocky-mountain-lake-tours",
-    img: banffTwoLakeFeature,
-    title: "Banff Two-Lake Tour 1-Day | Lake Louise & Moraine Lake",
-    desc: "A single, unhurried day at the Canadian Rockies' two most iconic lakes — Lake Louise's mirror waters and Moraine Lake's Valley of the Ten Peaks.",
-    intro: "A focused one-day journey to the Rockies' most photographed lakes, designed for slow looking and great light.",
-    duration: "1 day",
-    language: LANGUAGE_NOTE,
-    price: "From $155 CAD / person",
-    itinerary: [
-      { stop: "Day 1", title: "Lake Louise", body: "Morning at the emerald mirror of Lake Louise, framed by Victoria Glacier." },
-      { stop: "Day 1", title: "Moraine Lake", body: "Afternoon at Moraine Lake and the Valley of the Ten Peaks." },
-    ],
-    included: ["Comfortable private vehicle transportation", "Professional driver/guide"],
-    notIncluded: [
-      "5% tax",
-      "Meals & personal allowance",
-      "Suggested guide gratuity",
-      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "A Parks Canada Discovery Pass is required to enter Banff National Park. Each guest must purchase their own pass in advance under their own name at parkscanadashop.ca — please bring it on tour day.",
-      "Lake access varies by season — itinerary may adapt to road and weather conditions.",
-      "Rocky Mountain weather changes quickly at high altitudes — dress in layers and bring a windproof, warm jacket.",
-    ],
-    bookingCta: "Book Your Banff Two-Lake 1-Day Tour",
-  },
-  {
-    slug: "icefields-parkway-jasper-banff-shuttle",
-    href: "/icefields-parkway-jasper-banff-shuttle-tours",
-    img: tourIcefield,
-    title: "Icefields Parkway, Jasper, Banff & Maligne Lake Shuttle Tours",
-    desc: "Flexible weekday-based shuttles between Banff, Jasper, Hinton, the Columbia Icefield, Medicine Lake, and Maligne Lake — with optional attraction tickets and clear pickup options.",
-    intro: "Weekday-based sightseeing shuttles and split-segment routes across the Icefields Parkway, with optional Columbia Icefield and Maligne Lake Cruise add-ons.",
-    duration: "5 – 10 hours",
-    language: LANGUAGE_NOTE,
-    price: "From $130 CAD / person",
-    itinerary: [
-      { stop: "Mon / Fri", title: "Banff → Jasper Sightseeing Shuttle", body: "Northbound full-day sightseeing along the Icefields Parkway with optional Columbia Icefield stop." },
-      { stop: "Tue / Sat", title: "Split-Segment Jasper & Maligne Lake Routes", body: "Mix-and-match 5-hour segments between Banff, Jasper, Medicine Lake, and Maligne Lake." },
-      { stop: "Wed / Sun", title: "Jasper → Banff Southbound Sightseeing", body: "Full-day southbound transfer with stops at Athabasca Falls, Columbia Icefield, Peyto Lake, and Bow Lake." },
-    ],
-    included: [
-      "Comfortable transportation",
-      "Scheduled pickup and drop-off based on selected route",
-      "Planned sightseeing stops for sightseeing routes",
-      "Booking support from Shooting Star Travel",
-    ],
-    notIncluded: [
-      "5% GST",
-      "Meals and drinks",
-      "Guide gratuity",
-      "Optional attraction tickets unless selected as add-ons",
-      { text: "Parks Canada Discovery Pass (must be purchased individually by each guest in advance)", href: "https://parkscanadashop.ca/pages/discovery-pass" },
-    ],
-    notes: [
-      "Routes operate on different days — Mon/Fri, Tue/Sat, and Wed/Sun each run a different product set.",
-      "A $20 per person weekend surcharge is automatically added to base fares on Friday, Saturday, and Sunday.",
-      "Times are planned estimates; mountain weather and road conditions may affect schedule.",
-    ],
-    bookingCta: "Reserve Your Route",
-  },
-  {
     slug: "fruit-upick-crab-catching",
     img: tourVancouver,
     title: "Fruit U-Pick & Crab Catching",
@@ -617,6 +568,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "U-pick farm", body: "Guided visit / stop at U-pick farm." },
       { stop: "Day 1", title: "Fort Langley", body: "Guided visit / stop at Fort Langley." },
@@ -637,6 +589,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / person",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Canada Place", body: "Guided visit / stop at Canada Place." },
       { stop: "Day 1", title: "Gastown Steam Clock", body: "Guided visit / stop at Gastown Steam Clock." },
@@ -661,6 +614,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $180 CAD / person",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Microsoft Visitor Center", body: "Guided visit / stop at Microsoft Visitor Center." },
       { stop: "Day 1", title: "University of Washington", body: "Guided visit / stop at University of Washington." },
@@ -682,6 +636,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $170 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls", body: "Guided visit / stop at JET 1-Day Tour | Johnston Canyon, Emerald Lake & Takakkaw Falls." }
     ],
@@ -700,6 +655,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $230 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "5 Lakes 1-Day Tour", body: "Guided visit / stop at 5 Lakes 1-Day Tour." }
     ],
@@ -717,7 +673,8 @@ export const tours: Tour[] = [
     intro: "A relaxed journey from Banff to Moraine Lake and Lake Louise, ideal for guests who want a comfortable lake experience without a full-day commitment.",
     duration: "5 hours",
     language: LANGUAGE_NOTE,
-    price: "From $130 CAD / adult",
+    price: "From $71.50 CAD / person (was $130) · 45% OFF",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
     ],
@@ -736,6 +693,7 @@ export const tours: Tour[] = [
     duration: "1 day",
     language: LANGUAGE_NOTE,
     price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake Sunrise Tour", body: "Guided visit / stop at Moraine Lake Sunrise Tour." }
     ],
@@ -753,7 +711,8 @@ export const tours: Tour[] = [
     intro: "Itinerary: Crowfoot Glacier; Peyto Lake; Saskatchewan River Crossing; Columbia Icefield Glacier Discovery Centre; Bow Lake.",
     duration: "1 day",
     language: LANGUAGE_NOTE,
-    price: "From $230 CAD / adult",
+    price: "From $190 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway", body: "Guided visit / stop at Rockies Signature 1-Day Tour | Columbia Icefield & Scenic Highway." }
     ],
@@ -772,6 +731,7 @@ export const tours: Tour[] = [
     duration: "9~10 hours",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Sightseeing Shuttle", body: "Guided visit / stop at Banff to Jasper Sightseeing Shuttle." }
     ],
@@ -790,6 +750,7 @@ export const tours: Tour[] = [
     duration: "5~6 hours",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper & Maligne Lake Spirit Island Day Tour", body: "Guided visit / stop at Jasper & Maligne Lake Spirit Island Day Tour." }
     ],
@@ -808,6 +769,7 @@ export const tours: Tour[] = [
     duration: "~5 hours",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Jasper to Banff Express Shuttle", body: "Guided visit / stop at Jasper to Banff Express Shuttle." }
     ],
@@ -826,6 +788,7 @@ export const tours: Tour[] = [
     duration: "~5 hours",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
+    season: "all_season",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Express Shuttle", body: "Guided visit / stop at Banff to Jasper Express Shuttle." }
     ],
@@ -844,6 +807,7 @@ export const tours: Tour[] = [
     duration: "5~6 hours",
     language: LANGUAGE_NOTE,
     price: "From $90 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Jasper Medicine Lake & Maligne Lake Half-Day Tour", body: "Guided visit / stop at Jasper Medicine Lake & Maligne Lake Half-Day Tour." }
     ],
@@ -861,7 +825,8 @@ export const tours: Tour[] = [
     intro: "Latest Kim message only provides dates and minimum group size. Full itinerary, inclusions, exclusions, and price must be confirmed before final Rezdy publication.",
     duration: "2 days, 1 night",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "From $390 CAD / person",
+    season: "all_season",
     itinerary: [
       { stop: "Itinerary", title: "Victoria + Nanaimo 2-Day Tour", body: "Guided visit / stop at Victoria + Nanaimo 2-Day Tour." }
     ],
@@ -879,7 +844,8 @@ export const tours: Tour[] = [
     intro: "Day 1: LAX 12 PM pickup, In-N-Out Burger lunch, Farmers Market, Beverly Hills, Hollywood, Urban Lights. Day 2: Universal Studios, Griffith Observatory. Day 3: Disneyland. Day 4: Santa Monica Beach, UCLA, The Getty, LAX drop-off 3:30 PM.",
     duration: "4 days, 3 nights",
     language: LANGUAGE_NOTE,
-    price: "Contact us for pricing",
+    price: "From $870 CAD / person",
+    season: "all_season",
     itinerary: [
       { stop: "Itinerary", title: "Los Angeles 4-Day Tour | Theme Parks & California Highlights", body: "Guided visit / stop at Los Angeles 4-Day Tour | Theme Parks & California Highlights." }
     ],
@@ -898,6 +864,7 @@ export const tours: Tour[] = [
     duration: "5 days, 4 nights",
     language: LANGUAGE_NOTE,
     price: "From $1840 CAD / person",
+    season: "fall",
     itinerary: [
       { stop: "Itinerary", title: "Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada Luxury 5-Day Tour | Niagara Falls, Quebec & Montreal." }
     ],
@@ -916,6 +883,7 @@ export const tours: Tour[] = [
     duration: "5 days, 4 nights",
     language: LANGUAGE_NOTE,
     price: "From $1331 CAD / person",
+    season: "fall",
     itinerary: [
       { stop: "Itinerary", title: "Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal", body: "Guided visit / stop at Eastern Canada 5-Day Tour | Niagara Falls, Quebec & Montreal." }
     ],
@@ -934,6 +902,7 @@ export const tours: Tour[] = [
     duration: "Approx. 10 hours",
     language: LANGUAGE_NOTE,
     price: "From $210 CAD / adult",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Icefields Parkway Southbound Sightseeing Shuttle", body: "Guided visit / stop at Icefields Parkway Southbound Sightseeing Shuttle." }
     ],
