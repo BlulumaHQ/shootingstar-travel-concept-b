@@ -1,20 +1,21 @@
 import { Link } from "@tanstack/react-router";
-import { Heart, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import type { Tour } from "@/data/tours";
 import { withLocale, type Locale } from "@/i18n/locale";
 import { SalePrice } from "@/components/site/SalePrice";
-import { FeaturedBadge } from "@/components/site/FeaturedBadge";
+import { PromotionBadge } from "@/components/site/PromotionBadge";
 
-const LABELS: Record<Locale, { viewTour: string; bookNow: string; save: string }> = {
-  en: { viewTour: "View Tour", bookNow: "Book Now", save: "Save" },
-  zh: { viewTour: "查看行程", bookNow: "立即預訂", save: "收藏" },
-  ko: { viewTour: "투어 보기", bookNow: "지금 예약", save: "저장" },
+const LABELS: Record<Locale, { viewTour: string; bookNow: string }> = {
+  en: { viewTour: "View Tour", bookNow: "Book Now" },
+  zh: { viewTour: "查看行程", bookNow: "立即預訂" },
+  ko: { viewTour: "투어 보기", bookNow: "지금 예약" },
 };
 
 /**
  * Season badge — optional. Currently no `season` field exists on Tour,
  * so this is a no-op placeholder that automatically hides itself. When a
- * `season` field is added upstream, this component will render it.
+ * `season` field is added upstream, this component will render it at the
+ * top-right of the card image, visually balanced with the promotion badge.
  */
 function SeasonBadge({ season }: { season?: string | null }) {
   if (!season) return null;
@@ -57,17 +58,9 @@ export function TourCard({
           className="h-full w-full object-cover transition duration-[1200ms] group-hover:scale-[1.06]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/25 via-transparent to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
-        <FeaturedBadge slug={tour.slug} />
+        <PromotionBadge tour={tour} />
         <SeasonBadge season={season} />
       </Link>
-
-      <button
-        aria-label={L.save}
-        onClick={(e) => e.preventDefault()}
-        className="absolute top-3 right-3 z-10 grid h-8 w-8 place-items-center rounded-full bg-cream/90 text-primary shadow-sm backdrop-blur-sm transition hover:bg-cream"
-      >
-        <Heart size={14} strokeWidth={1.8} />
-      </button>
 
       <div className="flex flex-1 flex-col p-5 md:p-6">
         <Link to={href as never} className="block">
