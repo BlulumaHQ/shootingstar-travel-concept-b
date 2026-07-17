@@ -87,7 +87,7 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
               {s.promoBadge && (() => {
                 const promo = splitPromoLabel(s.promoBadge.percent);
                 return (
-                <div className="mb-5 md:mb-6 flex items-center gap-4">
+                <div className="mb-5 md:mb-6 mt-6 md:mt-10 flex items-center gap-4 origin-top-left scale-[0.82] md:scale-[0.85]">
                   <div
                     aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
                     className="relative shrink-0 grid place-items-center overflow-hidden rounded-full text-cream [text-shadow:none] h-[180px] w-[180px] md:h-[240px] md:w-[240px] shadow-[0_22px_54px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
