@@ -507,6 +507,8 @@ export function HomePage() {
   const locale = useLocale();
   const p = PACKS[locale];
   const tours = useTours();
+  const allReviews = useReviews();
+  const latestReviews = useMemo(() => allReviews.slice(0, 3), [allReviews]);
   
   const featured = useMemo(() => sortToursByCategory(tours).slice(0, 6), [tours]);
 
