@@ -82,34 +82,40 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
           <div className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/35 to-ink/10" />
           <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/10 to-ink/60 md:from-transparent md:via-transparent md:to-ink/45" />
 
+          {/* Promotion badge — absolutely positioned so it never affects Hero text/CTA flow */}
+          {s.promoBadge && (() => {
+            const promo = splitPromoLabel(s.promoBadge.percent);
+            return (
+              <div
+                aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
+                className="absolute z-20 rounded-full text-cream [text-shadow:none] shadow-[0_22px_54px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20 flex flex-col items-center justify-center text-center box-border"
+                style={{
+                  backgroundColor: "#C94C3C",
+                  width: "clamp(100px, 14vw, 160px)",
+                  height: "clamp(100px, 14vw, 160px)",
+                  padding: "12%",
+                  top: "clamp(88px, 10vw, 120px)",
+                  left: "clamp(16px, 4vw, 56px)",
+                  lineHeight: 1,
+                }}
+              >
+                <span className="block whitespace-nowrap font-serif font-bold leading-[0.86]" style={{ fontSize: "clamp(30px, 4.4vw, 52px)" }}>
+                  {promo.value}
+                </span>
+                {promo.suffix && (
+                  <span className="block whitespace-nowrap font-black tracking-[0.08em] leading-none" style={{ marginTop: "6%", fontSize: "clamp(11px, 1.4vw, 16px)" }}>
+                    {promo.suffix}
+                  </span>
+                )}
+                <span className="block whitespace-nowrap font-semibold uppercase leading-none tracking-[0.18em]" style={{ marginTop: "8%", fontSize: "clamp(7.5px, 0.85vw, 10px)" }}>
+                  {s.promoBadge.caption}
+                </span>
+              </div>
+            );
+          })()}
+
           <div className="relative h-full mx-auto max-w-[1240px] px-5 md:px-10 flex items-center">
             <div className="max-w-2xl text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.85),_0_1px_3px_rgba(0,0,0,0.6)]">
-              {s.promoBadge && (() => {
-                const promo = splitPromoLabel(s.promoBadge.percent);
-                return (
-                <div className="mb-5 md:mb-6 mt-10 md:mt-16 flex items-center gap-4 origin-top-left scale-[0.6] md:scale-[0.62]">
-                  <div
-                    aria-label={`${s.promoBadge.percent} ${s.promoBadge.caption}`}
-                    className="relative shrink-0 grid place-items-center overflow-hidden rounded-full text-cream [text-shadow:none] h-[180px] w-[180px] md:h-[240px] md:w-[240px] shadow-[0_22px_54px_-10px_rgba(0,0,0,0.55),_inset_0_0_0_3px_rgba(255,255,255,0.18)] ring-1 ring-white/20"
-                    style={{ backgroundColor: "#C94C3C" }}
-                  >
-                    <span className="flex max-w-[82%] flex-col items-center justify-center text-center leading-none">
-                      <span className="block whitespace-nowrap font-serif text-[76px] font-bold leading-[0.86] tracking-normal md:text-[108px]">
-                        {promo.value}
-                      </span>
-                      {promo.suffix && (
-                        <span className="mt-2 block whitespace-nowrap text-[25px] font-black leading-none tracking-[0.08em] md:mt-3 md:text-[34px]">
-                          {promo.suffix}
-                        </span>
-                      )}
-                      <span className="mt-3 block whitespace-nowrap text-[12px] font-semibold uppercase leading-none tracking-[0.22em] md:mt-4 md:text-[14px]">
-                        {s.promoBadge.caption}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                );
-              })()}
               <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
                 {s.eyebrow}
               </p>
@@ -135,7 +141,7 @@ export function HeroDarkSlideshow({ slides, defaultDurationMs = 6000 }: Props) {
                   ))}
                 </div>
               )}
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3 shrink-0">
                 {s.primaryVariant === "promo" ? (
                   <Link
                     to={s.primary.to as never}
