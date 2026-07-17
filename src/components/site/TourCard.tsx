@@ -5,10 +5,10 @@ import { withLocale, type Locale } from "@/i18n/locale";
 import { SalePrice } from "@/components/site/SalePrice";
 import { PromotionBadge } from "@/components/site/PromotionBadge";
 
-const LABELS: Record<Locale, { viewTour: string; bookNow: string }> = {
-  en: { viewTour: "View Tour", bookNow: "Book Now" },
-  zh: { viewTour: "查看行程", bookNow: "立即預訂" },
-  ko: { viewTour: "투어 보기", bookNow: "지금 예약" },
+const LABELS: Record<Locale, { bookNow: string }> = {
+  en: { bookNow: "Book Now" },
+  zh: { bookNow: "立即預訂" },
+  ko: { bookNow: "지금 예약" },
 };
 
 /**
@@ -75,36 +75,29 @@ export function TourCard({
           </p>
         )}
 
-        {(tour.duration || tour.price) && (
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-ink/8 pt-4">
-            {tour.duration && (
-              <span className="inline-flex items-center gap-1.5 text-[11.5px] tracking-[0.14em] uppercase text-ink/55">
-                <Clock size={13} strokeWidth={1.8} className="text-primary/70" />
-                {tour.duration}
-              </span>
-            )}
-            {tour.price && (
-              <SalePrice
-                price={tour.price}
-                locale={locale}
-                size="sm"
-                fallbackClassName="font-serif text-[14px] font-semibold text-primary"
-                className="ml-auto"
-              />
-            )}
+        {tour.duration && (
+          <div className="mt-4 flex items-center gap-2 border-t border-ink/8 pt-4">
+            <span className="inline-flex items-center gap-1.5 text-[11.5px] tracking-[0.14em] uppercase text-ink/55">
+              <Clock size={13} strokeWidth={1.8} className="text-primary/70" />
+              {tour.duration}
+            </span>
           </div>
         )}
 
-        <div className="mt-5 flex items-stretch gap-2">
+        <div className="mt-auto pt-5 flex items-center justify-between gap-3">
+          {tour.price ? (
+            <SalePrice
+              price={tour.price}
+              locale={locale}
+              size="sm"
+              fallbackClassName="font-serif text-[15px] font-semibold text-primary"
+            />
+          ) : (
+            <span />
+          )}
           <Link
             to={href as never}
-            className="inline-flex flex-1 items-center justify-center rounded-full bg-primary px-4 py-2.5 text-[12px] font-medium tracking-[0.14em] uppercase text-primary-foreground transition hover:bg-primary/90"
-          >
-            {L.viewTour}
-          </Link>
-          <Link
-            to={href as never}
-            className="inline-flex flex-1 items-center justify-center rounded-full border border-primary/35 bg-transparent px-4 py-2.5 text-[12px] font-medium tracking-[0.14em] uppercase text-primary transition hover:border-primary hover:bg-primary/5"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-[12px] font-medium tracking-[0.14em] uppercase text-primary-foreground transition hover:bg-primary/90"
           >
             {L.bookNow}
           </Link>
