@@ -63,6 +63,10 @@ export type Tour = {
   rezdyBookingUrl?: string | null;
   /** Season classification: spring | summer | fall | winter | all_season. */
   season?: string | null;
+  /** Optional numeric discount percentage (e.g. 45). Renders as a "N% OFF" promo badge. */
+  discountPercent?: number | null;
+  /** Optional explicit promotion label (e.g. "Summer Sale", "Limited Time"). */
+  promotionBadge?: string | null;
   /** Legacy fields kept optional for compatibility with existing UI. */
   bring?: string[];
   faq?: { q: string; a: string }[];
