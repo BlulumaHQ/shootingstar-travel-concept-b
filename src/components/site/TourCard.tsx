@@ -16,11 +16,21 @@ const SEASON_LABELS: Record<SeasonKey, Record<Locale, string>> = {
   all_season: { en: "All Season", zh: "全年", ko: "연중" },
 };
 
+// Elegant, low-saturation season palette — background + text pairs chosen to
+// stay consistent with the site's soft cream/ink branding.
+const SEASON_COLORS: Record<SeasonKey, string> = {
+  spring: "bg-[oklch(0.92_0.06_150)] text-[oklch(0.35_0.09_150)]",
+  summer: "bg-[oklch(0.94_0.08_90)] text-[oklch(0.40_0.10_75)]",
+  fall: "bg-[oklch(0.90_0.09_55)] text-[oklch(0.40_0.13_45)]",
+  winter: "bg-[oklch(0.92_0.05_235)] text-[oklch(0.38_0.10_235)]",
+  all_season: "bg-[oklch(0.91_0.06_195)] text-[oklch(0.36_0.08_200)]",
+};
 
 /**
  * Season badge — renders the localized season label at the top-right of the
  * card image. Hidden when the tour has no `season` value or the value is not
- * one of the supported database keys.
+ * one of the supported database keys. Colored per-season with an elegant,
+ * low-saturation palette.
  */
 function SeasonBadge({ season }: { season?: string | null }) {
   const locale = useLocale();
@@ -29,9 +39,12 @@ function SeasonBadge({ season }: { season?: string | null }) {
   const key = season.toLowerCase() as SeasonKey;
   const label = SEASON_LABELS[key]?.[locale];
   if (!label) return null;
+  const color = SEASON_COLORS[key] ?? "bg-cream/90 text-ink/75";
 
   return (
-    <span className="absolute top-2 right-2 z-10 inline-flex items-center rounded-full bg-cream/90 px-2.5 py-1 text-[10px] font-medium tracking-[0.16em] uppercase text-ink/75 backdrop-blur-sm">
+    <span
+      className={`absolute top-2 right-2 z-10 inline-flex items-center rounded-full px-2.5 py-1 text-[10px] font-medium tracking-[0.16em] uppercase backdrop-blur-sm shadow-[0_2px_6px_-2px_rgba(70,80,75,0.25)] ${color}`}
+    >
       {label}
     </span>
   );
@@ -105,7 +118,16 @@ export function TourCard({
           ) : (
             <span />
           )}
-          <BookNowButton to={href} ariaLabel={tour.title} />
+          <BookNowButton
+            to={href}
+            ariaLabel={tour.title}
+            variant={
+              (tour as Tour & { promotionBadge?: string | null; discountPercent?: number | null }).promotionBadge ||
+              typeof (tour as Tour & { discountPercent?: number | null }).discountPercent === "number"
+                ? "promo"
+                : "default"
+            }
+          />
 
         </div>
       </div>

@@ -577,6 +577,9 @@ export function HomePage() {
                 <div className="flex items-end justify-between mb-6 md:mb-8 gap-4">
                   <h3 className="font-serif text-[22px] md:text-[28px] text-ink font-semibold tracking-[-0.01em]">
                     {ROW_LABELS[locale][row.key]}
+                    <span className="ml-2 text-ink/50 font-sans text-[15px] md:text-[17px] font-normal tracking-normal">
+                      ({row.tours.length})
+                    </span>
                   </h3>
                   <Link
                     to={link(row.key === "canada" || row.key === "usa" ? "/tours" : `/${row.key}-tours`) as never}

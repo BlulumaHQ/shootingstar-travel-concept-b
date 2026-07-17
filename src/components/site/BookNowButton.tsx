@@ -6,9 +6,14 @@ import { useLocale, type Locale } from "@/i18n/locale";
  * across the site (Homepage Featured Tours, All Tours, Region pages, Search
  * results, Related Tours, and any future Tour Card component).
  *
+ * Variants:
+ *  - "default" → Brand Green (bg-primary)
+ *  - "promo"   → Red (bg-destructive) when the tour has a promotion badge or
+ *                discount percentage. Callers decide via `variant`.
+ *
  * Do NOT re-style Book Now inline anywhere else. Import this component and
- * use it as-is so width, height, radius, typography, colors, hover and
- * disabled state stay identical everywhere.
+ * use it as-is so width, height, radius, typography, hover and disabled
+ * state stay identical everywhere.
  */
 
 const LABELS: Record<Locale, string> = {
@@ -17,18 +22,21 @@ const LABELS: Record<Locale, string> = {
   ko: "지금 예약",
 };
 
-// Locked design tokens for the Primary CTA. Any change here propagates
-// to every Book Now button on the site.
-const BOOK_NOW_CLASSES =
+const BOOK_NOW_BASE =
   "inline-flex items-center justify-center whitespace-nowrap " +
   "h-10 min-w-[112px] px-5 " +
   "rounded-full " +
   "text-[12px] font-medium tracking-[0.14em] uppercase leading-none " +
-  "bg-primary text-primary-foreground " +
   "transition-colors duration-200 " +
-  "hover:bg-primary/90 " +
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-card " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-card " +
   "disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50";
+
+const VARIANT_CLASSES: Record<"default" | "promo", string> = {
+  default:
+    "bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-primary/40",
+  promo:
+    "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/40",
+};
 
 type Props = {
   to?: string;
@@ -38,6 +46,7 @@ type Props = {
   label?: string;
   ariaLabel?: string;
   className?: string;
+  variant?: "default" | "promo";
 };
 
 export function BookNowButton({
@@ -48,10 +57,11 @@ export function BookNowButton({
   label,
   ariaLabel,
   className = "",
+  variant = "default",
 }: Props) {
   const locale = useLocale();
   const text = label ?? LABELS[locale];
-  const classes = `${BOOK_NOW_CLASSES} ${className}`.trim();
+  const classes = `${BOOK_NOW_BASE} ${VARIANT_CLASSES[variant]} ${className}`.trim();
 
   if (disabled) {
     return (
