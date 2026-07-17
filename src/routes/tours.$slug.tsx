@@ -578,27 +578,10 @@ export function TourDetailPage() {
               </section>
             )}
 
-            {/* TERMS & CONDITIONS */}
-            <section>
-              <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">— {T.termsEyebrow}</p>
-              <h2 className="font-serif text-2xl md:text-[28px] text-ink mt-3 font-semibold leading-snug">{T.terms}</h2>
-              <div className="mt-6 space-y-7 text-[13.5px] text-ink/70 leading-[1.9]">
-                {T.termsSections.map((s) => (
-                  <div key={s.title}>
-                    <h3 className="font-serif text-[16px] text-ink font-semibold">{s.title}</h3>
-                    {s.intro && <p className="mt-2">{s.intro}</p>}
-                    <ul className="mt-3 space-y-2.5">
-                      {s.items.map((it, i) => (
-                        <li key={i} className="pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-primary">
-                          {it.label && <span className="text-ink font-medium">{it.label} </span>}
-                          {it.text}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
+            {/* TERMS & CONDITIONS — hidden on public tour detail pages.
+                Booking/cancellation/refund terms are surfaced during Rezdy checkout
+                and on the site-wide /terms page. Data in LABELS[locale].termsSections
+                is preserved but intentionally not rendered here. */}
 
             {/* Shuttle-only extras — appended below standard content for the 6 Icefields shuttle products */}
             {isShuttleSlug(slug) && <ShuttleExtras slug={slug} locale={locale} />}
