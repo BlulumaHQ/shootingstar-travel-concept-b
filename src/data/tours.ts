@@ -61,6 +61,8 @@ export type Tour = {
   rezdyProductCode?: string | null;
   /** Direct Rezdy hosted booking page URL (overrides productCode-based URL construction). */
   rezdyBookingUrl?: string | null;
+  /** Season classification: spring | summer | fall | winter | all_season. */
+  season?: string | null;
   /** Legacy fields kept optional for compatibility with existing UI. */
   bring?: string[];
   faq?: { q: string; a: string }[];
