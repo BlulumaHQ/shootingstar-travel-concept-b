@@ -48,7 +48,6 @@ export function TourCard({
 }) {
   const href = withLocale(tour.href ?? `/tours/${tour.slug}`, locale);
   const season = (tour as Tour & { season?: string }).season;
-  void locale;
 
   return (
     <article
