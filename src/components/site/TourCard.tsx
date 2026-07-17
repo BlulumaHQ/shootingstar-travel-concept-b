@@ -4,6 +4,7 @@ import type { Tour } from "@/data/tours";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { SalePrice } from "@/components/site/SalePrice";
 import { PromotionBadge } from "@/components/site/PromotionBadge";
+import { BookNowButton } from "@/components/site/BookNowButton";
 
 type SeasonKey = "spring" | "summer" | "fall" | "winter" | "all_season";
 
@@ -15,11 +16,6 @@ const SEASON_LABELS: Record<SeasonKey, Record<Locale, string>> = {
   all_season: { en: "All Season", zh: "全年", ko: "연중" },
 };
 
-const LABELS: Record<Locale, { bookNow: string }> = {
-  en: { bookNow: "Book Now" },
-  zh: { bookNow: "立即預訂" },
-  ko: { bookNow: "지금 예약" },
-};
 
 /**
  * Season badge — renders the localized season label at the top-right of the
