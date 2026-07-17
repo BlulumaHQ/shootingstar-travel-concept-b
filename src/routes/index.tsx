@@ -566,9 +566,26 @@ export function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            {featured.map((t) => (
-              <TourCard key={t.slug} tour={t} locale={locale} />
+          <div className="space-y-16 md:space-y-20">
+            {rows.map((row) => (
+              <div key={row.key}>
+                <div className="flex items-end justify-between mb-6 md:mb-8 gap-4">
+                  <h3 className="font-serif text-[22px] md:text-[28px] text-ink font-semibold tracking-[-0.01em]">
+                    {ROW_LABELS[locale][row.key]}
+                  </h3>
+                  <Link
+                    to={link(row.key === "canada" ? "/tours" : `/${row.key}-tours`) as never}
+                    className="hidden sm:inline-flex items-center gap-2 text-primary text-[11px] tracking-[0.22em] uppercase hover:text-primary/80 transition"
+                  >
+                    {p.viewAll} <span aria-hidden>→</span>
+                  </Link>
+                </div>
+                <CategoryCarousel
+                  tours={row.tours}
+                  locale={locale}
+                  ariaLabel={ROW_LABELS[locale][row.key]}
+                />
+              </div>
             ))}
           </div>
 
