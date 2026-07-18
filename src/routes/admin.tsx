@@ -313,6 +313,14 @@ function GalleryPanel() {
   const [warn, setWarn] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [formMsg, setFormMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+
+  useEffect(() => {
+    const urls = photoFiles.map((f) => URL.createObjectURL(f));
+    setPreviewUrls(urls);
+    return () => { urls.forEach((u) => URL.revokeObjectURL(u)); };
+  }, [photoFiles]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -325,16 +333,39 @@ function GalleryPanel() {
 
   useEffect(() => { load(); }, [load]);
 
-  function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []).filter((f) => ACCEPTED.includes(f.type));
-    if (files.length > 5) {
+  function addFiles(incoming: FileList | File[] | null) {
+    if (!incoming) return;
+    const accepted = Array.from(incoming).filter((f) => ACCEPTED.includes(f.type));
+    const combined = [...photoFiles, ...accepted];
+    if (combined.length > 5) {
       setWarn("You can upload up to 5 photos");
-      setPhotoFiles(files.slice(0, 5));
+      setPhotoFiles(combined.slice(0, 5));
     } else {
       setWarn("");
-      setPhotoFiles(files);
+      setPhotoFiles(combined);
     }
   }
+
+  function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
+    addFiles(e.target.files);
+    e.target.value = "";
+  }
+
+  function removePhoto(idx: number) {
+    setPhotoFiles((prev) => prev.filter((_, i) => i !== idx));
+    setWarn("");
+  }
+
+  function movePhoto(idx: number, dir: -1 | 1) {
+    setPhotoFiles((prev) => {
+      const next = [...prev];
+      const target = idx + dir;
+      if (target < 0 || target >= next.length) return prev;
+      [next[idx], next[target]] = [next[target], next[idx]];
+      return next;
+    });
+  }
+
 
   async function submitAlbum(e: React.FormEvent) {
     e.preventDefault();
