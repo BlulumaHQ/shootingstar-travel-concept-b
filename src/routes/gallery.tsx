@@ -128,54 +128,62 @@ function PostCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
   const [videoOpen, setVideoOpen] = useState(false);
   const embed = row.youtube_url ? youtubeEmbedUrl(row.youtube_url) : null;
 
+  const hasMedia = photos.length > 0 || !!embed;
+
   return (
     <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)]">
-      {/* Photo grid */}
-      {photos.length > 0 && (
-        <div
-          className={
-            photos.length === 1
-              ? "grid grid-cols-1"
-              : photos.length === 2
-              ? "grid grid-cols-2 gap-1"
-              : "grid grid-cols-3 gap-1"
-          }
-        >
-          {photos.map((p, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setLightboxIdx(i)}
-              className="relative overflow-hidden bg-[var(--sand)] aspect-[4/3] group"
-              aria-label={`Open photo ${i + 1}`}
-            >
-              <img
-                src={p}
-                alt=""
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-              />
-            </button>
-          ))}
+      {/* Uniform square media grid */}
+      {hasMedia && (
+        <div className="p-3 md:p-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+            {photos.map((p, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setLightboxIdx(i)}
+                className="relative aspect-square w-full overflow-hidden rounded-md bg-[var(--sand)] group"
+                aria-label={`Open photo ${i + 1}`}
+              >
+                <img
+                  src={p}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+              </button>
+            ))}
+            {embed && (
+              <button
+                type="button"
+                onClick={() => setVideoOpen(true)}
+                className="relative aspect-square w-full overflow-hidden rounded-md bg-black group"
+                aria-label={tt("watchVideo", locale)}
+              >
+                <img
+                  src={`https://img.youtube.com/vi/${embed.split("/embed/")[1]?.split("?")[0] ?? ""}/hqdefault.jpg`}
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 grid place-items-center">
+                  <div className="h-10 w-10 rounded-full bg-white/90 grid place-items-center shadow">
+                    <Play size={18} fill="currentColor" className="text-ink" />
+                  </div>
+                </div>
+              </button>
+            )}
+          </div>
         </div>
       )}
 
       {/* Body */}
-      <div className="p-5 md:p-6">
-        <p className="text-[12px] text-ink/50 mb-2">{formatDate(row.created_at, locale)}</p>
-        {row.note && (
-          <p className="whitespace-pre-wrap text-[14.5px] leading-relaxed text-ink/85">{row.note}</p>
-        )}
-        {embed && (
-          <button
-            type="button"
-            onClick={() => setVideoOpen(true)}
-            className="mt-4 inline-flex items-center gap-2 rounded-full border border-border/70 bg-cream px-3.5 py-1.5 text-[12.5px] text-ink hover:bg-[var(--sand)] transition"
-          >
-            <Play size={13} fill="currentColor" /> {tt("watchVideo", locale)}
-          </button>
-        )}
-      </div>
+      {row.note && (
+        <div className="px-5 md:px-6 pb-6 pt-1">
+          <p className="font-note whitespace-pre-line text-ink/80 text-lg md:text-xl leading-relaxed">
+            {row.note}
+          </p>
+        </div>
+      )}
 
       {embed && (
         <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
