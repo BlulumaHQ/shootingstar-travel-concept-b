@@ -163,7 +163,7 @@ export function GalleryPage() {
   const locale = useLocale();
   const [rows, setRows] = useState<GalleryRow[] | null>(null);
 
-  useState(() => {
+  useEffect(() => {
     let alive = true;
     (async () => {
       const { data, error } = await supabase
@@ -182,7 +182,7 @@ export function GalleryPage() {
     return () => {
       alive = false;
     };
-  });
+  }, []);
 
   return (
     <SiteLayout>
