@@ -273,13 +273,15 @@ const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 
 type GalleryRow = {
   id: string;
-  tour_slug: string | null;
-  tour_label: string | null;
-  trip_date: string | null;
   photos: string[] | null;
   youtube_url: string | null;
+  note: string | null;
   status: string;
-  created_at?: string;
+  created_at: string;
+  // legacy columns that may exist on old rows, unused by the form:
+  tour_slug?: string | null;
+  tour_label?: string | null;
+  trip_date?: string | null;
 };
 
 async function uploadGalleryPhoto(file: File): Promise<string | null> {
@@ -298,7 +300,6 @@ async function uploadGalleryPhoto(file: File): Promise<string | null> {
 }
 
 function GalleryPanel() {
-  const tours = useTours();
   const [rows, setRows] = useState<GalleryRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -306,10 +307,9 @@ function GalleryPanel() {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // form state
-  const [tourSlug, setTourSlug] = useState("");
-  const [tripDate, setTripDate] = useState("");
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [note, setNote] = useState("");
   const [warn, setWarn] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [formMsg, setFormMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
@@ -317,7 +317,7 @@ function GalleryPanel() {
   const load = useCallback(async () => {
     setLoading(true);
     setErr(null);
-    const { data, error } = await supabase.from("gallery").select("*").order("trip_date", { ascending: false });
+    const { data, error } = await supabase.from("gallery").select("*").order("created_at", { ascending: false });
     if (error) setErr(error.message);
     setRows((data as GalleryRow[]) ?? []);
     setLoading(false);
@@ -339,37 +339,25 @@ function GalleryPanel() {
   async function submitAlbum(e: React.FormEvent) {
     e.preventDefault();
     setFormMsg(null);
-    if (!tourSlug || !tripDate) {
-      setFormMsg({ kind: "err", text: "Tour and trip date are required." });
-      return;
-    }
-    const tour = tours.find((t) => t.slug === tourSlug);
-    if (!tour) {
-      setFormMsg({ kind: "err", text: "Invalid tour selected." });
-      return;
-    }
     setSubmitting(true);
     try {
       const uploads = await Promise.all(photoFiles.map(uploadGalleryPhoto));
       const photos = uploads.filter((u): u is string => !!u);
       const { error } = await supabase.from("gallery").insert({
-        tour_slug: tour.slug,
-        tour_label: tour.title,
-        trip_date: tripDate,
         photos,
         youtube_url: youtubeUrl.trim() || null,
+        note: note.trim() || null,
         status: "published",
       });
       if (error) throw error;
-      setFormMsg({ kind: "ok", text: "Album added." });
-      setTourSlug("");
-      setTripDate("");
+      setFormMsg({ kind: "ok", text: "Post added." });
       setPhotoFiles([]);
       setYoutubeUrl("");
+      setNote("");
       setWarn("");
       await load();
     } catch (e: any) {
-      setFormMsg({ kind: "err", text: e?.message || "Failed to add album." });
+      setFormMsg({ kind: "err", text: e?.message || "Failed to add post." });
     } finally {
       setSubmitting(false);
     }
@@ -393,25 +381,20 @@ function GalleryPanel() {
     await load();
   }
 
+  async function saveEdit(id: string, patch: { note: string | null; youtube_url: string | null }) {
+    setBusyId(id);
+    const { error } = await supabase.from("gallery").update(patch).eq("id", id);
+    setBusyId(null);
+    if (error) return setErr(error.message);
+    await load();
+  }
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
       {/* Add form */}
       <section className="bg-card border border-border rounded-xl p-5 md:p-6 mb-8">
-        <h2 className="text-base font-semibold text-foreground">Add new album</h2>
+        <h2 className="text-base font-semibold text-foreground">Add new post</h2>
         <form onSubmit={submitAlbum} className="mt-4 grid gap-4 md:grid-cols-2">
-          <label className="block">
-            <span className="block text-xs font-medium text-muted-foreground mb-1">Tour *</span>
-            <select required value={tourSlug} onChange={(e) => setTourSlug(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-              <option value="">Select a tour…</option>
-              {tours.map((t) => (
-                <option key={t.slug} value={t.slug}>{t.title}</option>
-              ))}
-            </select>
-          </label>
-          <label className="block">
-            <span className="block text-xs font-medium text-muted-foreground mb-1">Trip date *</span>
-            <input type="date" required value={tripDate} onChange={(e) => setTripDate(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
-          </label>
           <label className="block md:col-span-2">
             <span className="block text-xs font-medium text-muted-foreground mb-1">Photos (up to 5)</span>
             <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={onPhotosPick} className="w-full text-sm" />
@@ -421,6 +404,16 @@ function GalleryPanel() {
           <label className="block md:col-span-2">
             <span className="block text-xs font-medium text-muted-foreground mb-1">YouTube URL (optional)</span>
             <input type="url" placeholder="https://youtu.be/…" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
+          </label>
+          <label className="block md:col-span-2">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">Note / Story (optional)</span>
+            <textarea
+              rows={4}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Write a short note or story to show under the photos…"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            />
           </label>
           <div className="md:col-span-2 flex items-center gap-3">
             <button type="submit" disabled={submitting} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium hover:bg-primary/90 disabled:opacity-60">
@@ -435,13 +428,13 @@ function GalleryPanel() {
       </section>
 
       {/* Manage existing */}
-      <h2 className="text-base font-semibold text-foreground mb-3">Albums</h2>
+      <h2 className="text-base font-semibold text-foreground mb-3">Posts</h2>
       {err && <div className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{err}</div>}
 
       {loading ? (
         <div className="grid place-items-center py-20"><Loader2 className="animate-spin text-muted-foreground" /></div>
       ) : rows.length === 0 ? (
-        <p className="text-sm text-muted-foreground py-12 text-center">No albums yet.</p>
+        <p className="text-sm text-muted-foreground py-12 text-center">No posts yet.</p>
       ) : (
         <div className="space-y-3">
           {rows.map((row) => (
@@ -451,6 +444,7 @@ function GalleryPanel() {
               busy={busyId === row.id}
               onToggle={() => toggleStatus(row)}
               onDeleteRequest={() => setDeleteConfirmId(row.id)}
+              onSaveEdit={(patch) => saveEdit(row.id, patch)}
             />
           ))}
         </div>
@@ -458,7 +452,7 @@ function GalleryPanel() {
 
       {deleteConfirmId && (
         <ConfirmDialog
-          title="Permanently delete this album?"
+          title="Permanently delete this post?"
           onCancel={() => setDeleteConfirmId(null)}
           onConfirm={() => deleteAlbum(deleteConfirmId)}
           busy={busyId === deleteConfirmId}
@@ -469,41 +463,109 @@ function GalleryPanel() {
 }
 
 function GalleryAdminCard({
-  row, busy, onToggle, onDeleteRequest,
-}: { row: GalleryRow; busy: boolean; onToggle: () => void; onDeleteRequest: () => void; }) {
+  row, busy, onToggle, onDeleteRequest, onSaveEdit,
+}: {
+  row: GalleryRow;
+  busy: boolean;
+  onToggle: () => void;
+  onDeleteRequest: () => void;
+  onSaveEdit: (patch: { note: string | null; youtube_url: string | null }) => void | Promise<void>;
+}) {
   const photos = row.photos ?? [];
   const cover = photos[0];
-  const date = row.trip_date ? new Date(row.trip_date).toLocaleDateString() : "—";
+  const date = row.created_at ? new Date(row.created_at).toLocaleDateString() : "—";
   const isPublished = row.status === "published";
   const badge = isPublished
     ? { label: "Published", color: "bg-emerald-100 text-emerald-700" }
     : { label: "Hidden", color: "bg-slate-200 text-slate-700" };
 
+  const firstLine = (row.note || "").split(/\r?\n/)[0].trim();
+  const heading = firstLine ? (firstLine.length > 80 ? firstLine.slice(0, 80) + "…" : firstLine) : "Untitled post";
+
+  const [editing, setEditing] = useState(false);
+  const [editNote, setEditNote] = useState(row.note ?? "");
+  const [editYoutube, setEditYoutube] = useState(row.youtube_url ?? "");
+
+  function startEdit() {
+    setEditNote(row.note ?? "");
+    setEditYoutube(row.youtube_url ?? "");
+    setEditing(true);
+  }
+
+  async function save() {
+    await onSaveEdit({
+      note: editNote.trim() || null,
+      youtube_url: editYoutube.trim() || null,
+    });
+    setEditing(false);
+  }
+
   return (
-    <article className="bg-card border border-border rounded-xl p-4 flex gap-4 items-start">
-      <div className="h-20 w-28 shrink-0 rounded-md overflow-hidden bg-muted">
-        {cover ? <img src={cover} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full grid place-items-center text-muted-foreground"><ImageIcon size={20} /></div>}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between gap-3 flex-wrap">
-          <div className="min-w-0">
-            <p className="text-sm font-semibold text-foreground truncate">{row.tour_label || row.tour_slug || "—"}</p>
-            <p className="text-xs text-muted-foreground">{date} · {photos.length} photo{photos.length === 1 ? "" : "s"}{row.youtube_url ? " · " : ""}{row.youtube_url ? <span className="inline-flex items-center gap-1"><Video size={11} />video</span> : null}</p>
+    <article className="bg-card border border-border rounded-xl p-4">
+      <div className="flex gap-4 items-start">
+        <div className="h-20 w-28 shrink-0 rounded-md overflow-hidden bg-muted">
+          {cover ? <img src={cover} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full grid place-items-center text-muted-foreground"><ImageIcon size={20} /></div>}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground truncate">{heading}</p>
+              <p className="text-xs text-muted-foreground">
+                {date} · {photos.length} photo{photos.length === 1 ? "" : "s"}
+                {row.youtube_url ? <> · <span className="inline-flex items-center gap-1"><Video size={11} />video</span></> : null}
+              </p>
+            </div>
+            <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${badge.color}`}>{badge.label}</span>
           </div>
-          <span className={`text-[11px] uppercase tracking-wide px-2 py-1 rounded-full font-medium ${badge.color}`}>{badge.label}</span>
-        </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <button onClick={onToggle} disabled={busy} className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm disabled:opacity-60 ${isPublished ? "bg-amber-600 text-white hover:bg-amber-700" : "bg-emerald-600 text-white hover:bg-emerald-700"}`}>
-            {isPublished ? <><EyeOff size={14} /> Hide</> : <><Eye size={14} /> Publish</>}
-          </button>
-          <button onClick={onDeleteRequest} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto">
-            <Trash2 size={14} /> Delete
-          </button>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button onClick={onToggle} disabled={busy} className={`inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm disabled:opacity-60 ${isPublished ? "bg-amber-600 text-white hover:bg-amber-700" : "bg-emerald-600 text-white hover:bg-emerald-700"}`}>
+              {isPublished ? <><EyeOff size={14} /> Hide</> : <><Eye size={14} /> Publish</>}
+            </button>
+            <button onClick={startEdit} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-slate-600 text-white px-3 py-1.5 text-sm hover:bg-slate-700 disabled:opacity-60">
+              <Pencil size={14} /> Edit
+            </button>
+            <button onClick={onDeleteRequest} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md border border-destructive/40 text-destructive px-3 py-1.5 text-sm hover:bg-destructive/10 disabled:opacity-60 ml-auto">
+              <Trash2 size={14} /> Delete
+            </button>
+          </div>
         </div>
       </div>
+
+      {editing && (
+        <div className="mt-4 border-t border-border pt-4 grid gap-3">
+          <label className="block">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">Note / Story</span>
+            <textarea
+              rows={4}
+              value={editNote}
+              onChange={(e) => setEditNote(e.target.value)}
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            />
+          </label>
+          <label className="block">
+            <span className="block text-xs font-medium text-muted-foreground mb-1">YouTube URL</span>
+            <input
+              type="url"
+              value={editYoutube}
+              onChange={(e) => setEditYoutube(e.target.value)}
+              placeholder="https://youtu.be/…"
+              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+            />
+          </label>
+          <div className="flex items-center gap-2">
+            <button onClick={save} disabled={busy} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-3 py-1.5 text-sm font-medium hover:bg-primary/90 disabled:opacity-60">
+              {busy ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />} Save
+            </button>
+            <button onClick={() => setEditing(false)} disabled={busy} className="rounded-md border border-input bg-background px-3 py-1.5 text-sm hover:bg-accent">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </article>
   );
 }
+
 
 function ConfirmDialog({ title, onCancel, onConfirm, busy }: { title: string; onCancel: () => void; onConfirm: () => void; busy: boolean }) {
   return (
