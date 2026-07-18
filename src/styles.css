@@ -178,6 +178,21 @@
   .font-marker { font-family: var(--font-marker); }
   .font-serif { font-family: var(--font-serif); }
 
+  /* Handwriting for gallery notes — works in all three languages */
+  .font-note { font-family: "Caveat", "Patrick Hand", cursive; }
+
+  .locale-zh .font-note,
+  [data-locale^="zh"] .font-note,
+  [lang^="zh"] .font-note {
+    font-family: "ChenYuluoyan", "MengQuNaiYou", "Klee One", cursive !important;
+  }
+
+  .locale-ko .font-note,
+  [data-locale^="ko"] .font-note,
+  [lang^="ko"] .font-note {
+    font-family: "JeonhwaSeon", cursive !important;
+  }
+
   .locale-zh,
   [data-locale^="zh"],
   [lang^="zh"] {
