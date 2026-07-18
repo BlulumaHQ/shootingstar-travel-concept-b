@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw, Upload, Eye, EyeOff, Image as ImageIcon, Video, Pencil } from "lucide-react";
 import { supabase, type ReviewRow } from "@/lib/supabase";
-import { useTours } from "@/data/useTours";
+
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
