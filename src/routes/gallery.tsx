@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Play, X } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
