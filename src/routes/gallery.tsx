@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { Play, X } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import { supabase } from "@/lib/supabase";
+import brownLogo from "@/assets/shootingstar-brown-logo.png";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -42,7 +43,6 @@ type GalleryRow = {
   created_at: string;
 };
 
-
 function youtubeEmbedUrl(url: string): string | null {
   try {
     const u = new URL(url);
@@ -59,123 +59,78 @@ function youtubeEmbedUrl(url: string): string | null {
   }
 }
 
-function PhotoLightbox({
-  photos,
-  index,
-  onClose,
-  onPrev,
-  onNext,
-}: {
-  photos: string[];
-  index: number;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-}) {
-  return (
-    <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="max-w-5xl p-0 overflow-hidden bg-black">
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-2 right-2 z-10 h-9 w-9 grid place-items-center rounded-full bg-white/15 text-white hover:bg-white/25"
-        >
-          <X size={18} />
-        </button>
-        <div className="relative w-full bg-black" style={{ aspectRatio: "3 / 2" }}>
-          <img src={photos[index]} alt="" className="absolute inset-0 h-full w-full object-contain" />
-          {photos.length > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={onPrev}
-                aria-label="Previous"
-                className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-white/15 text-white hover:bg-white/25"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                onClick={onNext}
-                aria-label="Next"
-                className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-white/15 text-white hover:bg-white/25"
-              >
-                ›
-              </button>
-              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 text-white/80 text-xs bg-black/40 rounded-full px-2 py-0.5">
-                {index + 1} / {photos.length}
-              </div>
-            </>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+function AlbumCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
+  const photos = useMemo(
+    () => (Array.isArray(row.photos) ? row.photos.filter(Boolean) : []),
+    [row.photos]
   );
-}
-
-function PostCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
-  const photos = (row.photos ?? []).filter(Boolean);
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [idx, setIdx] = useState(0);
   const [videoOpen, setVideoOpen] = useState(false);
   const embed = row.youtube_url ? youtubeEmbedUrl(row.youtube_url) : null;
-
-  const hasMedia = photos.length > 0 || !!embed;
+  const featured = photos[idx] ?? photos[0];
 
   return (
-    <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)]">
-      {/* Uniform square media grid */}
-      {hasMedia && (
-        <div className="p-3 md:p-4">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
-            {photos.map((p, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setLightboxIdx(i)}
-                className="relative aspect-square w-full overflow-hidden rounded-md bg-[var(--sand)] group"
-                aria-label={`Open photo ${i + 1}`}
-              >
-                <img
-                  src={p}
-                  alt=""
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-              </button>
-            ))}
-            {embed && (
-              <button
-                type="button"
-                onClick={() => setVideoOpen(true)}
-                className="relative aspect-square w-full overflow-hidden rounded-md bg-black group"
-                aria-label={tt("watchVideo", locale)}
-              >
-                <img
-                  src={`https://img.youtube.com/vi/${embed.split("/embed/")[1]?.split("?")[0] ?? ""}/hqdefault.jpg`}
-                  alt=""
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-                <div className="absolute inset-0 grid place-items-center">
-                  <div className="h-10 w-10 rounded-full bg-white/90 grid place-items-center shadow">
-                    <Play size={18} fill="currentColor" className="text-ink" />
-                  </div>
-                </div>
-              </button>
-            )}
-          </div>
+    <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
+      {/* Feature image — identical fixed aspect ratio on every card */}
+      <div className="relative aspect-[4/3] overflow-hidden bg-[var(--sand)]">
+        {featured ? (
+          <img
+            src={featured}
+            alt=""
+            loading="lazy"
+            className="h-full w-full object-cover transition-opacity duration-300"
+          />
+        ) : (
+          <div className="h-full w-full bg-muted" />
+        )}
+        {featured && (
+          <img
+            src={brownLogo}
+            alt=""
+            aria-hidden
+            draggable={false}
+            className="pointer-events-none absolute bottom-2 right-2 select-none"
+            style={{ width: 54, height: "auto", opacity: 0.33 }}
+          />
+        )}
+      </div>
+
+      {/* Thumbnail strip — shows the other photos, click to change the feature */}
+      {photos.length > 1 && (
+        <div className="px-4 pt-3 flex gap-2 overflow-x-auto">
+          {photos.map((p, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setIdx(i)}
+              aria-label={`Photo ${i + 1}`}
+              className={`shrink-0 h-12 w-16 overflow-hidden rounded-md border transition ${
+                i === idx ? "border-ink ring-1 ring-ink/40" : "border-border/60 opacity-80 hover:opacity-100"
+              }`}
+            >
+              <img src={p} alt="" loading="lazy" className="h-full w-full object-cover" />
+            </button>
+          ))}
         </div>
       )}
 
-      {/* Body */}
-      {row.note && (
-        <div className="px-5 md:px-6 pb-6 pt-1">
-          <p className="font-note whitespace-pre-line text-ink/80 text-lg md:text-xl leading-relaxed">
+      {/* Note (handwriting) + video button */}
+      <div className="p-5 md:p-6 flex-1 flex flex-col gap-3">
+        {row.note && (
+          <p className="font-note text-lg md:text-xl leading-relaxed text-ink/80 whitespace-pre-line">
             {row.note}
           </p>
-        </div>
-      )}
+        )}
+        {embed && (
+          <button
+            type="button"
+            onClick={() => setVideoOpen(true)}
+            className="inline-flex items-center gap-2 self-start rounded-full border border-border/70 bg-cream px-3.5 py-1.5 text-[12.5px] text-ink hover:bg-[var(--sand)] transition"
+          >
+            <Play size={13} fill="currentColor" /> {tt("watchVideo", locale)}
+          </button>
+        )}
+      </div>
 
       {embed && (
         <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
@@ -200,16 +155,6 @@ function PostCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
           </DialogContent>
         </Dialog>
       )}
-
-      {lightboxIdx !== null && (
-        <PhotoLightbox
-          photos={photos}
-          index={lightboxIdx}
-          onClose={() => setLightboxIdx(null)}
-          onPrev={() => setLightboxIdx((i) => (i === null ? 0 : (i - 1 + photos.length) % photos.length))}
-          onNext={() => setLightboxIdx((i) => (i === null ? 0 : (i + 1) % photos.length))}
-        />
-      )}
     </article>
   );
 }
@@ -218,7 +163,7 @@ export function GalleryPage() {
   const locale = useLocale();
   const [rows, setRows] = useState<GalleryRow[] | null>(null);
 
-  useEffect(() => {
+  useState(() => {
     let alive = true;
     (async () => {
       const { data, error } = await supabase
@@ -237,7 +182,7 @@ export function GalleryPage() {
     return () => {
       alive = false;
     };
-  }, []);
+  });
 
   return (
     <SiteLayout>
@@ -247,15 +192,15 @@ export function GalleryPage() {
         <p className="mt-4 text-ink/70 max-w-2xl">{tt("sub", locale)}</p>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 md:px-10 pb-24">
+      <section className="mx-auto max-w-6xl px-6 md:px-10 pb-24">
         {rows === null ? (
           <p className="text-ink/60 py-12 text-center">{tt("loading", locale)}</p>
         ) : rows.length === 0 ? (
           <p className="text-ink/60 py-12 text-center">{tt("empty", locale)}</p>
         ) : (
-          <div className="space-y-8">
+          <div className="grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {rows.map((r) => (
-              <PostCard key={r.id} row={r} locale={locale} />
+              <AlbumCard key={r.id} row={r} locale={locale} />
             ))}
           </div>
         )}
