@@ -42,14 +42,6 @@ type GalleryRow = {
   created_at: string;
 };
 
-const dateLocaleMap: Record<Locale, string> = { en: "en-US", zh: "zh-Hant", ko: "ko-KR" };
-
-function formatDate(iso: string | null, l: Locale): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return iso;
-  return d.toLocaleDateString(dateLocaleMap[l], { year: "numeric", month: "long", day: "numeric" });
-}
 
 function youtubeEmbedUrl(url: string): string | null {
   try {
