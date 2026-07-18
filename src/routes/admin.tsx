@@ -426,12 +426,80 @@ function GalleryPanel() {
       <section className="bg-card border border-border rounded-xl p-5 md:p-6 mb-8">
         <h2 className="text-base font-semibold text-foreground">Add new post</h2>
         <form onSubmit={submitAlbum} className="mt-4 grid gap-4 md:grid-cols-2">
-          <label className="block md:col-span-2">
+          <div className="block md:col-span-2">
             <span className="block text-xs font-medium text-muted-foreground mb-1">Photos (up to 5)</span>
-            <input type="file" multiple accept="image/jpeg,image/png,image/webp" onChange={onPhotosPick} className="w-full text-sm" />
-            {warn && <p className="mt-1 text-xs text-amber-600">{warn}</p>}
-            {photoFiles.length > 0 && <p className="mt-1 text-xs text-muted-foreground">{photoFiles.length} file(s) ready to upload.</p>}
-          </label>
+            <label
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setDragOver(false);
+                addFiles(e.dataTransfer.files);
+              }}
+              className={`flex flex-col items-center justify-center gap-2 w-full rounded-xl border-2 border-dashed px-6 py-10 text-center cursor-pointer transition ${
+                dragOver ? "border-primary bg-primary/5" : "border-border bg-background hover:bg-accent/40"
+              }`}
+            >
+              <UploadCloud size={32} className="text-muted-foreground" />
+              <span className="text-sm font-medium text-foreground">Click to upload photos</span>
+              <span className="text-xs text-muted-foreground">Up to 5 · JPG, PNG, or WebP</span>
+              <input
+                type="file"
+                multiple
+                accept="image/jpeg,image/png,image/webp"
+                onChange={onPhotosPick}
+                className="hidden"
+              />
+            </label>
+            {warn && <p className="mt-2 text-xs text-amber-600">{warn}</p>}
+            {photoFiles.length > 0 && (
+              <div className="mt-3">
+                <p className="text-xs text-muted-foreground mb-2">
+                  {photoFiles.length} photo{photoFiles.length === 1 ? "" : "s"} selected · first photo is the cover
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {photoFiles.map((f, i) => (
+                    <div key={`${f.name}-${i}`} className="relative h-24 w-24 rounded-md overflow-hidden border border-border bg-muted group">
+                      {previewUrls[i] && (
+                        <img src={previewUrls[i]} alt="" className="h-full w-full object-cover" />
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(i)}
+                        aria-label="Remove photo"
+                        className="absolute top-1 right-1 h-6 w-6 grid place-items-center rounded-full bg-black/60 text-white hover:bg-black/80"
+                      >
+                        <X size={12} />
+                      </button>
+                      <div className="absolute bottom-0 inset-x-0 flex justify-between bg-black/50 opacity-0 group-hover:opacity-100 transition">
+                        <button
+                          type="button"
+                          onClick={() => movePhoto(i, -1)}
+                          disabled={i === 0}
+                          aria-label="Move left"
+                          className="flex-1 py-1 text-white text-xs disabled:opacity-30 hover:bg-black/40"
+                        >
+                          <ChevronLeft size={12} className="mx-auto" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => movePhoto(i, 1)}
+                          disabled={i === photoFiles.length - 1}
+                          aria-label="Move right"
+                          className="flex-1 py-1 text-white text-xs disabled:opacity-30 hover:bg-black/40"
+                        >
+                          <ChevronRight size={12} className="mx-auto" />
+                        </button>
+                      </div>
+                      {i === 0 && (
+                        <span className="absolute top-1 left-1 text-[9px] uppercase tracking-wide bg-primary text-primary-foreground px-1.5 py-0.5 rounded">Cover</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
           <label className="block md:col-span-2">
             <span className="block text-xs font-medium text-muted-foreground mb-1">YouTube URL (optional)</span>
             <input type="url" placeholder="https://youtu.be/…" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" />
