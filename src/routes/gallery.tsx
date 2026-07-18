@@ -70,7 +70,7 @@ function AlbumCard({ row, locale }: { row: GalleryRow; locale: Locale }) {
   const featured = photos[idx] ?? photos[0];
 
   return (
-    <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full">
+    <article className="bg-card rounded-[10px] overflow-hidden shadow-[0_2px_6px_-2px_rgba(70,80,75,0.05),0_36px_64px_-32px_rgba(70,80,75,0.32)] flex flex-col h-full min-h-[480px]">
       {/* Feature image — identical fixed aspect ratio on every card */}
       <div className="relative aspect-[4/3] overflow-hidden bg-[var(--sand)]">
         {featured ? (
