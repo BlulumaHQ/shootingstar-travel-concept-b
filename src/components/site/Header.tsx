@@ -10,6 +10,9 @@ import { useT } from "@/i18n/dict";
 function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNavigate?: () => void }) {
   const { pathname } = useLocation();
   const current = useLocale();
+  // Korean pages are temporarily hidden from the switcher but remain reachable
+  // via URL so they can be re-enabled later without rebuilding the site.
+  const displayedLocales = locales.filter((l) => l !== "ko");
   return (
     <div
       className={
@@ -20,7 +23,7 @@ function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNa
       role="group"
       aria-label="Language"
     >
-      {locales.map((l, i) => {
+      {displayedLocales.map((l, i) => {
         const isActive = l === current;
         const target = withLocale(pathname, l);
         return (
