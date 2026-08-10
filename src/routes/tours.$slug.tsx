@@ -38,7 +38,7 @@ const isRockies = (slug: string) => {
 type TermsSection = { title: string; intro?: string; items: { label?: string; text: string }[] };
 
 const LABELS: Record<Locale, {
-  allTours: string; duration: string; language: string; price: string;
+  allTours: string; duration: string; price: string;
   itineraryEyebrow: string; itinerary: string;
   pricingEyebrow: string; pricing: string; tourRate: string; gratuity: string;
   galleryEyebrow: string; gallery: string;
@@ -49,7 +49,7 @@ const LABELS: Record<Locale, {
   termsSections: TermsSection[];
 }> = {
   en: {
-    allTours: "← All tours", duration: "Duration", language: "Language", price: "Price",
+    allTours: "← All tours", duration: "Duration", price: "Price",
     itineraryEyebrow: "itinerary", itinerary: "Itinerary",
     pricingEyebrow: "pricing", pricing: "Pricing", tourRate: "Tour Rate", gratuity: "Suggested Guide Gratuity",
     galleryEyebrow: "gallery", gallery: "Trip gallery",
@@ -87,7 +87,7 @@ const LABELS: Record<Locale, {
     ],
   },
   zh: {
-    allTours: "← 所有行程", duration: "天數", language: "語言", price: "費用",
+    allTours: "← 所有行程", duration: "天數", price: "費用",
     itineraryEyebrow: "行程", itinerary: "行程安排",
     pricingEyebrow: "費用", pricing: "費用說明", tourRate: "行程費用", gratuity: "建議導遊小費",
     galleryEyebrow: "相簿", gallery: "旅程相簿",
@@ -125,7 +125,7 @@ const LABELS: Record<Locale, {
     ],
   },
   ko: {
-    allTours: "← 전체 투어", duration: "기간", language: "언어", price: "요금",
+    allTours: "← 전체 투어", duration: "기간", price: "요금",
     itineraryEyebrow: "일정", itinerary: "일정",
     pricingEyebrow: "요금", pricing: "요금 안내", tourRate: "투어 요금", gratuity: "권장 가이드 팁",
     galleryEyebrow: "갤러리", gallery: "투어 갤러리",
@@ -416,12 +416,6 @@ export function TourDetailPage() {
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
                 <div className="flex items-baseline gap-2"><span className="text-ink/50">{T.price} </span><SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="text-primary font-semibold" /></div>
               </div>
-              {tour.language && (
-                <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
-                  <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.language}</p>
-                  <p className="text-[13px] text-ink/75 leading-[1.85]">{tour.language}</p>
-                </div>
-              )}
               <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
                 <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.agePolicyEyebrow}</p>
                 <p className="text-[13px] text-ink/80 font-medium leading-[1.85]">{T.agePolicyTitle}</p>
