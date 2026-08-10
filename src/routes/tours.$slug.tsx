@@ -416,12 +416,6 @@ export function TourDetailPage() {
                 <div><span className="text-ink/50">{T.duration} </span><span className="text-ink">{tour.duration}</span></div>
                 <div className="flex items-baseline gap-2"><span className="text-ink/50">{T.price} </span><SalePrice price={tour.price} locale={locale} size="sm" fallbackClassName="text-primary font-semibold" /></div>
               </div>
-              {tour.language && (
-                <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
-                  <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.language}</p>
-                  <p className="text-[13px] text-ink/75 leading-[1.85]">{tour.language}</p>
-                </div>
-              )}
               <div className="mt-4 rounded-[4px] bg-[var(--sand)]/60 px-4 py-3 border-l-2 border-primary/40">
                 <p className="text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-1.5">{T.agePolicyEyebrow}</p>
                 <p className="text-[13px] text-ink/80 font-medium leading-[1.85]">{T.agePolicyTitle}</p>
