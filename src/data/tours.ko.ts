@@ -616,7 +616,7 @@ export const tours: Tour[] = [
     intro: "밴프에서 출발하여 모레인 호수와 레이크 루이스를 둘러보는 탐험 투어로, 하루를 다 쓰지 않고도 편안하게 호수를 즐기고 싶은 여행자에게 적합합니다.",
     duration: "5시간",
     language: LANGUAGE_NOTE,
-    price: "특가 $71.50 CAD 부터 / 1인 (정가 $130) · 45% OFF",
+    price: "$130 CAD부터 / 1인",
     season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
