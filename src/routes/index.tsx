@@ -37,42 +37,8 @@ import lakeHero from "@/assets/lake-tours/lake-009.webp";
 const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
 const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
-const FEATURED_SLUG = "moraine-lake-lake-louise-half-day";
-
 // Toggle to re-enable the Calgary Stampede promotional hero slide next season.
 const SHOW_STAMPEDE_HERO = false;
-const FEATURED_HERO: Record<Locale, {
-  eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
-  badgeCaption: string; highlights: string[];
-}> = {
-  en: {
-    eyebrow: "Limited Offer · Save 45% Now",
-    h1Line1: "Moraine Lake &",
-    h1Line2: "Lake Louise Exploration",
-    sub: "Two iconic Canadian Rockies lakes in one relaxed small-group journey — an easy way to experience Moraine Lake and Lake Louise together.",
-    primary: "See the 45% Offer",
-    badgeCaption: "Limited Offer",
-    highlights: ["45% Off", "Signature Route", "Small Group", "Seasonal"],
-  },
-  zh: {
-    eyebrow: "限時優惠｜立即享 45% OFF",
-    h1Line1: "夢蓮湖 &",
-    h1Line2: "露易絲湖探索之旅",
-    sub: "一次收藏加拿大洛磯山脈兩座經典湖泊，小團出發，輕鬆探索夢蓮湖與露易絲湖。",
-    primary: "立即查看 45% 優惠行程",
-    badgeCaption: "限時優惠",
-    highlights: ["45% 折扣", "精華行程", "小團出發", "季節限定"],
-  },
-  ko: {
-    eyebrow: "기간 한정 · 지금 45% 할인",
-    h1Line1: "모레인 호수 &",
-    h1Line2: "레이크 루이스 탐험",
-    sub: "캐나다 로키의 상징적인 두 호수를 소그룹으로 여유롭게 담아오는 여정 — 모레인 호수와 레이크 루이스를 함께 편하게 경험하세요.",
-    primary: "45% 특가 상품 보기",
-    badgeCaption: "기간 한정",
-    highlights: ["45% 할인", "핵심 코스", "소그룹 출발", "시즌 한정"],
-  },
-};
 
 const STAMPEDE_HERO: Record<Locale, {
   eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
@@ -433,7 +399,6 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
 function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
   const s = STAMPEDE_HERO[locale];
-  const f = FEATURED_HERO[locale];
   return [
     ...(SHOW_STAMPEDE_HERO
       ? [
@@ -450,20 +415,6 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
           },
         ]
       : []),
-    {
-      id: "featured-half-day",
-      image: heroBgMoraine,
-      eyebrow: f.eyebrow,
-      h1Line1: f.h1Line1,
-      h1Line2: f.h1Line2,
-      sub: f.sub,
-      badges: [],
-      highlights: f.highlights,
-      promoBadge: { percent: "45% OFF", caption: f.badgeCaption },
-      primary: { label: f.primary, to: link(`/tours/${FEATURED_SLUG}`) },
-      primaryVariant: "promo",
-      durationMs: 6500,
-    },
     {
       id: "intro",
       image: heroBgMoraine,

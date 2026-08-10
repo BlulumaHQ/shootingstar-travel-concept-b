@@ -673,7 +673,7 @@ export const tours: Tour[] = [
     intro: "A relaxed journey from Banff to Moraine Lake and Lake Louise, ideal for guests who want a comfortable lake experience without a full-day commitment.",
     duration: "5 hours",
     language: LANGUAGE_NOTE,
-    price: "From $71.50 CAD / person (was $130) · 45% OFF",
+    price: "From $130 CAD / person",
     season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }

@@ -619,7 +619,7 @@ export const tours: Tour[] = [
     intro: "從班夫出發的輕鬆旅程，造訪夢蓮湖與露易絲湖，適合想輕鬆飽覽湖光美景、又不想花上一整天的旅客。",
     duration: "5 小時",
     language: LANGUAGE_NOTE,
-    price: "特價 $71.50 CAD 起 / 每位（原價 $130）· 45% OFF",
+    price: "$130 CAD 起 / 每位",
     season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Moraine Lake & Lake Louise Exploration", body: "Guided visit / stop at Moraine Lake & Lake Louise Exploration." }
