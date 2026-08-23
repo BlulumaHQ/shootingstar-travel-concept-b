@@ -40,10 +40,32 @@ const T = {
   fSubmit: { en: "Submit", zh: "送出", ko: "제출" },
   fSubmitting: { en: "Submitting…", zh: "送出中…", ko: "전송 중…" },
   warnMax: {
-    en: "You can upload up to 5 photos",
-    zh: "最多只能上傳 5 張照片",
-    ko: "사진은 최대 5장까지 업로드할 수 있습니다",
+    en: "You can upload up to 5 photos.",
+    zh: "最多可上傳 5 張照片。",
+    ko: "사진은 최대 5장까지 업로드할 수 있습니다.",
   },
+  warnSize: {
+    en: "Each photo must be 8 MB or smaller. Please choose a smaller photo.",
+    zh: "每張照片大小不可超過 8 MB，請選擇較小的照片。",
+    ko: "각 사진은 8MB 이하여야 합니다. 더 작은 사진을 선택해 주세요.",
+  },
+  warnType: {
+    en: "Unsupported file type. Please upload JPEG, PNG, WebP or HEIC images.",
+    zh: "不支援的檔案格式，請上傳 JPEG、PNG、WebP 或 HEIC 圖片。",
+    ko: "지원하지 않는 형식입니다. JPEG, PNG, WebP 또는 HEIC 이미지를 올려주세요.",
+  },
+  photoCount: {
+    en: "photos",
+    zh: "張照片",
+    ko: "장",
+  },
+  removePhoto: { en: "Remove photo", zh: "移除照片", ko: "사진 삭제" },
+  errUpload: {
+    en: "A photo failed to upload. Nothing was submitted — please try again.",
+    zh: "照片上傳失敗，尚未送出評論，請再試一次。",
+    ko: "사진 업로드에 실패했습니다. 제출되지 않았으니 다시 시도해 주세요.",
+  },
+
   thanks: {
     en: "Thank you for sharing your journey! Your review will appear after it's approved.",
     zh: "感謝你分享旅程！你的評論將在審核後顯示。",
