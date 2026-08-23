@@ -128,39 +128,64 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
 
   function onAvatarPick(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
+    e.target.value = "";
     if (!f) return;
-    if (!ACCEPTED.includes(f.type)) return;
+    if (!isAcceptedImage(f)) return setWarn(t("warnType", l));
+    if (f.size > MAX_SOURCE_BYTES) return setWarn(t("warnSize", l));
+    setWarn("");
     setAvatarFile(f);
     setAvatarPreview(URL.createObjectURL(f));
   }
 
   function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []).filter((f) => ACCEPTED.includes(f.type));
-    if (files.length > 5) {
-      setWarn(t("warnMax", l));
-      setPhotoFiles(files.slice(0, 5));
-    } else {
-      setWarn("");
-      setPhotoFiles(files);
+    const picked = Array.from(e.target.files || []);
+    e.target.value = "";
+    let message = "";
+    const valid: File[] = [];
+    for (const f of picked) {
+      if (!isAcceptedImage(f)) { message = t("warnType", l); continue; }
+      if (f.size > MAX_SOURCE_BYTES) { message = t("warnSize", l); continue; }
+      valid.push(f);
     }
+    setPhotoFiles((prev) => {
+      const keys = new Set(prev.map(fileKey));
+      const merged = [...prev];
+      for (const f of valid) {
+        if (keys.has(fileKey(f))) continue;
+        if (merged.length >= MAX_PHOTOS) { message = t("warnMax", l); break; }
+        keys.add(fileKey(f));
+        merged.push(f);
+      }
+      return merged;
+    });
+    setWarn(message);
+  }
+
+  function removePhoto(i: number) {
+    setPhotoFiles((prev) => prev.filter((_, n) => n !== i));
+    setWarn("");
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     setErr("");
     if (!name.trim() || !tourSlug || !text.trim() || !rating) return;
+    if (photoFiles.length > MAX_PHOTOS) return setWarn(t("warnMax", l));
     setBusy(true);
     try {
       const tour = tours.find((tr) => tr.slug === tourSlug);
       const tour_label = tour?.title ?? tourSlug;
 
       let avatarUrl: string | null = null;
-      if (avatarFile) avatarUrl = await uploadImage(avatarFile);
-
       const photoUrls: string[] = [];
-      for (const f of photoFiles) {
-        const url = await uploadImage(f);
-        if (url) photoUrls.push(url);
+      try {
+        if (avatarFile) avatarUrl = await uploadImage(avatarFile);
+        for (const f of photoFiles) photoUrls.push(await uploadImage(f));
+      } catch (upErr) {
+        console.error(upErr);
+        setErr(t("errUpload", l));
+        return;
       }
 
       const { error } = await supabase.from("reviews").insert({
@@ -182,6 +207,7 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
       setBusy(false);
     }
   }
+
 
   const stars = hoverRating || rating;
 
