@@ -290,17 +290,38 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
 
       <div>
         <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fPhotos", l)}</label>
-        <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-3 text-[13px] text-ink/65 hover:bg-paper/60 transition">
-          <Upload size={14} /> {t("fPhotos", l)}
-          <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={onPhotosPick} />
-        </label>
+        <div className="flex items-center gap-3 flex-wrap">
+          <label className={`inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-3 text-[13px] text-ink/65 transition ${photoFiles.length >= MAX_PHOTOS ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-paper/60"}`}>
+            <Upload size={14} /> {t("fPhotos", l)}
+            <input
+              type="file"
+              accept={ACCEPT_ATTR}
+              multiple
+              disabled={photoFiles.length >= MAX_PHOTOS}
+              className="hidden"
+              onChange={onPhotosPick}
+            />
+          </label>
+          <span className="text-[12px] text-ink/55 tabular-nums">{photoFiles.length} / {MAX_PHOTOS} {t("photoCount", l)}</span>
+        </div>
         {photoFiles.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-3">
             {photoFiles.map((f, i) => (
-              <span key={i} className="text-[11.5px] text-ink/55 bg-paper/60 rounded px-2 py-1">{f.name}</span>
+              <div key={fileKey(f)} className="relative h-20 w-20 rounded-md overflow-hidden border border-border/60">
+                <img src={URL.createObjectURL(f)} alt="" className="h-full w-full object-cover" />
+                <button
+                  type="button"
+                  aria-label={t("removePhoto", l)}
+                  onClick={() => removePhoto(i)}
+                  className="absolute top-1 right-1 grid h-5 w-5 place-items-center rounded-full bg-black/60 text-white text-[11px] leading-none cursor-pointer hover:bg-black/80"
+                >
+                  ×
+                </button>
+              </div>
             ))}
           </div>
         )}
+
         {warn && <p className="mt-2 text-[12px] text-[oklch(0.55_0.18_30)]">{warn}</p>}
       </div>
 
