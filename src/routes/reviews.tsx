@@ -9,6 +9,7 @@ import { useTours } from "@/data/useTours";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import { supabase } from "@/lib/supabase";
+import { ACCEPT_ATTR, MAX_PHOTOS, MAX_SOURCE_BYTES, compressImage, fileKey, isAcceptedImage } from "@/lib/review-images";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -40,10 +41,32 @@ const T = {
   fSubmit: { en: "Submit", zh: "送出", ko: "제출" },
   fSubmitting: { en: "Submitting…", zh: "送出中…", ko: "전송 중…" },
   warnMax: {
-    en: "You can upload up to 5 photos",
-    zh: "最多只能上傳 5 張照片",
-    ko: "사진은 최대 5장까지 업로드할 수 있습니다",
+    en: "You can upload up to 5 photos.",
+    zh: "最多可上傳 5 張照片。",
+    ko: "사진은 최대 5장까지 업로드할 수 있습니다.",
   },
+  warnSize: {
+    en: "Each photo must be 8 MB or smaller. Please choose a smaller photo.",
+    zh: "每張照片大小不可超過 8 MB，請選擇較小的照片。",
+    ko: "각 사진은 8MB 이하여야 합니다. 더 작은 사진을 선택해 주세요.",
+  },
+  warnType: {
+    en: "Unsupported file type. Please upload JPEG, PNG, WebP or HEIC images.",
+    zh: "不支援的檔案格式，請上傳 JPEG、PNG、WebP 或 HEIC 圖片。",
+    ko: "지원하지 않는 형식입니다. JPEG, PNG, WebP 또는 HEIC 이미지를 올려주세요.",
+  },
+  photoCount: {
+    en: "photos",
+    zh: "張照片",
+    ko: "장",
+  },
+  removePhoto: { en: "Remove photo", zh: "移除照片", ko: "사진 삭제" },
+  errUpload: {
+    en: "A photo failed to upload. Nothing was submitted — please try again.",
+    zh: "照片上傳失敗，尚未送出評論，請再試一次。",
+    ko: "사진 업로드에 실패했습니다. 제출되지 않았으니 다시 시도해 주세요.",
+  },
+
   thanks: {
     en: "Thank you for sharing your journey! Your review will appear after it's approved.",
     zh: "感謝你分享旅程！你的評論將在審核後顯示。",
@@ -72,25 +95,22 @@ const T = {
 
 const t = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
 
-const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 const BUCKET = "review-photos";
 
-async function uploadImage(file: File): Promise<string | null> {
-  if (!ACCEPTED.includes(file.type)) return null;
-  const ext = file.name.split(".").pop() || "jpg";
+async function uploadImage(file: File): Promise<string> {
+  const processed = await compressImage(file);
+  const ext = (processed.name.split(".").pop() || "jpg").toLowerCase();
   const path = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
-  const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
-    contentType: file.type,
+  const { error } = await supabase.storage.from(BUCKET).upload(path, processed, {
+    contentType: processed.type || "image/jpeg",
     cacheControl: "3600",
     upsert: false,
   });
-  if (error) {
-    console.error("upload failed", error);
-    return null;
-  }
+  if (error) throw error;
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
   return data.publicUrl;
 }
+
 
 function SubmitForm({ onDone }: { onDone: () => void }) {
   const l = useLocale();
@@ -109,39 +129,64 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
 
   function onAvatarPick(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
+    e.target.value = "";
     if (!f) return;
-    if (!ACCEPTED.includes(f.type)) return;
+    if (!isAcceptedImage(f)) return setWarn(t("warnType", l));
+    if (f.size > MAX_SOURCE_BYTES) return setWarn(t("warnSize", l));
+    setWarn("");
     setAvatarFile(f);
     setAvatarPreview(URL.createObjectURL(f));
   }
 
   function onPhotosPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []).filter((f) => ACCEPTED.includes(f.type));
-    if (files.length > 5) {
-      setWarn(t("warnMax", l));
-      setPhotoFiles(files.slice(0, 5));
-    } else {
-      setWarn("");
-      setPhotoFiles(files);
+    const picked = Array.from(e.target.files || []);
+    e.target.value = "";
+    let message = "";
+    const valid: File[] = [];
+    for (const f of picked) {
+      if (!isAcceptedImage(f)) { message = t("warnType", l); continue; }
+      if (f.size > MAX_SOURCE_BYTES) { message = t("warnSize", l); continue; }
+      valid.push(f);
     }
+    setPhotoFiles((prev) => {
+      const keys = new Set(prev.map(fileKey));
+      const merged = [...prev];
+      for (const f of valid) {
+        if (keys.has(fileKey(f))) continue;
+        if (merged.length >= MAX_PHOTOS) { message = t("warnMax", l); break; }
+        keys.add(fileKey(f));
+        merged.push(f);
+      }
+      return merged;
+    });
+    setWarn(message);
+  }
+
+  function removePhoto(i: number) {
+    setPhotoFiles((prev) => prev.filter((_, n) => n !== i));
+    setWarn("");
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     setErr("");
     if (!name.trim() || !tourSlug || !text.trim() || !rating) return;
+    if (photoFiles.length > MAX_PHOTOS) return setWarn(t("warnMax", l));
     setBusy(true);
     try {
       const tour = tours.find((tr) => tr.slug === tourSlug);
       const tour_label = tour?.title ?? tourSlug;
 
       let avatarUrl: string | null = null;
-      if (avatarFile) avatarUrl = await uploadImage(avatarFile);
-
       const photoUrls: string[] = [];
-      for (const f of photoFiles) {
-        const url = await uploadImage(f);
-        if (url) photoUrls.push(url);
+      try {
+        if (avatarFile) avatarUrl = await uploadImage(avatarFile);
+        for (const f of photoFiles) photoUrls.push(await uploadImage(f));
+      } catch (upErr) {
+        console.error(upErr);
+        setErr(t("errUpload", l));
+        return;
       }
 
       const { error } = await supabase.from("reviews").insert({
@@ -163,6 +208,7 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
       setBusy(false);
     }
   }
+
 
   const stars = hoverRating || rating;
 
@@ -191,7 +237,7 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
             )}
             <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-[12px] text-ink/70 hover:bg-paper/60 transition">
               <Upload size={13} /> {t("fAvatar", l)}
-              <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={onAvatarPick} />
+              <input type="file" accept={ACCEPT_ATTR} className="hidden" onChange={onAvatarPick} />
             </label>
           </div>
         </div>
@@ -245,17 +291,38 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
 
       <div>
         <label className="block text-[12px] tracking-[0.18em] uppercase text-ink/55 mb-2">{t("fPhotos", l)}</label>
-        <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-3 text-[13px] text-ink/65 hover:bg-paper/60 transition">
-          <Upload size={14} /> {t("fPhotos", l)}
-          <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={onPhotosPick} />
-        </label>
+        <div className="flex items-center gap-3 flex-wrap">
+          <label className={`inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-3 text-[13px] text-ink/65 transition ${photoFiles.length >= MAX_PHOTOS ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-paper/60"}`}>
+            <Upload size={14} /> {t("fPhotos", l)}
+            <input
+              type="file"
+              accept={ACCEPT_ATTR}
+              multiple
+              disabled={photoFiles.length >= MAX_PHOTOS}
+              className="hidden"
+              onChange={onPhotosPick}
+            />
+          </label>
+          <span className="text-[12px] text-ink/55 tabular-nums">{photoFiles.length} / {MAX_PHOTOS} {t("photoCount", l)}</span>
+        </div>
         {photoFiles.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-wrap gap-3">
             {photoFiles.map((f, i) => (
-              <span key={i} className="text-[11.5px] text-ink/55 bg-paper/60 rounded px-2 py-1">{f.name}</span>
+              <div key={fileKey(f)} className="relative h-20 w-20 rounded-md overflow-hidden border border-border/60">
+                <img src={URL.createObjectURL(f)} alt="" className="h-full w-full object-cover" />
+                <button
+                  type="button"
+                  aria-label={t("removePhoto", l)}
+                  onClick={() => removePhoto(i)}
+                  className="absolute top-1 right-1 grid h-5 w-5 place-items-center rounded-full bg-black/60 text-white text-[11px] leading-none cursor-pointer hover:bg-black/80"
+                >
+                  ×
+                </button>
+              </div>
             ))}
           </div>
         )}
+
         {warn && <p className="mt-2 text-[12px] text-[oklch(0.55_0.18_30)]">{warn}</p>}
       </div>
 
