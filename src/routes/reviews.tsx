@@ -94,25 +94,22 @@ const T = {
 
 const t = (k: keyof typeof T, l: Locale) => T[k][l] ?? T[k].en;
 
-const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
 const BUCKET = "review-photos";
 
-async function uploadImage(file: File): Promise<string | null> {
-  if (!ACCEPTED.includes(file.type)) return null;
-  const ext = file.name.split(".").pop() || "jpg";
+async function uploadImage(file: File): Promise<string> {
+  const processed = await compressImage(file);
+  const ext = (processed.name.split(".").pop() || "jpg").toLowerCase();
   const path = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
-  const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
-    contentType: file.type,
+  const { error } = await supabase.storage.from(BUCKET).upload(path, processed, {
+    contentType: processed.type || "image/jpeg",
     cacheControl: "3600",
     upsert: false,
   });
-  if (error) {
-    console.error("upload failed", error);
-    return null;
-  }
+  if (error) throw error;
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
   return data.publicUrl;
 }
+
 
 function SubmitForm({ onDone }: { onDone: () => void }) {
   const l = useLocale();
