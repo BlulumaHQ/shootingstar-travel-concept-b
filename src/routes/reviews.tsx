@@ -9,6 +9,7 @@ import { useTours } from "@/data/useTours";
 import { StarMark, DottedLine, JourneyPath } from "@/components/site/BrandMarks";
 import { hreflangLinks, useLocale, type Locale } from "@/i18n/locale";
 import { supabase } from "@/lib/supabase";
+import { ACCEPT_ATTR, MAX_PHOTOS, MAX_SOURCE_BYTES, compressImage, fileKey, isAcceptedImage } from "@/lib/review-images";
 
 export const Route = createFileRoute("/reviews")({
   head: () => ({
@@ -236,7 +237,7 @@ function SubmitForm({ onDone }: { onDone: () => void }) {
             )}
             <label className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-[12px] text-ink/70 hover:bg-paper/60 transition">
               <Upload size={13} /> {t("fAvatar", l)}
-              <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={onAvatarPick} />
+              <input type="file" accept={ACCEPT_ATTR} className="hidden" onChange={onAvatarPick} />
             </label>
           </div>
         </div>
