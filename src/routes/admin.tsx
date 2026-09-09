@@ -73,7 +73,14 @@ function LoginForm() {
   );
 }
 
-type TopTab = "reviews" | "gallery";
+type TopTab = "reviews" | "gallery" | "tours" | "hero";
+
+const TOP_TAB_LABELS: Record<TopTab, string> = {
+  reviews: "Reviews",
+  gallery: "Gallery",
+  tours: "Tours",
+  hero: "Hero Slides",
+};
 
 function Dashboard({ onLogout, email }: { onLogout: () => void; email: string }) {
   const [topTab, setTopTab] = useState<TopTab>("reviews");
@@ -92,7 +99,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
         </div>
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex gap-1">
-            {(["reviews", "gallery"] as TopTab[]).map((t) => (
+            {(["reviews", "gallery", "tours", "hero"] as TopTab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTopTab(t)}
@@ -100,14 +107,17 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
                   topTab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {t === "reviews" ? "Reviews" : "Gallery"}
+                {TOP_TAB_LABELS[t]}
               </button>
             ))}
           </div>
         </div>
       </header>
 
-      {topTab === "reviews" ? <ReviewsPanel /> : <GalleryPanel />}
+      {topTab === "reviews" && <ReviewsPanel />}
+      {topTab === "gallery" && <GalleryPanel />}
+      {topTab === "tours" && <ToursPanel />}
+      {topTab === "hero" && <HeroSlidesPanel />}
     </div>
   );
 }
