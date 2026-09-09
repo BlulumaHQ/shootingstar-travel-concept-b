@@ -85,7 +85,7 @@ export const tours: Tour[] = [
     img: seattleHero,
     gallery: seattleGallery,
     title: "Seattle 1-Day Tour | The Emerald City Classic Day Trip",
-    desc: "Explore the soul of Seattle in one day — iconic skyline views, the historic Pike Place Market, the world's first Starbucks, Amazon Spheres, and the magical University of Washington.",
+    desc: "Explore the soul of Seattle in one day — iconic skyline views, the historic Pike Place Market, the world's first Starbucks, and the magical University of Washington.",
     intro:
       "Surrounded year-round by lush evergreen forests, Seattle is famously known as the \"Emerald City.\" Here, fresh nature, cutting-edge technology, and a century of culture weave together seamlessly. Our thoughtfully curated highlight tour takes you through Seattle's iconic skyline viewpoints, the lively century-old public market, and a fairytale-like historic campus. With a professional guide and private vehicle, you can leave traffic and parking behind and feel the unique soul of Seattle in just one elegant day.",
     duration: "1 day",
@@ -95,7 +95,7 @@ export const tours: Tour[] = [
     gratuity: "Suggested guide gratuity: $20 USD / person",
     itinerary: [
       { stop: "Day 1", title: "Kerry Park", body: "Capture Seattle's postcard-perfect skyline. The city's most famous viewpoint frames the Space Needle, Puget Sound, and distant Mount Rainier in one shot — a scene every photographer dreams of." },
-      { stop: "Day 1", title: "Amazon Spheres", body: "A pilgrimage to the tech giant's urban forest. We pass Seattle's most modern landmark — Amazon's HQ. The three giant glass domes form an indoor rainforest that redefines the future of work. (The interior is an employee workspace; we'll stop at the best exterior photo spot.)" },
+      
       { stop: "Day 1", title: "Pike Place Market", body: "Step into one of America's oldest public markets. Visit the very first Starbucks (founded 1971), enjoy a free lunch break with the famous clam chowder, and don't miss the world-famous Gum Wall nearby." },
       { stop: "Day 1", title: "Space Needle & Chihuly Garden", body: "[Optional add-on] Choose between the city's most iconic landmark and a world-class glass art experience: ascend the 360° observation deck above Puget Sound, or step into Dale Chihuly's dreamlike world of color and light." },
       { stop: "Day 1", title: "University of Washington", body: "Wander through what's often called America's most beautiful campus. Step inside the Suzzallo Library — its Hogwarts-like Gothic reading room is one of the country's most magical academic spaces." },
