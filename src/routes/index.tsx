@@ -29,6 +29,8 @@ import {
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
 import { HeroDarkSlideshow, type HeroDarkSlide } from "@/components/site/HeroDarkSlideshow";
+import { useHeroSlides } from "@/data/useHeroSlides";
+import { heroSlideIsAvailable, type HeroSlideRow } from "@/data/heroSlides";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
