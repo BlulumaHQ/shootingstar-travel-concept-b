@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw, Upload, Eye, EyeOff, Image as ImageIcon, Video, Pencil, UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase, type ReviewRow } from "@/lib/supabase";
+import { tourInRegion, type Region } from "@/data/tourRegions";
 
 
 export const Route = createFileRoute("/admin")({
@@ -73,7 +74,14 @@ function LoginForm() {
   );
 }
 
-type TopTab = "reviews" | "gallery";
+type TopTab = "reviews" | "gallery" | "tours" | "hero";
+
+const TOP_TAB_LABELS: Record<TopTab, string> = {
+  reviews: "Reviews",
+  gallery: "Gallery",
+  tours: "Tours",
+  hero: "Hero Slides",
+};
 
 function Dashboard({ onLogout, email }: { onLogout: () => void; email: string }) {
   const [topTab, setTopTab] = useState<TopTab>("reviews");
@@ -92,7 +100,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
         </div>
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex gap-1">
-            {(["reviews", "gallery"] as TopTab[]).map((t) => (
+            {(["reviews", "gallery", "tours", "hero"] as TopTab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTopTab(t)}
@@ -100,14 +108,17 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
                   topTab === t ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {t === "reviews" ? "Reviews" : "Gallery"}
+                {TOP_TAB_LABELS[t]}
               </button>
             ))}
           </div>
         </div>
       </header>
 
-      {topTab === "reviews" ? <ReviewsPanel /> : <GalleryPanel />}
+      {topTab === "reviews" && <ReviewsPanel />}
+      {topTab === "gallery" && <GalleryPanel />}
+      {topTab === "tours" && <ToursPanel />}
+      {topTab === "hero" && <HeroSlidesPanel />}
     </div>
   );
 }
@@ -679,6 +690,364 @@ function ConfirmDialog({ title, onCancel, onConfirm, busy }: { title: string; on
           </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+/* ───────────────────────── Tours panel ─────────────────────────
+   Supabase is the single source of truth for tour visibility.
+   Visibility is managed per canonical slug: publishing/hiding a tour
+   updates every locale row for that slug at once, so EN / ZH / KO can
+   never drift apart. Nothing here creates or deletes tours.        */
+
+type TourRow = {
+  id?: string | number;
+  slug: string;
+  locale: string;
+  title: string | null;
+  published: boolean | null;
+  season: string | null;
+  sort_order: number | null;
+};
+
+type TourGroup = {
+  slug: string;
+  title: string;
+  season: string | null;
+  published: boolean;
+  mixed: boolean;
+  locales: string[];
+  sortOrder: number;
+};
+
+function groupTours(rows: TourRow[]): TourGroup[] {
+  const bySlug = new Map<string, TourRow[]>();
+  for (const r of rows) {
+    const list = bySlug.get(r.slug) ?? [];
+    list.push(r);
+    bySlug.set(r.slug, list);
+  }
+  const groups: TourGroup[] = [];
+  for (const [slug, list] of bySlug) {
+    const en = list.find((r) => r.locale === "en") ?? list[0];
+    const publishedCount = list.filter((r) => r.published).length;
+    groups.push({
+      slug,
+      title: en.title ?? slug,
+      season: en.season ?? null,
+      published: publishedCount > 0,
+      mixed: publishedCount > 0 && publishedCount < list.length,
+      locales: list.map((r) => r.locale).sort(),
+      sortOrder: en.sort_order ?? 0,
+    });
+  }
+  return groups.sort((a, b) => a.sortOrder - b.sortOrder || a.title.localeCompare(b.title));
+}
+
+function ToursPanel() {
+  const [rows, setRows] = useState<TourRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const [busySlug, setBusySlug] = useState<string | null>(null);
+  const [bulkBusy, setBulkBusy] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [status, setStatus] = useState<"all" | "published" | "hidden">("all");
+  const [season, setSeason] = useState<string>("all");
+  const [region, setRegion] = useState<"all" | Region>("all");
+  const [q, setQ] = useState("");
+  const [confirmBulk, setConfirmBulk] = useState<null | { publish: boolean; slugs: string[] }>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setErr(null);
+    const { data, error } = await supabase
+      .from("tours")
+      .select("slug,locale,title,published,season,sort_order")
+      .order("sort_order", { ascending: true });
+    if (error) setErr(error.message);
+    setRows((data as TourRow[]) ?? []);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => { void load(); }, [load]);
+
+  const groups = groupTours(rows);
+  const seasons = Array.from(new Set(rows.map((r) => r.season).filter(Boolean) as string[])).sort();
+
+  const visible = groups.filter((g) => {
+    if (status === "published" && !g.published) return false;
+    if (status === "hidden" && g.published) return false;
+    if (season !== "all" && g.season !== season) return false;
+    if (region !== "all" && !tourInRegion(g.slug, region)) return false;
+    if (q && !(`${g.title} ${g.slug}`.toLowerCase().includes(q.toLowerCase()))) return false;
+    return true;
+  });
+
+  const setPublished = async (slugs: string[], published: boolean) => {
+    const { error } = await supabase.from("tours").update({ published }).in("slug", slugs);
+    if (error) { setErr(error.message); return false; }
+    setRows((prev) => prev.map((r) => (slugs.includes(r.slug) ? { ...r, published } : r)));
+    return true;
+  };
+
+  const toggleOne = async (g: TourGroup) => {
+    setBusySlug(g.slug);
+    await setPublished([g.slug], !g.published);
+    setBusySlug(null);
+  };
+
+  const runBulk = async () => {
+    if (!confirmBulk) return;
+    setBulkBusy(true);
+    const ok = await setPublished(confirmBulk.slugs, confirmBulk.publish);
+    setBulkBusy(false);
+    setConfirmBulk(null);
+    if (ok) setSelected(new Set());
+  };
+
+  const allVisibleSelected = visible.length > 0 && visible.every((g) => selected.has(g.slug));
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <select value={status} onChange={(e) => setStatus(e.target.value as typeof status)} className="rounded-md border border-input bg-background px-2.5 py-1.5 text-sm">
+          <option value="all">All statuses</option>
+          <option value="published">Published</option>
+          <option value="hidden">Hidden</option>
+        </select>
+        <select value={season} onChange={(e) => setSeason(e.target.value)} className="rounded-md border border-input bg-background px-2.5 py-1.5 text-sm">
+          <option value="all">All seasons</option>
+          {seasons.map((s) => <option key={s} value={s}>{s}</option>)}
+        </select>
+        <select value={region} onChange={(e) => setRegion(e.target.value as typeof region)} className="rounded-md border border-input bg-background px-2.5 py-1.5 text-sm">
+          <option value="all">All regions</option>
+          <option value="banff">Banff</option>
+          <option value="jasper">Jasper</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search tours…" className="rounded-md border border-input bg-background px-2.5 py-1.5 text-sm" />
+        <button onClick={() => void load()} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-2.5 py-1.5 text-sm hover:bg-accent">
+          <RotateCcw size={14} /> Refresh
+        </button>
+      </div>
+
+      {selected.size > 0 && (
+        <div className="mt-4 flex flex-wrap items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm">
+          <span className="text-muted-foreground">{selected.size} selected</span>
+          <button onClick={() => setConfirmBulk({ publish: true, slugs: [...selected] })} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-2.5 py-1.5 hover:bg-primary/90">
+            <Eye size={14} /> Publish
+          </button>
+          <button onClick={() => setConfirmBulk({ publish: false, slugs: [...selected] })} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-2.5 py-1.5 hover:bg-accent">
+            <EyeOff size={14} /> Hide
+          </button>
+          <button onClick={() => setSelected(new Set())} className="text-muted-foreground hover:text-foreground">Clear</button>
+        </div>
+      )}
+
+      {err && <p className="mt-4 text-sm text-destructive">{err}</p>}
+
+      {loading ? (
+        <div className="py-16 grid place-items-center"><Loader2 className="animate-spin text-muted-foreground" /></div>
+      ) : (
+        <div className="mt-4 overflow-hidden rounded-xl border border-border bg-card">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/40 text-xs uppercase text-muted-foreground">
+              <tr>
+                <th className="px-3 py-2 w-9">
+                  <input
+                    type="checkbox"
+                    checked={allVisibleSelected}
+                    onChange={(e) => {
+                      const next = new Set(selected);
+                      for (const g of visible) e.target.checked ? next.add(g.slug) : next.delete(g.slug);
+                      setSelected(next);
+                    }}
+                  />
+                </th>
+                <th className="px-3 py-2 text-left font-medium">Tour</th>
+                <th className="px-3 py-2 text-left font-medium">Season</th>
+                <th className="px-3 py-2 text-left font-medium">Locales</th>
+                <th className="px-3 py-2 text-left font-medium">Status</th>
+                <th className="px-3 py-2" />
+              </tr>
+            </thead>
+            <tbody>
+              {visible.map((g) => (
+                <tr key={g.slug} className="border-t border-border">
+                  <td className="px-3 py-2.5">
+                    <input
+                      type="checkbox"
+                      checked={selected.has(g.slug)}
+                      onChange={(e) => {
+                        const next = new Set(selected);
+                        e.target.checked ? next.add(g.slug) : next.delete(g.slug);
+                        setSelected(next);
+                      }}
+                    />
+                  </td>
+                  <td className="px-3 py-2.5">
+                    <div className="font-medium text-foreground">{g.title}</div>
+                    <div className="text-xs text-muted-foreground">{g.slug}</div>
+                  </td>
+                  <td className="px-3 py-2.5 text-muted-foreground">{g.season ?? "—"}</td>
+                  <td className="px-3 py-2.5 text-muted-foreground">{g.locales.join(", ")}</td>
+                  <td className="px-3 py-2.5">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs ${g.published ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
+                      {g.published ? <Eye size={12} /> : <EyeOff size={12} />}
+                      {g.published ? "Published" : "Hidden"}{g.mixed ? " (partial)" : ""}
+                    </span>
+                  </td>
+                  <td className="px-3 py-2.5 text-right">
+                    <button
+                      onClick={() => void toggleOne(g)}
+                      disabled={busySlug === g.slug}
+                      className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-2.5 py-1.5 text-xs hover:bg-accent disabled:opacity-60"
+                    >
+                      {busySlug === g.slug ? <Loader2 size={13} className="animate-spin" /> : g.published ? <EyeOff size={13} /> : <Eye size={13} />}
+                      {g.published ? "Hide" : "Publish"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+              {visible.length === 0 && (
+                <tr><td colSpan={6} className="px-3 py-10 text-center text-muted-foreground">No tours match these filters.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {confirmBulk && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-card border border-border rounded-xl p-6 max-w-sm w-full shadow-lg">
+            <h3 className="text-base font-semibold text-foreground">
+              {confirmBulk.publish ? "Publish" : "Hide"} {confirmBulk.slugs.length} tour(s)?
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              This changes visibility in every language. No tour data is deleted.
+            </p>
+            <div className="mt-5 flex justify-end gap-2">
+              <button onClick={() => setConfirmBulk(null)} className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent">Cancel</button>
+              <button onClick={() => void runBulk()} disabled={bulkBusy} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm hover:bg-primary/90 disabled:opacity-60">
+                {bulkBusy && <Loader2 size={14} className="animate-spin" />} Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ───────────────────────── Hero slides panel ───────────────────────── */
+
+type HeroRow = {
+  id: string;
+  key: string;
+  published: boolean;
+  sort_order: number;
+  linked_tour_slug: string | null;
+  headline_line_1_en: string | null;
+};
+
+function HeroSlidesPanel() {
+  const [rows, setRows] = useState<HeroRow[]>([]);
+  const [publishedSlugs, setPublishedSlugs] = useState<Set<string>>(new Set());
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState<string | null>(null);
+  const [busy, setBusy] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    setErr(null);
+    const [slides, tours] = await Promise.all([
+      supabase.from("hero_slides").select("id,key,published,sort_order,linked_tour_slug,headline_line_1_en").order("sort_order", { ascending: true }),
+      supabase.from("tours").select("slug").eq("locale", "en").eq("published", true),
+    ]);
+    if (slides.error) setErr(slides.error.message);
+    setRows((slides.data as HeroRow[]) ?? []);
+    setPublishedSlugs(new Set(((tours.data as { slug: string }[]) ?? []).map((t) => t.slug)));
+    setLoading(false);
+  }, []);
+
+  useEffect(() => { void load(); }, [load]);
+
+  const togglePublished = async (row: HeroRow) => {
+    setBusy(row.id);
+    const { error } = await supabase.from("hero_slides").update({ published: !row.published }).eq("id", row.id);
+    if (error) setErr(error.message);
+    else setRows((prev) => prev.map((r) => (r.id === row.id ? { ...r, published: !r.published } : r)));
+    setBusy(null);
+  };
+
+  const move = async (index: number, dir: -1 | 1) => {
+    const a = rows[index];
+    const b = rows[index + dir];
+    if (!a || !b) return;
+    setBusy(a.id);
+    const [r1, r2] = await Promise.all([
+      supabase.from("hero_slides").update({ sort_order: b.sort_order }).eq("id", a.id),
+      supabase.from("hero_slides").update({ sort_order: a.sort_order }).eq("id", b.id),
+    ]);
+    if (r1.error || r2.error) setErr((r1.error ?? r2.error)!.message);
+    setBusy(null);
+    await load();
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          Homepage hero slides. A slide linked to a hidden tour is never shown publicly.
+        </p>
+        <button onClick={() => void load()} className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-2.5 py-1.5 text-sm hover:bg-accent">
+          <RotateCcw size={14} /> Refresh
+        </button>
+      </div>
+
+      {err && <p className="mt-4 text-sm text-destructive">{err}</p>}
+
+      {loading ? (
+        <div className="py-16 grid place-items-center"><Loader2 className="animate-spin text-muted-foreground" /></div>
+      ) : (
+        <div className="mt-4 space-y-2">
+          {rows.map((r, i) => {
+            const blocked = !!r.linked_tour_slug && !publishedSlugs.has(r.linked_tour_slug);
+            return (
+              <div key={r.id} className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3">
+                <div className="flex flex-col">
+                  <button onClick={() => void move(i, -1)} disabled={i === 0 || busy === r.id} className="text-muted-foreground hover:text-foreground disabled:opacity-30"><ChevronLeft size={16} className="rotate-90" /></button>
+                  <button onClick={() => void move(i, 1)} disabled={i === rows.length - 1 || busy === r.id} className="text-muted-foreground hover:text-foreground disabled:opacity-30"><ChevronRight size={16} className="rotate-90" /></button>
+                </div>
+                <div className="flex-1">
+                  <div className="font-medium text-foreground">{r.headline_line_1_en || r.key}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {r.key}{r.linked_tour_slug ? ` · links to ${r.linked_tour_slug}` : ""}
+                  </div>
+                  {blocked && r.published && (
+                    <div className="mt-1 text-xs text-destructive">Hidden on the site: its linked tour is not published.</div>
+                  )}
+                </div>
+                <span className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs ${r.published ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
+                  {r.published ? <Eye size={12} /> : <EyeOff size={12} />} {r.published ? "Published" : "Hidden"}
+                </span>
+                <button
+                  onClick={() => void togglePublished(r)}
+                  disabled={busy === r.id}
+                  className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-2.5 py-1.5 text-xs hover:bg-accent disabled:opacity-60"
+                >
+                  {busy === r.id ? <Loader2 size={13} className="animate-spin" /> : r.published ? <EyeOff size={13} /> : <Eye size={13} />}
+                  {r.published ? "Hide" : "Publish"}
+                </button>
+              </div>
+            );
+          })}
+          {rows.length === 0 && (
+            <p className="py-10 text-center text-muted-foreground">No hero slides yet. Run the hero_slides migration.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }

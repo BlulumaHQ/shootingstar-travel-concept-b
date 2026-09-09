@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
@@ -7,6 +7,9 @@ import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
+import { useTours } from "@/data/useTours";
+import { useHeroSlides } from "@/data/useHeroSlides";
+import { heroSlideIsAvailable, STAMPEDE_HERO_KEY } from "@/data/heroSlides";
 
 const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
@@ -58,78 +61,108 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
   const locale = useLocale();
   const c = content;
 
-  // Pull live image + price from Supabase tours data (matches the regular Tours page).
-  const [liveBySlug, setLiveBySlug] = useState<Record<string, Pick<Tour, "img" | "price">>>({});
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { fetchTourBySlugEn } = await import("@/data/toursSource");
-      const entries = await Promise.all(
-        c.tours.map(async (t) => {
-          try {
-            const live = await fetchTourBySlugEn(t.slug);
-            if (!live) return null;
-            return [t.slug, { img: live.img, price: live.price }] as const;
-          } catch {
-            return null;
-          }
-        }),
-      );
-      if (cancelled) return;
-      const next: Record<string, Pick<Tour, "img" | "price">> = {};
-      for (const e of entries) if (e) next[e[0]] = e[1];
-      setLiveBySlug(next);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [c.tours]);
+  // Supabase is the source of truth for which tours exist publicly.
+  const liveTours = useTours();
+  const liveBySlug = useMemo(() => {
+    const map: Record<string, Pick<Tour, "img" | "price">> = {};
+    for (const t of liveTours) map[t.slug] = { img: t.img, price: t.price };
+    return map;
+  }, [liveTours]);
+
+  // Only render cards / table rows / links for tours that are published.
+  const visibleTours = useMemo(
+    () => c.tours.filter((t) => !!liveBySlug[t.slug]),
+    [c.tours, liveBySlug],
+  );
 
   const tourHref = (slug: string) => withLocale(`/tours/${slug}`, locale);
   const contactHref = withLocale("/contact", locale);
   const toursIndexHref = withLocale("/tours", locale);
 
-
   const promo = STAMPEDE_PROMO[locale];
   const stampedeHref = withLocale(`/tours/${STAMPEDE_SLUG}`, locale);
 
+  // The Stampede promotional hero follows the same centralised availability as
+  // the homepage hero: the hero slide must be published AND its linked tour
+  // must be published. Otherwise the page's normal lake hero is shown.
+  const heroRows = useHeroSlides();
+  const publishedSlugs = useMemo(() => new Set(liveTours.map((t) => t.slug)), [liveTours]);
+  const stampedeActive = useMemo(() => {
+    const row = (heroRows ?? []).find((r) => r.key === STAMPEDE_HERO_KEY);
+    return !!row && heroSlideIsAvailable(row, publishedSlugs);
+  }, [heroRows, publishedSlugs]);
+
   return (
     <SiteLayout>
-      {/* ============ HERO — Calgary Stampede Special ============ */}
-      <section className="relative overflow-hidden bg-ink">
-        <img
-          src={CALGARY_STAMPEDE_IMAGE}
-          alt="Calgary Stampede rodeo action"
-          className="absolute inset-0 h-full w-full object-cover object-[70%_center] md:object-center"
-        />
-        {/* Dark gradient for legibility while keeping the photo visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-        <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-24 md:py-36 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.75)]">
-          <div className="max-w-2xl">
-            <span className="inline-flex items-center rounded-full bg-cream/95 text-ink px-4 py-1.5 text-[11px] md:text-[12px] font-semibold tracking-[0.22em] uppercase shadow-[0_8px_24px_-8px_rgba(0,0,0,0.55)] [text-shadow:none]">
-              {promo.badge}
-            </span>
-            <h1 className="mt-6 font-serif text-[38px] sm:text-[48px] md:text-[68px] leading-[1.05] font-semibold text-cream">
-              {promo.headline}
-            </h1>
-            <p className="mt-5 font-serif italic text-cream/95 text-[18px] md:text-[22px] leading-snug">
-              {promo.subheadline}
-            </p>
-            <p className="mt-6 max-w-xl text-cream/90 text-[14.5px] md:text-[16px] leading-[1.9]">
-              {promo.secondary}
-            </p>
-            <div className="mt-9">
-              <Link
-                to={stampedeHref as never}
-                className="inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 text-[14px] font-semibold tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.6)] [text-shadow:none]"
-              >
-                {promo.cta} <span aria-hidden>→</span>
-              </Link>
+      {/* ============ HERO ============ */}
+      {stampedeActive ? (
+        <section className="relative overflow-hidden bg-ink">
+          <img
+            src={CALGARY_STAMPEDE_IMAGE}
+            alt="Calgary Stampede rodeo action"
+            className="absolute inset-0 h-full w-full object-cover object-[70%_center] md:object-center"
+          />
+          {/* Dark gradient for legibility while keeping the photo visible */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+          <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-24 md:py-36 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.75)]">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center rounded-full bg-cream/95 text-ink px-4 py-1.5 text-[11px] md:text-[12px] font-semibold tracking-[0.22em] uppercase shadow-[0_8px_24px_-8px_rgba(0,0,0,0.55)] [text-shadow:none]">
+                {promo.badge}
+              </span>
+              <h1 className="mt-6 font-serif text-[38px] sm:text-[48px] md:text-[68px] leading-[1.05] font-semibold text-cream">
+                {promo.headline}
+              </h1>
+              <p className="mt-5 font-serif italic text-cream/95 text-[18px] md:text-[22px] leading-snug">
+                {promo.subheadline}
+              </p>
+              <p className="mt-6 max-w-xl text-cream/90 text-[14.5px] md:text-[16px] leading-[1.9]">
+                {promo.secondary}
+              </p>
+              <div className="mt-9">
+                <Link
+                  to={stampedeHref as never}
+                  className="inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 text-[14px] font-semibold tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.6)] [text-shadow:none]"
+                >
+                  {promo.cta} <span aria-hidden>→</span>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="relative overflow-hidden bg-ink">
+          <img
+            src={LAKE_TOURS_HERO_IMG}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/55 to-ink/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+          <div className="relative mx-auto max-w-[1240px] px-5 md:px-10 py-24 md:py-36 text-cream [text-shadow:0_2px_22px_rgba(0,0,0,0.75)]">
+            <div className="max-w-2xl">
+              <p className="font-marker text-cream text-[13px] tracking-[0.3em] uppercase">
+                {c.hero.eyebrow}
+              </p>
+              <h1 className="mt-6 font-serif text-[38px] sm:text-[48px] md:text-[68px] leading-[1.05] font-semibold text-cream">
+                {c.hero.title}
+              </h1>
+              <p className="mt-5 font-serif italic text-cream/95 text-[18px] md:text-[22px] leading-snug">
+                {c.hero.tagline}
+              </p>
+              <div className="mt-9">
+                <a
+                  href="#tour-cards"
+                  className="inline-flex items-center gap-2 rounded-full bg-cream text-ink px-8 py-4 text-[14px] font-semibold tracking-wide hover:bg-cream/90 transition shadow-[0_14px_38px_-12px_rgba(0,0,0,0.6)] [text-shadow:none]"
+                >
+                  {c.hero.cta} <span aria-hidden>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
 
       {/* ============ TOUR CARDS ============ */}
       <section id="tour-cards" className="py-20 md:py-28">
@@ -144,7 +177,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">{c.cards.intro}</p>
 
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {c.tours.map((t) => {
+            {visibleTours.map((t) => {
               const live = liveBySlug[t.slug];
               const img = live?.img ?? t.fallbackImg;
               const rawPrice =
@@ -213,7 +246,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 </tr>
               </thead>
               <tbody>
-                {c.tours.map((t, i) => (
+                {visibleTours.map((t, i) => (
                   <tr key={t.slug} className={i % 2 ? "bg-paper/30" : ""}>
                     <td className="px-5 py-5 font-serif text-ink font-semibold align-top max-w-[260px]">
                       <Link
@@ -239,7 +272,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
           {/* Mobile cards */}
           <div className="mt-8 grid gap-4 md:hidden">
-            {c.tours.map((t) => (
+            {visibleTours.map((t) => (
               <Link
                 key={t.slug}
                 to={tourHref(t.slug) as never}

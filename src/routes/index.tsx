@@ -29,38 +29,22 @@ import {
 import { StarMark, MountainMark, PinMark, CompassMark, BusMark, JourneyPath, DottedLine } from "@/components/site/BrandMarks";
 import { PlaneJourney } from "@/components/site/PlaneJourney";
 import { HeroDarkSlideshow, type HeroDarkSlide } from "@/components/site/HeroDarkSlideshow";
+import { useHeroSlides } from "@/data/useHeroSlides";
+import { heroSlideIsAvailable, type HeroSlideRow } from "@/data/heroSlides";
 import { CredentialsSection } from "@/components/site/CredentialsSection";
 import heroBgMoraine from "@/assets/hero-bg-moraine.webp";
 import heroIcefield from "@/assets/tour-icefield.webp";
 import lakeHero from "@/assets/lake-tours/lake-009.webp";
 
-const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
-
-const STAMPEDE_SLUG = "moraine-lake-lake-louise-calgary-departure";
-// Toggle to re-enable the Calgary Stampede promotional hero slide next season.
-const SHOW_STAMPEDE_HERO = false;
-
-const STAMPEDE_HERO: Record<Locale, {
-  eyebrow: string; h1Line1: string; h1Line2?: string; sub: string; primary: string;
-}> = {
-  en: {
-    eyebrow: "🔥 Limited time offer",
-    h1Line1: "Stampede season special · Save 30%",
-    sub: "During the excitement of Calgary Stampede season, enjoy our limited-time Calgary departure day tour to Moraine Lake × Lake Louise. Beyond the Stampede, let the unforgettable lake views of the Rockies add one more beautiful memory to your journey.",
-    primary: "Book Now",
-  },
-  zh: {
-    eyebrow: "🔥 限時優惠",
-    h1Line1: "牛仔節季限定優惠 · 立省 30%",
-    sub: "趁著卡加立牛仔節的熱鬧季節,我們推出卡加立出發的夢蓮湖 × 露易絲湖雙湖一日遊限時優惠。牛仔節之外,讓洛磯山的絕美湖景為你的旅程再添一筆難忘回憶。",
-    primary: "立即預訂",
-  },
-  ko: {
-    eyebrow: "🔥 기간 한정 특가",
-    h1Line1: "스탬피드 시즌 한정 · 30% 할인",
-    sub: "캘거리 스탬피드의 활기찬 시즌을 맞아 캘거리 출발 모레인 호수 × 레이크 루이스 두 호수 일일 투어를 기간 한정 특가로 선보입니다. 스탬피드와 더불어 로키 산맥의 아름다운 호수 풍경이 여행에 잊지 못할 추억을 더해드립니다.",
-    primary: "지금 예약",
-  },
+/**
+ * Hero images stay bundled with the app (hashed asset URLs), so Supabase
+ * stores only the slide's stable `key` and an optional image override URL.
+ */
+export const HERO_IMAGE_BY_KEY: Record<string, string> = {
+  stampede: "/calgary-stampede.webp",
+  intro: heroBgMoraine,
+  lakes: lakeHero,
+  icefields: heroIcefield,
 };
 
 
@@ -396,25 +380,14 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
   },
 };
 
-function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
+/**
+ * Emergency fallback slides — used only when the Supabase hero request fails.
+ * The Calgary Stampede slide is intentionally absent here; its visibility is
+ * managed in Admin → Hero Slides.
+ */
+function fallbackHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
-  const s = STAMPEDE_HERO[locale];
   return [
-    ...(SHOW_STAMPEDE_HERO
-      ? [
-          {
-            id: "stampede",
-            image: CALGARY_STAMPEDE_IMAGE,
-            eyebrow: s.eyebrow,
-            h1Line1: s.h1Line1,
-            h1Line2: s.h1Line2,
-            sub: s.sub,
-            badges: [],
-            primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
-            durationMs: 7000,
-          },
-        ]
-      : []),
     {
       id: "intro",
       image: heroBgMoraine,
@@ -452,6 +425,41 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
   ];
 }
 
+function pickText(row: HeroSlideRow, field: string, locale: Locale): string {
+  const value = (row as unknown as Record<string, string | null>)[`${field}_${locale}`];
+  const en = (row as unknown as Record<string, string | null>)[`${field}_en`];
+  return (value ?? en ?? "") as string;
+}
+
+/** Map published Supabase hero rows to the existing slideshow shape. */
+function heroSlidesFromRows(
+  rows: HeroSlideRow[],
+  publishedSlugs: Set<string>,
+  locale: Locale,
+  link: (path: string) => string,
+): HeroDarkSlide[] {
+  return rows
+    .filter((r) => heroSlideIsAvailable(r, publishedSlugs))
+    .map((r) => {
+      const secondaryLabel = pickText(r, "secondary_label", locale);
+      const to = r.linked_tour_slug
+        ? link(`/tours/${r.linked_tour_slug}`)
+        : link(r.link_url || "/tours");
+      return {
+        id: r.key,
+        image: r.image || HERO_IMAGE_BY_KEY[r.key] || heroBgMoraine,
+        eyebrow: pickText(r, "eyebrow", locale),
+        h1Line1: pickText(r, "headline_line_1", locale),
+        h1Line2: pickText(r, "headline_line_2", locale) || undefined,
+        sub: pickText(r, "subheadline", locale),
+        badges: [],
+        primary: { label: pickText(r, "primary_label", locale), to },
+        secondary: secondaryLabel ? { label: secondaryLabel, to: link("/about") } : undefined,
+        durationMs: r.duration_ms ?? 6000,
+      } satisfies HeroDarkSlide;
+    });
+}
+
 
 
 export function HomePage() {
@@ -481,10 +489,22 @@ export function HomePage() {
   void featured;
   const link = (path: string) => withLocale(path, locale);
 
+  // Hero visibility + order come from Supabase (Admin → Hero Slides).
+  const heroRows = useHeroSlides();
+  const publishedSlugs = useMemo(() => new Set(tours.map((t) => t.slug)), [tours]);
+  const heroSlides = useMemo(
+    () =>
+      heroRows === null
+        ? fallbackHeroSlides(locale, link)
+        : heroSlidesFromRows(heroRows, publishedSlugs, locale, link),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [heroRows, publishedSlugs, locale],
+  );
+
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroDarkSlideshow slides={buildHeroSlides(locale, link)} />
+      {heroSlides.length > 0 && <HeroDarkSlideshow slides={heroSlides} />}
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
       <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
