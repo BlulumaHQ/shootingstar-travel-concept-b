@@ -14,6 +14,7 @@ import { localeFromPath } from "@/i18n/locale";
 import { useLanguagePreferenceSync } from "@/lib/language-preference";
 import { fetchToursEn, fetchToursByLocale } from "@/data/toursSource";
 import { fetchReviews } from "@/data/reviewsSource";
+import { fetchHeroSlides } from "@/data/heroSlides";
 
 function NotFoundComponent() {
   return (
@@ -74,15 +75,19 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async () => {
-    const [toursEn, toursZh, toursKo, reviews] = await Promise.all([
+    const [toursEn, toursZh, toursKo, reviews, heroSlides] = await Promise.all([
       fetchToursEn(),
       fetchToursByLocale("zh"),
       fetchToursByLocale("ko"),
       fetchReviews(),
+      fetchHeroSlides(),
     ]);
-    return { toursEn, toursZh, toursKo, reviews };
+    return { toursEn, toursZh, toursKo, reviews, heroSlides };
   },
-  staleTime: 5 * 60 * 1000,
+  // Tour + hero visibility is managed in the Admin CMS, so a normal page
+  // refresh must always re-read Supabase rather than serve a cached list.
+  staleTime: 0,
+  shouldReload: true,
   head: () => ({
     meta: [
       { charSet: "utf-8" },
