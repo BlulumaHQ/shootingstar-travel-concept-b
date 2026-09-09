@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
@@ -7,6 +7,9 @@ import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent } from "@/content/lake-tours";
 import { LAKE_TOURS_HERO_IMG } from "@/content/lake-tours";
 import type { Tour } from "@/data/tours";
+import { useTours } from "@/data/useTours";
+import { useHeroSlides } from "@/data/useHeroSlides";
+import { heroSlideIsAvailable, STAMPEDE_HERO_KEY } from "@/data/heroSlides";
 
 const CALGARY_STAMPEDE_IMAGE = "/calgary-stampede.webp";
 
