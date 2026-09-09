@@ -17,37 +17,21 @@ function staticFallbackBySlug(locale: Locale, slug: string): Tour | null {
   return staticToursEn.find((t) => t.slug === slug) ?? null;
 }
 
-export async function fetchToursByLocale(locale: Locale): Promise<Tour[]> {
-  try {
-    const url = `${REST}?locale=eq.${locale}&published=eq.true&order=sort_order.asc&select=${SELECT_COLS}`;
-    const res = await fetch(url, { headers: HEADERS });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const rows = (await res.json()) as any[];
-    if (!Array.isArray(rows) || rows.length === 0) return staticFallback(locale);
-    return rows.map(mapRow);
-  } catch (e) {
-    console.error(`fetchToursByLocale(${locale}) failed, using static fallback:`, e);
-    return staticFallback(locale);
-  }
-}
-
-export async function fetchTourBySlugByLocale(locale: Locale, slug: string): Promise<Tour | null> {
-  try {
-    const url = `${REST}?locale=eq.${locale}&slug=eq.${encodeURIComponent(slug)}&limit=1&select=${SELECT_COLS}`;
-    const res = await fetch(url, { headers: HEADERS });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const rows = (await res.json()) as any[];
-    if (Array.isArray(rows) && rows.length) return mapRow(rows[0]);
-  } catch (e) {
-    console.error(`fetchTourBySlugByLocale(${locale}, ${slug}) failed, using static fallback:`, e);
-  }
-  return staticFallbackBySlug(locale, slug);
-}
-
 const SUPABASE_URL = "https://eiblzjvjscwwfnswrltn.supabase.co";
 const SUPABASE_KEY = "sb_publishable_SxT7OrCqFdnHhGOgXpLxAA_fTEgHD_t";
 const REST = `${SUPABASE_URL}/rest/v1/tours`;
 const HEADERS = { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` };
+const SELECT_COLS = "*,rezdy_product_code";
+
+/**
+ * Visibility rules (Supabase is the single source of truth):
+ *  - Every public query filters on `published=eq.true`.
+ *  - A SUCCESSFUL response is authoritative, even when it is empty.
+ *    An empty result means "nothing is published" — never a reason to fall
+ *    back to the bundled static data, which would resurrect hidden tours.
+ *  - The static files in ./tours*.ts are an emergency fallback used ONLY when
+ *    the request itself fails (network/API error).
+ */
 
 function mapRow(r: any): Tour {
   return {
@@ -79,31 +63,55 @@ function mapRow(r: any): Tour {
   };
 }
 
-const SELECT_COLS = "*,rezdy_product_code";
+async function getRows(url: string): Promise<any[]> {
+  const res = await fetch(url, { headers: HEADERS, cache: "no-store" });
+  if (!res.ok) throw new Error(`status ${res.status}`);
+  const rows = await res.json();
+  if (!Array.isArray(rows)) throw new Error("unexpected response shape");
+  return rows;
+}
 
-export async function fetchToursEn(): Promise<Tour[]> {
+export async function fetchToursByLocale(locale: Locale): Promise<Tour[]> {
   try {
-    const url = `${REST}?locale=eq.en&published=eq.true&order=sort_order.asc&select=${SELECT_COLS}`;
-    const res = await fetch(url, { headers: HEADERS });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const rows = (await res.json()) as any[];
-    if (!Array.isArray(rows) || rows.length === 0) return staticToursEn;
+    const rows = await getRows(
+      `${REST}?locale=eq.${locale}&published=eq.true&order=sort_order.asc&select=${SELECT_COLS}`,
+    );
+    // A successful empty response is valid — return it as-is.
     return rows.map(mapRow);
   } catch (e) {
-    console.error("fetchToursEn failed, using static fallback:", e);
-    return staticToursEn;
+    console.error(`fetchToursByLocale(${locale}) failed, using static fallback:`, e);
+    return staticFallback(locale);
   }
 }
 
-export async function fetchTourBySlugEn(slug: string): Promise<Tour | null> {
+export async function fetchTourBySlugByLocale(locale: Locale, slug: string): Promise<Tour | null> {
   try {
-    const url = `${REST}?locale=eq.en&slug=eq.${encodeURIComponent(slug)}&limit=1&select=${SELECT_COLS}`;
-    const res = await fetch(url, { headers: HEADERS });
-    if (!res.ok) throw new Error(`status ${res.status}`);
-    const rows = (await res.json()) as any[];
-    if (Array.isArray(rows) && rows.length) return mapRow(rows[0]);
+    const rows = await getRows(
+      `${REST}?locale=eq.${locale}&published=eq.true&slug=eq.${encodeURIComponent(slug)}&limit=1&select=${SELECT_COLS}`,
+    );
+    // Successful response is authoritative: no row = not publicly available.
+    return rows.length ? mapRow(rows[0]) : null;
   } catch (e) {
-    console.error("fetchTourBySlugEn failed, using static fallback:", e);
+    console.error(`fetchTourBySlugByLocale(${locale}, ${slug}) failed, using static fallback:`, e);
+    return staticFallbackBySlug(locale, slug);
   }
-  return staticToursEn.find((t) => t.slug === slug) ?? null;
+}
+
+export async function fetchToursEn(): Promise<Tour[]> {
+  return fetchToursByLocale("en");
+}
+
+export async function fetchTourBySlugEn(slug: string): Promise<Tour | null> {
+  return fetchTourBySlugByLocale("en", slug);
+}
+
+/** Slugs that are currently published (English rows are the canonical set). */
+export async function fetchPublishedSlugs(): Promise<string[] | null> {
+  try {
+    const rows = await getRows(`${REST}?locale=eq.en&published=eq.true&select=slug`);
+    return rows.map((r) => r.slug as string);
+  } catch (e) {
+    console.error("fetchPublishedSlugs failed:", e);
+    return null;
+  }
 }
