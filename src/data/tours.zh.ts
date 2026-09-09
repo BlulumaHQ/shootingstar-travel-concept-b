@@ -734,7 +734,7 @@ export const tours: Tour[] = [
     duration: "約 5 小時",
     language: LANGUAGE_NOTE,
     price: "From $150 CAD / adult",
-    season: "all_season",
+    season: "summer",
     itinerary: [
       { stop: "Day 1", title: "Banff to Jasper Express Shuttle", body: "Guided visit / stop at Banff to Jasper Express Shuttle." }
     ],
