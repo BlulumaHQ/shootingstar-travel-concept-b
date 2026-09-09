@@ -177,7 +177,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">{c.cards.intro}</p>
 
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {c.tours.map((t) => {
+            {visibleTours.map((t) => {
               const live = liveBySlug[t.slug];
               const img = live?.img ?? t.fallbackImg;
               const rawPrice =
@@ -246,7 +246,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
                 </tr>
               </thead>
               <tbody>
-                {c.tours.map((t, i) => (
+                {visibleTours.map((t, i) => (
                   <tr key={t.slug} className={i % 2 ? "bg-paper/30" : ""}>
                     <td className="px-5 py-5 font-serif text-ink font-semibold align-top max-w-[260px]">
                       <Link
@@ -272,7 +272,7 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
 
           {/* Mobile cards */}
           <div className="mt-8 grid gap-4 md:hidden">
-            {c.tours.map((t) => (
+            {visibleTours.map((t) => (
               <Link
                 key={t.slug}
                 to={tourHref(t.slug) as never}
