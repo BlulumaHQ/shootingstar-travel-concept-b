@@ -487,10 +487,22 @@ export function HomePage() {
   void featured;
   const link = (path: string) => withLocale(path, locale);
 
+  // Hero visibility + order come from Supabase (Admin → Hero Slides).
+  const heroRows = useHeroSlides();
+  const publishedSlugs = useMemo(() => new Set(tours.map((t) => t.slug)), [tours]);
+  const heroSlides = useMemo(
+    () =>
+      heroRows === null
+        ? fallbackHeroSlides(locale, link)
+        : heroSlidesFromRows(heroRows, publishedSlugs, locale, link),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [heroRows, publishedSlugs, locale],
+  );
+
   return (
     <SiteLayout>
       {/* HERO SLIDESHOW */}
-      <HeroDarkSlideshow slides={buildHeroSlides(locale, link)} />
+      {heroSlides.length > 0 && <HeroDarkSlideshow slides={heroSlides} />}
 
       {/* TRUST / FEATURE ICONS — quieter, tighter rhythm */}
       <section className="relative bg-[oklch(0.92_0.018_82)] py-16 md:py-20">
