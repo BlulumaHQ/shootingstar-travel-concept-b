@@ -378,25 +378,14 @@ const HERO_COPY: Record<Locale, HeroCopy> = {
   },
 };
 
-function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
+/**
+ * Emergency fallback slides — used only when the Supabase hero request fails.
+ * The Calgary Stampede slide is intentionally absent here; its visibility is
+ * managed in Admin → Hero Slides.
+ */
+function fallbackHeroSlides(locale: Locale, link: (path: string) => string): HeroDarkSlide[] {
   const c = HERO_COPY[locale];
-  const s = STAMPEDE_HERO[locale];
   return [
-    ...(SHOW_STAMPEDE_HERO
-      ? [
-          {
-            id: "stampede",
-            image: CALGARY_STAMPEDE_IMAGE,
-            eyebrow: s.eyebrow,
-            h1Line1: s.h1Line1,
-            h1Line2: s.h1Line2,
-            sub: s.sub,
-            badges: [],
-            primary: { label: s.primary, to: link(`/tours/${STAMPEDE_SLUG}`) },
-            durationMs: 7000,
-          },
-        ]
-      : []),
     {
       id: "intro",
       image: heroBgMoraine,
@@ -432,6 +421,41 @@ function buildHeroSlides(locale: Locale, link: (path: string) => string): HeroDa
       durationMs: 6000,
     },
   ];
+}
+
+function pickText(row: HeroSlideRow, field: string, locale: Locale): string {
+  const value = (row as unknown as Record<string, string | null>)[`${field}_${locale}`];
+  const en = (row as unknown as Record<string, string | null>)[`${field}_en`];
+  return (value ?? en ?? "") as string;
+}
+
+/** Map published Supabase hero rows to the existing slideshow shape. */
+function heroSlidesFromRows(
+  rows: HeroSlideRow[],
+  publishedSlugs: Set<string>,
+  locale: Locale,
+  link: (path: string) => string,
+): HeroDarkSlide[] {
+  return rows
+    .filter((r) => heroSlideIsAvailable(r, publishedSlugs))
+    .map((r) => {
+      const secondaryLabel = pickText(r, "secondary_label", locale);
+      const to = r.linked_tour_slug
+        ? link(`/tours/${r.linked_tour_slug}`)
+        : link(r.link_url || "/tours");
+      return {
+        id: r.key,
+        image: r.image || HERO_IMAGE_BY_KEY[r.key] || heroBgMoraine,
+        eyebrow: pickText(r, "eyebrow", locale),
+        h1Line1: pickText(r, "headline_line_1", locale),
+        h1Line2: pickText(r, "headline_line_2", locale) || undefined,
+        sub: pickText(r, "subheadline", locale),
+        badges: [],
+        primary: { label: pickText(r, "primary_label", locale), to },
+        secondary: secondaryLabel ? { label: secondaryLabel, to: link("/about") } : undefined,
+        durationMs: r.duration_ms ?? 6000,
+      } satisfies HeroDarkSlide;
+    });
 }
 
 
