@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { tours } from "@/data/tours";
+import { fetchToursEn } from "@/data/toursSource";
 
 const BASE_URL = "https://www.shootingstartravel.ca";
 // "" = bare (zh, default), "/en" = English, "/ko" = Korean.
@@ -18,6 +18,8 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
+        // Only tours currently published in Supabase belong in the sitemap.
+        const tours = await fetchToursEn();
         const entries: { path: string; priority: string }[] = [];
         for (const loc of LOCALES) {
           for (const p of PAGES) {
