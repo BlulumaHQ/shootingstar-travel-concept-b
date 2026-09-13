@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
-import { Facebook, Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useLocale, withLocale } from "@/i18n/locale";
 import { useT } from "@/i18n/dict";
 import { getSupportLines } from "@/i18n/contact";
@@ -13,6 +13,11 @@ const socials = [
     Icon: Facebook,
     href: "https://www.facebook.com/people/Shooting-Star-Travel-%E6%B5%81%E6%98%9F%E9%9B%A8%E5%81%87%E6%9C%9F/61590391288968/",
     label: "Facebook",
+  },
+  {
+    Icon: Instagram,
+    href: "https://www.instagram.com/shootingstar.travel",
+    label: "Instagram",
   },
 ];
 
