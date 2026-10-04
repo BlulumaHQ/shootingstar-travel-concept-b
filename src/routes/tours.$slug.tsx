@@ -195,7 +195,7 @@ export const Route = createFileRoute("/tours/$slug")({
   errorComponent: ({ error }) => (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 py-32 text-center">
-        <p className="text-ink/70">{error.message}</p>
+        <p className="text-ink/70">{error instanceof Error ? error.message : String(error)}</p>
       </section>
     </SiteLayout>
   ),
