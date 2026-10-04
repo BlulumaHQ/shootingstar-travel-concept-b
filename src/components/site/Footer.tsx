@@ -106,6 +106,7 @@ export function Footer() {
   const popularTours: { l: string; to: never }[] = rootData.footerTours
     ? rootData.footerTours
         .filter((r) => isAvailable(r.url, r.linked_tour_slug))
+        .slice(0, 7)
         .map((r) => ({
           l: (locale === "zh" ? r.label_zh : locale === "ko" ? r.label_ko : null) || r.label_en,
           to: lp(r.url),
