@@ -4,6 +4,7 @@ import type { Session } from "@supabase/supabase-js";
 import { Star, UserCircle, LogOut, Check, X, Loader2, Trash2, RotateCcw, Upload, Eye, EyeOff, Image as ImageIcon, Video, Pencil, UploadCloud, ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase, type ReviewRow } from "@/lib/supabase";
 import { tourInRegion, type Region } from "@/data/tourRegions";
+import { FooterToursPanel } from "@/components/admin/FooterToursPanel";
 
 
 export const Route = createFileRoute("/admin")({
@@ -74,13 +75,14 @@ function LoginForm() {
   );
 }
 
-type TopTab = "reviews" | "gallery" | "tours" | "hero";
+type TopTab = "reviews" | "gallery" | "tours" | "hero" | "footer";
 
 const TOP_TAB_LABELS: Record<TopTab, string> = {
   reviews: "Reviews",
   gallery: "Gallery",
   tours: "Tours",
   hero: "Hero Slides",
+  footer: "Footer Tours",
 };
 
 function Dashboard({ onLogout, email }: { onLogout: () => void; email: string }) {
@@ -100,7 +102,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
         </div>
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex gap-1">
-            {(["reviews", "gallery", "tours", "hero"] as TopTab[]).map((t) => (
+            {(["reviews", "gallery", "tours", "hero", "footer"] as TopTab[]).map((t) => (
               <button
                 key={t}
                 onClick={() => setTopTab(t)}
@@ -119,6 +121,7 @@ function Dashboard({ onLogout, email }: { onLogout: () => void; email: string })
       {topTab === "gallery" && <GalleryPanel />}
       {topTab === "tours" && <ToursPanel />}
       {topTab === "hero" && <HeroSlidesPanel />}
+      {topTab === "footer" && <FooterToursPanel />}
     </div>
   );
 }
