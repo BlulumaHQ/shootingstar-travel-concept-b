@@ -171,7 +171,13 @@ export function FooterToursPanel() {
         </div>
       </div>
 
-      {err && <p className="mt-4 text-sm text-destructive">{err}</p>}
+      {err && (
+        <p className="mt-4 text-sm text-destructive">
+          {/footer_popular_tours/.test(err)
+            ? "Footer links table not found. Please run migrations/footer_popular_tours.sql in the Supabase SQL Editor first."
+            : err}
+        </p>
+      )}
 
       {loading ? (
         <div className="py-16 grid place-items-center"><Loader2 className="animate-spin text-muted-foreground" /></div>
@@ -248,6 +254,13 @@ export function FooterToursPanel() {
             <label className="block text-xs text-muted-foreground">한국어 label
               <input value={draft.label_ko} onChange={(e) => setDraft({ ...draft, label_ko: e.target.value })} className={`${inputCls} mt-1`} />
             </label>
+            {err && (
+              <p className="text-sm text-destructive">
+                {/footer_popular_tours/.test(err)
+                  ? "Footer links table not found. Please run migrations/footer_popular_tours.sql in the Supabase SQL Editor first."
+                  : err}
+              </p>
+            )}
             <div className="pt-2 flex justify-end gap-2">
               <button onClick={() => setDraft(null)} className="rounded-md border border-input bg-background px-3 py-2 text-sm hover:bg-accent">Cancel</button>
               <button onClick={() => void save()} disabled={busy === "save"} className="inline-flex items-center gap-1.5 rounded-md bg-primary text-primary-foreground px-3 py-2 text-sm hover:bg-primary/90 disabled:opacity-60">
