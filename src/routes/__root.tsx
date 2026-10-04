@@ -75,14 +75,16 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async () => {
-    const [toursEn, toursZh, toursKo, reviews, heroSlides] = await Promise.all([
+    const { fetchFooterTours } = await import("@/data/footerTours");
+    const [toursEn, toursZh, toursKo, reviews, heroSlides, footerTours] = await Promise.all([
       fetchToursEn(),
       fetchToursByLocale("zh"),
       fetchToursByLocale("ko"),
       fetchReviews(),
       fetchHeroSlides(),
+      fetchFooterTours(),
     ]);
-    return { toursEn, toursZh, toursKo, reviews, heroSlides };
+    return { toursEn, toursZh, toursKo, reviews, heroSlides, footerTours };
   },
   // Tour + hero visibility is managed in the Admin CMS, so a normal page
   // refresh must always re-read Supabase rather than serve a cached list.

@@ -9,6 +9,7 @@ import heroMountains from "@/assets/hero-mountains.jpg";
 import tourRockies from "@/assets/tour-rockies.webp";
 import { useLocale, withLocale, hreflangLinks, type Locale } from "@/i18n/locale";
 import { ChatSupportNote } from "@/components/site/ChatSupport";
+import { useTours } from "@/data/useTours";
 import {
   getIcefieldsContent,
   type IcefieldsContent,
@@ -113,6 +114,10 @@ export const Route = createFileRoute("/icefields-parkway-jasper-banff-shuttle-to
 export function IcefieldsShuttlePage() {
   const locale = useLocale();
   const c = getIcefieldsContent(locale);
+  // Only show products whose tour is published in the Admin CMS.
+  const liveSlugs = new Set(useTours().map((t) => t.slug));
+  const isLive = (pid: ProductId) => liveSlugs.has(PRODUCT_TO_SLUG[pid]);
+  const anyLive = (Object.keys(PRODUCT_TO_SLUG) as ProductId[]).some(isLive);
 
   const scrollTo = (id: string) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -121,8 +126,22 @@ export function IcefieldsShuttlePage() {
     <SiteLayout>
       <Hero c={c} locale={locale} scrollTo={scrollTo} />
       <WhyDifferent c={c} />
-      <AllRoutesOverview c={c} locale={locale} />
-      <ComparisonTable c={c} locale={locale} />
+      {anyLive ? (
+        <>
+          <AllRoutesOverview c={c} locale={locale} isLive={isLive} />
+          <ComparisonTable c={c} locale={locale} isLive={isLive} />
+        </>
+      ) : (
+        <section id="routes" className="py-20 md:py-24 bg-paper/40">
+          <p className="mx-auto max-w-2xl px-5 text-center text-[15px] text-ink/70 leading-[1.9]">
+            {locale === "zh"
+              ? "目前沒有開放預訂的路線，歡迎聯絡我們了解最新行程。"
+              : locale === "ko"
+                ? "현재 예약 가능한 노선이 없습니다. 최신 일정은 문의해 주세요."
+                : "No routes are currently available. Please contact us for upcoming departures."}
+          </p>
+        </section>
+      )}
       <AddOnsSummary c={c} locale={locale} />
       <BundlesSection c={c} locale={locale} />
       <FinalCTA c={c} locale={locale} />
@@ -296,7 +315,7 @@ function WhyDifferent({ c }: { c: IcefieldsContent }) {
 /* ------------------------------------------------------------------
  * All Routes Overview — six cards + pill filter bar
  * ------------------------------------------------------------------ */
-function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
+function AllRoutesOverview({ c, locale, isLive }: { c: IcefieldsContent; locale: Locale; isLive: (p: ProductId) => boolean }) {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
 
   // Build filter label text using existing translations where available
@@ -307,7 +326,8 @@ function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale 
     return c.finderV2.groupLabels[labelKey];
   };
 
-  const visibleIds = FILTER_GROUPS.find((g) => g.key === activeFilter)!.ids;
+  const visibleIds = FILTER_GROUPS.find((g) => g.key === activeFilter)!.ids.filter(isLive);
+  const groups = FILTER_GROUPS.filter((g) => g.ids.some(isLive));
 
   return (
     <section id="routes" className="py-20 md:py-24 bg-paper/40">
@@ -323,7 +343,7 @@ function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale 
         </p>
 
         <div className="mt-8 flex flex-wrap gap-2">
-          {FILTER_GROUPS.map((g) => {
+          {groups.map((g) => {
             const active = g.key === activeFilter;
             return (
               <button
@@ -354,8 +374,9 @@ function AllRoutesOverview({ c, locale }: { c: IcefieldsContent; locale: Locale 
 /* ------------------------------------------------------------------
  * Comparison Table
  * ------------------------------------------------------------------ */
-function ComparisonTable({ c, locale }: { c: IcefieldsContent; locale: Locale }) {
+function ComparisonTable({ c, locale, isLive }: { c: IcefieldsContent; locale: Locale; isLive: (p: ProductId) => boolean }) {
   const bookLabel = tx("viewAndBook", locale);
+  const rows = c.compare.rows.filter((r) => isLive(r.id));
   return (
     <section id="compare" className="py-20 md:py-24">
       <div className="mx-auto max-w-[1240px] px-5 md:px-10">
@@ -378,7 +399,7 @@ function ComparisonTable({ c, locale }: { c: IcefieldsContent; locale: Locale })
               </tr>
             </thead>
             <tbody>
-              {c.compare.rows.map(({ id, addons }, i) => {
+              {rows.map(({ id, addons }, i) => {
                 const p = c.products[id];
                 return (
                   <tr key={id} className={i % 2 ? "bg-paper/30" : ""}>
@@ -409,7 +430,7 @@ function ComparisonTable({ c, locale }: { c: IcefieldsContent; locale: Locale })
         </div>
 
         <div className="mt-8 grid gap-4 md:hidden">
-          {c.compare.rows.map(({ id, addons }) => {
+          {rows.map(({ id, addons }) => {
             const p = c.products[id];
             return (
               <div key={id} className="rounded-2xl border border-border/70 bg-cream p-5">

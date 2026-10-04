@@ -1,4 +1,7 @@
-import { Link } from "@tanstack/react-router";
+import { Link, getRouteApi } from "@tanstack/react-router";
+import type { FooterTourRow } from "@/data/footerTours";
+
+const rootApi = getRouteApi("__root__");
 import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
 import { Facebook, Instagram, Mail, Phone, MapPin, Clock } from "lucide-react";
@@ -90,7 +93,27 @@ export function Footer() {
       { l: "아이스필드 파크웨이 & 재스퍼 셔틀", to: lp("/icefields-parkway-jasper-banff-shuttle-tours") },
     ],
   } as const;
-  const popularTours = popularToursByLocale[locale];
+  const rootData = rootApi.useLoaderData() as {
+    footerTours?: FooterTourRow[] | null;
+    toursEn?: { slug: string }[];
+  };
+  const publishedSlugs = new Set((rootData.toursEn ?? []).map((t) => t.slug));
+  const slugFromUrl = (u: string) => u.match(/^\/tours\/([^/?#]+)/)?.[1] ?? null;
+  const isAvailable = (url: string, linked?: string | null) => {
+    const slug = linked || slugFromUrl(url);
+    return !slug || publishedSlugs.has(slug);
+  };
+  const popularTours: { l: string; to: never }[] = rootData.footerTours
+    ? rootData.footerTours
+        .filter((r) => isAvailable(r.url, r.linked_tour_slug))
+        .map((r) => ({
+          l: (locale === "zh" ? r.label_zh : locale === "ko" ? r.label_ko : null) || r.label_en,
+          to: lp(r.url),
+        }))
+    : popularToursByLocale.en
+        .map((x, i) => ({ en: x, loc: popularToursByLocale[locale][i] }))
+        .filter(({ en }) => isAvailable(String(en.to).replace(/^\/(zh|ko|en)(?=\/)/, "")))
+        .map(({ loc }) => loc);
 
   const supportLines = getSupportLines(locale);
   const contact: { Icon: typeof Phone; t: string; href?: string; sub?: string }[] = [
