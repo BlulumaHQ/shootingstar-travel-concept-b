@@ -3,6 +3,7 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { applySearchIndexPolicy } from "./lib/search-index-policy";
+import { KOREAN_ENABLED } from "./i18n/locale";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -67,8 +68,20 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+/** While Korean is closed, send /ko/* to the matching English page (302 = temporary). */
+function koreanRedirect(request: Request): Response | null {
+  if (KOREAN_ENABLED) return null;
+  const url = new URL(request.url);
+  if (url.pathname !== "/ko" && !url.pathname.startsWith("/ko/")) return null;
+  const rest = url.pathname.slice(3); // "" or "/tours/..."
+  url.pathname = `/en${rest}`;
+  return Response.redirect(url.toString(), 302);
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const ko = koreanRedirect(request);
+    if (ko) return ko;
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

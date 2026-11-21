@@ -5,6 +5,7 @@ import { useLocale, withLocale, type Locale } from "@/i18n/locale";
 import { getRegions, type Region } from "@/data/tourRegions";
 import { sortToursByCategory } from "@/data/sortTours";
 import { TourCard } from "@/components/site/TourCard";
+import { SeasonalEmptyState } from "@/components/site/SeasonalEmptyState";
 import { BusMark, DottedLine, PinMark } from "@/components/site/BrandMarks";
 
 export type RegionLandingContent = {
@@ -140,11 +141,15 @@ export function RegionToursLanding({
             {content.gridHeading}
           </h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {list.map((t) => (
-            <TourCard key={t.slug} tour={t} locale={locale} />
-          ))}
-        </div>
+        {list.length === 0 ? (
+          <SeasonalEmptyState />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {list.map((t) => (
+              <TourCard key={t.slug} tour={t} locale={locale} />
+            ))}
+          </div>
+        )}
 
       </section>
 

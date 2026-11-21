@@ -12,7 +12,7 @@
  */
 import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
-import { localeFromPath, stripLocale, withLocale, type Locale, locales } from "@/i18n/locale";
+import { localeFromPath, stripLocale, withLocale, type Locale, activeLocales } from "@/i18n/locale";
 
 const STORAGE_KEY = "sst.lang";
 
@@ -20,7 +20,7 @@ export function getSavedLocale(): Locale | null {
   if (typeof window === "undefined") return null;
   try {
     const v = window.localStorage.getItem(STORAGE_KEY);
-    if (v && (locales as string[]).includes(v)) return v as Locale;
+    if (v && (activeLocales as string[]).includes(v)) return v as Locale;
   } catch {
     // ignore quota / privacy-mode errors
   }

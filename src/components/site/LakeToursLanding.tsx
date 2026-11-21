@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/Layout";
 import { useLocale, withLocale, type Locale } from "@/i18n/locale";
+import { SeasonalEmptyState } from "@/components/site/SeasonalEmptyState";
 import { formatPrice } from "@/i18n/tourText";
 import { SalePrice, parseSalePrice } from "@/components/site/SalePrice";
 import type { LakeToursContent } from "@/content/lake-tours";
@@ -176,7 +177,8 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
           </h2>
           <p className="mt-4 max-w-2xl text-ink/70 text-[15px] leading-[1.95]">{c.cards.intro}</p>
 
-          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visibleTours.length === 0 && <SeasonalEmptyState className="mt-10" />}
+          <div className={visibleTours.length === 0 ? "hidden" : "mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"}>
             {visibleTours.map((t) => {
               const live = liveBySlug[t.slug];
               const img = live?.img ?? t.fallbackImg;
@@ -223,8 +225,8 @@ export function LakeToursLanding({ content }: { content: LakeToursContent }) {
         </div>
       </section>
 
-      {/* ============ COMPARE ============ */}
-      <section id="compare" className="py-20 md:py-28 bg-paper/50">
+      {/* ============ COMPARE ============ (hidden when no tour is published) */}
+      <section id="compare" className={visibleTours.length === 0 ? "hidden" : "py-20 md:py-28 bg-paper/50"}>
         <div className="mx-auto max-w-[1240px] px-5 md:px-10">
           <p className="font-marker text-primary/80 text-sm tracking-[0.25em] uppercase">
             {c.compare.eyebrow}

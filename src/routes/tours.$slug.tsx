@@ -181,17 +181,10 @@ export const Route = createFileRoute("/tours/$slug")({
         { property: "og:description", content: t?.intro ?? "" },
         ...(t?.img ? [{ property: "og:image", content: t.img }] : []),
       ],
-      links: hreflangLinks(`/tours/${params.slug}`, "en"),
+      links: hreflangLinks(`/tours/${params.slug}`, "zh"),
     };
   },
-  notFoundComponent: () => (
-    <SiteLayout>
-      <section className="mx-auto max-w-3xl px-6 py-32 text-center">
-        <h1 className="font-serif text-3xl text-ink">Tour not found</h1>
-        <Link to="/tours" className="mt-6 inline-flex text-primary underline underline-offset-4">Back to all tours</Link>
-      </section>
-    </SiteLayout>
-  ),
+  notFoundComponent: () => <TourUnavailable />,
   errorComponent: ({ error }) => (
     <SiteLayout>
       <section className="mx-auto max-w-3xl px-6 py-32 text-center">
@@ -373,21 +366,13 @@ export function TourDetailPage() {
   const getLocalizedTour = useGetTour();
   const locale = useLocale();
   const tour = getLocalizedTour(slug) as Tour | undefined;
+  // All hooks must run before any early return (rules of hooks).
+  const t = useT();
 
-  if (!tour) {
-    return (
-      <SiteLayout>
-        <section className="mx-auto max-w-3xl px-6 py-32 text-center">
-          <h1 className="font-serif text-3xl text-ink">Tour not found</h1>
-          <Link to={withLocale("/tours", locale) as never} className="mt-6 inline-flex text-primary underline underline-offset-4">Back to all tours</Link>
-        </section>
-      </SiteLayout>
-    );
-  }
+  if (!tour) return <TourUnavailable />;
 
   const toursHref = withLocale("/tours", locale);
   const T = LABELS[locale];
-  const t = useT();
   const B = BOOKING_I18N[locale];
   const contactHref = withLocale("/contact", locale);
   const rezdyBookingUrl = tour?.rezdyBookingUrl ?? null;
@@ -832,4 +817,59 @@ function ShuttleExtras({ slug, locale }: { slug: string; locale: Locale }) {
   );
 }
 
+/* ============================================================
+ * TourUnavailable — shown when a tour URL isn't published
+ * (most often a seasonal tour the client has closed for now).
+ * Friendly message + ways forward instead of a bare "not found".
+ * ============================================================ */
+const UNAVAILABLE_I18N: Record<Locale, { eyebrow: string; title: string; body: string; browse: string; contact: string }> = {
+  en: {
+    eyebrow: "— not open for booking",
+    title: "This tour isn't available right now",
+    body: "Many of our Rockies tours are seasonal and reopen each summer. Browse the tours running now, or tell us your dates and we'll plan it with you.",
+    browse: "See current tours →",
+    contact: "Ask about this tour",
+  },
+  zh: {
+    eyebrow: "— 目前未開放預訂",
+    title: "這個行程目前暫停開放",
+    body: "許多洛磯山行程為季節性出團，每年夏季重新開放。歡迎先看看目前出團的行程，或告訴我們您的日期，我們為您安排。",
+    browse: "查看目前行程 →",
+    contact: "詢問此行程",
+  },
+  ko: {
+    eyebrow: "— 현재 예약 불가",
+    title: "이 투어는 현재 운영하지 않습니다",
+    body: "로키 투어 중 상당수는 시즌 상품으로 매년 여름 다시 열립니다. 현재 운영 중인 투어를 둘러보시거나 원하시는 날짜를 알려주세요.",
+    browse: "현재 투어 보기 →",
+    contact: "이 투어 문의하기",
+  },
+};
 
+export function TourUnavailable() {
+  const locale = useLocale();
+  const U = UNAVAILABLE_I18N[locale];
+  return (
+    <SiteLayout>
+      <section className="mx-auto max-w-2xl px-6 py-28 md:py-36 text-center">
+        <p className="font-marker text-primary/80 text-[12px] tracking-[0.25em] uppercase">{U.eyebrow}</p>
+        <h1 className="mt-4 font-serif text-3xl md:text-4xl text-ink font-semibold">{U.title}</h1>
+        <p className="mt-5 text-ink/65 leading-[1.95] text-[14.5px]">{U.body}</p>
+        <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link
+            to={withLocale("/tours", locale) as never}
+            className="inline-flex rounded-full bg-primary text-primary-foreground px-7 py-3 text-[14px] tracking-wide hover:bg-primary/90 transition"
+          >
+            {U.browse}
+          </Link>
+          <Link
+            to={withLocale("/contact", locale) as never}
+            className="inline-flex rounded-full border border-primary/40 text-primary px-7 py-3 text-[14px] tracking-wide hover:bg-primary/5 transition"
+          >
+            {U.contact}
+          </Link>
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}

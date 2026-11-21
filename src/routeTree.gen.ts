@@ -26,6 +26,7 @@ import { Route as RockyMountainLakeToursRouteImport } from './routes/rocky-mount
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ToursRouteImport } from './routes/tours'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
 import { Route as EnIndexRouteImport } from './routes/en/index'
 import { Route as EnAboutRouteImport } from './routes/en/about'
 import { Route as EnBanffToursRouteImport } from './routes/en/banff-tours'
@@ -70,9 +71,7 @@ import { Route as ZhPrivacyRouteImport } from './routes/zh/privacy'
 import { Route as ZhReviewsRouteImport } from './routes/zh/reviews'
 import { Route as ZhRockyMountainLakeToursRouteImport } from './routes/zh/rocky-mountain-lake-tours'
 import { Route as ZhTermsRouteImport } from './routes/zh/terms'
-import { Route as ApiRezdyAvailabilityRouteImport } from './routes/api/rezdy.availability'
 import { Route as ApiRezdyCreateBookingRouteImport } from './routes/api/rezdy.create-booking'
-import { Route as ApiRezdyProductRouteImport } from './routes/api/rezdy.product'
 import { Route as EnToursIndexRouteImport } from './routes/en/tours.index'
 import { Route as EnToursSlugRouteImport } from './routes/en/tours.$slug'
 import { Route as KoToursIndexRouteImport } from './routes/ko/tours.index'
@@ -164,6 +163,11 @@ const TermsRoute = TermsRouteImport.update({
 const ToursRoute = ToursRouteImport.update({
   id: '/tours',
   path: '/tours',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnIndexRoute = EnIndexRouteImport.update({
@@ -392,19 +396,9 @@ const ZhTermsRoute = ZhTermsRouteImport.update({
   path: '/zh/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiRezdyAvailabilityRoute = ApiRezdyAvailabilityRouteImport.update({
-  id: '/api/rezdy/availability',
-  path: '/api/rezdy/availability',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiRezdyCreateBookingRoute = ApiRezdyCreateBookingRouteImport.update({
   id: '/api/rezdy/create-booking',
   path: '/api/rezdy/create-booking',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiRezdyProductRoute = ApiRezdyProductRouteImport.update({
-  id: '/api/rezdy/product',
-  path: '/api/rezdy/product',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnToursIndexRoute = EnToursIndexRouteImport.update({
@@ -456,6 +450,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/api/contact': typeof ApiContactRoute
   '/en/about': typeof EnAboutRoute
   '/en/banff-tours': typeof EnBanffToursRoute
   '/en/blog': typeof EnBlogRoute
@@ -500,9 +495,7 @@ export interface FileRoutesByFullPath {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
-  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
-  '/api/rezdy/product': typeof ApiRezdyProductRoute
   '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -527,6 +520,7 @@ export interface FileRoutesByTo {
   '/rocky-mountain-lake-tours': typeof RockyMountainLakeToursRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
+  '/api/contact': typeof ApiContactRoute
   '/en/about': typeof EnAboutRoute
   '/en/banff-tours': typeof EnBanffToursRoute
   '/en/blog': typeof EnBlogRoute
@@ -571,9 +565,7 @@ export interface FileRoutesByTo {
   '/ko': typeof KoIndexRoute
   '/tours': typeof ToursIndexRoute
   '/zh': typeof ZhIndexRoute
-  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
-  '/api/rezdy/product': typeof ApiRezdyProductRoute
   '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -600,6 +592,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tours': typeof ToursRouteWithChildren
+  '/api/contact': typeof ApiContactRoute
   '/en/about': typeof EnAboutRoute
   '/en/banff-tours': typeof EnBanffToursRoute
   '/en/blog': typeof EnBlogRoute
@@ -644,9 +637,7 @@ export interface FileRoutesById {
   '/ko/': typeof KoIndexRoute
   '/tours/': typeof ToursIndexRoute
   '/zh/': typeof ZhIndexRoute
-  '/api/rezdy/availability': typeof ApiRezdyAvailabilityRoute
   '/api/rezdy/create-booking': typeof ApiRezdyCreateBookingRoute
-  '/api/rezdy/product': typeof ApiRezdyProductRoute
   '/en/tours/$slug': typeof EnToursSlugRoute
   '/ko/tours/$slug': typeof KoToursSlugRoute
   '/zh/tours/$slug': typeof ZhToursSlugRoute
@@ -674,6 +665,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
+    | '/api/contact'
     | '/en/about'
     | '/en/banff-tours'
     | '/en/blog'
@@ -718,9 +710,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
-    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
-    | '/api/rezdy/product'
     | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -745,6 +735,7 @@ export interface FileRouteTypes {
     | '/rocky-mountain-lake-tours'
     | '/sitemap.xml'
     | '/terms'
+    | '/api/contact'
     | '/en/about'
     | '/en/banff-tours'
     | '/en/blog'
@@ -789,9 +780,7 @@ export interface FileRouteTypes {
     | '/ko'
     | '/tours'
     | '/zh'
-    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
-    | '/api/rezdy/product'
     | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -817,6 +806,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tours'
+    | '/api/contact'
     | '/en/about'
     | '/en/banff-tours'
     | '/en/blog'
@@ -861,9 +851,7 @@ export interface FileRouteTypes {
     | '/ko/'
     | '/tours/'
     | '/zh/'
-    | '/api/rezdy/availability'
     | '/api/rezdy/create-booking'
-    | '/api/rezdy/product'
     | '/en/tours/$slug'
     | '/ko/tours/$slug'
     | '/zh/tours/$slug'
@@ -890,6 +878,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   ToursRoute: typeof ToursRouteWithChildren
+  ApiContactRoute: typeof ApiContactRoute
   EnAboutRoute: typeof EnAboutRoute
   EnBanffToursRoute: typeof EnBanffToursRoute
   EnBlogRoute: typeof EnBlogRoute
@@ -932,9 +921,7 @@ export interface RootRouteChildren {
   EnIndexRoute: typeof EnIndexRoute
   KoIndexRoute: typeof KoIndexRoute
   ZhIndexRoute: typeof ZhIndexRoute
-  ApiRezdyAvailabilityRoute: typeof ApiRezdyAvailabilityRoute
   ApiRezdyCreateBookingRoute: typeof ApiRezdyCreateBookingRoute
-  ApiRezdyProductRoute: typeof ApiRezdyProductRoute
   EnToursSlugRoute: typeof EnToursSlugRoute
   KoToursSlugRoute: typeof KoToursSlugRoute
   ZhToursSlugRoute: typeof ZhToursSlugRoute
@@ -1062,6 +1049,13 @@ declare module '@tanstack/react-router' {
       path: '/tours'
       fullPath: '/tours'
       preLoaderRoute: typeof ToursRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/': {
@@ -1372,25 +1366,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZhTermsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/rezdy/availability': {
-      id: '/api/rezdy/availability'
-      path: '/api/rezdy/availability'
-      fullPath: '/api/rezdy/availability'
-      preLoaderRoute: typeof ApiRezdyAvailabilityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/rezdy/create-booking': {
       id: '/api/rezdy/create-booking'
       path: '/api/rezdy/create-booking'
       fullPath: '/api/rezdy/create-booking'
       preLoaderRoute: typeof ApiRezdyCreateBookingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/rezdy/product': {
-      id: '/api/rezdy/product'
-      path: '/api/rezdy/product'
-      fullPath: '/api/rezdy/product'
-      preLoaderRoute: typeof ApiRezdyProductRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/tours/': {
@@ -1469,6 +1449,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   ToursRoute: ToursRouteWithChildren,
+  ApiContactRoute: ApiContactRoute,
   EnAboutRoute: EnAboutRoute,
   EnBanffToursRoute: EnBanffToursRoute,
   EnBlogRoute: EnBlogRoute,
@@ -1514,9 +1495,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnIndexRoute: EnIndexRoute,
   KoIndexRoute: KoIndexRoute,
   ZhIndexRoute: ZhIndexRoute,
-  ApiRezdyAvailabilityRoute: ApiRezdyAvailabilityRoute,
   ApiRezdyCreateBookingRoute: ApiRezdyCreateBookingRoute,
-  ApiRezdyProductRoute: ApiRezdyProductRoute,
   EnToursSlugRoute: EnToursSlugRoute,
   KoToursSlugRoute: KoToursSlugRoute,
   ZhToursSlugRoute: ZhToursSlugRoute,
