@@ -1,4 +1,4 @@
-import { hreflangLinks, alternateUrls, type Locale, SITE_URL, withLocale } from "./locale";
+import { hreflangLinks, alternateUrls, type Locale, SITE_URL, withLocale, KOREAN_ENABLED } from "./locale";
 import ogHomeEn from "@/assets/og-home-en.jpg";
 import ogHomeZh from "@/assets/og-home-zh.jpg";
 import ogHomeKo from "@/assets/og-home-ko.jpg";
@@ -53,7 +53,9 @@ export function seoHead({ path, locale, title, description, image, type = "websi
       { property: "og:image:height", content: "630" },
       { property: "og:locale", content: ogLocaleTag[locale] },
       { property: "og:locale:alternate", content: ogLocaleTag[locale === "en" ? "zh" : "en"] },
-      { property: "og:locale:alternate", content: ogLocaleTag[locale === "ko" ? "zh" : "ko"] },
+      ...(KOREAN_ENABLED
+        ? [{ property: "og:locale:alternate", content: ogLocaleTag[locale === "ko" ? "zh" : "ko"] }]
+        : []),
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },

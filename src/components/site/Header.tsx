@@ -3,16 +3,15 @@ import logo from "@/assets/logo.png";
 import tornEdge from "@/assets/header-torn-edge.png";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useLocale, withLocale, locales, localeLabels, type Locale } from "@/i18n/locale";
+import { useLocale, withLocale, activeLocales, localeLabels, type Locale } from "@/i18n/locale";
 import { setSavedLocale } from "@/lib/language-preference";
 import { useT } from "@/i18n/dict";
 
 function LangSwitcher({ compact = false, onNavigate }: { compact?: boolean; onNavigate?: () => void }) {
   const { pathname } = useLocation();
   const current = useLocale();
-  // Korean pages are temporarily hidden from the switcher but remain reachable
-  // via URL so they can be re-enabled later without rebuilding the site.
-  const displayedLocales = locales.filter((l) => l !== "ko");
+  // Korean is controlled by KOREAN_ENABLED in src/i18n/locale.ts.
+  const displayedLocales = activeLocales;
   return (
     <div
       className={

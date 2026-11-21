@@ -3,6 +3,18 @@ import { useLocation } from "@tanstack/react-router";
 export type Locale = "en" | "zh" | "ko";
 export const locales: Locale[] = ["zh", "en", "ko"];
 
+/**
+ * Korean site switch. While false (client asked to close Korean for now):
+ *  - /ko/* is 302-redirected to the matching /en/* page (src/server.ts)
+ *  - /ko is left out of the sitemap and hreflang tags
+ *  - Korean is hidden from the language switcher and saved preferences
+ * Flip to true to bring Korean back — nothing else needs to change.
+ */
+export const KOREAN_ENABLED = false;
+
+/** Locales that are currently live (shown, linked, indexed). */
+export const activeLocales: Locale[] = locales.filter((l) => KOREAN_ENABLED || l !== "ko");
+
 export const localeLabels: Record<Locale, string> = {
   en: "EN",
   zh: "中文",
@@ -86,7 +98,7 @@ export function hreflangLinks(pathname: string, currentLocale: Locale) {
     { rel: "canonical", href: alts[currentLocale] },
     { rel: "alternate", hrefLang: "en", href: alts.en },
     { rel: "alternate", hrefLang: "zh-Hant", href: alts.zh },
-    { rel: "alternate", hrefLang: "ko", href: alts.ko },
+    ...(KOREAN_ENABLED ? [{ rel: "alternate", hrefLang: "ko", href: alts.ko }] : []),
     { rel: "alternate", hrefLang: "x-default", href: alts.zh },
   ];
 }
