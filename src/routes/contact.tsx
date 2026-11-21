@@ -32,7 +32,7 @@ type Pack = {
   formHeading: string;
   fName: string; fTour: string; fDream: string;
   primaryLanguage: string; primaryLanguageHelp: string;
-  send: string; thanks: string; arrived: string; followup: string;
+  send: string; sending: string; failed: string; thanks: string; arrived: string; followup: string;
   reach: string; studio: string; location: string; hours: string;
 };
 
@@ -45,7 +45,7 @@ const PACKS: Record<Locale, Pack> = {
     fName: "Name", fTour: "Tour you're interested in", fDream: "Your travel dream",
     primaryLanguage: "Primary Language",
     primaryLanguageHelp: "Guide language may vary depending on group composition. We will do our best to accommodate your preferred language, but a single-language tour cannot be guaranteed.",
-    send: "Send enquiry", thanks: "— Thank you", arrived: "Your message has arrived", followup: "We'll be in touch within 24 hours ✦",
+    send: "Send enquiry", sending: "Sending…", failed: "Sorry — your message could not be sent. Please email or WhatsApp us directly:", thanks: "— Thank you", arrived: "Your message has arrived", followup: "We'll be in touch within 24 hours ✦",
     reach: "Reach us directly", studio: "— Studio", location: "Vancouver, BC, Canada", hours: "Mon–Sat · 9:00 – 18:00 PST",
   },
   zh: {
@@ -56,7 +56,7 @@ const PACKS: Record<Locale, Pack> = {
     fName: "姓名", fTour: "感興趣的行程", fDream: "你的旅行夢想",
     primaryLanguage: "主要語言",
     primaryLanguageHelp: "導遊語言將依當團旅客組成安排。我們會盡量配合您的語言需求，但無法保證安排單一語言團。",
-    send: "送出詢問", thanks: "— 感謝您", arrived: "我們已收到您的訊息", followup: "我們將於 24 小時內回覆 ✦",
+    send: "送出詢問", sending: "傳送中…", failed: "抱歉，訊息未能送出。請直接以 Email 或 WhatsApp 聯絡我們：", thanks: "— 感謝您", arrived: "我們已收到您的訊息", followup: "我們將於 24 小時內回覆 ✦",
     reach: "直接聯繫我們", studio: "— 工作室", location: "加拿大 卑詩省 溫哥華", hours: "週一至週六 · 9:00 – 18:00 PST",
   },
   ko: {
@@ -67,13 +67,15 @@ const PACKS: Record<Locale, Pack> = {
     fName: "이름", fTour: "관심 있는 투어", fDream: "당신의 여행 이야기",
     primaryLanguage: "선호 언어",
     primaryLanguageHelp: "가이드 언어는 투어 구성에 따라 달라질 수 있습니다. 원하시는 언어를 최대한 배정해 드리지만, 단일 언어 투어를 보장할 수는 없습니다.",
-    send: "문의 보내기", thanks: "— 감사합니다", arrived: "메시지가 도착했습니다", followup: "24시간 이내에 연락드립니다 ✦",
+    send: "문의 보내기", sending: "전송 중…", failed: "죄송합니다. 메시지를 보내지 못했습니다. 이메일 또는 WhatsApp으로 직접 연락해 주세요:", thanks: "— 감사합니다", arrived: "메시지가 도착했습니다", followup: "24시간 이내에 연락드립니다 ✦",
     reach: "직접 연락하기", studio: "— 스튜디오", location: "캐나다 BC주 밴쿠버", hours: "월–토 · 9:00 – 18:00 PST",
   },
 };
 
 export function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [failed, setFailed] = useState(false);
   const locale = useLocale();
   const p = PACKS[locale];
   const channels = getChannels(locale);
@@ -112,7 +114,28 @@ export function ContactPage() {
                 </div>
               ) : (
                 <form
-                  onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (sending) return;
+                    const form = e.currentTarget;
+                    const data = Object.fromEntries(new FormData(form).entries());
+                    setSending(true);
+                    setFailed(false);
+                    try {
+                      const res = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ...data, page: window.location.pathname }),
+                      });
+                      const out = (await res.json().catch(() => ({}))) as { success?: boolean };
+                      if (res.ok && out.success) setSent(true);
+                      else setFailed(true);
+                    } catch {
+                      setFailed(true);
+                    } finally {
+                      setSending(false);
+                    }
+                  }}
                   className="space-y-5"
                 >
                   {[
@@ -147,13 +170,33 @@ export function ContactPage() {
                   <div>
                     <label className="block text-[10.5px] tracking-[0.3em] uppercase text-ink/55 mb-2">{p.fDream}</label>
                     <textarea
+                      name="message"
                       required
                       rows={5}
                       className="w-full rounded-[4px] border-0 border-b border-ink/15 bg-transparent px-0 py-3 text-[14.5px] text-ink leading-[1.9] focus:outline-none focus:border-primary transition resize-none"
                     />
                   </div>
-                  <button className="mt-4 inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-9 py-3.5 text-[12px] tracking-[0.2em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)]">
-                    {p.send} <span aria-hidden>→</span>
+                  {/* Honeypot — hidden from people, bots fill it */}
+                  <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+                  {failed && (
+                    <div role="alert" className="rounded-[6px] border border-destructive/30 bg-destructive/5 px-5 py-4 text-[13.5px] text-ink/80 leading-[1.8]">
+                      <p>{p.failed}</p>
+                      <ul className="mt-2 space-y-1">
+                        {channels.map((c) => (
+                          <li key={c.l}>
+                            <a href={c.h} className="text-primary underline underline-offset-2">{c.v}</a>
+                            <span className="text-ink/50"> · {c.l}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="mt-4 inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-9 py-3.5 text-[12px] tracking-[0.2em] uppercase hover:bg-primary/90 transition shadow-[0_14px_32px_-14px_oklch(0.55_0.04_152/0.65)] disabled:opacity-60"
+                  >
+                    {sending ? p.sending : p.send} <span aria-hidden>→</span>
                   </button>
                 </form>
               )}
