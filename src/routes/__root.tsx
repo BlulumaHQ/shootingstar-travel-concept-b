@@ -104,8 +104,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@ShootingstarTravel" },
       { name: "twitter:title", content: "Shootingstar Travel — Boutique Canadian Rockies & Western US Tours" },
       { name: "twitter:description", content: "Boutique small-group tours across Canada and the Western United States — the Canadian Rockies, Banff, Vancouver, Victoria, Seattle, Las Vegas and beyond. Slow travel, considered detail." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9bc10a80-5f4f-4462-a75b-f69ed8fd4e43/id-preview-00240bbf--0d94abb5-819b-43c9-9dfd-b1dd0a01b196.lovable.app-1778302438065.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9bc10a80-5f4f-4462-a75b-f69ed8fd4e43/id-preview-00240bbf--0d94abb5-819b-43c9-9dfd-b1dd0a01b196.lovable.app-1778302438065.png" },
+      { property: "og:image", content: "https://shootingstartravel.ca/og-image.jpg" },
+      { name: "twitter:image", content: "https://shootingstartravel.ca/og-image.jpg" },
     ],
     links: [
       {
